@@ -51,7 +51,7 @@ module.exports = {
   },
   proxy: {
     '/api': {
-      target: process.env.NUXT_ENV_API_KEY,
+      target: process.env.NUXT_ENV_API_URL,
       changeOrigin: true,
       pathRewrite: {
         '^/api' : ''
