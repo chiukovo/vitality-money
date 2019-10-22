@@ -1,0 +1,27 @@
+mixin form-check-inline(id, label)
+    .custom-control.custom-checkbox.custom-control-inline
+        input.custom-control-input(type="checkbox", id=`${id}`)
+        label.custom-control-label(for=`${id}`)= label
+
+mixin form-radio(name, id, label, checked)
+    .custom-control.custom-radio
+        input.custom-control-input(type="radio", id=`${id}`, name=`${name}`, checked=false)
+        label.custom-control-label(for=`${id}`)= label
+
+mixin form-radio-inline(id, label)
+    .custom-control.custom-radio.custom-control-inline
+        input.custom-control-input(type="radio", id=`${id}`)
+        label.custom-control-label(for=`${id}`)= label
+
+
+mixin form-control(option)
+    select.custom-select
+        option= option
+
+mixin form-number-button(number)
+    .input-group.form-number-button
+        .input-group-prepend
+            button.btn.btn-outline-secondary(type='button') +
+        input.form-control.text-center(type="tel", value=`${number}`)
+        .input-group-append
+            button.btn.btn-outline-secondary(type='button') -

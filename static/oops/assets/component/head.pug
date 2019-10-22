@@ -1,0 +1,15 @@
+header#header.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    a(href="#").navbar-brand LOGO
+    ul.navbar-nav.mr-auto
+        li.nav-item(class=(nav === 'Home') ? 'active' : '')
+            a(href="#").nav-link Home
+        li.nav-item(class=(nav === 'Live Casino') ? 'active' : '')
+            a(href="#").nav-link Live Casino
+    ul.navbar-nav
+        li.nav-item.dropdown
+            a(href="#").nav-link Admin
+            .dropdown-menu(aria-labelledby="navbarDropdown")
+                a(href="#").dropdown-item Action
+                a(href="#").dropdown-item Action
+                .dropdown-divider
+                a(href="#").dropdown-item Logout

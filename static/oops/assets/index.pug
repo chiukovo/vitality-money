@@ -1,0 +1,206 @@
+include component/mixin
+
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+        link(rel="stylesheet", href="css/style.css")
+    body
+        header.header
+            .header-left
+                .header-btn
+                    button.btn.btn01
+                        span 連線
+                    button.btn.btn02
+                        span 檢視
+                    button.btn.btn03
+                        span 設定
+                    button.btn.btn04
+                        span 說明
+                    .bg-right
+                .header-infor
+                    div.text-truncate 商品: 壹指早(十月)
+                    div.text-truncate 最後交易日: 2019-11-19
+                    div.text-truncate 禁新: 
+                        span.text-success 10531
+                        |,
+                        span.text-danger 12151
+                    div.text-truncate 強平: 
+                        span.text-success 10531
+                        |,
+                        span.text-danger 12151
+            .header-right
+                .bg-left
+                //- button.btn.btn01
+                    span 皮膚
+                button.btn.btn02
+                    span 音效
+                button.btn.btn03
+                    span 登出
+        main.main
+            .main-left.mt-1.ml-1
+                .block-one.border.border-primary.rounded
+                    .title DNAM8(正常收單)
+                    table.table
+                        tr
+                            td.text-right(width="80") 客戶名稱:
+                            td 8
+                        tr
+                            td.text-right 服務人員:
+                            td
+                        tr
+                            td.text-right 服務專線:
+                            td
+                        tr
+                            td.text-right 預設額度:
+                            td 0
+                        tr
+                            td.text-right 今日餘額:
+                            td.text-primary 96,400
+                        tr
+                            td.text-right 今日損益:
+                            td 0
+                
+                .block-two.mt-1.border.border-primary.rounded
+                    .title 報價明細[臺指早]
+                        button.btn-sm 查詢
+                        input(type="checkbox", checked)
+                        label 置底
+                    table.table
+                        thead
+                            tr
+                                th 市場時間
+                                th 口
+                                th 漲跌
+                                th 價格
+                        tr
+                            td 13:45:00
+                            td 1
+                            td 85
+                            td 11242
+
+            .main-right
+                .block-one.mt-1.mx-1.border.border-primary.rounded
+                    table.table
+                        thead
+                            tr
+                                th 商品
+                                th 倉位
+                                th K線
+                                th 走勢
+                                th 成交
+                                th 買進
+                                th 賣出
+                                th 漲跌
+                                th 長跌幅
+                                th 總量
+                                th 開盤
+                                th 最高
+                                th 最低
+                                th 昨收盤
+                                th 昨結算
+                                th 狀態
+                            tr
+                                td.text-secondary 加權指
+                                td 0
+                                td
+                                    a(href="#")
+                                        img(src="images/table_btn_kline.jpg")
+                                td 
+                                    a(href="#")
+                                        img(src="images/table_btn_trend.jpg")
+                                td.text-success 11258
+                                td.text-success 0
+                                td.text-success 0
+                                td.text-success
+                                    .arrow.arrow-down
+                                    |74
+                                td.text-success 0.66%
+                                td 3829097
+                                td.text-success 11221
+                                td.text-success 11268
+                                td.text-success 11218
+                                td.text-success 9959
+                                td.text-success 11184
+                                td.text-secondary 未開盤
+                        - for (var x = 0; x < 12; x++)
+                            tr
+                                td.text-secondary 加權指
+                                td 0
+                                td
+                                    a(href="#")
+                                        img(src="images/table_btn_kline.jpg")
+                                td 
+                                    a(href="#")
+                                        img(src="images/table_btn_trend.jpg")
+                                td.text-danger 11258
+                                td.text-danger 0
+                                td.text-danger 0
+                                td.text-danger
+                                    .arrow.arrow-top
+                                    |74
+                                td.text-danger 0.66%
+                                td 3829097
+                                td.text-danger 11221
+                                td.text-danger 11268
+                                td.text-danger 11218
+                                td.text-danger 9959
+                                td.text-danger 11184
+                                td 參考用
+                .block-two.mt-1.mx-1.border.border-primary.rounded
+                    ul.nav.tablist(role="tablist")
+                        li
+                            a.active(data-toggle="tab", href="#tabs1", role="tab")
+                                span 買賣下單(0)
+                        mixin tabs(id, name)
+                            li
+                                a(data-toggle="tab", href=`${id}`, role="tab")
+                                    span= name
+                        +tabs("#tabs2", "未平倉(0)")
+                        +tabs("#tabs3", "已平倉")
+                        +tabs("#tabs4", "商品統計")
+                        +tabs("#tabs5", "對帳表")
+                        +tabs("#tabs6", "投顧訊息(0)")
+                        +tabs("#tabs7", "自訂窗口")
+                    .tab-content
+                        #tabs1.tab-pane.fade.show.active
+                            .tabs1-header
+                                .tabs1-header-left
+                                    button.btn-sm 刪單
+                                    button.btn-sm 全選
+                                    button.btn-sm 全不選
+                                .tabs1-header-right
+                            .tabs-table
+                                table.table
+                                    thead
+                                        tr
+                                            th 操作
+                                            th 序號
+                                            th 商品
+                                            th 倒
+                                            th 多空
+                                            th 委託價
+                                            th 口數
+                                            th 成交價
+                                            th 下單時間
+                                            th 完成時間
+                                            th 型別
+                                            th 損失點數
+                                            th 獲利點數
+                                            th 狀態
+                                        tr
+                                            - for (var x = 0; x < 14; x++)
+                                                td -
+                        #tabs2.tab-pane.fade ...2
+
+                .block-three.mt-1.mx-1.border.border-primary.rounded
+                    .row.title
+                        .col-1 恆生期
+                            +form-radio('nameadio1', 'customRadio1', '一般', true)
+                            +form-radio('nameadio1', 'customRadio2', '雷電')
+                        .col 2
+
+    script(src='js/vendor.js')
