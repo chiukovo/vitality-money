@@ -1264,6 +1264,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+bootstrap-pug@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-pug/-/bootstrap-pug-1.0.0.tgz#603980bc2b39e1d29c25bf1d757fda6d05c3dea7"
+  integrity sha512-aIi364VHODiAMbvCZo6QyqhgfZPc7GH+2twOsMEry/JcgnlKUVEuDIAgimIkVOH3RD0h0vUA5HVgWJhL258M6Q==
+
 bootstrap@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"

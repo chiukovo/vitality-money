@@ -1,0 +1,147 @@
+include component/mixin
+
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+        link(rel="stylesheet", href="css/main.css")
+
+    body
+        header
+            nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+                ul.navbar-nav.mr-auto
+                    //- - let navbar = "連線"
+                    +navbar-item('連線', '#')
+                    +navbar-item('檢視', '#')
+                    +navbar-item('設定', '#')
+                    +navbar-item('說明', '#')
+                    li.nav-item
+                        span.navbar-text.mr-2.text-white 商品: 壹指早(十月)
+                        span.navbar-text.mr-2.text-white 最後交易日: 2019-11-19
+                        span.navbar-text.mr-2.text-white 禁新: 
+                            span.text-success 10531
+                            |, 
+                            span.text-danger 12151
+                        span.navbar-text.text-white 強平: 
+                            span.text-success 10531
+                            |, 
+                            span.text-danger 12151
+                ul.navbar-nav
+                    +navbar-item('皮膚', '#')
+                    +navbar-item('音效', '#')
+                    +navbar-item('登出', '#')
+
+        main.main.container-fluid
+            .row.h-100
+                .col.h-100.main-left
+                    .row.scroll.border.block-1
+                        .col
+                            table.table.table-bordered
+                                thead.thead-dark
+                                    tr
+                                        th(colspan="2") DNAM8(正常收單)
+                                tbody
+                                    tr
+                                        td.text-right(width="100") 客戶名稱:
+                                        td 8
+                                    tr
+                                        td.text-right 服務人員:
+                                        td
+                                    tr
+                                        td.text-right 服務專線:
+                                        td
+                                    tr
+                                        td.text-right 預設額度:
+                                        td 0
+                                    tr
+                                        td.text-right 今日餘額:
+                                        td.text-primary 96,400
+                                    tr
+                                        td.text-right 今日損益:
+                                        td 0
+                    .row.border.block-2
+                        .col
+                            .row
+                                .col
+                                    .title.pt-2.pl-2 報價明細[臺指早]
+                                        button.btn-sm 查詢
+                                        +form-check('namecheck1', 'customCheck1', '置底', 'inline', true)
+                            .row.scroll
+                                .col
+                                    .tab-content
+                                        #tab1.tab-pane.fade(role='tabs') ...1
+                                        #tab2.tab-pane.fade(role='tabs') ...2
+                                        #tab3.tab-pane.fade.show.active(role='tabs')
+                                            table.table.table-bordered
+                                                thead.thead-dark
+                                                    tr
+                                                        +table-th('市場時間','口','漲跌','價格')
+                                                tbody
+                                                    - for (var x = 0; x < 20; x++)
+                                                        tr
+                                                            td 13:45:00
+                                                            td 1
+                                                            td 85
+                                                            td 11242
+                                    ul.nav.nav-tabs(role='tablist')
+                                        +tabs("#tab1", "五檔揭示")
+                                        +tabs("#tab2", "量價分佈")
+                                        +tabs("#tab3", "分價揭示", 'active')
+                .col.h-100.main-right
+                    .row.border.h-50.scrollzoom.block-3
+                        .col
+                            table.table.table-bordered
+                                thead.thead-dark
+                                    tr
+                                        +table-th('商品','倉位','K線','走勢','成交','買進','賣出','漲跌','長跌幅','總量','開盤','最高','最低','昨收盤','昨結算','狀態')
+                                tbody
+                                    - for (var x = 0; x < 12; x++)
+                                        tr
+                                            td.text-secondary 加權指
+                                            td 0
+                                            td
+                                                a(href="#")
+                                                    img(src="images/table_btn_kline.jpg")
+                                            td 
+                                                a(href="#")
+                                                    img(src="images/table_btn_trend.jpg")
+                                            td.text-danger 11258
+                                            td.text-danger 0
+                                            td.text-danger 0
+                                            td.text-danger
+                                                .arrow.arrow-top
+                                                |74
+                                            td.text-danger 0.66%
+                                            td 3829097
+                                            td.text-danger 11221
+                                            td.text-danger 11268
+                                            td.text-danger 11218
+                                            td.text-danger 9959
+                                            td.text-danger 11184
+                                            td 參考用
+                    .row.border.h-25.scroll.block-4
+                        .col
+                            .box
+                    .row.border.scroll.block-5
+                        .col
+                            .box
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+        script(src='js/jquery.nicescroll.min.js')
+        script(src='js/bootstrap.js')
+        
+        script.
+            $(".scroll").niceScroll({
+                cursorcolor: "#eee",
+                cursorborder: "0",
+                autohidemode: false
+            });
+            $(".scrollzoom").niceScroll({
+                cursorcolor: "#eee",
+                cursorborder: "0",
+                autohidemode: false,
+                //- boxzoom: true
+            });

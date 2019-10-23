@@ -1,0 +1,56 @@
+// bootstrap
+//== Grid columns
+// Set the number of columns and specify the width of the gutters.
+$grid-gutter-width:          0;
+
+$font-size-base: 0.8125rem;
+
+$table-cell-padding: .4rem .75rem;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.table {
+    margin-bottom: 0;
+}
+.table.table-bordered {
+    border: 0;
+    tr th, tr td {
+        &:first-child {
+            border-left: 0;
+        }
+        &:last-child {
+            border-right: 0;
+        }
+    }
+}
+
+
+html, body {
+    height: 100%;
+}
+
+.main {
+    height: 95%;
+    height: calc(100% - 56px);
+    padding: 10px;
+}
+.main-left, .main-right {
+    .row + .row {
+        margin-top: 10px;
+    }
+}
+.main-left {
+    flex: 0 0 260px;
+}
+.main-right {
+    margin-left: 10px;
+}
+
+.block-1 {
+    height: 228px;
+}
+.block-2 {
+    position: relative;
+    height: calc(100% - 238px);
+    overflow: hidden;
+}
