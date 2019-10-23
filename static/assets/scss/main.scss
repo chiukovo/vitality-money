@@ -8,7 +8,17 @@ $font-size-base: 0.8125rem;
 $table-cell-padding: .4rem .75rem;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "dataTables";
 
+body {
+    min-width: 1366px;
+}
+.text-lg {
+    font-size: 1.125rem; //18px
+}
+.nav-tabs a.active {
+    color: red;
+}
 .table {
     margin-bottom: 0;
 }
@@ -23,7 +33,9 @@ $table-cell-padding: .4rem .75rem;
         }
     }
 }
-
+.dataTables_scrollHead {
+    top: -5px;
+}
 
 html, body {
     height: 100%;
@@ -40,17 +52,31 @@ html, body {
     }
 }
 .main-left {
-    flex: 0 0 260px;
+    width: 280px;
 }
 .main-right {
+    width: calc(100% - 280px);
     margin-left: 10px;
 }
 
 .block-1 {
     height: 228px;
+    overflow: hidden;
 }
 .block-2 {
     position: relative;
     height: calc(100% - 238px);
+    overflow: hidden;
+    .nav-tabs {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #fff;
+    }
+}
+.block-3 {
+    overflow: hidden;
+}
+.block-4 {
     overflow: hidden;
 }

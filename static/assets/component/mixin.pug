@@ -21,10 +21,18 @@ mixin form-control(...option)
 mixin form-number-button(number)
     .input-group.form-number-button
         .input-group-prepend
-            button.btn.btn-outline-secondary(type='button') +
+            button.btn.btn-outline-secondary(type="button") +
         input.form-control.text-center(type="tel", value=number)
         .input-group-append
-            button.btn.btn-outline-secondary(type='button') -
+            button.btn.btn-outline-secondary(type="button") -
+
+mixin input-calendar(label, date)
+    label.col-3.col-form-label= label
+    .input-group
+        input.form-control(type="tel", value=date)
+        .input-group-append
+            button.btn-sm
+                i.far.fa-calendar-alt
 
 
 mixin table-th(...items)
@@ -33,6 +41,6 @@ mixin table-th(...items)
 
 
 mixin tabs(id, name, active)
-    li.nav-item
-        a.nav-link(data-toggle='tab', role='tab', href=id, class=(active === 'active') ? 'active' : '')
+    li
+        a(data-toggle='tab', role='tab', href=id, class=(active === 'active') ? 'active' : '')
             span= name
