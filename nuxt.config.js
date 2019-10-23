@@ -19,12 +19,14 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    //'@/static/dist/css/style.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/global'
+    '~/plugins/global',
+    {src: '~plugins/websocket.js', ssr: false}
   ],
   /*
   ** Nuxt.js dev-modules
