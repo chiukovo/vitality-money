@@ -7,6 +7,9 @@ export default {
   setMainItem(state, data) {
     state.mainItem = data
   },
+  setNowFiveMoney(state, data) {
+    state.nowFiveMoney = data
+  },
   SOCKET_ONOPEN (state, event)  {
     Vue.prototype.$socket = event.currentTarget
     state.socket.isConnected = true

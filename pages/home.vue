@@ -16,7 +16,6 @@
 </template>
 <script>
 
-import MoneyFormat from 'vue-money-format'
 import Header from "~/components/Header"
 import MainItem from "~/components/mainItem"
 import ItemDetail from "~/components/ItemDetail"
@@ -32,7 +31,6 @@ export default {
 		UserInfo,
 		History,
 		Operating,
-		MoneyFormat,
 	},
 	mounted() {
 	},
@@ -50,7 +48,7 @@ export default {
 
 	    if (isConnected) {
 	    	//商品列表
-	      this.$socket.send('a:test,test')
+	      this.$socket.send(this.startToken())
 	    }
 	  },
 	  sendResult () {
@@ -81,6 +79,23 @@ export default {
 	    				if (result['code'] > 0) {
 	    					_this.$store.commit('setMainItem', result['data']);
 	    				}
+
+	    				//呼叫即時資料
+	    				_this.$socket.send(_this.startToken())
+
+	    				break
+	    			case "d":
+	    				result = val.substring(2).split(";")
+
+	    				break
+	    			case "b": //註冊商品即時五檔報價
+	    				result = val.substring(2).split(",")
+
+	    				if(result.length > 1) {
+	    					_this.$store.commit('setNowFiveMoney', result);
+	    				}
+
+	    				break
 	    		}
 	    	})
 	    }

@@ -19,7 +19,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    //'@/static/dist/css/style.css'
+    '@/static/dist/css/style.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -39,7 +39,12 @@ module.exports = {
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    ['vue-currency-filter/nuxt', {
+      thousandsSeparator: ',',
+      symbolPosition: 'front',
+      symbolSpacing: true
+    }],
   ],
   /*
   ** Build configuration
