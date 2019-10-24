@@ -7,6 +7,9 @@ export default {
   setMainItem(state, data) {
     state.mainItem = data
   },
+  setNowMainItem(state, data) {
+    state.nowMainItem = data
+  },
   setNowFiveMoney(state, data) {
     state.nowFiveMoney = data
   },

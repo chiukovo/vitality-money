@@ -21,27 +21,27 @@
   	        <th>昨結算</th>
   	        <th>狀態</th>
   	      </tr>
-  	      <tr v-for="item in items" :class="item.state != 2 ? 'text-muted' : ''">
+          <tr v-for="item in items" :class="item.color">
   	        <td class="text-secondary">{{ item.product_name }}</td>
   	        <td>0</td>
   	        <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
   	        <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-  	        <td :class="item.newest_price_color">{{ item.newest_price | currency }}</td>
-  	        <td :class="item.bp_price_color">{{ item.bp_price | currency }}</td>
-  	        <td :class="item.sp_price_color">{{ item.sp_price | currency }}</td>
-  	        <td :class="item.gain_color">
-  	          <div class="arrow arrow-top" v-if="item.gain_color == 'text-danger'"></div>
+            <td>{{ item.newest_price | currency }}</td>
+            <td>{{ item.bp_price | currency }}</td>
+            <td>{{ item.sp_price | currency }}</td>
+            <td>
+              <div class="arrow arrow-top" v-if="item.gain_color == 'text-danger'"></div>
               <div class="arrow arrow-down" v-if="item.gain_color == 'text-success'"></div>
               {{ item.gain }}
-  	        </td>
-  	        <td :class="item.gain_percent_color">{{ item.gain_percent }}%</td>
-  	        <td :class="item.total_qty_color">{{ item.total_qty | currency }}</td>
-  	        <td :class="item.open_price_color">{{ item.open_price | currency }}</td>
-  	        <td :class="item.highest_price_color">{{ item.highest_price | currency }}</td>
-  	        <td :class="item.lowest_price_color">{{ item.lowest_price | currency }}</td>
-  	        <td :class="item.yesterday_last_price_color">{{ item.yesterday_last_price | currency }}</td>
-  	        <td :class="item.yesterday_close_price_color">{{ item.yesterday_close_price | currency }}</td>
-  	        <td :class="item.state != 2 ? 'text-muted' : ''">
+            </td>
+            <td>{{ item.gain_percent }}%</td>
+            <td>{{ item.total_qty | currency }}</td>
+            <td>{{ item.open_price | currency }}</td>
+            <td >{{ item.highest_price | currency }}</td>
+            <td>{{ item.lowest_price | currency }}</td>
+            <td>{{ item.yesterday_last_price | currency }}</td>
+            <td>{{ item.yesterday_close_price | currency }}</td>
+  	        <td>
               {{ item.state_name }}
             </td>
   	      </tr>
@@ -64,113 +64,55 @@ export default {
 	},
   computed: mapState([
     'mainItem',
+    'nowMainItem',
   ]),
-	watch:{
+	watch: {
     mainItem (res) {
       const _this = this
+
       //計算
       let result = res.map(function(val) {
-        //加入預設顏色
-        val.newest_price_color = ''
-        val.bp_price_color = ''
-        val.sp_price_color = ''
-        val.gain_color = ''
-        val.gain_percent_color = ''
-        val.total_qty_color = ''
-        val.open_price_color = ''
-        val.highest_price_color = ''
-        val.lowest_price_color = ''
-        val.yesterday_last_price_color = ''
-        val.yesterday_close_price_color = ''
+        //顏色 昨收價 < 成交價 紅
+        val.color = ''
+
+        if (val.state == 2) {
+          if (val.newest_price > val.yesterday_close_price) {
+            val.color = 'text-danger'
+          } else if (val.newest_price < val.yesterday_close_price) {
+            val.color = 'text-success'
+          }
+
+        } else {
+          val.color = 'text-muted'
+        }
 
         val.gain = val.newest_price - val.yesterday_close_price
-        //(今日收盤-昨日收盤)/昨日收盤*100%
+        //(成交價-昨日收盤)/昨日收盤*100%
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
         val.state_name = val.state == 2 ? '交易中' : '未開盤'
 
         return val
       })
 
-      if (this.items.length > 0) {
-        //檢查與上一筆差異
-        this.items = this.items.map(function(val) {
-          let itemId = val.product_id
-
-          result.forEach(function(nowData) {
-            if (itemId == nowData.product_id) {
-              val = _this.computedItem(val, nowData)
-            }
-          })
-
-          return val
-        })
-      } else {
-        this.items = JSON.parse(JSON.stringify(result))
-      }
+      this.items = JSON.parse(JSON.stringify(result))
     },
+    nowMainItem (res) {
+      //{商品1代號} 0
+      //{商品1 第一筆成交時間} 1
+      //{商品1 第一筆成交價格} 2
+      //{商品1 第ㄧ筆成交量} 3
+      //{商品1 第ㄧ筆成交Uniq Index} 4
+      //{商品1 第二筆成交時間-第一筆成交時間} 5
+      //{商品1 第二筆成交價格-第一筆成交價格} 6
+      //{商品1 第二筆成交量-第一筆成交量} 7
+      //{商品1 第二筆成交Uniq Index-第一筆成交Uniq Index} 8
+      var itemid = res[0];
+      var nowItems = res[1].split(",").map(function(item) {
+        return parseInt(item, 10)
+      })
+    }
 	},
   methods: {
-    computedItem (item, nowData) {
-      const success = 'text-success'
-      const danger = 'text-danger'
-
-      if (item.newest_price != nowData.newest_price) {
-        item.newest_price_color = item.newest_price > nowData.newest_price ? success : danger
-      }
-      item.newest_price = nowData.newest_price
-
-      if (item.bp_price != nowData.bp_price) {
-        item.bp_price_color = item.bp_price > nowData.bp_price ? success : danger
-      }
-      item.bp_price = nowData.bp_price
-
-      if (item.sp_price != nowData.sp_price) {
-        item.sp_price_color = item.sp_price > nowData.sp_price ? success : danger
-      }
-      item.sp_price = nowData.sp_price
-
-      if (item.gain != nowData.gain) {
-        item.gain_color = item.gain > nowData.gain ? success : danger
-      }
-      item.gain = nowData.gain
-
-      if (item.gain_percent != nowData.gain_percent) {
-        item.gain_percent_color = item.gain_percent > nowData.gain_percent ? success : danger
-      }
-      item.gain_percent = nowData.gain_percent
-
-      if (item.total_qty != nowData.total_qty) {
-        item.total_qty_color = item.total_qty > nowData.total_qty ? success : danger
-      }
-      item.total_qty = nowData.total_qty
-
-      if (item.open_price != nowData.open_price) {
-        item.open_price_color = item.open_price > nowData.open_price ? success : danger
-      }
-      item.open_price = nowData.open_price
-
-      if (item.highest_price != nowData.highest_price) {
-        item.highest_price_color = item.highest_price > nowData.highest_price ? success : danger
-      }
-      item.highest_price = nowData.highest_price
-
-      if (item.lowest_price != nowData.lowest_price) {
-        item.lowest_price_color = item.lowest_price > nowData.lowest_price ? success : danger
-      }
-      item.lowest_price = nowData.lowest_price
-
-      if (item.yesterday_last_price != nowData.yesterday_last_price) {
-        item.yesterday_last_price_color = item.yesterday_last_price > nowData.yesterday_last_price ? success : danger
-      }
-      item.yesterday_last_price = nowData.yesterday_last_price
-
-      if (item.yesterday_close_price != nowData.yesterday_close_price) {
-        item.yesterday_close_price_color = item.yesterday_close_price > nowData.yesterday_close_price ? success : danger
-      }
-      item.yesterday_close_price = nowData.yesterday_close_price
-
-      return item
-    }
   }
 }
 </script>

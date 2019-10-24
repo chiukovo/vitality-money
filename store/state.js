@@ -6,5 +6,6 @@ export default () => ({
     reconnectError: false,
   },
   mainItem: [],
+  nowMainItem: [],
   nowFiveMoney: [],
 })

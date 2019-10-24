@@ -81,11 +81,16 @@ export default {
 	    				}
 
 	    				//呼叫即時資料
-	    				_this.$socket.send(_this.startToken())
+	    				_this.$socket.send(_this.paramX())
 
 	    				break
 	    			case "d":
+	    				//商品現價通知
 	    				result = val.substring(2).split(";")
+
+	    				if(result.length > 1) {
+	    					_this.$store.commit('setNowMainItem', result);
+	    				}
 
 	    				break
 	    			case "b": //註冊商品即時五檔報價
