@@ -77,11 +77,12 @@ export default {
 	    				result = JSON.parse(val.substring(2))
 
 	    				if (result['code'] > 0) {
-	    					_this.$store.commit('setMainItem', result['data']);
+	    					_this.$store.commit('setMainItem', result['data'])
 	    				}
 
 	    				//呼叫即時資料
 	    				_this.$socket.send(_this.paramX())
+	    				_this.$socket.send(_this.paramB())
 
 	    				break
 	    			case "d":
@@ -89,7 +90,7 @@ export default {
 	    				result = val.substring(2).split(";")
 
 	    				if(result.length > 1) {
-	    					_this.$store.commit('setNowMainItem', result);
+	    					_this.$store.commit('setNowMainItem', result)
 	    				}
 
 	    				break
@@ -97,7 +98,7 @@ export default {
 	    				result = val.substring(2).split(",")
 
 	    				if(result.length > 1) {
-	    					_this.$store.commit('setNowFiveMoney', result);
+	    					_this.$store.commit('setNowFiveMoney', result)
 	    				}
 
 	    				break

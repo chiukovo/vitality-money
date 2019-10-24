@@ -11,16 +11,14 @@
   	      <tr>
   	        <th>市場時間</th>
   	        <th>口</th>
-  	        <th>漲跌</th>
   	        <th>價格</th>
   	      </tr>
   	    </thead>
   	    <tbody>
-  	    <tr>
-  	      <td>13:45:00</td>
-  	      <td>1</td>
-  	      <td>85</td>
-  	      <td>11242</td>
+  	    <tr v-for="item in items">
+  	      <td>{{ item.flocalTime }}</td>
+  	      <td>{{ item.amount }}</td>
+  	      <td>{{ item.price }}</td>
   	    </tr>
   	    </tbody>
   	  </table>
@@ -29,8 +27,29 @@
 </template>
 <script>
 
+import { mapState } from 'vuex';
+
 export default {
-	mounted() {
-	}
+  data () {
+    return {
+      items: [],
+      selectItemId: '',
+      borderName: 'border border-primary'
+    }
+  },
+  computed: mapState([
+    'historyPrice',
+  ]),
+  watch: {
+    historyPrice (res) {
+      if (typeof res[this.selectItemId] == 'undefined') {
+        return
+      }
+
+      if (res[this.selectItemId].length > 0) {
+        this.items = res[this.selectItemId]
+      }
+    }
+  }
 }
 </script>

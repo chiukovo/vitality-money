@@ -8,4 +8,5 @@ export default () => ({
   mainItem: [],
   nowMainItem: [],
   nowFiveMoney: [],
+  historyPrice: [],
 })

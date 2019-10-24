@@ -8,11 +8,36 @@ Vue.mixin({
     startToken () {
     	return 'a:test,test'
     },
+    allItemIds () {
+      return [
+        'TXF',
+        'TXFAF',
+        'EXF',
+        'FXF',
+        'TSLQ',
+        'HSI',
+        'HSIAF',
+        'E7',
+        'NK225',
+        'NK225AF',
+        'FDAX',
+        'NQ',
+        'CL',
+        'GC',
+        'GC',
+        'SI',
+        'CNAF',
+        'CIF',
+      ]
+    },
     paramX () {
     	return 'x:TXF,TXFAF,EXF,FXF,TSLQ,HSI,HSIAF,E7,NK225,NK225AF,FDAX,YM,NQ,CL,GC,SI,CN,CNAF,CIF'
     },
     paramB () {
     	return 'h:TXF,TXFAF,EXF,FXF,TSLQ,HSI,HSIAF,E7,NK225,NK225AF,FDAX,YM,NQ,CL,GC,SI,CN,CNAF,CIF'
+    },
+    formatTime (time) {
+      return time.substring(0, 2) + ":" + time.substring(2, 4) + ":" + time.substring(4, 6)
     }
   }
 })
