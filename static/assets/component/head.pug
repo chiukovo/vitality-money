@@ -1,15 +1,23 @@
-header#header.navbar.navbar-expand-lg.navbar-dark.bg-dark
-    a(href="#").navbar-brand LOGO
-    ul.navbar-nav.mr-auto
-        li.nav-item(class=(nav === 'Home') ? 'active' : '')
-            a(href="#").nav-link Home
-        li.nav-item(class=(nav === 'Live Casino') ? 'active' : '')
-            a(href="#").nav-link Live Casino
-    ul.navbar-nav
-        li.nav-item.dropdown
-            a(href="#").nav-link Admin
-            .dropdown-menu(aria-labelledby="navbarDropdown")
-                a(href="#").dropdown-item Action
-                a(href="#").dropdown-item Action
-                .dropdown-divider
-                a(href="#").dropdown-item Logout
+header#header
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+        ul.navbar-nav.mr-auto
+            +navbar-item('連線', '#', 'dropdown')
+                +dropdown-menu('1', '2')
+            +navbar-item('檢視', '#')
+            +navbar-item('設定', '#')
+            +navbar-item('說明', '#')
+            li.nav-item
+                span.navbar-text.mr-2.text-white 商品: 壹指早(十月)
+                span.navbar-text.mr-2.text-white 最後交易日: 2019-11-19
+                span.navbar-text.mr-2.text-white 禁新: 
+                    span.text-success 10531
+                    |, 
+                    span.text-danger 12151
+                span.navbar-text.text-white 強平: 
+                    span.text-success 10531
+                    |, 
+                    span.text-danger 12151
+        ul.navbar-nav
+            +navbar-item('皮膚', '#')
+            +navbar-item('音效', '#')
+            +navbar-item('登出', '#')

@@ -9,26 +9,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   </head>
   <body>
-    <header>
+    <header id="header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a class="nav-link" href="#">連線</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">檢視</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">設定</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">說明</a></li>
+          <li class="nav-item active dropdown"><a class="nav-link" href="#" data-toggle="dropdown">連線</a>
+            <div class="dropdown-menu"><a class="dropdown-item" href="#">1</a><a class="dropdown-item" href="#">2</a>
+            </div>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">檢視</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">設定</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">說明</a>
+          </li>
           <li class="nav-item"><span class="navbar-text mr-2 text-white">商品: 壹指早(十月)</span><span class="navbar-text mr-2 text-white">最後交易日: 2019-11-19</span><span class="navbar-text mr-2 text-white">禁新: <span class="text-success">10531</span>, <span class="text-danger">12151</span></span><span class="navbar-text text-white">強平: <span class="text-success">10531</span>, <span class="text-danger">12151</span></span></li>
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#">皮膚</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">音效</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">登出</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">皮膚</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">音效</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="">登出</a>
+          </li>
         </ul>
       </nav>
     </header>
-    <main class="main container-fluid d-flex">
-      <div class="main-left h-100">
-        <div class="row scroll border block-1">
-          <div class="col">
+    <main class="main container-fluid d-flex" id="main">
+      <div class="main-left">
+        <div class="row scroll" id="block1">
+          <div class="col block1 border">
             <table class="table table-bordered">
               <thead class="thead-dark">
                 <tr>
@@ -64,11 +73,11 @@
             </table>
           </div>
         </div>
-        <div class="row border block-2">
-          <div class="col">
+        <div class="row" id="block2">
+          <div class="col block2 border">
             <div class="row">
               <div class="col">
-                <div class="title pt-2 pl-2">報價明細[臺指早]
+                <div class="title">報價明細[臺指早]
                   <button class="btn-sm">查詢</button>
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input class="custom-control-input" type="checkbox" id="customCheck1" name="namecheck1" checked="checked"/>
@@ -77,7 +86,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row block2row2">
               <div class="col">
                 <ul class="nav nav-tabs" role="tablist">
                   <li><a data-toggle="tab" role="tab" href="#tab1a"><span>五檔揭示</span></a></li>
@@ -88,138 +97,36 @@
                   <div class="tab-pane fade" id="tab1a">...1</div>
                   <div class="tab-pane fade" id="tab2a">...2</div>
                   <div class="tab-pane fade show active" id="tab3a">
-                    <table class="table table-bordered" id="block-2-table">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th>市場時間</th>
-                          <th>口</th>
-                          <th>漲跌</th>
-                          <th>價格</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                        <tr>
-                          <td>13:45:00</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>11242</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div class="table-container" id="block2-table">
+                      <table class="table table-bordered">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>市場時間</th>
+                            <th>口</th>
+                            <th>漲跌</th>
+                            <th>價格</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>13:45:00</td>
+                            <td>1</td>
+                            <td class="text-success">
+                              <div class="fas fa-caret-down"> 85</div>
+                            </td>
+                            <td class="text-success">11242</td>
+                          </tr>
+                          <tr>
+                            <td>13:45:00</td>
+                            <td>1</td>
+                            <td class="text-danger">
+                              <div class="fas fa-caret-up"> 85</div>
+                            </td>
+                            <td class="text-danger">11242</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,277 +134,159 @@
           </div>
         </div>
       </div>
-      <div class="main-right h-100">
-        <div class="row border h-50 block-3">
-          <div class="col">
-            <table class="table table-bordered" id="block-3-table">
-              <thead class="thead-dark">
-                <tr>
-                  <th>商品</th>
-                  <th>倉位</th>
-                  <th>K線</th>
-                  <th>走勢</th>
-                  <th>成交</th>
-                  <th>買進</th>
-                  <th>賣出</th>
-                  <th>漲跌</th>
-                  <th>長跌幅</th>
-                  <th>總量</th>
-                  <th>開盤</th>
-                  <th>最高</th>
-                  <th>最低</th>
-                  <th>昨收盤</th>
-                  <th>昨結算</th>
-                  <th>狀態</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-                <tr>
-                  <td class="text-secondary">加權指</td>
-                  <td>0</td>
-                  <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-                  <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-                  <td class="text-danger">11258</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">0</td>
-                  <td class="text-danger">
-                    <div class="arrow arrow-top"></div>74
-                  </td>
-                  <td class="text-danger">0.66%</td>
-                  <td>3829097</td>
-                  <td class="text-danger">11221</td>
-                  <td class="text-danger">11268</td>
-                  <td class="text-danger">11218</td>
-                  <td class="text-danger">9959</td>
-                  <td class="text-danger">11184</td>
-                  <td>參考用</td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="main-right">
+        <div class="row" id="block3">
+          <div class="col block3 border">
+            <div class="table-container" id="block3-table">
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>商品</th>
+                    <th>倉位</th>
+                    <th>K線</th>
+                    <th>走勢</th>
+                    <th>成交</th>
+                    <th>買進</th>
+                    <th>賣出</th>
+                    <th>漲跌</th>
+                    <th>長跌幅</th>
+                    <th>總量</th>
+                    <th>開盤</th>
+                    <th>最高</th>
+                    <th>最低</th>
+                    <th>昨收盤</th>
+                    <th>昨結算</th>
+                    <th>狀態</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                  <tr>
+                    <td class="text-secondary">加權指</td>
+                    <td>0</td>
+                    <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
+                    <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
+                    <td class="text-danger">11258</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">0</td>
+                    <td class="text-danger">
+                      <div class="arrow arrow-top"></div>74
+                    </td>
+                    <td class="text-danger">0.66%</td>
+                    <td>3829097</td>
+                    <td class="text-danger">11221</td>
+                    <td class="text-danger">11268</td>
+                    <td class="text-danger">11218</td>
+                    <td class="text-danger">9959</td>
+                    <td class="text-danger">11184</td>
+                    <td>參考用</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="row border h-25 block-4">
-          <div class="col">
+        <div class="row" id="block4">
+          <div class="col block4 border">
             <ul class="nav nav-tabs" role="tablist">
               <li><a class="active" data-toggle="tab" role="tab" href="#tab1b"><span>買賣下單(0)</span></a></li>
               <li><a data-toggle="tab" role="tab" href="#tab2b"><span>未平倉(0)</span></a></li>
@@ -534,85 +323,462 @@
                     </div>
                   </div>
                 </div>
-                <div class="tabs1-table">
-                  <table class="table table-bordered">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th>操作</th>
-                        <th>序號</th>
-                        <th>商品</th>
-                        <th>倒</th>
-                        <th>多空</th>
-                        <th>委託價</th>
-                        <th>口數</th>
-                        <th>成交價</th>
-                        <th>下單時間</th>
-                        <th>完成時間</th>
-                        <th>型別</th>
-                        <th>損失點數</th>
-                        <th>獲利點數</th>
-                        <th>狀態</th>
-                      </tr>
-                      <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                      </tr>
-                    </thead>
-                  </table>
+                <div class="tabs1-content">
+                  <div class="table-container tabs1-table">
+                    <table class="table table-bordered">
+                      <thead class="thead-dark">
+                        <tr>
+                          <tr>
+                            <th>操作</th>
+                            <th>序號</th>
+                            <th>商品</th>
+                            <th>倒</th>
+                            <th>多空</th>
+                            <th>委託價</th>
+                            <th>口數</th>
+                            <th>成交價</th>
+                            <th>下單時間</th>
+                            <th>完成時間</th>
+                            <th>型別</th>
+                            <th>損失點數</th>
+                            <th>獲利點數</th>
+                            <th>狀態</th>
+                          </tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="tab2b">參考買賣下單</div>
-              <div class="tab-pane fade" id="tab3b">參考買賣下單</div>
+              <div class="tab-pane fade" id="tab2b">
+                <div class="tabs2-header d-flex justify-content-between p-1">
+                  <div class="tabs1-header-left">
+                    <button class="btn-sm">市價平倉</button>
+                    <button class="btn-sm">設定損利點</button>
+                    <button class="btn-sm">全選</button>
+                    <button class="btn-sm">全不選</button>
+                  </div>
+                </div>
+                <div class="tabs2-content">
+                  <div class="table-container tabs2-table">
+                                        <table class="table table-bordered">
+                                          <thead class="thead-dark">
+                                            <tr>
+                                              <tr>
+                                                <th>table</th>
+                                              </tr>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab3b">
+                <div class="tabs3-header"></div>
+                <div class="tabs3-content">
+                  <div class="table-container tabs3-table">
+                                        <table class="table table-bordered">
+                                          <thead class="thead-dark">
+                                            <tr>
+                                              <tr>
+                                                <th>table</th>
+                                              </tr>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                            <tr>
+                                              <td>-</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                  </div>
+                </div>
+              </div>
               <div class="tab-pane fade" id="tab4b">
                 <div class="tab4-header d-flex justify-content-around">
                   <div class="p-2">預設額度:<span class="text-lg">0</span></div>
                   <div class="p-2">今日損益:<span class="text-lg">0</span></div>
                   <div class="p-2">留倉預扣:<span class="text-lg">0</span></div>
                   <div class="p-2">帳戶餘額:<span class="text-lg text-primary">96,400</span></div>
-                  <div class="p-2">
+                  <div class="p-2 d-flex align-items-center">
                     <div class="custom-control custom-checkbox">
                       <input class="custom-control-input" type="checkbox" id="showAll2" name="showAll"/>
                       <label class="custom-control-label" for="showAll2">顯示全部</label>
                     </div>
                   </div>
                 </div>
-                <div class="tabs4-table">
-                  <table class="table table-bordered">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th>商品名稱</th>
-                        <th>總多</th>
-                        <th>總空</th>
-                        <th>未倉平</th>
-                        <th>總口數</th>
-                        <th>手續費合計</th>
-                        <th>損益</th>
-                        <th>留倉預扣</th>
-                      </tr>
-                      <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                      </tr>
-                    </thead>
-                  </table>
+                <div class="tabs4-content">
+                  <div class="table-container tabs4-table">
+                    <table class="table table-bordered">
+                      <thead class="thead-dark">
+                        <tr>
+                          <tr>
+                            <th>商品名稱</th>
+                            <th>總多</th>
+                            <th>總空</th>
+                            <th>未倉平</th>
+                            <th>總口數</th>
+                            <th>手續費合計</th>
+                            <th>損益</th>
+                            <th>留倉預扣</th>
+                          </tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
               <div class="tab-pane fade" id="tab5b">
@@ -648,240 +814,294 @@
                     </div>
                   </div>
                 </div>
-                <div class="tabs5-table">
-                  <table class="table table-bordered">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th>日期</th>
-                        <th>預設額度</th>
-                        <th>帳戶餘額</th>
-                        <th>今日損益</th>
-                        <th>口數</th>
-                        <th>對匯額度</th>
-                        <th>留倉預扣</th>
-                        <th>交收</th>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                      <tr>
-                        <td>2019-10-14</td>
-                        <td>0</td>
-                        <td>96050</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>100000</td>
-                        <td class="text-lg text-primary">96,050</td>
-                      </tr>
-                    </thead>
-                  </table>
+                <div class="tabs5-content">
+                  <div class="table-container tabs4-table">
+                    <table class="table table-bordered">
+                      <thead class="thead-dark">
+                        <tr>
+                          <tr>
+                            <th>日期</th>
+                            <th>預設額度</th>
+                            <th>帳戶餘額</th>
+                            <th>今日損益</th>
+                            <th>口數</th>
+                            <th>對匯額度</th>
+                            <th>留倉預扣</th>
+                            <th>交收</th>
+                          </tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                        <tr>
+                          <td>2019-10-14</td>
+                          <td>0</td>
+                          <td>96050</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100000</td>
+                          <td class="text-lg text-primary">96,050</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row border block-5">
-          <div class="div">恆生期</div>
-          <div class="div">
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" id="modeRadio1" name="mode" checked="checked"/>
-              <label class="custom-control-label" for="modeRadio1">一般</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" id="modeRadio2" name="mode"/>
-              <label class="custom-control-label" for="modeRadio2">雷電</label>
-            </div>
-          </div>
-          <div class="div">
-            <table>
-              <tr>
-                <td></td>
-                <td>
+        <div class="row" id="block5">
+          <div class="col block5 border">
+            <div class="row block5row">
+              <div class="block5col block5-1">
+                <div class="productName">恆生期</div>
+                <div class="modeSelect">
                   <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio1" name="order" checked="checked"/>
-                    <label class="custom-control-label" for="orderRadio1">市價單</label>
+                    <input class="custom-control-input" type="radio" id="modeRadio1" name="mode" checked="checked"/>
+                    <label class="custom-control-label" for="modeRadio1">一般</label>
                   </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
                   <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio2" name="order"/>
-                    <label class="custom-control-label" for="orderRadio2">收盤單</label>
+                    <input class="custom-control-input" type="radio" id="modeRadio2" name="mode"/>
+                    <label class="custom-control-label" for="modeRadio2">雷電</label>
                   </div>
-                </td>
-                <td>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio3" name="order"/>
-                    <label class="custom-control-label" for="orderRadio3">限價單</label>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="div">
-            <table>
-              <tr>
-                <td>停利:
-                  <input type="number">
-                </td>
-              </tr>
-              <tr>
-                <td>停損:
-                  <input type="number">
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="div">
-            <table>
-              <tr>
-                <td>
-                  <button class="btn-sm">1</button>
-                  <button class="btn-sm">2</button>
-                  <button class="btn-sm">3</button>
-                  <button class="btn-sm">4</button>
-                  <button class="btn-sm">5</button>
-                </td>
-              </tr>
-              <tr>
-                <td>口數:
-                  <input type="number">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button class="btn-sm">編輯</button>
-                  <button class="btn-sm">還原</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="div">
-            <table>
-              <tr>
-                <td>
-                  <button class="btn-lg btn-danger">下多單</button>
-                </td>
-                <td>
-                  <button class="btn-sm">全平</button>
-                </td>
-                <td>
-                  <button class="btn-lg btn-success">下空單</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="div">
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check1" name="block5Check"/>
-              <label class="custom-control-label" for="block5Check1">(恆生期)全盤收平</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check2" name="block5Check" checked="checked"/>
-              <label class="custom-control-label" for="block5Check2">下單不確認</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check3" name="block5Check"/>
-              <label class="custom-control-label" for="block5Check3">限價成交提示</label>
+                </div>
+              </div>
+              <div class="block5col block5-2">
+                <table>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="orderRadio1" name="order" checked="checked"/>
+                        <label class="custom-control-label" for="orderRadio1">市價單</label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="orderRadio2" name="order"/>
+                        <label class="custom-control-label" for="orderRadio2">收盤單</label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="orderRadio3" name="order"/>
+                        <label class="custom-control-label" for="orderRadio3">限價單</label>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="block5col block5-3">
+                <table>
+                  <tr>
+                    <td>停利:
+                      <input type="number">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>停損:
+                      <input type="number">
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="block5col block5-4">
+                <table>
+                  <tr class="numberBtn">
+                    <td>
+                      <div class="btn-group"></div>
+                      <button class="btn-sm">1</button>
+                      <button class="btn-sm">2</button>
+                      <button class="btn-sm">3</button>
+                      <button class="btn-sm">4</button>
+                      <button class="btn-sm">5</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>口數:
+                      <input type="number">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button class="btn-sm">編輯</button>
+                      <button class="btn-sm">還原</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="block5col block5-5">
+                <table>
+                  <tr>
+                    <td>
+                      <button class="btn-lg btn-danger">下多單</button>
+                    </td>
+                    <td>
+                      <button class="btn-sm" disabled>全平</button>
+                    </td>
+                    <td>
+                      <button class="btn-lg btn-success">下空單</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="block5col block5-6">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="block5Check1" name="block5Check"/>
+                  <label class="custom-control-label" for="block5Check1">(恆生期)全盤收平</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="block5Check2" name="block5Check" checked="checked"/>
+                  <label class="custom-control-label" for="block5Check2">下單不確認</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="block5Check3" name="block5Check"/>
+                  <label class="custom-control-label" for="block5Check3">限價成交提示</label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <footer class="bg-dark text-white" id="footer">
+      <div class="row d-flex justify-content-between">
+        <div class="col" id="news">
+          <marquee class="news__list" onMouseOver="this.stop()" onMouseOut="this.start()">
+            <div class="news__item">版面D與手機版,新增技術分析版本</div>
+            <div class="news__item">手機版與桌面版新增可自選顏色功能</div>
+            <div class="news__item">在報價明細區,新增可自選時間壓力支撐指標</div>
+            <div class="news__item">新增F G 版面,供黑馬元氣會員下單,B版供RSI DT 會員下單</div>
+            <div class="news__item">此版為測試帳號,損益不列入計算,此帳號將不定時刪除交易記錄與強平所有倉位!</div>
+          </marquee>
+        </div>
+        <div class="col" id="today">
+          <div class="today__date">2019年10月24日11時57分32秒</div>
+          <button class="btn-sm">12-伺服器</button>
+        </div>
+      </div>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js"></script>
     <script>
-      $(".scroll").niceScroll({
-          cursorcolor: "#eee",
-          cursorborder: "0",
-          autohidemode: false
-      });
-      $('#block-2-table').DataTable( {
-          scrollY: 800,
-          scrollCollapse: true,
-          paging: false,
-          searching: false,
-          ordering: false,
-          info: false
-      } );
-      $('#block-3-table').DataTable( {
-          scrollY: 800,
-          ordering: false,
-          paging: false,
-          searching: false,
-          info: false
-      } );
+      var app = new Vue({
+          el: "#main",
+          data: {},
+          mounted: function () {
+              this.contentHeight();
+          },
+          created: function () {
+              window.addEventListener('resize', this.contentHeight);
+          },
+          methods: {
+              contentHeight: function() {
+                  const windowH = $(window).height();
+                  const headerH = $('#header').height();
+                  const footerH = $('#footer').height();
+                  const mainH = windowH - headerH - footerH;
+                  const block1 = $('#block1').height();
+                  const block4 = $('#block4').height();
+                  const block5 = $('#block5').height();
+      
+                  //- main
+                  $("#main").css("height", mainH); // main撐起高度, 推開footer
+      
+                  //- block2
+                  const block2row2 = mainH - block1 - $('.block2 .title').height() -50;
+                  $(".block2row2").css("height", block2row2);
+                  const block2TableH = block2row2 - $('.block2 .nav-tabs').height();
+                  $('#block2-table').css("height", block2TableH);
+                  $('#block2-table').slimscroll({height: block2TableH})
+      
+                  //- block5
+                  const block3TableH = mainH - block4 - block5 -48;
+                  $('#block3-table').css("height", block3TableH);
+                  $('#block3-table').slimscroll({height: block3TableH})
+      
+                  //- block4
+                  //- const block4header = $('.block4').height() - $('.block4 .nav-tabs').height() -8;
+                  //- const block4table1 = block4header - $('.tabs1-header').height();
+                  //- $('.block4 .tabs1-table, .block4 .tabs2-table').css("height", block4table1);
+                  //- $('.block4 .tabs1-table, .block4 .tabs2-table').slimscroll({height: block4table1})
+              }
+          }
+      })
     </script>
   </body>
 </html>

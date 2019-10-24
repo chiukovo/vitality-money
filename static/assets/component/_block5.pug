@@ -1,0 +1,48 @@
+.col.block5.border
+    .row.block5row
+        .block5col.block5-1
+            .productName 恆生期
+            .modeSelect
+                +form-radio('mode', 'modeRadio1', '一般', '', true)
+                +form-radio('mode', 'modeRadio2', '雷電')
+
+        .block5col.block5-2
+            table
+                tr
+                    td
+                    td: +form-radio('order', 'orderRadio1', '市價單', '', true)
+                tr
+                    td: +form-radio('order', 'orderRadio2', '收盤單')
+                    td: +form-radio('order', 'orderRadio3', '限價單')
+
+        .block5col.block5-3
+            table
+                tr: td 停利:
+                        input(type="number")
+                tr: td 停損:
+                        input(type="number")
+
+        .block5col.block5-4
+            table
+                tr.numberBtn: td
+                    .btn-group
+                    - var n = 1;
+                        while n <= 5
+                            button.btn-sm= n++
+                tr: td 口數:
+                        input(type="number")
+                tr: td
+                    button.btn-sm 編輯
+                    button.btn-sm 還原
+
+        .block5col.block5-5
+            table
+                tr
+                    td: button.btn-lg.btn-danger 下多單
+                    td: button.btn-sm(disabled) 全平
+                    td: button.btn-lg.btn-success 下空單
+
+        .block5col.block5-6
+            +form-check('block5Check', 'block5Check1', '(恆生期)全盤收平')
+            +form-check('block5Check', 'block5Check2', '下單不確認', '', true)
+            +form-check('block5Check', 'block5Check3', '限價成交提示')

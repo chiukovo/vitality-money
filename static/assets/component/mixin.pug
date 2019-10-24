@@ -1,6 +1,13 @@
-mixin navbar-item(name, link)
-    li.nav-item(class=(navbar === name) ? 'active' : '')
-        a(href=link).nav-link= name
+mixin navbar-item(name, link, dropdown)
+    li.nav-item(class=(navbar === name) ? 'active' : '', class=(dropdown === 'dropdown') ? 'dropdown' : '')
+        a.nav-link(href=link, data-toggle=(dropdown === 'dropdown') ? 'dropdown' : '')= name
+        if block
+            block
+
+mixin dropdown-menu(...items)
+    .dropdown-menu
+        each item in items
+            a.dropdown-item(href="#")= item
 
 //- +form-check('nameCheck1', 'customCheck1', 'label', 'inline', true)
 mixin form-check(name, id, label, inline, checked)
@@ -21,10 +28,10 @@ mixin form-control(...option)
 mixin form-number-button(number)
     .input-group.form-number-button
         .input-group-prepend
-            button.btn.btn-outline-secondary(type="button") +
+            button.btn.btn-outline-secondary +
         input.form-control.text-center(type="tel", value=number)
         .input-group-append
-            button.btn.btn-outline-secondary(type="button") -
+            button.btn.btn-outline-secondary -
 
 mixin input-calendar(label, date)
     label.col-3.col-form-label= label
@@ -34,11 +41,15 @@ mixin input-calendar(label, date)
             button.btn-sm
                 i.far.fa-calendar-alt
 
-
 mixin table-th(...items)
-    each item in items
-        th= item
+    tr&attributes(attributes)
+        each item in items
+            th= item
 
+mixin table-td(...items)
+    tr&attributes(attributes)
+        each item in items
+            td!= item
 
 mixin tabs(id, name, active)
     li

@@ -1,7 +1,7 @@
 // bootstrap
 //== Grid columns
 // Set the number of columns and specify the width of the gutters.
-$grid-gutter-width:          0;
+$grid-gutter-width: 0;
 
 $font-size-base: 0.8125rem;
 
@@ -14,7 +14,7 @@ body {
     min-width: 1366px;
 }
 .text-lg {
-    font-size: 1.125rem; //18px
+    font-size: 1.125rem; // 18px
 }
 .nav-tabs a.active {
     color: red;
@@ -33,24 +33,16 @@ body {
         }
     }
 }
-.dataTables_scrollHead {
-    top: -5px;
-}
 
 html, body {
     height: 100%;
 }
 
 .main {
-    height: 95%;
-    height: calc(100% - 56px);
+    // background-color: $blue;
     padding: 10px;
 }
-.main-left, .main-right {
-    .row + .row {
-        margin-top: 10px;
-    }
-}
+
 .main-left {
     width: 280px;
 }
@@ -59,24 +51,163 @@ html, body {
     margin-left: 10px;
 }
 
-.block-1 {
-    height: 228px;
-    overflow: hidden;
+#block1 {
+    padding-bottom: 10px;
 }
-.block-2 {
+#block4 {
+    padding: 10px 0;
+}
+.block1 {
+    background-color: #fff;
+}
+.block2 {
     position: relative;
-    height: calc(100% - 238px);
+    background-color: #fff;
     overflow: hidden;
+    .title {
+        height: 40px;
+        padding: 6px 10px;
+    }
     .nav-tabs {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background-color: #fff;
+        height: 40px;
+        line-height: 40px;
+        background-color: $gray-200;
+    }
+    .table {
+        tr {
+            th, td {
+                &:first-child {
+                    width: 80px;
+                }
+            }
+        }
     }
 }
-.block-3 {
+.block3 {
+    background-color: #fff;
     overflow: hidden;
+    .table {
+        width: 100% !important;
+    }
 }
-.block-4 {
+.block4 {
+    height: 260px;
+    background-color: #fff;
     overflow: hidden;
+    .nav-tabs {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+.table-container {
+    .tabs1-content &, .tabs2-content & {
+        height: 183px;
+    }
+    .tabs3-content & {
+        height: 219px;
+    }
+    .tabs4-content & {
+        height: 176px;
+    }
+    .tabs5-content & {
+        height: 169px;
+    }
+}
+.block5 {
+    background-color: lighten($red, 40%);
+    .block5col {
+        display: inline-flex;
+        align-items: center;
+        + .block5col {
+            padding-left: 10px;
+        }
+        .custom-control {
+            margin: 3px;
+        }
+    }
+    .block5-1 {
+        background-color: lighten($blue, 40%);
+        .productName {
+            display: inline-block;
+            vertical-align: middle;
+            width: 2rem;
+            padding: 10px;
+        }
+        .modeSelect {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 10px 10px 10px 0;
+        }
+    }
+    .block5-4 {
+        .numberBtn {
+            button {
+                float: left;
+                width: 20%;
+            }
+        }
+    }
+    .block5-6 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+    }
+}
+
+#footer {
+    line-height: 2;
+}
+#news {
+    padding: 10px;
+    .news__item {
+        display: inline-block;
+    }
+}
+#today {
+    text-align: right;
+    padding: 10px;
+    .today__date {
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+
+
+.table-container {
+    font-size: 12px;
+    table {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+        width: 100%;
+        background-color: #343a40;
+    }
+    table thead {
+        flex: 0 0 auto;
+        width: calc(100% - 1rem);
+    }
+    table tbody {
+        flex: 1 1 auto;
+        display: block;
+        overflow-y: scroll;
+        color: $gray-600;
+        background-color: $gray-100;
+        td {
+            vertical-align: middle;
+            border-top: 0;
+            padding: 0.2rem 0.75rem;
+        }
+    }
+    table tbody tr {
+        width: 100%;
+    }
+    table thead, table tbody tr {
+        display: table;
+        table-layout: fixed;
+    }
 }
