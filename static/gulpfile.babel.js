@@ -88,7 +88,7 @@ export function image()  {
 export function browser()  {
 	$.connect.server({
         root: path.dest,
-        port: '9999',
+        port: '3000',
         livereload: true
     })
     watch(path.pug, pug);

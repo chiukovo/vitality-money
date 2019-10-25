@@ -1,0 +1,73 @@
+// 基本變數
+// --------------------------------------------------
+
+//== Color system
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #3C424E !default;
+$gray-800: #24282E !default;
+$gray-900: #191B1D !default;
+$black:    #000 !default;
+
+$blue:    #4e73df;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #e74a3b;
+$orange:  #fd7e14 !default;
+$yellow:  #f6c23e;
+$green:   #1cc88a;
+$teal:    #20c997 !default;
+$cyan:    #36b9cc !default;
+
+
+//== Scaffolding
+//
+
+//== Body
+// Settings for the `<body>` element.
+// $body-bg:                    $gray-100 !default;
+// $body-color:                 $black !default;
+$font-size-base:             0.8125rem;
+
+//== Links
+// Style anchor elements.
+// $link-color:                 $black;
+// $link-decoration:            none;
+// $link-hover-color:           $blue;
+// $link-hover-decoration:      underline;
+
+//== Navbar brand
+// navbar dark
+// $navbar-dark-brand-color:    $gray-900;
+// $navbar-dark-color:          $white;
+// $navbar-dark-hover-color:    rgba($white, .8);
+// $navbar-dark-active-color:   $yellow;
+// $navbar-dark-disabled-color: rgba($white, .25);
+
+//== Grid columns
+// Set the number of columns and specify the width of the gutters.
+$grid-gutter-width:          0;
+
+//== Tables
+// Customizes the `.table` component with basic values, each used across all table variations.
+// $table-cell-padding:        .5rem;
+$table-cell-padding:         .4rem .75rem;
+
+//= Forms
+// $input-color: $black;
+// $input-bg: $gray-100;
+// $input-btn-border-width: 1px;
+// $input-border-color: $gray-300;
+// $border-radius: .25rem;
+
+// check border
+// $custom-control-indicator-border-color: $gray-300;
+
+
+

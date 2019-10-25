@@ -1,4 +1,4 @@
-.col.block2.border(:style="block2Styles")
+.col.block.block2(:style="block2Styles")
     .row(ref="block2head")
         .col
             .title 報價明細[臺指早]
@@ -6,7 +6,7 @@
                 +form-check('namecheck1', 'customCheck1', '置底', 'inline', true)
     .row.block2row2(:style="block2rowStyles")
         .col(:style="block2rowStyles")
-            ul.nav.nav-tabs.nav-pills.nav-fill(role='tablist', ref="block2tabs")
+            ul.nav.nav-pills.tab-navlist(role='tablist', ref="block2tabs", :style="block2tabStyles")
                 +tabs("#tab1a", "五檔揭示")
                 +tabs("#tab2a", "量價分佈")
                 +tabs("#tab3a", "分價揭示", 'active')
@@ -14,8 +14,13 @@
                 #tab1a.tab-pane.fade
                     .block2-table(ref="block2Table")
                         table(data-toggle='table', :data-height= 'block2Table')
-                            thead
-                                +table-th('價格','委買','價格','委賣','比例')
+                            thead.thead-light
+                                tr
+                                    th 比例
+                                    th 委買
+                                    th 價格
+                                    th 委賣
+                                    th 比例
                             tbody
                                 tr
                                     td
@@ -48,7 +53,7 @@
                 #tab2a.tab-pane.fade
                     .block2-table(ref="block2Table")
                         table(data-toggle='table', :data-height= 'block2Table')
-                            thead
+                            thead.thead-light
                                 +table-th('價格','','比例','口')
                             tbody
                                 tr
@@ -67,12 +72,8 @@
                 #tab3a.tab-pane.fade.show.active
                     .block2-table(ref="block2Table")
                         table(data-toggle='table', :data-height= 'block2Table')
-                            thead
-                                tr
-                                    th(data-field='市場時間') 市場時間
-                                    th(data-field='口') 口
-                                    th(data-field='漲跌') 漲跌
-                                    th(data-field='價格') 價格
+                            thead.thead-light
+                                +table-th('市場時間','口','漲跌','價格')
                             tbody
                                     tr
                                         td 13:45:00

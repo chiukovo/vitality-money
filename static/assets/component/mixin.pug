@@ -4,10 +4,11 @@ mixin navbar-item(name, link, dropdown)
         if block
             block
 
-mixin dropdown-menu(...items)
+mixin dropdown-menu(...link, ...items)
     .dropdown-menu
         each item in items
-            a.dropdown-item(href="#")= item
+            a.dropdown-item(href=link)= item
+
 
 //- +form-check('nameCheck1', 'customCheck1', 'label', 'inline', true)
 mixin form-check(name, id, label, inline, checked)
@@ -22,7 +23,7 @@ mixin form-radio(name, id, label, inline, checked)
         label.custom-control-label(for=id)= label
 
 mixin form-input(label, type, value)
-    .form-group&attributes(attributes)
+    .form-group.row&attributes(attributes)
         label.col-form-label.mr-1= label
         .col
             input.form-control.form-control-sm(type=type, value=value)
@@ -57,7 +58,7 @@ mixin input-calendar(label, date)
 mixin table-th(...items)
     tr&attributes(attributes)
         each item in items
-            th= item
+            th(data-field=item)= item
 
 mixin table-td(...items)
     tr&attributes(attributes)

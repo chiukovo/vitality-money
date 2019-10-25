@@ -1,5 +1,5 @@
-.col.block5.border
-    .row.block5row
+.col.block.block5
+    .block5row.row.flex-nowrap
         .block5col.block5-1
             .productName 恆生期
             .modeSelect
@@ -15,24 +15,25 @@
                     td: +form-radio('order', 'orderRadio2', '收盤單')
                     td: +form-radio('order', 'orderRadio3', '限價單')
 
-        .block5col.block5-3.col
+        .block5col.block5-3
             .row
-                +form-input('停利:', 'number', '1').row
-                +form-input('停損:', 'number', '1').row
+                +form-input('停利:', 'number', '1')
+                +form-input('停損:', 'number', '1')
 
 
         .block5col.block5-4
             table
-                tr.numberBtn: td
+                tr: td.numberBtn
                     .btn-group
                         - var n = 1;
                             while n <= 5
-                                button.btn.btn-sm.btn-light= n++
-                tr: td 口數:
-                        input(type="number")
-                tr: td
-                    button.btn-sm 編輯
-                    button.btn-sm 還原
+                                button.btn.btn-light.btn-sm= n++
+                tr: td 
+                        +form-input('口數:', 'number', '1')
+                tr: td.editBtn
+                    .btn-group
+                        button.btn.btn-light.btn-sm 編輯
+                        button.btn.btn-light.btn-sm 還原
 
         .block5col.block5-5
             table

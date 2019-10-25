@@ -1,19 +1,19 @@
 header#header(ref="head")
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    nav.navbar.navbar-expand-lg
         ul.navbar-nav.mr-auto
             +navbar-item('連線', '#', 'dropdown')
-                +dropdown-menu('1', '2')
+                +dropdown-menu('#','#','連線登入', '中斷連接')
             +navbar-item('檢視', '#')
             +navbar-item('設定', '#')
             +navbar-item('說明', '#')
             li.nav-item
-                span.navbar-text.mr-2.text-white 商品: 壹指早(十月)
-                span.navbar-text.mr-2.text-white 最後交易日: 2019-11-19
-                span.navbar-text.mr-2.text-white 禁新: 
+                span.navbar-text.mr-2 商品: 壹指早(十月)
+                span.navbar-text.mr-2 最後交易日: 2019-11-19
+                span.navbar-text.mr-2 禁新: 
                     span.text-success 10531
                     |, 
                     span.text-danger 12151
-                span.navbar-text.text-white 強平: 
+                span.navbar-text 強平: 
                     span.text-success 10531
                     |, 
                     span.text-danger 12151

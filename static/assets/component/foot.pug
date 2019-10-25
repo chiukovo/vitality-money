@@ -1,17 +1,90 @@
-footer#footer.mt-auto
-    .row
-        .col.cos-wrap.box-wrap.ml-2 1
-        .col.news-wrap
-            .row
-                .news__title.text-center 最新消息
-                .col
-                    marquee(onMouseOver="this.stop()" onMouseOut="this.start()").news__list
-                        span 版面D與手機版,新增技術分析版本
-                        span 手機版與桌面版新增可自選顏色功能
-                        span 在報價明細區,新增可自選時間壓力支撐指標
-                        span 新增F G 版面,供黑馬元氣會員下單,B版供RSI DT 會員下單
-                        span 此版為測試帳號,損益不列入計算,此帳號將不定時刪除交易記錄與強平所有倉位!
+footer#footer(ref="foot")
+    .row.d-flex.justify-content-between
+        .col#news
+            marquee.news__list(onMouseOver="this.stop()" onMouseOut="this.start()")
+                a(href="#").news__item 版面D與手機版,新增技術分析版本
+                a(href="#").news__item 手機版與桌面版新增可自選顏色功能
+                a(href="#").news__item 在報價明細區,新增可自選時間壓力支撐指標
+                a(href="#").news__item 新增F G 版面,供黑馬元氣會員下單,B版供RSI DT 會員下單
+                a(href="#").news__item 此版為測試帳號,損益不列入計算,此帳號將不定時刪除交易記錄與強平所有倉位!
 
-script(src='js/vendor.js')
+        .col-auto#today
+                .today__date 2019年10月24日11時57分32秒
+                button.btn-sm 12-伺服器
+
+script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js')
+script(src='js/bootstrap.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js')
+script(src='https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js')
+
+script.
+    $(document).ready(function () {
+        $('.fixed-table-body').slimScroll({height: '100%'});
+    });
+
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                mainStyles: {},
+                block2Styles: {},
+                block2rowStyles: {},
+                block2tabStyles: {},
+                block2Table: 0,
+                block3Table: 0,
+            }
+        },
+        mounted: function () {
+            this.contentHeight();
+        },
+        created: function () {
+            window.addEventListener('resize', this.contentHeight);
+        },
+        methods: {
+            contentHeight: function() {
+                this.windowHeight = window.innerHeight
+                this.headHeight = this.$refs.head.clientHeight
+                this.fooHeight = this.$refs.foot.clientHeight
+                console.log(`windowHeight: ${this.windowHeight}`)
+                console.log(`headHeight: ${this.headHeight}`)
+                console.log(`fooHeight: ${this.fooHeight}`)
+
+
+
+                //- *** main height ***
+                this.mainHeight = this.windowHeight - this.headHeight - this.fooHeight;
+                Vue.set(this.mainStyles, 'height', this.mainHeight + 'px')
+                console.log(`main: ${this.mainHeight}`)
+                
+                //- *** block1、block4、block5 ***
+                this.block1 = this.$refs.block1.clientHeight
+                this.block4 = this.$refs.block4.clientHeight
+                this.block5 = this.$refs.block5.clientHeight
+
+                //- *** block2 ***
+                this.block2 = this.mainHeight - this.block1 - 20
+                Vue.set(this.block2Styles, 'height', this.block2 + 'px')
+                //- console.log(this.block2)
+
+                this.block2tabs = this.$refs.block2tabs.clientHeight
+                Vue.set(this.block2tabStyles, 'bottom', - this.block2tabs + 'px')
+                //- console.log(this.block2tabs)
+
+                //- for block2 tabs
+                this.block2row2 = this.block2 - this.block2tabs - this.$refs.block2head.clientHeight
+                Vue.set(this.block2rowStyles, 'height', this.block2row2 + 'px')
+                
+                //- for block2 table
+                this.block2Table = this.block2row2
+
+                //- *** block3 ***
+                this.block3 = this.mainHeight - this.block4 - this.block5 - 20
+                this.block3Table = this.block3
+                //- console.log(this.block3)
+
+            }
+        },
+    });
 
 block footer
