@@ -21,7 +21,7 @@
   	        <th>昨結算</th>
   	        <th>狀態</th>
   	      </tr>
-          <tr v-for="item in items" :class="item.color">
+          <tr v-for="item in items" :class="item.color" @click="clickItem(item)">
   	        <td class="text-secondary">{{ item.product_name }}</td>
   	        <td>0</td>
   	        <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
@@ -67,8 +67,12 @@ export default {
     'mainItem',
     'nowMainItem',
     'nowFiveMoney',
+    'clickItemId',
   ]),
 	watch: {
+    clickItemId (id) {
+
+    },
     mainItem (res) {
       const _this = this
       let result = []
@@ -198,6 +202,9 @@ export default {
     }
 	},
   methods: {
+    clickItem(item) {
+      this.$store.commit('setClickItemId', item.product_id)
+    }
   }
 }
 </script>

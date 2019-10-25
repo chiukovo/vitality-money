@@ -26,7 +26,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/global',
-    {src: '~plugins/websocket.js', ssr: false}
+    {src: '~plugins/websocket.js', ssr: false},
+    {src: '~plugins/trading.js', ssr: false},
   ],
   /*
   ** Nuxt.js dev-modules

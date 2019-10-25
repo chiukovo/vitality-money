@@ -4,6 +4,9 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  setClickItemId(state, data) {
+    state.clickItemId = data
+  },
   setMainItem(state, data) {
     state.mainItem = data
   },
@@ -33,7 +36,9 @@ export default {
     })
 
     if (state.historyPrice[itemId].length > 30) {
-      state.historyPrice[itemId].pop()
+      for (let num = 1; num <= state.historyPrice[itemId].length - 30; num++) {
+        state.historyPrice[itemId].pop()
+      }
     }
   },
   SOCKET_ONOPEN (state, event)  {

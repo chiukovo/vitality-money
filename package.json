@@ -17,6 +17,7 @@
     "cross-env": "^5.2.0",
     "koa": "^2.6.2",
     "nuxt": "^2.0.0",
+    "trading-vue-js": "^0.3.12",
     "vue-currency-filter": "^3.4.3",
     "vue-native-websocket": "^2.0.13"
   },

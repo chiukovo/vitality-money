@@ -9,4 +9,5 @@ export default () => ({
   nowMainItem: [],
   nowFiveMoney: [],
   historyPrice: [],
+  clickItemId: '',
 })

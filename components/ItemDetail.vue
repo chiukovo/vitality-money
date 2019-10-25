@@ -33,21 +33,34 @@ export default {
   data () {
     return {
       items: [],
-      selectItemId: '',
       borderName: 'border border-primary'
     }
   },
   computed: mapState([
     'historyPrice',
+    'clickItemId',
   ]),
   watch: {
-    historyPrice (res) {
-      if (typeof res[this.selectItemId] == 'undefined') {
+    historyPrice (history) {
+      let itemId = this.$store.state.clickItemId
+      
+      this.itemChange(history, itemId)
+    },
+    clickItemId (itemId) {
+      let history = this.$store.state.historyPrice
+
+      this.itemChange(history, itemId)
+    }
+  },
+  methods: {
+    itemChange(history, itemId) {
+      if (typeof history[itemId] == 'undefined') {
+        this.items = []
         return
       }
 
-      if (res[this.selectItemId].length > 0) {
-        this.items = res[this.selectItemId]
+      if (history[itemId].length > 0) {
+        this.items = history[itemId]
       }
     }
   }
