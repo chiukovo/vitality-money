@@ -1,5 +1,5 @@
 .col.block4.border
-    ul.nav.nav-tabs(role='tablist')
+    ul.nav.nav-tabs.d-flex.align-items-end(role='tablist')
         +tabs("#tab1b", "買賣下單(0)", 'active')
         +tabs("#tab2b", "未平倉(0)")
         +tabs("#tab3b", "已平倉")
@@ -20,11 +20,10 @@
                     +form-check('showOrder', 'showOrderCheck2', '顯示全部商品單據', 'inline', true)
                     +form-check('showOrder', 'showOrderCheck2', '自動置底', 'inline', true)
             .tabs1-content
-                .table-container.tabs1-table
-                    table.table.table-bordered
-                        thead.thead-dark
-                            tr
-                                +table-th('操作','序號','商品','倒','多空','委託價','口數','成交價','下單時間','完成時間','型別','損失點數','獲利點數','狀態')
+                .tabs1-table
+                    table(data-toggle='table', data-height= '183')
+                        thead.thead-light
+                            +table-th('操作','序號','商品','倒','多空','委託價','口數','成交價','下單時間','完成時間','型別','損失點數','獲利點數','狀態')
                         tbody
                             - for (var x = 0; x < 14; x++)
                                 tr
@@ -50,22 +49,22 @@
                     button.btn-sm 全選
                     button.btn-sm 全不選
             .tabs2-content
-                .table-container.tabs2-table
-                    mixin table
-                        table.table.table-bordered
-                            thead.thead-dark
-                                tr
-                                    +table-th('table')
+                .tabs2-table
+                    table(data-toggle='table', data-height= '183')
+                        mixin table
+                            thead.thead-light
+                                +table-th('table')
                             tbody
                                 - for (var x = 0; x < 14; x++)
                                     tr
                                         td -
-                    +table
+                        +table
         #tab3b.tab-pane.fade
             .tabs3-header
             .tabs3-content
-                .table-container.tabs3-table
-                    +table
+                .tabs3-table
+                    table(data-toggle='table', data-height= '219')
+                        +table
         #tab4b.tab-pane.fade
             .tab4-header.d-flex.justify-content-around
                 .p-2 預設額度:
@@ -78,11 +77,10 @@
                     span.text-lg.text-primary 96,400
                 .p-2.d-flex.align-items-center: +form-check('showAll', 'showAll2', '顯示全部')
             .tabs4-content
-                .table-container.tabs4-table
-                    table.table.table-bordered
-                        thead.thead-dark
-                            tr
-                                +table-th('商品名稱','總多','總空','未倉平','總口數','手續費合計','損益','留倉預扣')
+                .tabs4-table
+                    table(data-toggle='table', data-height= '176')
+                        thead.thead-light
+                            +table-th('商品名稱','總多','總空','未倉平','總口數','手續費合計','損益','留倉預扣')
                         tbody
                             - for (var x = 0; x < 14; x++)
                                 tr
@@ -103,11 +101,10 @@
                         button.btn-sm 上週
                         button.btn-sm 本月
             .tabs5-content
-                .table-container.tabs4-table
-                    table.table.table-bordered
-                        thead.thead-dark
-                            tr
-                                +table-th('日期','預設額度','帳戶餘額','今日損益','口數','對匯額度','留倉預扣','交收')
+                .tabs5-table
+                    table(data-toggle='table', data-height= '169')
+                        thead.thead-light
+                            +table-th('日期','預設額度','帳戶餘額','今日損益','口數','對匯額度','留倉預扣','交收')
                         tbody
                             - for (var x = 0; x < 8; x++)
                                 tr

@@ -1,10 +1,10 @@
 .col.block3.border
-    #block3-table.table-container
-        table.table.table-bordered
-            thead.thead-dark
+    .block3-table
+        table(data-toggle='table', :data-height= 'block3Table')
+            thead
                 +table-th('商品','倉位','K線','走勢','成交','買進','賣出','漲跌','長跌幅','總量','開盤','最高','最低','昨收盤','昨結算','狀態')
             tbody
-                - for (var x = 0; x < 6; x++)
+                - for (var x = 0; x < 26; x++)
                     tr
                         td.text-secondary 加權指
                         td 0

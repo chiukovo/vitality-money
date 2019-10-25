@@ -15,20 +15,19 @@
                     td: +form-radio('order', 'orderRadio2', '收盤單')
                     td: +form-radio('order', 'orderRadio3', '限價單')
 
-        .block5col.block5-3
-            table
-                tr: td 停利:
-                        input(type="number")
-                tr: td 停損:
-                        input(type="number")
+        .block5col.block5-3.col
+            .row
+                +form-input('停利:', 'number', '1').row
+                +form-input('停損:', 'number', '1').row
+
 
         .block5col.block5-4
             table
                 tr.numberBtn: td
                     .btn-group
-                    - var n = 1;
-                        while n <= 5
-                            button.btn-sm= n++
+                        - var n = 1;
+                            while n <= 5
+                                button.btn.btn-sm.btn-light= n++
                 tr: td 口數:
                         input(type="number")
                 tr: td

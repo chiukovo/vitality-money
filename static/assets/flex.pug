@@ -9,29 +9,31 @@ html(lang="en")
         title Document
         link(rel="stylesheet", href="css/main.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css")
+        link(rel='stylesheet', href='https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css')
+
         
     
     body
         - navbar = "連線"
         include component/head
 
-        main#main.main.container-fluid.d-flex
+        main#main.container-fluid.d-flex(ref="main")
             .main-left
                 #block1.row.scroll
-                    include component/_block1
+                    include component/block1
                 #block2.row
-                    include component/_block2
+                    include component/block2
 
-            .main-right
+            //- .main-right
                     #block3.row
-                        include component/_block3
+                        include component/block3
 
                     #block4.row
-                        include component/_block4
+                        include component/block4
 
                     #block5.row
-                        include component/_block5
-        footer#footer.bg-dark.text-white
+                        include component/block5
+        footer#footer.bg-dark.text-white(ref="footer")
             .row.d-flex.justify-content-between
                 .col#news
                     marquee.news__list(onMouseOver="this.stop()" onMouseOut="this.start()")
@@ -49,15 +51,17 @@ html(lang="en")
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js')
         script(src='js/bootstrap.js')
-        script(src='js/jquery.nicescroll.min.js')
-        script(src='js/jquery.dataTables.min.js')
+        //- script(src='js/jquery.nicescroll.min.js')
+        //- script(src='js/jquery.dataTables.min.js')
+        script(src='https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js')
+
         
         
         script.
             var app = new Vue({
                 el: "#main",
-                data: {},
+                data() {},
                 mounted: function () {
                     this.contentHeight();
                 },
@@ -81,19 +85,13 @@ html(lang="en")
                         const block2row2 = mainH - block1 - $('.block2 .title').height() -50;
                         $(".block2row2").css("height", block2row2);
                         const block2TableH = block2row2 - $('.block2 .nav-tabs').height();
-                        $('#block2-table').css("height", block2TableH);
-                        $('#block2-table').slimscroll({height: block2TableH})
+                        $('.tab-content, .block2-table').css("height", block2TableH);
 
                         //- block5
                         const block3TableH = mainH - block4 - block5 -48;
                         $('#block3-table').css("height", block3TableH);
-                        $('#block3-table').slimscroll({height: block3TableH})
 
-                        //- block4
-                        //- const block4header = $('.block4').height() - $('.block4 .nav-tabs').height() -8;
-                        //- const block4table1 = block4header - $('.tabs1-header').height();
-                        //- $('.block4 .tabs1-table, .block4 .tabs2-table').css("height", block4table1);
-                        //- $('.block4 .tabs1-table, .block4 .tabs2-table').slimscroll({height: block4table1})
+                        $('.fixed-table-body').slimScroll({height: '100%'});
                     }
                 }
             })

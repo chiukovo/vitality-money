@@ -21,6 +21,19 @@ mixin form-radio(name, id, label, inline, checked)
         input.custom-control-input(type="radio", id=id, name=name, checked=checked)
         label.custom-control-label(for=id)= label
 
+mixin form-input(label, type, value)
+    .form-group&attributes(attributes)
+        label.col-form-label.mr-1= label
+        .col
+            input.form-control.form-control-sm(type=type, value=value)
+
+mixin form-input-prepend(label, type, value)
+    .input-group&attributes(attributes)
+        .input-group-prepend
+            span.input-group-text 停損:
+        input.form-control.form-control-sm(type="number", value="1")
+
+
 mixin form-control(...option)
     select.custom-select
         option= option
@@ -52,6 +65,6 @@ mixin table-td(...items)
             td!= item
 
 mixin tabs(id, name, active)
-    li
-        a(data-toggle='tab', role='tab', href=id, class=(active === 'active') ? 'active' : '')
+    li.nav-item
+        a.nav-link(data-toggle='tab', role='tab', href=id, class=(active === 'active') ? 'active' : '')
             span= name

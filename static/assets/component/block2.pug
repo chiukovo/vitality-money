@@ -1,0 +1,89 @@
+.col.block2.border(:style="block2Styles")
+    .row(ref="block2head")
+        .col
+            .title 報價明細[臺指早]
+                button.btn-sm 查詢
+                +form-check('namecheck1', 'customCheck1', '置底', 'inline', true)
+    .row.block2row2(:style="block2rowStyles")
+        .col(:style="block2rowStyles")
+            ul.nav.nav-tabs.nav-pills.nav-fill(role='tablist', ref="block2tabs")
+                +tabs("#tab1a", "五檔揭示")
+                +tabs("#tab2a", "量價分佈")
+                +tabs("#tab3a", "分價揭示", 'active')
+            .tab-content
+                #tab1a.tab-pane.fade
+                    .block2-table(ref="block2Table")
+                        table(data-toggle='table', :data-height= 'block2Table')
+                            thead
+                                +table-th('價格','委買','價格','委賣','比例')
+                            tbody
+                                tr
+                                    td
+                                    td
+                                    td.text-danger 11286
+                                    td 44
+                                    td.p-0: .progress
+                                        .progress-bar.bg-success(style="width: 44%" aria-valuenow="44" aria-valuemin="0" aria-valuemax="100")
+                                tr
+                                    td
+                                    td
+                                    td.text-danger 11286
+                                    td 59
+                                    td.p-0: .progress
+                                        .progress-bar.bg-success(style="width: 59%" aria-valuenow="59" aria-valuemin="0" aria-valuemax="100")
+                                tr
+                                    td
+                                    td
+                                    td.bg-primary.text-white 11282
+                                    td
+                                    td
+                                tr
+                                    td.p-0: .progress.progress-right
+                                        .progress-bar.bg-danger(style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100")
+                                    td 61
+                                    td.text-danger 11282
+                                    td
+                                    td
+
+                #tab2a.tab-pane.fade
+                    .block2-table(ref="block2Table")
+                        table(data-toggle='table', :data-height= 'block2Table')
+                            thead
+                                +table-th('價格','','比例','口')
+                            tbody
+                                tr
+                                    td.text-success 11303
+                                    td 現價
+                                    td.p-0: .progress
+                                        .progress-bar.bg-success(style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100")
+                                    td 151
+                                - for (var x = 0; x < 5; x++)
+                                    tr
+                                        td.text-danger 15103
+                                        td 
+                                        td.p-0: .progress
+                                            .progress-bar.bg-success(style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100")
+                                        td.text-danger 231
+                #tab3a.tab-pane.fade.show.active
+                    .block2-table(ref="block2Table")
+                        table(data-toggle='table', :data-height= 'block2Table')
+                            thead
+                                tr
+                                    th(data-field='市場時間') 市場時間
+                                    th(data-field='口') 口
+                                    th(data-field='漲跌') 漲跌
+                                    th(data-field='價格') 價格
+                            tbody
+                                    tr
+                                        td 13:45:00
+                                        td 1
+                                        td.text-success
+                                            .fas.fa-caret-down: |  85
+                                        td.text-success 11242
+                                    - for (var x = 0; x < 20; x++)
+                                        tr
+                                            td 13:45:00
+                                            td 1
+                                            td.text-danger
+                                                .fas.fa-caret-up: |  85
+                                            td.text-danger 11242
