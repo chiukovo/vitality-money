@@ -9,5 +9,7 @@ export default () => ({
   nowMainItem: [],
   nowFiveMoney: [],
   historyPrice: [],
+  kLineData: [],
   clickItemId: '',
+  chartType: '',
 })

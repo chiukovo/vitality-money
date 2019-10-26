@@ -46,10 +46,10 @@ export default {
 		Footer,
 	},
 	mounted () {
-	  this.resizeHeight()
+	  //this.resizeHeight()
 
   	if (process.browser) {
-    	window.addEventListener('resize', this.resizeHeight())
+    	//window.addEventListener('resize', this.resizeHeight())
   	}
 	},
 	methods: {

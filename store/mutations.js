@@ -16,6 +16,52 @@ export default {
   setNowFiveMoney(state, data) {
     state.nowFiveMoney = data
   },
+  setkLineData(state, response) {
+    if (typeof state.kLineData == 'undefined') {
+      Vue.set(state.kLineData, response.type, [])
+    }
+
+    state.kLineData = []
+    state.chartType = response.type
+
+    const code = response.data.Code
+    const data = response.data.Tech
+    const type = response.type
+
+    if (code == 1) {
+      let items = data.split("&")
+
+      for(let num = 0; num < items.length; num++) {
+        let historyData = items[num].split(";");
+        let historyItem, dateTime
+
+        //日期，時間，開，高，低，收，量；日期，時間，開，高，低，收，量；．．．．
+        if (historyData.length > 1) {
+          for (let i in historyData) {
+            historyItem = historyData[i].split(",");
+
+            if (historyItem.length < 6 || parseInt(historyItem[2]) <= 0 || parseInt(historyItem[3]) <= 0 || parseInt(historyItem[4]) <= 0 || parseInt(historyItem[5]) <= 0) {
+              continue
+            }
+
+            dateTime = new Date(historyItem[0] + " " + historyItem[1]).getTime();
+            if (isNaN(dateTime)) {
+              continue
+            }
+
+            state.kLineData.push([
+              dateTime,
+              parseInt(historyItem[2]),
+              parseInt(historyItem[3]),
+              parseInt(historyItem[4]),
+              parseInt(historyItem[5]),
+              parseInt(historyItem[6])
+            ])
+          }
+        }
+      }
+    }
+  },
   setHistoryPrice(state, {itemId, prices, flocalTime}) {
     const data = {
       price: 0,

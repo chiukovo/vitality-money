@@ -29,7 +29,7 @@
                 <td class="text-secondary">{{ item.product_name }}</td>
                 <td>0</td>
                 <td><a href="#"><img src="/dist/images/table_btn_kline.jpg"></a></td>
-                <td> <a href="#"><img src="/dist/images/table_btn_trend.jpg"></a></td>
+                <td><a href="#"><img src="/dist/images/table_btn_trend.jpg"></a></td>
                 <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
                 <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
                 <td :class="item.sp_price_change">{{ item.sp_price | currency }}</td>
@@ -88,7 +88,12 @@ export default {
   ]),
 	watch: {
     clickItemId (id) {
-
+      //call api k線圖
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': id,
+        'type': 'kline',
+        'num': 2
+      })
     },
     mainItem (res) {
       const _this = this
@@ -220,7 +225,7 @@ export default {
 
         return val
       })
-    }
+    },
 	},
   methods: {
     clickItem(item) {
