@@ -9,6 +9,12 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
+    ],
+    script: [
+      {src: '/assets/js/jquery.min.js'},
+      {src: '/assets/js/bootstrap-table.min.js'},
+      {src: '/assets/js/bootstrap.js'},
+      {src: '/assets/js/jquery.slimscroll.js'},
     ]
   },
   /*
@@ -28,6 +34,7 @@ module.exports = {
     '~/plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/trading.js', ssr: false},
+    {src: '~plugins/vueSlimScroll.js'},
   ],
   /*
   ** Nuxt.js dev-modules

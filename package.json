@@ -17,9 +17,11 @@
     "cross-env": "^5.2.0",
     "koa": "^2.6.2",
     "nuxt": "^2.0.0",
+    "nuxt-element-ui": "^1.0.10",
     "trading-vue-js": "^0.3.12",
     "vue-currency-filter": "^3.4.3",
-    "vue-native-websocket": "^2.0.13"
+    "vue-native-websocket": "^2.0.13",
+    "vue-slimscroll": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

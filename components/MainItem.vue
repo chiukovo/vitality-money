@@ -1,68 +1,85 @@
 <template>
   <div>
-  	<div class="block-one mt-1 mx-1 border border-primary rounded">
-  	  <table class="table">
-  	    <thead>
-  	      <tr>
-  	        <th>商品</th>
-  	        <th>倉位</th>
-  	        <th>K線</th>
-  	        <th>走勢</th>
-  	        <th>成交</th>
-  	        <th>買進</th>
-  	        <th>賣出</th>
-  	        <th>漲跌</th>
-  	        <th>漲跌幅</th>
-  	        <th>總量</th>
-  	        <th>開盤</th>
-  	        <th>最高</th>
-  	        <th>最低</th>
-  	        <th>昨收盤</th>
-  	        <th>昨結算</th>
-  	        <th>狀態</th>
-  	      </tr>
-          <tr v-for="item in items" :class="item.color" @click="clickItem(item)">
-  	        <td class="text-secondary">{{ item.product_name }}</td>
-  	        <td>0</td>
-  	        <td><a href="#"><img src="images/table_btn_kline.jpg"></a></td>
-  	        <td> <a href="#"><img src="images/table_btn_trend.jpg"></a></td>
-            <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
-            <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
-            <td :class="item.sp_price_change">{{ item.sp_price | currency }}</td>
-            <td>
-              <div class="arrow arrow-top" v-if="item.gain_color == 'text-danger'"></div>
-              <div class="arrow arrow-down" v-if="item.gain_color == 'text-success'"></div>
-              {{ item.gain }}
-            </td>
-            <td>{{ item.gain_percent }}%</td>
-            <td :class="item.total_qty_change">{{ item.total_qty | currency }}</td>
-            <td>{{ item.open_price | currency }}</td>
-            <td :class="item.highest_price_change">{{ item.highest_price | currency }}</td>
-            <td :class="item.lowest_price_change">{{ item.lowest_price | currency }}</td>
-            <td>{{ item.yesterday_last_price | currency }}</td>
-            <td>{{ item.yesterday_close_price | currency }}</td>
-  	        <td>
-              {{ item.state_name }}
-            </td>
-  	      </tr>
-  	    </thead>
-  	    <tbody>
-  	    </tbody>
-  	  </table>
-  	</div>
+    <div class="row" id="block3" ref="block3">
+      <div class="col block block3">
+        <div class="block3-table">
+          <table data-toggle="table" :data-height="this.$parent.block3Table">
+            <thead class="thead-light">
+              <tr>
+                <th data-field="商品">商品</th>
+                <th data-field="倉位">倉位</th>
+                <th data-field="K線">K線</th>
+                <th data-field="走勢">走勢</th>
+                <th data-field="成交">成交</th>
+                <th data-field="買進">買進</th>
+                <th data-field="賣出">賣出</th>
+                <th data-field="漲跌">漲跌</th>
+                <th data-field="長跌幅">長跌幅</th>
+                <th data-field="總量">總量</th>
+                <th data-field="開盤">開盤</th>
+                <th data-field="最高">最高</th>
+                <th data-field="最低">最低</th>
+                <th data-field="昨收盤">昨收盤</th>
+                <th data-field="昨結算">昨結算</th>
+                <th data-field="狀態">狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items" :class="[item.color, item.product_id == itemId ? 'bg-success' : '']" @click="clickItem(item)">
+                <td class="text-secondary">{{ item.product_name }}</td>
+                <td>0</td>
+                <td><a href="#"><img src="/dist/images/table_btn_kline.jpg"></a></td>
+                <td> <a href="#"><img src="/dist/images/table_btn_trend.jpg"></a></td>
+                <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
+                <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
+                <td :class="item.sp_price_change">{{ item.sp_price | currency }}</td>
+                <td>
+                  <div class="arrow arrow-top" v-if="item.gain_color == 'text-danger'"></div>
+                  <div class="arrow arrow-down" v-if="item.gain_color == 'text-success'"></div>
+                  {{ item.gain }}
+                </td>
+                <td>{{ item.gain_percent }}%</td>
+                <td :class="item.total_qty_change">{{ item.total_qty | currency }}</td>
+                <td>{{ item.open_price | currency }}</td>
+                <td :class="item.highest_price_change">{{ item.highest_price | currency }}</td>
+                <td :class="item.lowest_price_change">{{ item.lowest_price | currency }}</td>
+                <td>{{ item.yesterday_last_price | currency }}</td>
+                <td>{{ item.yesterday_close_price | currency }}</td>
+                <td>
+                  {{ item.state_name }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div>
+      <client-only>
+        <Kchart></Kchart>
+      </client-only>
+    </div>
   </div>
 </template>
 <script>
 
+import Kchart from "~/components/Kchart"
 import { mapState } from 'vuex';
 
 export default {
 	data () {
 	  return {
       items: [],
+      itemId: '',
       borderName: 'border border-primary'
 	  }
 	},
+  updated () {
+    this.updateScroll()
+  },
+  components: {
+    Kchart,
+  },
   computed: mapState([
     'mainItem',
     'nowMainItem',
@@ -107,6 +124,10 @@ export default {
       })
 
       this.items = JSON.parse(JSON.stringify(result))
+
+      if (this.items.length > 0) {
+        $('.no-records-found').hide()
+      }
     },
     nowMainItem (res) {
       //{商品1 第一筆成交時間} 0
@@ -203,6 +224,7 @@ export default {
 	},
   methods: {
     clickItem(item) {
+      this.itemId = item.product_id
       this.$store.commit('setClickItemId', item.product_id)
     }
   }

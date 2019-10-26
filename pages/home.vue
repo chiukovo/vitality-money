@@ -1,7 +1,7 @@
 <template>
   <div>
   	<Header></Header>
-  	<main class="main">
+  	<main class="container-fluid d-flex" id="main" ref="main" :style="mainStyles">
   	  <div class="main-left mt-1 ml-1">
   	  	<UserInfo></UserInfo>
   	  	<ItemDetail></ItemDetail>
@@ -12,6 +12,7 @@
 				<Operating></Operating>
   	  </div>
   	</main>
+  	<Footer></Footer>
   </div>
 </template>
 <script>
@@ -22,8 +23,19 @@ import ItemDetail from "~/components/ItemDetail"
 import UserInfo from "~/components/UserInfo"
 import History from "~/components/History"
 import Operating from "~/components/Operating"
+import Footer from "~/components/Footer"
 
 export default {
+	data () {
+		return {
+	    mainStyles: {},
+	    block2Styles: {},
+	    block2rowStyles: {},
+	    block2tabStyles: {},
+	    block2Table: 0,
+	    block3Table: 0,
+		}
+	},
 	components: {
 		Header,
 		MainItem,
@@ -31,8 +43,16 @@ export default {
 		UserInfo,
 		History,
 		Operating,
+		Footer,
 	},
-	mounted() {
+	mounted () {
+	  this.resizeHeight()
+
+  	if (process.browser) {
+    	window.addEventListener('resize', this.resizeHeight())
+  	}
+	},
+	methods: {
 	},
 	computed: {
 	  websocketConnected () {
