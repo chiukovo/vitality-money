@@ -46,6 +46,7 @@ export default {
 		Footer,
 	},
 	mounted () {
+		this.checkLogin()
 	  //this.resizeHeight()
 
   	if (process.browser) {

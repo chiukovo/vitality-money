@@ -4,8 +4,21 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
-  setClickItemId(state, data) {
-    state.clickItemId = data
+  setuserAuth(state, data) {
+    //set sessionStorage
+    state.sessionStorage.userAuth = {
+      userId: data.UserId,
+      token: data.Token,
+    }
+
+    location.href = "/home"
+  },
+  setUserInfo(state, data) {
+    state.userInfo = data.UserArray
+  },
+  setClickItemId(state, {id, name}) {
+    state.clickItemId = id
+    state.itemName = name
   },
   setMainItem(state, data) {
     state.mainItem = data

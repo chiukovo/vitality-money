@@ -34,6 +34,7 @@ module.exports = {
     '~/plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/trading.js', ssr: false},
+    {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/vueSlimScroll.js'},
   ],
   /*
@@ -53,6 +54,9 @@ module.exports = {
       symbolPosition: 'front',
       symbolSpacing: true
     }],
+    ['nuxt-vuex-localstorage', {
+      sessionStorage: ['sessionStorage']
+    }]
   ],
   /*
   ** Build configuration
@@ -74,7 +78,6 @@ module.exports = {
       }
   },
   router: {
-    middleware: 'auth',
   },
   chainWebpack: config => {
     //close eslint

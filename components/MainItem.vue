@@ -28,7 +28,7 @@
               <tr v-for="item in items" :class="[item.color, item.product_id == itemId ? 'bg-success' : '']" @click="clickItem(item)">
                 <td class="text-secondary">{{ item.product_name }}</td>
                 <td>0</td>
-                <td><a href="#"><img src="/dist/images/table_btn_kline.jpg"></a></td>
+                <td><a href="#" @click="clickKline(item)"><img src="/dist/images/table_btn_kline.jpg"></a></td>
                 <td><a href="#"><img src="/dist/images/table_btn_trend.jpg"></a></td>
                 <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
                 <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
@@ -88,12 +88,7 @@ export default {
   ]),
 	watch: {
     clickItemId (id) {
-      //call api k線圖
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': id,
-        'type': 'kline',
-        'num': 2
-      })
+
     },
     mainItem (res) {
       const _this = this
@@ -230,7 +225,17 @@ export default {
   methods: {
     clickItem(item) {
       this.itemId = item.product_id
-      this.$store.commit('setClickItemId', item.product_id)
+      this.$store.commit('setClickItemId', {
+        id: item.product_id,
+        name: item.product_name
+      })
+    },
+    clickKline(item) {
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': item.product_id,
+        'type': 'kline',
+        'num': 2
+      })
     }
   }
 }

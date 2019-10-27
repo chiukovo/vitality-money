@@ -11,5 +11,7 @@ export default () => ({
   historyPrice: [],
   kLineData: [],
   clickItemId: '',
+  itemName: '',
   chartType: '',
+  userInfo: [],
 })

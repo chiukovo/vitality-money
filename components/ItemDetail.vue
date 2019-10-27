@@ -3,8 +3,8 @@
     <div class="row" id="block2">
       <div class="col block block2" :style="this.$parent.block2Styles">
         <div class="row" id="block2head">
-          <div class="col">
-            <div class="title">報價明細[臺指早]
+          <div class="col" v-if="$store.state.itemName != ''">
+            <div class="title">報價明細[{{ $store.state.itemName }}]
               <button class="btn-sm">查詢</button>
               <div class="custom-control custom-checkbox custom-control-inline">
                 <input class="custom-control-input" type="checkbox" id="customCheck1" name="namecheck1" checked="checked"/>
