@@ -13,7 +13,7 @@ Vue.mixin({
   		}, 5000)
   	},
   	LoginLoopCheck () {
-  			const userAuth = this.$store.state.sessionStorage.userAuth
+  			const userAuth = this.$store.state.localStorage.userAuth
 
   			if (typeof userAuth.token == 'undefined' || typeof userAuth.userId == 'undefined') {
   				location.href = "/"
@@ -22,9 +22,9 @@ Vue.mixin({
   			}
   	},
 		async getUserInfo () {
-			const lang = this.$store.state.sessionStorage.lang
-			const userId = this.$store.state.sessionStorage.userAuth.userId
-			const token = this.$store.state.sessionStorage.userAuth.token
+			const lang = this.$store.state.localStorage.lang
+			const userId = this.$store.state.localStorage.userAuth.userId
+			const token = this.$store.state.localStorage.userAuth.token
 
 			await axios.post("/api/query_member_and_commoditylist?lang=" + lang, qs.stringify({
 			  UserID: userId,

@@ -5,8 +5,8 @@ export default {
     state.apiExampleData = data
   },
   setuserAuth(state, data) {
-    //set sessionStorage
-    state.sessionStorage.userAuth = {
+    //set localStorage
+    state.localStorage.userAuth = {
       userId: data.UserId,
       token: data.Token,
     }

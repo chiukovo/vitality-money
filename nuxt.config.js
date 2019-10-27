@@ -55,7 +55,8 @@ module.exports = {
       symbolSpacing: true
     }],
     ['nuxt-vuex-localstorage', {
-      sessionStorage: ['sessionStorage']
+      sessionStorage: ['sessionStorage'],
+      localStorage: ['localStorage'],
     }]
   ],
   /*

@@ -4,7 +4,7 @@
 			帳號<input type="text" v-model="account">
 			密碼<input type="password" v-model="password">
 			<button @click="doLogin">登入</button>
-			{{ $store.state.sessionStorage.userAuth }}
+			{{ $store.state.localStorage.userAuth }}
     </div>
   </div>
 </template>
