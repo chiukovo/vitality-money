@@ -14,6 +14,10 @@ export default {
     location.href = "/home"
   },
   setUserInfo(state, data) {
+    if (state.commidyArray.length == 0) {
+      state.commidyArray = data.CommidyArray
+    }
+
     state.userInfo = data.UserArray
   },
   setClickItemId(state, {id, name}) {

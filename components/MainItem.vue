@@ -64,7 +64,7 @@
 <script>
 
 import Kchart from "~/components/Kchart"
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 export default {
 	data () {

@@ -14,4 +14,5 @@ export default () => ({
   itemName: '',
   chartType: '',
   userInfo: [],
+  commidyArray: [],
 })

@@ -45,13 +45,12 @@ export default {
 		Operating,
 		Footer,
 	},
+	beforeMount () {
+    window.addEventListener('resize', this.resizeHeight);
+  },
 	mounted () {
 		this.checkLogin()
-	  //this.resizeHeight()
-
-  	if (process.browser) {
-    	//window.addEventListener('resize', this.resizeHeight())
-  	}
+	  this.resizeHeight()
 	},
 	methods: {
 	},
