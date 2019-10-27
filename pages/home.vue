@@ -18,7 +18,7 @@
 <script>
 
 import Header from "~/components/Header"
-import MainItem from "~/components/mainItem"
+import MainItem from "~/components/MainItem"
 import ItemDetail from "~/components/ItemDetail"
 import UserInfo from "~/components/UserInfo"
 import History from "~/components/History"
