@@ -35,6 +35,7 @@ module.exports = {
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/trading.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
+    {src: '~plugins/highcharts.js', ssr: true},
     {src: '~plugins/vueSlimScroll.js'},
   ],
   /*

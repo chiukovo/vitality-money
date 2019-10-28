@@ -6,83 +6,136 @@
         <br>api: {{ this.$store.state.apiExampleData }}
         <br>websocket: {{ this.$store.state.socket.isConnected }}
       </h1>
-      <trading-vue
-        :data="this.$data.items"
-      ></trading-vue>
+      <highcharts v-if="ohlc.length > 0" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
     </div>
   </div>
 </template>
 
 <script>
 
+import testData from '~/static/testData.json'
+
 export default {
   data() {
     return {
-      items: {
-        ohlcv: [
-            [ 1551128400000, 33,  37.1, 14,  14,  196 ],
-            [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
-            [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
-            [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
-            [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ],
-        ],
-      }
+      stockOptions: {},
+      ohlc: []
     }
   },
   methods: {
-      meta_info() {
-          return { author: 'C451', version: '1.0.0' }
-      },
-      // Here goes your code. You are provided with:
-      // { All stuff is reactive }
-      // $props.layout -> positions of all chart elements +
-      //  some helper functions (see layout_fn.js)
-      // $props.interval -> candlestick time interval
-      // $props.sub -> current subset of candlestick data
-      // $props.data -> your indicator's data subset.
-      //  Comes "as is", should have the following format:
-      //  [[<timestamp>, ... ], ... ]
-      // $props.colors -> colors (see TradingVue.vue)
-      // $props.cursor -> current position of crosshair
-      // $props.settings -> indicator custom settings
-      //  E.g. colors, line thickness, etc. You define it.
-      // ~
-      // Finally, let's make the canvas dirty!
-      draw(ctx) {
-          const l = this.$props.layout
-          const c = { x : l.width / 2, y : l.height / 2 }
-          ctx.lineWidth = 1
-          ctx.strokeStyle = 'gray'
-          ctx.fillStyle = '#ffea03'
-          ctx.beginPath()
-          ctx.arc(c.x, c.y, 50, 0, Math.PI * 2, true) // Outer circle
-          ctx.fill()
-          ctx.stroke()
-          ctx.beginPath()
-          ctx.strokeStyle = 'black'
-          ctx.moveTo(c.x + 35, c.y)
-          ctx.arc(c.x, c.y, 35, 0, Math.PI , false)  // Mouth (clockwise)
-          ctx.moveTo(c.x - 10, c.y - 10)
-          ctx.fillStyle = '#ffea03'
-          ctx.arc(c.x - 15, c.y - 10, 5, 0, Math.PI * 2, true)  // Left eye
-          ctx.fill()
-          ctx.moveTo(c.x + 20, c.y - 10)
-          ctx.arc(c.x + 15, c.y - 10, 5, 0, Math.PI * 2, true)  // Right eye
-          ctx.fill()
-          ctx.stroke()
-      },
-      // For all data with these types overlay will be
-      // added to the renderer list. And '$props.data'
-      // will have the corresponding values. If you want to
-      // redefine the default behviour for a prticular
-      // indicator (let's say EMA),
-      // just create a new overlay with the same type:
-      // e.g. use_for() { return ['EMA'] }.
-      use_for() { return ['GRIN'] },
-      data_colors() { return ['yellow'] }
+    testData () {
+      let data = testData.data
+      var ohlc = [],
+        volume = [],
+        dataLength = data.length,
+        // set the allowed units for data grouping
+        groupingUnits = [[
+          'week',                         // unit name
+          [1]                             // allowed multiples
+        ], [
+          'month',
+          [1, 2, 3, 4, 6]
+        ]],
+        i = 0;
+
+      for (i; i < dataLength; i += 1) {
+        ohlc.push([
+          data[i][0], // the date
+          data[i][1], // open
+          data[i][2], // high
+          data[i][3], // low
+          data[i][4] // close
+        ]);
+        volume.push([
+          data[i][0], // the date
+          data[i][5] // the volume
+        ]);
+      }
+
+      this.ohlc = ohlc
+
+      this.stockOptions = {
+        rangeSelector: {
+          selected: 1,
+          inputDateFormat: '%Y-%m-%d'
+        },
+        lang: {
+          rangeSelectorZoom: ''
+        },
+        title: {
+          text: '平安银行历史股价'
+        },
+        xAxis: {
+          dateTimeLabelFormats: {
+            millisecond: '%H:%M:%S.%L',
+            second: '%H:%M:%S',
+            minute: '%H:%M',
+            hour: '%H:%M',
+            day: '%m-%d',
+            week: '%m-%d',
+            month: '%y-%m',
+            year: '%Y'
+          }
+        },
+        tooltip: {
+          split: false,
+          shared: true,
+        },
+        yAxis: [{
+          labels: {
+            align: 'right',
+            x: -3
+          },
+          title: {
+            text: '股价'
+          },
+          height: '65%',
+          resize: {
+            enabled: true
+          },
+          lineWidth: 2
+        }, {
+          labels: {
+            align: 'right',
+            x: -3
+          },
+          title: {
+            text: '成交量'
+          },
+          top: '65%',
+          height: '35%',
+          offset: 0,
+          lineWidth: 2
+        }],
+        series: [{
+          type: 'candlestick',
+          name: '平安银行',
+          color: 'green',
+          lineColor: 'green',
+          upColor: 'red',
+          upLineColor: 'red',
+          tooltip: {
+          },
+          navigatorOptions: {
+          },
+          data: ohlc,
+          dataGrouping: {
+            units: groupingUnits
+          },
+          id: 'sz'
+        },{
+          type: 'column',
+          data: volume,
+          yAxis: 1,
+          dataGrouping: {
+            units: groupingUnits
+          }
+        }]
+      }
+    }
   },
   mounted() {
-    this.$store.dispatch('CALL_API_EXAMPLE', { vm: this })
+    this.testData()
   },
   computed: {
     websocketConnected () {
