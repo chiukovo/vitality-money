@@ -57,6 +57,26 @@ export default {
       this.stockOptions = {
         rangeSelector: {
           selected: 1,
+          buttons: [{
+              type: 'month',
+              count: 1,
+              text: '月'
+          }, {
+              type: 'month',
+              count: 3,
+              text: '季度'
+          }, {
+              type: 'month',
+              count: 6,
+              text: '半年'
+          }, {
+              type: 'year',
+              count: 1,
+              text: '半'
+          }, {
+              type: 'all',
+              text: '全部'
+          }],
           inputDateFormat: '%Y-%m-%d'
         },
         lang: {

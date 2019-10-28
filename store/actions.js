@@ -13,10 +13,10 @@ export default {
       commit('setApiExample', response.data)
     })
 	},
-	async CALL_QUERY_TECH ({ commit }, params) {
-		await axios.post("/api/query_tech", qs.stringify({
-      	userID: 'test',
-      	Token: 'test',
+	async CALL_QUERY_TECH ({ commit, state }, params) {
+		await axios.post("/api/query_tech?lang=" + state.localStorage.lang, qs.stringify({
+        userID: state.localStorage.userAuth.userId,
+        Token: state.localStorage.userAuth.token,
       	Params: params.id + ',minone,' + params.num + ',' + params.type,
     }))
     .then(response => {

@@ -139,12 +139,20 @@ export default {
       //{商品1 第二筆成交量-第一筆成交量} 6
       //{商品1 第二筆成交Uniq Index-第一筆成交Uniq Index} 7
       const _this = this
-      let itemId = res[0];
+      let itemId = res[0]
+      let clickItemId = this.$store.state.clickItemId
       let nowItems = res[1].split(",").map(function(item) {
         return parseInt(item, 10)
       })
 
-      this.items = this.items.map(function (val) {
+      //k線圖資料更新判斷
+      let kLineData = _this.$store.state.kLineData
+
+      if (kLineData.length > 0 && itemId == clickItemId) {
+        _this.updateKlineData(nowItems, kLineData)
+      }
+
+      this.items = _this.items.map(function (val) {
         if (itemId == val.product_id) {
           //計算
           let dindex = 0;
@@ -236,6 +244,12 @@ export default {
         'type': 'kline',
         'num': 2
       })
+    },
+    updateKlineData(items, kLineData) {
+      const _this = this
+      let clickItemId = this.$store.state.clickItemId
+
+      _this.$store.commit('doUpdateklLineData', items)
     }
   }
 }

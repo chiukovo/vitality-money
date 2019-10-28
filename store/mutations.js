@@ -33,6 +33,12 @@ export default {
   setNowFiveMoney(state, data) {
     state.nowFiveMoney = data
   },
+  doUpdateklLineData(state, data) {
+    let kLineData = state.kLineData
+    const lastK = kLineData[kLineData.length - 1]
+    console.log(lastK)
+    console.log(data)
+  },
   setkLineData(state, response) {
     if (typeof state.kLineData == 'undefined') {
       Vue.set(state.kLineData, response.type, [])
@@ -61,9 +67,23 @@ export default {
               continue
             }
 
-            dateTime = new Date(historyItem[0] + " " + historyItem[1]).getTime();
+            dateTime = new Date(historyItem[0] + " " + historyItem[1]).getTime()
+
+            if (state.clickItemId == "TXF" || state.clickItemId == "EXF" || state.clickItemId == "FXF" || state.clickItemId == "TSLQ") {
+              let t = historyData[1].split(":");
+              if(parseInt(t[0]) * 60 + parseInt(t[1]) > 825) {
+                  continue;
+              }
+            }
+
             if (isNaN(dateTime)) {
               continue
+            }
+
+            if (state.kLineData.length > 0) {
+              if (dateTime <= state.kLineData[state.kLineData.length - 1][0]) {
+                continue;
+              }
             }
 
             state.kLineData.push([

@@ -5,6 +5,12 @@ import stockInit from 'highcharts/modules/stock'
 import mapInit from 'highcharts/modules/map'
 
 if (typeof Highcharts === 'object') {
+	Highcharts.setOptions({
+		global: {
+			useUTC: false
+		}
+	})
+
   stockInit(Highcharts)
   mapInit(Highcharts)
 }
