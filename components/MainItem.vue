@@ -29,7 +29,7 @@
                 <td class="text-secondary">{{ item.product_name }}</td>
                 <td>0</td>
                 <td><a href="#" @click="clickKline(item)"><img src="/dist/images/table_btn_kline.jpg"></a></td>
-                <td><a href="#"><img src="/dist/images/table_btn_trend.jpg"></a></td>
+                <td><a href="#" @click="clickChart(item)"><img src="/dist/images/table_btn_trend.jpg"></a></td>
                 <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
                 <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
                 <td :class="item.sp_price_change">{{ item.sp_price | currency }}</td>
@@ -57,6 +57,7 @@
     <div>
       <client-only>
         <Kchart></Kchart>
+        <Chart></Chart>
       </client-only>
     </div>
   </div>
@@ -64,6 +65,7 @@
 <script>
 
 import Kchart from "~/components/Kchart"
+import Chart from "~/components/Chart"
 import { mapState } from 'vuex'
 
 export default {
@@ -79,6 +81,7 @@ export default {
   },
   components: {
     Kchart,
+    Chart,
   },
   computed: mapState([
     'mainItem',
@@ -147,6 +150,8 @@ export default {
 
       //k線圖資料更新判斷
       let kLineData = _this.$store.state.kLineData
+      //長條圖更新
+      let chartData = _this.$store.state.chartData
 
       if (kLineData.length > 0 && itemId == clickItemId) {
         _this.updateKlineData(nowItems, kLineData)
@@ -159,6 +164,9 @@ export default {
           let prices = []
           let localTime = (nowItems[0] < 10000000) ? "0" + nowItems[0] / 100 : "" + nowItems[0] / 100
           let flocalTime = _this.formatTime(localTime)
+
+          let nowDate = new Date();
+          let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
 
           //最高
           if (val.highest_price < nowItems[1]) {
@@ -188,6 +196,12 @@ export default {
 
             dindex += 4;
           }
+
+          //if click 長條圖
+          if (chartData.length > 0 && itemId == clickItemId) {
+            _this.$store.commit('doUpdateChartData', {prices, fullTime})
+          }
+
           //總量
           val.total_qty += nowItems[2]
           val.total_qty_change = nowItems[2] == 0 ? '' : _this.borderName
@@ -218,7 +232,6 @@ export default {
 
       this.items = this.items.map(function (val) {
         if (itemId == val.product_id) {
-
           val.bp_price_change = val.bp_price == five[3] ? '' : _this.borderName
           val.bp_price = five[3]
 
@@ -245,12 +258,25 @@ export default {
         'num': 2
       })
     },
+    clickChart(item) {
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': item.product_id,
+        'type': 'minone',
+        'num': 1
+      })
+    },
     updateKlineData(items, kLineData) {
       const _this = this
       let clickItemId = this.$store.state.clickItemId
 
       _this.$store.commit('doUpdateklLineData', items)
-    }
+    },
+    updateChartData(items, kLineData) {
+      const _this = this
+      let clickItemId = this.$store.state.clickItemId
+
+      _this.$store.commit('doUpdateChartData', items)
+    },
   }
 }
 </script>

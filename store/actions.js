@@ -25,6 +25,11 @@ export default {
           data: response.data,
           type: params.type
         })
+      } else if (params.type == 'minone') {
+        commit('setChartData', {
+          data: response.data,
+          type: params.type
+        })
       }
     })
 	},

@@ -96,7 +96,19 @@ export default {
           resize: {
             enabled: true
           },
-          lineWidth: 2
+          lineWidth: 2,
+          crosshair: {
+            label: {
+              enabled: true,
+              format: '{value:.2f}'
+            }
+          },
+          labels: {
+            align: 'left',
+            format: '{value:.2f}',
+            y: 6,
+            x: 2
+          }
         }, {
           labels: {
             align: 'right',

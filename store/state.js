@@ -10,6 +10,7 @@ export default () => ({
   nowFiveMoney: [],
   historyPrice: [],
   kLineData: [],
+  chartData: [],
   clickItemId: '',
   itemName: '',
   chartType: '',

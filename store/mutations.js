@@ -35,9 +35,64 @@ export default {
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
-    const lastK = kLineData[kLineData.length - 1]
-    console.log(lastK)
-    console.log(data)
+  },
+  doUpdateChartData(state, {prices, fullTime}) {
+    let chartData = state.chartData
+
+    prices.forEach(function(val) {
+      state.chartData.push([
+        fullTime,
+        val[1] //價格
+      ])
+    })
+  },
+  setChartData(state, response) {
+    if (typeof state.chartData == 'undefined') {
+      Vue.set(state.chartData, response.type, [])
+    }
+
+    state.chartData = []
+
+    const code = response.data.Code
+    const data = response.data.Tech
+    const type = response.type
+
+    if (code == 1) {
+      let items = data.split(",")
+
+      if (items.length > 1) {
+        let dateTime = new Date(items[0]).getTime()
+        let chartData = parseInt(items[1])
+
+        state.chartData.push([
+          dateTime,
+          chartData
+        ])
+
+        for (let i = 3; i < items.length - 1; i += 3) {
+          let chartDateTime = dateTime + parseInt(items[i]) * 60000
+          chartData += parseInt(items[i + 1])
+
+          if (parseInt(items[i]) > 0) {
+            if (state.clickItemId == "TXF" || state.clickItemId == "EXF" || state.clickItemId == "FXF" || state.clickItemId == "TSLQ") {
+              let x = chartDateTime / 60000
+              let minutes = x % 60
+              x = parseInt(chartDateTime / 3600000);
+              let hours = x % 24 + 8
+              let confirmTime = parseInt(hours * 60 +  minutes);
+              if(confirmTime > 825) {
+                  continue
+              }
+            }
+
+            state.chartData.push([
+              chartDateTime,
+              chartData
+            ])
+          }
+        }
+      }
+    }
   },
   setkLineData(state, response) {
     if (typeof state.kLineData == 'undefined') {
