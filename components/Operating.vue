@@ -1,141 +1,66 @@
-<template>
-  <div>
-    <div class="row" id="block5" ref="block5">
-      <div class="col block block5">
-        <div class="block5row row flex-nowrap">
-          <div class="block5col block5-1">
-            <div class="productName">恆生期</div>
-            <div class="modeSelect">
-              <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" id="modeRadio1" name="mode" checked="checked"/>
-                <label class="custom-control-label" for="modeRadio1">一般</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" id="modeRadio2" name="mode"/>
-                <label class="custom-control-label" for="modeRadio2">雷電</label>
-              </div>
-            </div>
-          </div>
-          <div class="block5col block5-2">
-            <table>
-              <tbody>
-              <tr>
-                <td></td>
-                <td>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio1" name="order" checked="checked"/>
-                    <label class="custom-control-label" for="orderRadio1">市價單</label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio2" name="order"/>
-                    <label class="custom-control-label" for="orderRadio2">收盤單</label>
-                  </div>
-                </td>
-                <td>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="orderRadio3" name="order"/>
-                    <label class="custom-control-label" for="orderRadio3">限價單</label>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block5col block5-3">
-            <div class="row">
-              <div class="form-group row">
-                <label class="col-form-label mr-1">停利:</label>
-                <div class="col">
-                  <input class="form-control form-control-sm" type="number" value="1"/>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-form-label mr-1">停損:</label>
-                <div class="col">
-                  <input class="form-control form-control-sm" type="number" value="1"/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="block5col block5-4">
-            <table>
-              <tbody>
-              <tr>
-                <td class="numberBtn">
-                  <div class="btn-group">
-                    <button class="btn btn-light btn-sm">1</button>
-                    <button class="btn btn-light btn-sm">2</button>
-                    <button class="btn btn-light btn-sm">3</button>
-                    <button class="btn btn-light btn-sm">4</button>
-                    <button class="btn btn-light btn-sm">5</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="form-group row">
-                    <label class="col-form-label mr-1">口數:</label>
-                    <div class="col">
-                      <input class="form-control form-control-sm" type="number" value="1"/>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="editBtn">
-                  <div class="btn-group">
-                    <button class="btn btn-light btn-sm">編輯</button>
-                    <button class="btn btn-light btn-sm">還原</button>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block5col block5-5">
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <button class="btn-lg btn-danger">下多單</button>
-                  </td>
-                  <td>
-                    <button class="btn-sm" disabled>全平</button>
-                  </td>
-                  <td>
-                    <button class="btn-lg btn-success">下空單</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block5col block5-6">
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check1" name="block5Check"/>
-              <label class="custom-control-label" for="block5Check1">(恆生期)全盤收平</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check2" name="block5Check" checked="checked"/>
-              <label class="custom-control-label" for="block5Check2">下單不確認</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" id="block5Check3" name="block5Check"/>
-              <label class="custom-control-label" for="block5Check3">限價成交提示</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang='pug'>
+#operating.operating
+  .operating-header
+    .header__title 恆生期
+    .header__mode
+      el-radio(v-model='radioA' label='1') 一般
+      el-radio(v-model='radioA' label='2') 雷電
+  .operating-content
+    .operating-1
+      table
+        tbody
+          tr
+            td
+            td: el-radio(v-model='radioB' label='2') 市價單
+          tr
+            td: el-radio(v-model='radioB' label='3') 收盤單
+            td: el-radio(v-model='radioB' label='4') 限價單
+    .operating-2
+      el-form(ref='form' size='mini' label-width='50px')
+        el-form-item(label='停利:')
+          el-input-number(v-model='num1' controls-position='right' :min='1' :max='10')
+        el-form-item(label='停損:')
+          el-input-number(v-model='num2' controls-position='right' :min='1' :max='10')
+    .operating-3
+      .numberbtn
+        el-form(ref='form' size='mini' label-width='50px')
+          el-button-group
+            el-button(plain size='mini') 1
+            el-button(plain size='mini') 2
+            el-button(plain size='mini') 3
+            el-button(plain size='mini') 4
+            el-button(plain size='mini') 5
+      .numberinput
+        el-form(ref='form' size='mini' label-width='50px')
+          el-form-item(label='口數:')
+            el-input-number(v-model='num3' controls-position='right' :min='1' :max='10')
+      .editbtn
+        el-button-group
+          el-button(plainsize='mini') 編輯
+          el-button(plainsize='mini') 還原
+    .operating-4
+      el-button-group
+        el-button(type="danger") 下多單
+        el-button(size='mini' disabled) 全平
+        el-button(type="success") 下空單
+    .operating-5
+      el-checkbox-group(v-model='checkList')
+        el-checkbox(label='(恆生期)全盤收平')
+        el-checkbox(label='下單不確認')
+        el-checkbox(label='限價成交提示')
 </template>
-<script>
 
+<script>
 export default {
-	mounted() {
-	}
+  data () {
+    return {
+      radioA: '1',
+      radioB: '2',
+      num1: 1,
+      num2: 1,
+      num3: 1,
+      checkList: ['下單不確認']
+    };
+  }
 }
 </script>

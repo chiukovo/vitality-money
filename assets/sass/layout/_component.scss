@@ -1,0 +1,96 @@
+// text
+.text-infor {
+    color: $infor;
+}
+.text-up, .text-danger {
+    color: $danger;
+}
+.text-down, .text-success {
+    color: $success;
+}
+.text-lg {
+    font-size: 1.5rem;
+}
+.text-bold {
+    font-weight: bold;
+}
+.label {
+    font-size: 12px;
+    margin: 0 4px 0.5rem 0;
+}
+
+// border
+.border {
+    &.border-up .cell {
+        border-color: $danger;
+    }
+    &.border-down .cell {
+        border-color: $success;
+    }
+}
+tr.border-tr {
+    td {
+        border-top: 1px solid $infor;
+        border-bottom-color: $infor;
+        &:first-child {
+            border-left: 1px solid $infor;
+        }
+        &:last-child {
+            border-right: 1px solid $infor;
+        }
+        &:nth-child(3) {
+            color: #fff;
+            background-color: $infor;
+        }
+    }
+    &:hover {
+        td:nth-child(3) {
+            color: #fff;
+            background-color: $infor;
+        }
+    }
+}
+
+// table
+// 移除左右 border
+.el-table, .el-table--border {
+    border-left: 0;
+    border-right: 0;
+    th, td {
+        &:first-child {
+            border-left: 0;
+        }
+        &:last-child {
+            border-right: 0;
+        }
+    }
+}
+.el-table--border::after, .el-table--group::after, .el-table::before {
+    height: 0;
+}
+.el-table__fixed::before, .el-table__fixed-right::before {
+    display: none;
+}
+// table arrow up / down
+.table-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    margin-right: 2px;
+    .icon-arrow {
+        position: relative;
+        width: 0;
+        height: 0;
+        border-style: solid;
+    }
+    .icon-arrow-up {
+        top: -1px;
+        border-width: 0 5px 8px 5px;
+        border-color: transparent transparent $danger transparent;
+    }
+    .icon-arrow-down {
+        top: 1px;
+        border-width: 8px 5px 0 5px;
+        border-color: $success transparent transparent transparent;
+    }
+}

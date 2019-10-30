@@ -1,19 +1,17 @@
-<template>
-  <div>
-  	<Header></Header>
-  	<main class="container-fluid d-flex" id="main" ref="main" :style="mainStyles">
-  	  <div class="main-left mt-1 ml-1">
-  	  	<UserInfo></UserInfo>
-  	  	<ItemDetail></ItemDetail>
-  	  </div>
-  	  <div class="main-right">
-				<MainItem></MainItem>
-				<History></History>
-				<Operating></Operating>
-  	  </div>
-  	</main>
-  	<Footer></Footer>
-  </div>
+<template lang='pug'>
+  .container-fluid
+    #header.header
+      Header
+    #main.main(:style='mainStyles')
+      #mainLeft.main-left
+        UserInfo
+        ItemDetail
+      #mainRight.main-right
+        MainItem
+        History
+        Operating
+    #footer.footer
+      Footer
 </template>
 <script>
 
@@ -28,12 +26,10 @@ import Footer from "~/components/Footer"
 export default {
 	data () {
 		return {
-	    mainStyles: {},
-	    block2Styles: {},
-	    block2rowStyles: {},
-	    block2tabStyles: {},
-	    block2Table: 0,
-	    block3Table: 0,
+			mainStyles: {},
+			itemDetailStyles: {},
+			ItemDetailTable: 0,
+			mainItemTable: 0
 		}
 	},
 	components: {
@@ -45,14 +41,15 @@ export default {
 		Operating,
 		Footer,
 	},
-	beforeMount () {
-    //window.addEventListener('resize', this.resizeHeight);
+  beforeMount () {
+    window.addEventListener('resize', this.resizeHeight)
   },
-	mounted () {
-		this.checkLogin()
-	  //this.resizeHeight()
-	},
-	methods: {
+  mounted () {
+  	this.checkLogin()
+
+    this.$nextTick(() => {
+      this.resizeHeight()
+    })
 	},
 	computed: {
 	  websocketConnected () {

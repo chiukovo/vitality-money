@@ -1,143 +1,209 @@
-<template>
-  <div>
-    <div class="row" id="block2">
-      <div class="col block block2" :style="this.$parent.block2Styles">
-        <div class="row" id="block2head">
-          <div class="col" v-if="$store.state.itemName != ''">
-            <div class="title">報價明細[{{ $store.state.itemName }}]
-              <button class="btn-sm">查詢</button>
-              <div class="custom-control custom-checkbox custom-control-inline">
-                <input class="custom-control-input" type="checkbox" id="customCheck1" name="namecheck1" checked="checked"/>
-                <label class="custom-control-label" for="customCheck1">置底</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row block2row2" :style="this.$parent.block2rowStyles">
-          <div class="col" :style="this.$parent.block2rowStyles">
-            <ul class="nav nav-pills tab-navlist" role="tablist" id="block2tabs" :style="this.$parent.block2tabStyles">
-              <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#tab0a" @click="clickType(0)"><span>五檔揭示</span></a></li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#tab1a" @click="clickType(1)"><span>量價分佈</span></a></li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#tab2a" @click="clickType(2)"><span>分價揭示</span></a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane fade" :class="type == 0 ? 'show active' : ''" id="tab0a">
-                <div class="block2-table" id="block2Table">
-                  <table :data-height="this.$parent.block2Table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th>比例</th>
-                        <th>委買</th>
-                        <th>價格</th>
-                        <th>委賣</th>
-                        <th>比例</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="items0.length > 0">
-                      <tr v-for="(item, key) in items0" v-if="key <= 4">
-                        <td></td>
-                        <td></td>
-                        <td class="text-danger">{{ item[1] }}</td>
-                        <td>{{ item[2] }}</td>
-                        <td class="p-0">
-                          <div class="progress">
-                            <div class="progress-bar bg-success" :style="'width: ' +  item['percent'] + '%'" :aria-valuenow="item['percent']" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="bg-primary text-white">{{ items0[0]['newPrice'] }}</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr v-for="(item, key) in items0" v-if="key > 4">
-                        <td class="p-0">
-                          <div class="progress progress-right">
-                            <div class="progress-bar bg-danger" :style="'width: ' +  item['percent'] + '%'" :aria-valuenow="item['percent']" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </td>
-                        <td>{{ item[0] }}</td>
-                        <td class="text-danger">{{ item[1] }}</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                    <tbody v-else>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="bg-primary text-white">no data</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="tab-pane fade" :class="type == 1 ? 'show active' : ''" id="tab1a">
-                <div class="block2-table">
-                  <table :data-height="this.$parent.block2Table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th data-field="價格">價格</th>
-                        <th data-field=""></th>
-                        <th data-field="比例">比例</th>
-                        <th data-field="口">口</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="items1.length > 0">
-                      <tr v-for="item in items1">
-                        <td class="text-success">11303</td>
-                        <td>現價</td>
-                        <td class="p-0">
-                          <div class="progress">
-                            <div class="progress-bar bg-success" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </td>
-                        <td>151</td>
-                      </tr>
-                      <tr>
-                        <td class="text-danger">15103</td>
-                        <td> </td>
-                        <td class="p-0">
-                          <div class="progress">
-                            <div class="progress-bar bg-success" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </td>
-                        <td class="text-danger">231</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="tab-pane fade" :class="type == 2 ? 'show active' : ''" id="tab2a">
-                <div class="block2-table">
-                  <table :data-height="this.$parent.block2Table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th data-field="市場時間">市場時間</th>
-                        <th data-field="口">口</th>
-                        <th data-field="價格">價格</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="item in items2">
-                        <td>{{ item.flocalTime }}</td>
-                        <td>{{ item.amount }}</td>
-                        <td>{{ item.price }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang='pug'>
+#itemDetail.itemDetail(:style='this.$parent.itemDetailStyles')
+  #itemDetailHeader
+    .itemDetail-header(v-if="activeName === 'tabs1'" @click="clickType(0)")
+      .header__title 五檔揭示[{{ $store.state.itemName }}]
+    .itemDetail-header(v-if="activeName === 'tabs2'" @click="clickType(1)")
+      .header__title 量價分佈[{{ $store.state.itemName }}]
+      el-button(@click='dialogVisible2 = true' size='mini') 歷史
+    .itemDetail-header(v-if="activeName === 'tabs3'" @click="clickType(2)")
+      .header__title 報價明細[{{ $store.state.itemName }}]
+      el-button(@click='dialogVisible3 = true' size='mini') 查詢
+      el-checkbox(checked) 置底
+  .itemDetail-content
+    el-tabs(
+      v-model='activeName'
+      tabPosition='bottom')
+      //- tabs1
+      el-tab-pane(label='五檔揭示' name='tabs1')
+        el-table.table.itemDetailTab1table(
+          :data="items0"
+          :row-class-name='tableCenterHeightLight'
+          min-width='50%'
+          width='50%'
+          border)
+          el-table-column(label='比例' min-width='20%' align='center' )
+            //- 當無資料時, 應不顯示
+            //- 目前使用 css 隱藏 QAQ..
+            template(slot-scope='scope')
+              .progress-bar(v-if="scope.row[0] == ''")
+              .progress-bar(v-else)
+                el-progress(
+                  :class="scope.row[0] === '' ? 'none' : ''"
+                  :text-inside='true'
+                  :stroke-width='14'
+                  :percentage="scope.row[0]"
+                  :show-text='false'
+                  status='exception')
+          el-table-column(label='委買' min-width='18%' align='center')
+            template(slot-scope='scope') {{ scope.row[1] }}
+          el-table-column(label='價格' min-width='24%' align='center')
+            template(slot-scope='scope') {{ scope.row[2] }}
+          el-table-column(label='委賣' min-width='18%' align='center')
+            template(slot-scope='scope') {{ scope.row[3] }}
+          el-table-column(label='比例' min-width='20%' align='center')
+            template(slot-scope='scope')
+              .progress-bar(v-if="scope.row[4] == ''")
+              .progress-bar(v-else)
+                el-progress(
+                  :class="scope.row[4] === '' ? 'none' : ''"
+                  :text-inside='true'
+                  :stroke-width='14'
+                  :percentage='scope.row[4]'
+                  :show-text='false'
+                  status="success")
+        .itemDetailTabTotal
+          .row
+            .col {{ fiveTotal.more }}
+            .col 總計
+            .col {{ fiveTotal.nullNum }}
+          .row
+            .col.text-up 多勢
+            .col.progress-bar
+              el-progress(
+                :text-inside='true'
+                :stroke-width='10'
+                :show-text='false'
+                :percentage='fiveTotal.morePercent'
+                status='exception')
+            .col.text-down 空勢
+
+      //- tabs2
+      el-tab-pane(label='量價分佈' name='tabs2')
+        el-table.table.itemDetailTab2table(:data='items1' min-width='100%' :height='this.$parent.itemDetailTable' border)
+          el-table-column(label='價格' min-width='30%')
+            template(slot-scope='scope') {{ scope.row[1] }}
+          el-table-column(label='' min-width='20%')
+            template(slot-scope='scope' v-if="scope.row[2]") 現價
+          el-table-column(label='比例' min-width='28%')
+            template(slot-scope='scope')
+              .progress-bar(v-if="scope.row[3] == ''")
+              .progress-bar(v-else)
+                el-progress(
+                  :text-inside='true'
+                  :stroke-width='14'
+                  :percentage='scope.row[3]'
+                  :show-text='false'
+                  status="success")
+          el-table-column(label='口' min-width='22%')
+            template(slot-scope='scope') {{ scope.row[0] }}
+
+      //- tabs3
+      el-tab-pane(label='分價揭示' name='tabs3')
+        el-table.table(
+          :data='items2'
+          :height='this.$parent.itemDetailTable'
+          :cell-class-name='tableCellClassName'
+          min-width='100%'
+          border)
+          el-table-column(label='市場時間' min-width='30%')
+            template(slot-scope='scope') {{ scope.row['flocalTime'] }}
+          el-table-column(label='口' min-width='14%')
+            template(slot-scope='scope') {{ scope.row['amount'] }}
+          //-el-table-column(label='漲跌' min-width='28%')
+            template(slot-scope='scope')
+              .table-icon
+                .icon-arrow(:class="scope.row.change === 'up' ? 'icon-arrow-up' : 'icon-arrow-down'")
+              span
+          el-table-column(label='價格' min-width='28%')
+            template(slot-scope='scope') {{ scope.row['price'] }}
+  el-dialog(
+  :visible.sync='dialogVisible3'
+  :modal='false'
+  width="80%"
+  title='歷史報價'
+  v-dialogDrag)
+    .header-custom(slot='title') 歷史報價
+    template
+      .itemDetai__history
+        .itemDetailtabs__header
+          .row
+            .col
+              el-form(ref='form' size='mini' :inline='true')
+                el-form-item(label='商品: ' size='mini')
+                  el-select(v-model='valueSelect1' placeholder='請選擇' style="width: 90px;")
+                    el-option(label='加權指' value='val')
+                el-form-item(label='日期:')
+                  el-form-item
+                    el-date-picker(type='date' placeholder='日期' v-model='valueDate' style="width: 130px;")
+                el-form-item(label='條件: ' size='mini')
+                  el-select(v-model='valueSelect2' placeholder='請選擇' style="width: 90px;")
+                    el-option(label='時間' value='val')
+                el-button(size='mini') 送出
+          .row
+            .col
+              el-form(ref='form' size='mini' :inline='true')
+                //- 條件篩選: 時間
+                //- endTime placeholder 預設為當前時間
+                //- 範圍為 9:00 - 24:00
+                el-form-item(label='時間: ' size='mini')
+                  el-time-picker(placeholder='9:00:00' v-model='startTime' :picker-options="{selectableRange: '9:00:00 - 20:30:00'}" style="width: 132px;")
+                  el-time-picker(placeholder='13:30:05' v-model='endTime' :picker-options="{selectableRange: '9:00:00 - 24:00:00'}" style="width: 132px;")
+                //- 條件篩選: 價錢
+                //- el-form-item(label='價錢: ' size='mini')
+                  el-input-number(v-model='num1' controls-position='right' :min='1' :max='10')
+                //- 條件篩選: 次序
+                //- 請把第一個條件時間也開啟
+                el-form-item(label='序號: ' size='mini')
+                  el-input-number(v-model='num1' controls-position='right' :min='1' :max='10')
+          .row
+            .col
+              //- 很奇怪的顯示? 切換時間也不會換? 不知道幹嘛用的
+              el-divider(content-position='center') 時間: 2019-10-28 09:00:00 ~ 2019-10-28 13:30:05
+        .itemDetailtabs__content
+          .row
+            .col-6
+              el-table.table(
+                :data='items2'
+                min-width='100%'
+                border)
+                el-table-column(prop='data1' label='市場時間' min-width='30%')
+                el-table-column(prop='data2' label='口' min-width='14%')
+                el-table-column(prop='data3' label='價格' min-width='28%')
+                el-table-column(prop='data4' label='次序' min-width='28%')
+            .col-6
+              el-table.table(
+                :data='items2'
+                min-width='100%'
+                border)
+                el-table-column(prop='data1' label='市場時間' min-width='30%')
+                el-table-column(prop='data2' label='口' min-width='14%')
+                el-table-column(prop='data3' label='價格' min-width='28%')
+                el-table-column(prop='data4' label='次序' min-width='28%')
+  el-dialog(
+  :visible.sync='dialogVisible2'
+  :modal='false'
+  width="80%"
+  title='量價分佈歷史查詢'
+  v-dialogDrag)
+    .header-custom(slot='title') 歷史報價
+    template
+      .itemDetai__history
+        .itemDetailtabs__header
+          .row
+            .col-lg-auto
+              el-form(ref='form' size='mini' :inline='true')
+                el-form-item(label='商品: ' size='mini')
+                  el-select(v-model='valueSelect1' placeholder='請選擇' style="width: 90px;")
+                    el-option(label='加權指' value='val')
+                el-form-item(label='開始日期:')
+                  el-form-item
+                    el-date-picker(type='date' placeholder='開始日期' v-model='valueDateInterval[0]' style="width: 130px;")
+                el-form-item(label='結束日期:')
+                  el-form-item
+                    el-date-picker(type='date' placeholder='結束日期' v-model='valueDateInterval[1]' style="width: 130px;")
+                el-button(size='mini') 送出
+            .col-lg-auto
+              span.label 快速查詢
+              el-button(size='mini') 今日
+              el-button(size='mini') 昨日
+              el-button(size='mini') 本週
+              el-button(size='mini') 上週
+              el-button(size='mini') 上月
+        .itemDetailtabs__content
+          .row
+            .col
+              |table
 </template>
 <script>
 
@@ -149,8 +215,27 @@ export default {
       items0: [], //五檔揭示
       items1: [], //量價分布
       items2: [], //分價揭示
+      fiveTotal: {
+        more: 0,
+        morePercent: 0,
+        nullNum: 0,
+      },
       type: 0,
-      borderName: 'border border-primary'
+      borderName: 'border border-primary',
+      activeName: 'tabs1',
+      dialogVisible2: false,
+      dialogVisible3: false,
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }],
+      valueDate: new Date(2000, 10, 10, 10, 10),
+      valueSelect1: 'val',
+      valueSelect2: 'val',
+      startTime: new Date(2016, 9, 10, 18, 40),
+      endTime: new Date(2016, 9, 10, 18, 40),
+      num1: 1,
+      valueDateInterval: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 10, 10, 10)]
     }
   },
   computed: mapState([
@@ -188,6 +273,8 @@ export default {
   },
   methods: {
     fiveItemChange(fiveData) {
+      let _this = this
+
       if (typeof fiveData == 'undefined') {
         this.items0 = []
         return
@@ -195,6 +282,20 @@ export default {
 
       if (fiveData.length > 0) {
         this.items0 = fiveData
+
+        //計算total
+        this.items0.forEach(function(val) {
+          if (val[1] != '') {
+            _this.fiveTotal.more += parseInt(val[1])
+          }
+
+          if (val[3] != '') {
+            _this.fiveTotal.nullNum += parseInt(val[3])
+          }
+        })
+
+        //多勢 %
+        _this.fiveTotal.morePercent = parseInt(100 / (_this.fiveTotal.more + _this.fiveTotal.nullNum) * _this.fiveTotal.more)
       }
     },
     volumeChange(money) {
@@ -219,6 +320,21 @@ export default {
     },
     clickType (type) {
       this.type = type
+    },
+    tableCellClassName({ row, column, columnIndex }) {
+      if(columnIndex >= 2) {
+        if(row.change == 'up') {
+          return 'text-up';
+        } else {
+          return 'text-down';
+        }
+      }
+    },
+    tableCenterHeightLight({ row, rowIndex }) {
+      // 在列表垂置置中的位置加入 border-tr
+      if(rowIndex == 4) {
+        return 'border-tr';
+      }
     }
   }
 }

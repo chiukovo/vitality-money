@@ -1,0 +1,290 @@
+* {
+    box-sizing: border-box;
+}
+
+//-------------- header
+.header, .main, .footer {
+    margin-right: -4px;
+    margin-left: -4px;
+}
+.header {
+    color: #fff;
+    background-color: #191B1D;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    a {
+        color: #fff;
+        text-decoration: none;
+        &:hover {
+            color: yellow
+        }
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+    }
+    .navbar-nav {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        .nav-link{
+            display: block;
+            color: #fff;
+            padding: 1rem;
+        }
+        .nav-item {
+            &:hover .dropdown-menu {
+                display: block;
+            }
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            z-index: 999;
+            background-color: #3a4049;
+            > a {
+                display: block;
+                padding: .5rem 1rem;
+            }
+        }
+        .navbar-txt + .navbar-txt {
+            margin-left: 1rem;
+        }
+    }
+}
+
+//-------------- footer
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    background-color: #191B1D;
+    height: 50px;
+}
+
+//-------------- main
+.main {
+    display: flex;
+    padding: 10px;
+}
+.main-left {
+    width: 280px;
+}
+.main-right {
+    width: calc(100% - 280px);
+    padding-left: 10px;
+}
+
+//-------------- userInfo
+#userInfo {
+    padding-bottom: 10px;
+}
+.userInfo {
+    border: 1px solid $border-color;
+    .userInfo-header {
+        background-color: #F5F7FA;
+        border-bottom: 1px solid $border-color;
+        padding: 4px 10px;
+    }
+}
+
+//-------------- itemDetail
+.itemDetail {
+    border: 1px solid $border-color;
+    .itemDetail-header {
+        height: 38px;
+        border-bottom: 1px solid $border-color;
+        padding: 4px 10px;
+        .header__title {
+            display: inline-block;
+            line-height: 2;
+        }
+        .el-button {
+            margin: 0 10px;
+        }
+    }
+    .el-tabs {
+        position: relative;
+    }
+    .el-tabs__header {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid $border-color;
+        margin-top: 0 !important;
+        .el-tabs__item {
+            padding: 0 10px;
+        }
+    }
+    .el-progress-bar__inner {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .itemDetailTab1table {
+        .el-table__body {
+            width: auto !important;
+            margin-right: 1px;
+        }
+        .el-table__body td {
+            &:first-child .cell,
+            &:last-child .cell {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .el-progress-bar__outer,
+            .el-progress-bar__inner {
+                border-radius: 0;
+            }
+        }
+    }
+    .itemDetailTab2table {
+        .el-table__body td {
+            &:nth-child(3) .cell {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .el-progress-bar__outer,
+            .el-progress-bar__inner {
+                border-radius: 0;
+            }
+        }
+    }
+    .itemDetailTabTotal {
+        width: 100%;
+        background: #f5f7fa;
+        border-bottom: 1px solid $border-color;
+        .row {
+            align-items: center;
+            padding: 6px 10px;
+            &:first-child {
+                justify-content: space-around;
+                border-top: 1px solid $border-color;
+                border-bottom: 1px solid $border-color;
+            }
+            .col {
+                text-align: center;
+            }
+            .progress-bar {
+                padding: 0;
+            }
+        }
+        .el-progress-bar__outer {
+            background-color: #67C23A;
+        }
+    }
+}
+
+.itemDetailtabs__header {
+    padding: 10px 12px 4px 12px;
+}
+.itemDetailtabs__content {
+    padding: 4px 10px 10px 10px;
+}
+.itemDetai__history {
+    .itemDetailtabs__header {
+        .row + .row {
+            margin-top: 4px;
+        }
+    }
+    .itemDetailtabs__content {
+        .table {
+            border-left: 1px solid $border-color;
+            border-right: 1px solid $border-color;
+        }
+    }
+}
+
+//-------------- mainItem
+.mainItem {
+    border: 1px solid $border-color;
+    border-top: 0;
+}
+
+//-------------- history
+.history {
+    height: 220px;
+    padding: 10px 0;
+    .history-wrap {
+        height: 100%;
+        border: 1px solid $border-color;
+    }
+    .el-tabs__header {
+        padding: 2px 2px 0 2px;
+        margin-bottom: 0;
+    }
+    .history-tabs-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 4px 10px;
+        overflow-x: auto;
+        .col {
+            flex: 1 0 auto;
+            padding: 4px 10px;
+        }
+    }
+}
+
+//-------------- operating
+.operating {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid $border-color;
+    .operating-header {
+        display: flex;
+        align-items: center;
+        background-color: #F5F7FA;
+        border-right: 1px solid $border-color;
+        padding: 4px 10px;
+        .header__title {
+            width: 1rem;
+        }
+        .header__mode {
+            display: flex;
+            flex-flow: column;
+            padding-left: .5rem;
+            .el-radio {
+                margin-right: 0;
+                + .el-radio {
+                    margin-top: 7px;
+                }
+            }
+        }
+    }
+    .operating-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow-x: auto;
+        padding: 4px 10px;
+        [class*="operating-"] {
+            flex: 0 0 auto;
+            + [class*="operating-"] {
+                margin-left: 0.5rem;
+            }
+        }
+        .el-radio {
+            margin-right: 7px;
+        }
+        .el-button-group {
+            display: flex;
+        }
+        .numberbtn, .editbtn {
+            margin-bottom: 1px;
+            .el-button {
+                flex: 1;
+                padding: 7px;
+            }
+        }
+        .operating-5 {
+            .el-checkbox-group {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

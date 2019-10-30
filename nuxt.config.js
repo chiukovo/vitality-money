@@ -12,8 +12,7 @@ module.exports = {
     ],
     script: [
       {src: '/assets/js/jquery.min.js'},
-      {src: '/assets/js/bootstrap-table.min.js'},
-      {src: '/assets/js/bootstrap.js'},
+      {src: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'},
     ]
   },
   /*
@@ -24,7 +23,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/static/dist/css/style.css'
+    '@/assets/sass/style.scss',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -35,6 +34,8 @@ module.exports = {
     {src: '~plugins/trading.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/highcharts.js', ssr: true},
+    '@/plugins/element-ui',
+    '@/static/js/el-dialogdrag'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -48,6 +49,7 @@ module.exports = {
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    '@nuxtjs/style-resources',
     ['vue-currency-filter/nuxt', {
       thousandsSeparator: ',',
       symbolPosition: 'front',
@@ -82,5 +84,8 @@ module.exports = {
   chainWebpack: config => {
     //close eslint
     config.module.rules.delete("eslint");
+  },
+  build: {
+    transpile: [/^element-ui/],
   }
 }

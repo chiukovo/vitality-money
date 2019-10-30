@@ -25,9 +25,18 @@
     "trading-vue-js": "^0.3.12",
     "vue-currency-filter": "^3.4.3",
     "vue-native-websocket": "^2.0.13",
-    "vue-slimscroll": "^1.0.1"
+    "reset-css": "^5.0.1",
+    "element-theme-chalk": "^2.12.0",
+    "element-ui": "^2.4.11",
+    "@nuxtjs/style-resources": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "node-sass": "^4.13.0",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.0"
   }
 }

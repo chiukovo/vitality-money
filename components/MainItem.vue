@@ -1,66 +1,73 @@
-<template>
-  <div>
-    <div class="row" id="block3" ref="block3">
-      <div class="col block block3">
-        <div class="block3-table">
-          <table data-toggle="table" :data-height="this.$parent.block3Table">
-            <thead class="thead-light">
-              <tr>
-                <th data-field="商品">商品</th>
-                <th data-field="倉位">倉位</th>
-                <th data-field="K線">K線</th>
-                <th data-field="走勢">走勢</th>
-                <th data-field="成交">成交</th>
-                <th data-field="買進">買進</th>
-                <th data-field="賣出">賣出</th>
-                <th data-field="漲跌">漲跌</th>
-                <th data-field="長跌幅">長跌幅</th>
-                <th data-field="總量">總量</th>
-                <th data-field="開盤">開盤</th>
-                <th data-field="最高">最高</th>
-                <th data-field="最低">最低</th>
-                <th data-field="昨收盤">昨收盤</th>
-                <th data-field="昨結算">昨結算</th>
-                <th data-field="狀態">狀態</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in items" :class="[item.color, item.product_id == itemId ? 'bg-success' : '']" @click="clickItem(item)">
-                <td class="text-secondary">{{ item.product_name }}</td>
-                <td>0</td>
-                <td><a href="#" @click="clickKline(item)"><img src="/dist/images/table_btn_kline.jpg"></a></td>
-                <td><a href="#" @click="clickChart(item)"><img src="/dist/images/table_btn_trend.jpg"></a></td>
-                <td :class="item.newest_price_change">{{ item.newest_price | currency }}</td>
-                <td :class="item.bp_price_change">{{ item.bp_price | currency }}</td>
-                <td :class="item.sp_price_change">{{ item.sp_price | currency }}</td>
-                <td>
-                  <div class="arrow arrow-top" v-if="item.gain_color == 'text-danger'"></div>
-                  <div class="arrow arrow-down" v-if="item.gain_color == 'text-success'"></div>
-                  {{ item.gain }}
-                </td>
-                <td>{{ item.gain_percent }}%</td>
-                <td :class="item.total_qty_change">{{ item.total_qty | currency }}</td>
-                <td>{{ item.open_price | currency }}</td>
-                <td :class="item.highest_price_change">{{ item.highest_price | currency }}</td>
-                <td :class="item.lowest_price_change">{{ item.lowest_price | currency }}</td>
-                <td>{{ item.yesterday_last_price | currency }}</td>
-                <td>{{ item.yesterday_close_price | currency }}</td>
-                <td>
-                  {{ item.state_name }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div>
-      <client-only>
-        <Kchart></Kchart>
-        <Chart></Chart>
-      </client-only>
-    </div>
-  </div>
+<template lang="pug">
+#mainItem.mainItem
+  .mainItem-content
+    el-dialog(
+      :visible.sync='dialogVisible'
+      :fullscreen='dialogFullScreen'
+      :modal='false'
+      title='$store.state.itemName'
+      v-dialogDrag)
+      .header-custom(slot='title')
+        i.el-icon-info
+        |  {{ $store.state.itemName }}
+        .el-dialog__button-group
+          //- 點擊 dialog__screen, dialogFullScreen 變成 true
+          button.el-dialog__headerbtn.el-dialog__screen(@click='dialogFullScreen == true')
+            i.el-icon.el-icon-top-right(v-if='dialogFullScreen == false')
+            i.el-icon.el-icon-bottom-left(v-else)
+          //- 點擊 dialog__min, 給 .el-dialog class el-dialog-min
+          button.el-dialog__headerbtn.el-dialog__min
+            i.el-icon.el-icon-minus
+      template
+        client-only
+          Kchart(v-if="clickType == 1")
+          Chart(v-if="clickType == 2")
+
+    el-table.table(
+      :data='items',
+      :height='this.$parent.mainItemTable',
+      :cell-class-name='tableCellClassName',
+      @row-click="clickItem",
+      min-width='100%'
+      border)
+        //- 上升/下降 td .cell add class: '.text-up || .text-down'
+        //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
+        el-table-column(label='商品', fixed)
+          template(slot-scope='scope') {{ scope.row['product_name'] }}
+        el-table-column(label='倉位', fixed, width='50')
+        el-table-column(label='K線', width='50')
+          template(slot-scope='scope')
+            el-button(type='text', @click='clickKline(scope.row)' size='mini') k線
+        el-table-column(label='走勢', width='50')
+          template(slot-scope='scope')
+            el-button(type='text', @click="clickChart(scope.row)" size='mini') 走勢
+        el-table-column(label='成交')
+          template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+        el-table-column(label='買進')
+          template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
+        el-table-column(label='賣出')
+          template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
+        el-table-column(label='漲跌')
+          template(slot-scope='scope')
+            .table-icon
+              .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+            span {{ scope.row['gain'] }}
+        el-table-column(label='漲跌幅')
+          template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
+        el-table-column(label='總量')
+          template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+        el-table-column(label='開盤')
+          template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
+        el-table-column(label='最高')
+          template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
+        el-table-column(label='最低')
+          template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
+        el-table-column(label='昨收盤')
+          template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
+        el-table-column(label='昨結算')
+          template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
+        el-table-column(label='狀態')
+          template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>
 <script>
 
@@ -71,14 +78,14 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 	  return {
+      clickType: '',
+      dialogVisible: false,
+      dialogFullScreen: false,
       items: [],
       itemId: '',
-      borderName: 'border border-primary'
+      borderName: ''
 	  }
 	},
-  updated () {
-    this.updateScroll()
-  },
   components: {
     Kchart,
     Chart,
@@ -109,13 +116,12 @@ export default {
 
         if (val.state == 2) {
           if (val.newest_price > val.yesterday_close_price) {
-            val.color = 'text-danger'
+            val.color = 'text-up'
+            _this.borderName = 'border border-up'
           } else if (val.newest_price < val.yesterday_close_price) {
-            val.color = 'text-success'
+            val.color = 'text-down'
+            _this.borderName = 'border border-down'
           }
-
-        } else {
-          val.color = 'text-muted'
         }
 
         val.gain = val.newest_price - val.yesterday_close_price
@@ -160,7 +166,7 @@ export default {
         _this.updateKlineData(nowItems, kLineData)
       }
 
-      this.items = _this.items.map(function (val) {
+      _this.items = _this.items.map(function (val) {
         if (itemId == val.product_id) {
           //計算
           let dindex = 0;
@@ -170,6 +176,8 @@ export default {
 
           let nowDate = new Date();
           let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
+
+          _this.borderName = val.color == 'text-up' ? 'border border-up' : 'border border-down'
 
           //最高
           if (val.highest_price < nowItems[1]) {
@@ -225,6 +233,20 @@ export default {
 
         return val
       })
+
+      //remove border
+      setTimeout(function() {
+        _this.items = _this.items.map(function (val) {
+          if (itemId == val.product_id) {
+            val.highest_price_change = ''
+            val.lowest_price_change = ''
+            val.total_qty_change = ''
+            val.newest_price_change = ''
+          }
+
+          return val
+        })
+      }, 500)
     },
     nowFiveMoney (five) {
       //陣列第[3]：第一筆買價
@@ -264,6 +286,8 @@ export default {
         'type': 'kline',
         'num': 2
       })
+      this.clickType = 1
+      this.dialogVisible = true
     },
     clickChart(item) {
       this.$store.dispatch('CALL_QUERY_TECH', {
@@ -271,6 +295,8 @@ export default {
         'type': 'minone',
         'num': 1
       })
+      this.clickType = 2
+      this.dialogVisible = true
     },
     updateKlineData(items, kLineData) {
       const _this = this
@@ -283,6 +309,37 @@ export default {
       let clickItemId = this.$store.state.clickItemId
 
       _this.$store.commit('doUpdateChartData', items)
+    },
+    tableCellClassName({ row, column, columnIndex }) {
+      //判斷個別顏色
+      if(columnIndex == 4) {
+        return row.color + ' ' + row.newest_price_change
+      }
+
+      if(columnIndex == 5) {
+        return row.color + ' ' + row.bp_price_change
+      }
+
+      if(columnIndex == 6) {
+        return row.color + ' ' + row.sp_price_change
+      }
+
+      if(columnIndex == 9) {
+        return row.total_qty_change
+      }
+
+      if(columnIndex == 11) {
+        return row.highest_price_change
+      }
+
+      if(columnIndex == 12) {
+        return row.lowest_price_change
+      }
+
+      //判斷整行顏色
+      if(columnIndex >= 4 && columnIndex != 9 && columnIndex != 15) {
+        return row.color
+      }
     },
   }
 }

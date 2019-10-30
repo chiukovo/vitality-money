@@ -1,0 +1,95 @@
+.el-table {
+  th {
+    font-weight: normal;
+    background-color: #F5F7FA;
+  }
+  th, td {
+    padding: 0;
+  }
+  .cell {
+    line-height: 30px;
+    height: 30px;
+    border: 1px solid transparent;
+  }
+}
+
+.el-form-item--mini.el-form-item {
+  margin-bottom: 2px;
+}
+
+.el-checkbox__label {
+  padding-left: 4px;
+}
+
+.el-button + .el-button {
+  margin-left: 4px;
+}
+
+.el-form--inline {
+  .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    + .el-form-item {
+      margin-left: 8px;
+    }
+    + .el-button {
+      line-height: 1;
+      margin-left: 4px;
+    }
+  }
+  .el-input + .el-input {
+    margin-left: 4px;
+  }
+}
+
+
+.el-dialog__header {
+  padding: 10px;
+  background: #f5f7fa;
+}
+.el-dialog__button-group {
+  position: absolute;
+    right: 0;
+    top: 0;
+}
+.el-dialog__headerbtn {
+  top: 8px;
+  right: 10px;
+  &.el-dialog__screen {
+    right: 66px;
+  }
+  &.el-dialog__min {
+    right: 36px;
+  }
+  &:hover i {
+    color: #409EFF;
+  }
+}
+.el-dialog__body {
+  padding: 0;
+  img {
+    width: 100%;
+  }
+}
+.header-custom {
+  i {
+    color: $secondary;
+  }
+}
+
+.el-dialog__wrapper, .el-dialog {
+  pointer-events: none;
+}
+.el-dialog__header,
+.el-dialog__body {
+  pointer-events: auto
+}
+
+@include b(table) {
+  font-size: 12px;
+}
+@include b(tabs) {
+  @include e(item) {
+    font-size: 12px;
+  }
+}

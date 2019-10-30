@@ -44,6 +44,7 @@ export default {
     let buy = 0
     let sell = 0
     let nowPrice = state.nowNewPrice[itemId]
+    let formatData = []
 
     Vue.set(state.nowFiveMoney, itemId, [])
 
@@ -85,7 +86,44 @@ export default {
       fiveData[num]['newPrice'] = nowPrice
     }
 
-    state.nowFiveMoney[itemId] = fiveData
+    formatData = fiveData.map(function(val, key) {
+      let result
+
+      if (key < 4) {
+        result = [
+          '',
+          '',
+          val[1],
+          val[2],
+          val['percent'],
+        ]
+      }
+
+      //中間
+      if (key == 4) {
+        result = [
+          '',
+          '',
+          nowPrice,
+          '',
+          '',
+        ]
+      }
+
+      if (key > 4) {
+        result = [
+          val['percent'],
+          val[0],
+          val[1],
+          '',
+          '',
+        ]
+      }
+
+      return result
+    })
+
+    state.nowFiveMoney[itemId] = formatData
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
@@ -239,21 +277,18 @@ export default {
       }
     }
 
-    let priceMax = 0
+    let amountMax = 0
 
     //加入到量價揭示
     state.historyPrice[itemId].forEach(function(val) {
-      let isNow = val.price == nowPrice ? true : false
-
-      if (val.price > priceMax) {
-        priceMax = val.price
+      if (val.amount > amountMax) {
+        amountMax = val.amount
       }
 
       if (state.nowVolumeMoney[itemId].length == 0) {
         state.nowVolumeMoney[itemId].push([
           val.amount,
           val.price,
-          isNow
         ])
       } else {
         let needAdd = true
@@ -264,6 +299,10 @@ export default {
             needAdd = false
           }
 
+          if (dt[0] > amountMax) {
+            amountMax = dt[0]
+          }
+
           return dt
         })
 
@@ -271,7 +310,6 @@ export default {
           state.nowVolumeMoney[itemId].push([
             val.amount,
             val.price,
-            isNow
           ])
         }
       }
@@ -284,7 +322,8 @@ export default {
 
     //設定%數
     state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
-      dt[3] = parseInt((dt[1] / priceMax) * 100)
+      dt[2] = dt[1] == nowPrice ? true : false
+      dt[3] = parseInt((dt[0] / amountMax) * 100)
 
       return dt
     })

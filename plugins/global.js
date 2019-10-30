@@ -44,34 +44,43 @@ Vue.mixin({
     },
     resizeHeight () {
       this.windowHeight = window.innerHeight
-      this.headHeight = this.$el.querySelector('#header').clientHeight
-      this.fooHeight = this.$el.querySelector('#footer').clientHeight
-      console.log(`windowHeight: ${this.windowHeight}`)
-      console.log(`headHeight: ${this.headHeight}`)
-      console.log(`fooHeight: ${this.fooHeight}`)
+      this.headHeight = this.$el.querySelector('#header').offsetHeight
+      this.footHeight = this.$el.querySelector('#footer').offsetHeight
+      // console.log(`windowHeight: ${this.windowHeight}`)
+      // console.log(`headHeight: ${this.headHeight}`)
+      // console.log(`footHeight: ${this.footHeight}`)
+
       //- *** main height ***
-      this.mainHeight = this.windowHeight - this.headHeight - this.fooHeight
-      this.$set(this.mainStyles, 'height', this.mainHeight + 'px')
-      console.log(`main: ${this.mainHeight}`)
-      //- *** block1、block4、block5 ***
-      this.block1 = this.$el.querySelector('#block1').clientHeight
-      this.block4 = this.$el.querySelector('#block4').clientHeight
-      this.block5 = this.$el.querySelector('#block5').clientHeight
-      //- *** block2 ***
-      this.block2 = this.mainHeight - this.block1 - 20
-      this.$set(this.block2Styles, 'height', this.block2 + 'px')
-      //- console.log(this.block2)
-      this.block2tabs = this.$el.querySelector('#block2tabs').clientHeight
-      this.$set(this.block2tabStyles, 'bottom', - this.block2tabs + 'px')
-      //- console.log(this.block2tabs)
-      //- for block2 tabs
-      this.block2row2 = this.block2 - this.block2tabs - this.$el.querySelector('#block2head').clientHeight
-      this.$set(this.block2rowStyles, 'height', this.block2row2 + 'px')
-      //- for block2 table
-      this.block2Table = this.block2row2
-      //- *** block3 ***
-      this.block3 = this.mainHeight - this.block4 - this.block5 - 20
-      this.block3Table = this.block3
+      this.main = this.windowHeight - this.headHeight - this.footHeight - 20
+      this.$set(this.mainStyles, 'height', this.main + 'px')
+      // console.log(`mainHeight height: ${this.main}`)
+
+      //- *** UserInfo ***
+      this.userInfo = this.$el.querySelector('#userInfo').offsetHeight
+      // console.log(`UserInfo height: ${this.userInfo}`)
+
+      //- *** itemDetail ***
+      this.itemDetail = this.main - this.userInfo
+      this.$set(this.itemDetailStyles, 'height', this.itemDetail + 'px')
+      // console.log(`itemDetailStyles height: ${this.itemDetail}`)
+
+      //- for itemDetail table height
+      this.itemDetailHeader = this.$el.querySelector('#itemDetailHeader').offsetHeight
+      this.itemDetailTabs = this.$el.querySelector('#itemDetail .el-tabs__header').offsetHeight
+      this.itemDetailTable = this.itemDetail - this.itemDetailHeader - this.itemDetailTabs
+      // console.log(`itemDetailTable height: ${this.itemDetailTable}`)
+      this.itemDetailRow = this.itemDetail - this.itemDetailHeader
+      // console.log(`itemDetailRow height: ${this.itemDetailRow}`)
+      this.$el.querySelector('#itemDetail .el-tabs').style.height = this.itemDetailRow + 'px'
+
+      //- *** mainItem ***
+      this.operating = this.$el.querySelector('#operating').offsetHeight
+      this.history = this.$el.querySelector('#history').offsetHeight
+      // console.log(`operating height: ${this.operating}`)
+      // console.log(`history height: ${this.history}`)
+
+      this.mainItemTable = this.main - this.operating - this.history
+      // console.log(`mainItem height: ${this.mainItem}`)
     }
   }
 })

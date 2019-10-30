@@ -1,0 +1,25 @@
+.login-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-bottom: 10rem;
+  .login {
+    width: 100%;
+    max-width: 360px;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+  .login__header {
+    text-align: center;
+    font-size: 20px;
+    padding-left: 20px;
+    margin-bottom: 2rem;
+  }
+  .el-form-item {
+    margin-bottom: 0;
+  }
+  .el-button {
+    width: 100%;
+  }
+}

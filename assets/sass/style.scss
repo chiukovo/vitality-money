@@ -1,0 +1,18 @@
+// base
+@import 'base/variable';
+
+// bootstrap
+@import 'vendor/bootstrap';
+
+// element
+$--font-path: '../../node_modules/element-theme-chalk/src/fonts';
+@import '../../node_modules/element-theme-chalk/src/index.scss';
+@import 'vendor/element';
+
+// layout
+@import 'layout/layout';
+@import 'layout/component';
+@import 'layout/login';
+
+// theme
+// @import 'theme';
