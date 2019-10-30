@@ -30,8 +30,62 @@ export default {
   setNowMainItem(state, data) {
     state.nowMainItem = data
   },
+  setNowNewPrice(state, {itemId, newPrice}) {
+    Vue.set(state.nowNewPrice, itemId, 0)
+
+    state.nowNewPrice[itemId] = newPrice
+  },
   setNowFiveMoney(state, data) {
-    state.nowFiveMoney = data
+    let five = data
+    let itemId = five[0]
+    let fiveMax = 0
+    let buyCount = five[1]
+    let sellCount = five[2]
+    let buy = 0
+    let sell = 0
+    let nowPrice = state.nowNewPrice[itemId]
+
+    Vue.set(state.nowFiveMoney, itemId, [])
+
+    for (let i = 0; i < buyCount; i++) {
+      let buyNum = parseInt(five[i * 2 + 4]);
+      if(fiveMax < buyNum) {
+        fiveMax = buyNum;
+      }
+      buy += buyNum;
+    }
+
+    for (let i = 0; i < sellCount; i++) {
+      let sellNum = parseInt(five[i * 2 + 4 + buyCount * 2]);
+      if(fiveMax < sellNum) {
+        fiveMax = sellNum;
+      }
+      sell += sellNum;
+    }
+
+    let maxNum = five[1] * 2 + five[2] * 2 + 3 - 1;
+    let fiveData = [];
+
+    for (let i = 0; i < sellCount; i++) {
+      fiveData.push(['', five[maxNum - i * 2 - 1], five[maxNum - i * 2]]);
+    }
+
+    for (let i = 0; i < buyCount; i++) {
+      fiveData.push([five[i * 2 + 4], five[i * 2 + 3], '']);
+    }
+
+    //計算%
+    for(let num = 0; num < fiveData.length; num++) {
+      if (num <= 4) {
+        fiveData[num]['percent'] = parseInt((fiveData[num][2] / fiveMax) * 100)
+      } else {
+        fiveData[num]['percent'] = parseInt((fiveData[num][0] / fiveMax) * 100)
+      }
+
+      fiveData[num]['newPrice'] = nowPrice
+    }
+
+    state.nowFiveMoney[itemId] = fiveData
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
@@ -161,8 +215,14 @@ export default {
       flocalTime: flocalTime,
     }
 
+    let nowPrice = state.nowNewPrice[itemId]
+
     if (typeof state.historyPrice[itemId] == 'undefined') {
       Vue.set(state.historyPrice, itemId, [])
+    }
+
+    if (typeof state.nowVolumeMoney[itemId] == 'undefined') {
+      Vue.set(state.nowVolumeMoney, itemId, [])
     }
 
     prices.forEach(function(val) {
@@ -178,6 +238,56 @@ export default {
         state.historyPrice[itemId].pop()
       }
     }
+
+    let priceMax = 0
+
+    //加入到量價揭示
+    state.historyPrice[itemId].forEach(function(val) {
+      let isNow = val.price == nowPrice ? true : false
+
+      if (val.price > priceMax) {
+        priceMax = val.price
+      }
+
+      if (state.nowVolumeMoney[itemId].length == 0) {
+        state.nowVolumeMoney[itemId].push([
+          val.amount,
+          val.price,
+          isNow
+        ])
+      } else {
+        let needAdd = true
+
+        state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
+          if (val.price == dt[1]) {
+            dt[0] += val.amount
+            needAdd = false
+          }
+
+          return dt
+        })
+
+        if (needAdd) {
+          state.nowVolumeMoney[itemId].push([
+            val.amount,
+            val.price,
+            isNow
+          ])
+        }
+      }
+    })
+
+    //排序
+    state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].sort(function (a, b) {
+      return a[1] > b[1] ? -1 : 1
+    })
+
+    //設定%數
+    state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
+      dt[3] = parseInt((dt[1] / priceMax) * 100)
+
+      return dt
+    })
   },
   SOCKET_ONOPEN (state, event)  {
     Vue.prototype.$socket = event.currentTarget

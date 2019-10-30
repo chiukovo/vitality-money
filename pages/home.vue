@@ -46,11 +46,11 @@ export default {
 		Footer,
 	},
 	beforeMount () {
-    window.addEventListener('resize', this.resizeHeight);
+    //window.addEventListener('resize', this.resizeHeight);
   },
 	mounted () {
 		this.checkLogin()
-	  this.resizeHeight()
+	  //this.resizeHeight()
 	},
 	methods: {
 	},

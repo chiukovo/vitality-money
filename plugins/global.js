@@ -40,7 +40,7 @@ Vue.mixin({
       return time.substring(0, 2) + ":" + time.substring(2, 4) + ":" + time.substring(4, 6)
     },
     updateScroll() {
-      $('.fixed-table-body').slimScroll({height: '100%'})
+      //$('.fixed-table-body').slimScroll({height: '100%'})
     },
     resizeHeight () {
       this.windowHeight = window.innerHeight

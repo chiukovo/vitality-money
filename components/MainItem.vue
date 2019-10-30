@@ -123,6 +123,9 @@ export default {
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
         val.state_name = val.state == 2 ? '交易中' : '未開盤'
 
+        //寫入store 目前最新成交價錢
+        _this.$store.commit('setNowNewPrice', {itemId: val.product_id, newPrice: val.newest_price})
+
         result.push(val)
       })
 
@@ -208,12 +211,16 @@ export default {
           //成交
           val.newest_price_change = val.newest_price == nowItems[1] ? '' : _this.borderName
           val.newest_price = nowItems[1]
+
+          //寫入store 目前最新成交價錢
+          _this.$store.commit('setNowNewPrice', {itemId, newPrice: nowItems[1]})
+
           //漲跌
           val.gain = val.newest_price - val.yesterday_close_price
           //(成交價-昨日收盤)/昨日收盤*100%
           val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
 
-          _this.$store.commit('setHistoryPrice', {itemId, prices, flocalTime});
+          _this.$store.commit('setHistoryPrice', {itemId, prices, flocalTime})
         }
 
         return val

@@ -14,7 +14,6 @@ module.exports = {
       {src: '/assets/js/jquery.min.js'},
       {src: '/assets/js/bootstrap-table.min.js'},
       {src: '/assets/js/bootstrap.js'},
-      {src: '/assets/js/jquery.slimscroll.js'},
     ]
   },
   /*
@@ -36,7 +35,6 @@ module.exports = {
     {src: '~plugins/trading.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/highcharts.js', ssr: true},
-    {src: '~plugins/vueSlimScroll.js'},
   ],
   /*
   ** Nuxt.js dev-modules

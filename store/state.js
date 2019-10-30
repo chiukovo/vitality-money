@@ -8,6 +8,8 @@ export default () => ({
   mainItem: [],
   nowMainItem: [],
   nowFiveMoney: [],
+  nowVolumeMoney: [],
+  nowNewPrice: [],
   historyPrice: [],
   kLineData: [],
   chartData: [],
