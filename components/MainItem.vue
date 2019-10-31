@@ -138,10 +138,6 @@ export default {
       })
 
       this.items = JSON.parse(JSON.stringify(result))
-
-      if (this.items.length > 0) {
-        $('.no-records-found').hide()
-      }
     },
     nowMainItem (res) {
       //{商品1 第一筆成交時間} 0
@@ -337,11 +333,11 @@ export default {
       }
 
       if(columnIndex == 11) {
-        return row.highest_price_change
+        return row.color + ' ' + row.highest_price_change
       }
 
       if(columnIndex == 12) {
-        return row.lowest_price_change
+        return row.color + ' ' + row.lowest_price_change
       }
 
       //判斷整行顏色

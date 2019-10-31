@@ -11,8 +11,6 @@ module.exports = {
     link: [
     ],
     script: [
-      {src: '/assets/js/jquery.min.js'},
-      {src: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'},
     ]
   },
   /*

@@ -259,6 +259,12 @@ export default {
       this.fiveItemChange(fiveData[itemId])
     },
     clickItemId (itemId) {
+      this.fiveTotal = {
+        more: 0,
+        morePercent: 0,
+        nullNum: 0,
+      }
+
       let history = this.$store.state.historyPrice[itemId]
       let fiveData = this.$store.state.nowFiveMoney[itemId]
       let volumeMoney = this.$store.state.nowVolumeMoney[itemId]
