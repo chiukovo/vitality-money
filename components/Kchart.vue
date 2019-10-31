@@ -1,6 +1,7 @@
 <template>
   <div>
     <highcharts v-if="ohlcv.length > 0" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
+    <div v-loading="loading" v-else style="height: 300px"></div>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
     return {
       ohlcv: [],
       stockOptions: {},
+      loading: true,
     }
   },
   methods: {
@@ -32,6 +34,14 @@ export default {
       this.ohlcv = JSON.parse(JSON.stringify(res))
 
       this.stockOptions = {
+        chart: {
+          events: {
+            load: function () {
+              //load over
+              this.loading = false
+            }
+          }
+        },
         rangeSelector: {
           selected: 1,
           buttons: [

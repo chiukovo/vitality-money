@@ -44,8 +44,9 @@
 
 
 .el-dialog__header {
+  color: $header-font-color;
+  background: $header-bg-color;
   padding: 10px;
-  background: #f5f7fa;
 }
 .el-dialog__button-group {
   position: absolute;

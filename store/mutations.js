@@ -138,6 +138,10 @@ export default {
       ])
     })
   },
+  clearModalData(state) {
+    state.kLineData = []
+    state.chartData = []
+  },
   setChartData(state, response) {
     if (typeof state.chartData == 'undefined') {
       Vue.set(state.chartData, response.type, [])

@@ -5,6 +5,7 @@
       :visible.sync='dialogVisible'
       :fullscreen='dialogFullScreen'
       :modal='false'
+      :before-close="handleClose"
       title='$store.state.itemName'
       v-dialogDrag)
       .header-custom(slot='title')
@@ -28,6 +29,7 @@
       :height='this.$parent.mainItemTable',
       :cell-class-name='tableCellClassName',
       @row-click="clickItem",
+      highlight-current-row
       min-width='100%'
       border)
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
@@ -309,6 +311,12 @@ export default {
       let clickItemId = this.$store.state.clickItemId
 
       _this.$store.commit('doUpdateChartData', items)
+    },
+    handleClose (done) {
+      //clear data
+      this.$store.commit('clearModalData')
+
+      done()
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷個別顏色

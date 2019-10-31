@@ -3,7 +3,7 @@
     ul.navbar-nav
       li.nav-item
         a.nav-link(href="#") 連線
-        .dropdown-menu
+        .dropdown-menu.animated.fadeInDown
           a.dropdown-item(href="#") 連線登入
           a.dropdown-item(href="#") 中斷連接
       li.nav-item
@@ -29,26 +29,54 @@
         .dropdown-menu
           a.dropdown-item(href="#") 交易規則
           a.dropdown-item(href="#") 相關網站
-      //- li.nav-item
-        .navbar-txt 商品: 壹指早(十月)
-        .navbar-txt 最後交易日: 2019-11-19
-        .navbar-txt 禁新: 10531, 12151
-        .navbar-txt 強平: 10531, 12151
+      li.nav-item.nav-item-text
+        .navbar-txt 商品: {{ $store.state.itemName }}
+        .navbar-txt 最後交易日: {{ endDate }}
+        .navbar-txt 禁新: 
+          span.text-success 10531
+          |, 
+          span.text-danger 12151
+        .navbar-txt 強平: 
+          span.text-success 10531
+          |, 
+          span.text-danger 12151
     ul.navbar-nav
       li.nav-item
-        a.nav-link(href="#") 皮膚
+        a.nav-link.material-icons(href="#") color_lens
         .dropdown-menu
           a.dropdown-item(href="#") 傳統
           a.dropdown-item(href="#") 官方
       li.nav-item
-        a.nav-link(href="#") 音效
+        a.nav-link.material-icons(href="#") notifications
       li.nav-item
-        a.nav-link(href="#") 登出
+        a.nav-link.material-icons(href="#") exit_to_app
 </template>
+
 <script>
 
+import { mapState } from 'vuex'
+
 export default {
-	mounted() {
-	}
+  data() {
+    return {
+      endDate: ''
+    }
+  },
+  computed: mapState([
+    'mainItem',
+  ]),
+  watch: {
+    mainItem (res) {
+      let _this = this
+      let nowItems = this.$store.state.clickItemId
+      let mainItem = this.$store.state.mainItem
+
+      res.forEach(function(val) {
+        if (nowItems == val.product_id) {
+          _this.endDate = val.end_date
+        }
+      })
+    }
+  }
 }
 </script>

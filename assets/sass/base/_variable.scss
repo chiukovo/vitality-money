@@ -1,15 +1,45 @@
+// $primary: #409EFF;
+// $secondary: #909399;
+// $danger: #F56C6C;
+// $success: #67C23A;
+// $infor: #409EFF;
+
+// $header-font-color: #fff;
+// $header-font-hover-color: $primary;
+// $header-bg-color: #191B1D;
+// $footer-font-color: #fff;
+// $footer-font-hover-color: $primary;
+// $footer-bg-color: #191B1D;
+
+// $border-color: #EBEEF5;
+$block-bg: #fff;
+
 $primary: #409EFF;
 $secondary: #909399;
 $danger: #F56C6C;
 $success: #67C23A;
 $infor: #409EFF;
 
-$border-color: #EBEEF5;
+$header-font-color: #000;
+$header-font-hover-color: $primary;
+$header-bg-color: #fff;
+$footer-font-color: #fff;
+$footer-font-hover-color: $primary;
+$footer-bg-color: #191B1D;
 
+$border-color: #cfc9c9;
 
+// bootstrap
+$font-size-base: .75rem;
+$grid-gutter-width: 8px;
+
+// animate
+$base-duration: .3s;
+$use-fadeInDown: true;
+
+// element ui
 $--font-size-base: 12px;
 $--checkbox-checked-font-color: #606266;
 
-// Grid columns
-$font-size-base: .75rem;
-$grid-gutter-width: 8px;
+// material icons
+$material-icons-font-size: 22px !default;

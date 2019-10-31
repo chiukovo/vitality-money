@@ -1,18 +1,27 @@
-// base
+// *** base ***
 @import 'base/variable';
 
+// *** vendor ***
 // bootstrap
 @import 'vendor/bootstrap';
 
-// element
-$--font-path: '../../node_modules/element-theme-chalk/src/fonts';
-@import '../../node_modules/element-theme-chalk/src/index.scss';
+// element ui
+$--font-path: '~element-theme-chalk/src/fonts';
+@import '~element-theme-chalk/src/index.scss';
 @import 'vendor/element';
 
-// layout
+// material icons
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
+// animate
+@import '~animate-sass/animate';
+
+
+// *** layout ***
 @import 'layout/layout';
 @import 'layout/component';
 @import 'layout/login';
 
 // theme
-// @import 'theme';
+@import 'theme/traditional';

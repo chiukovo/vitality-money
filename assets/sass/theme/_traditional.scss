@@ -1,0 +1,88 @@
+//- 元氣 theme
+body {
+    min-width: 1366px;
+    background-color: #dcebf9;
+}
+
+.header {
+    background: url('~static/images/header_bg.png') $header-bg-color;
+    .navbar {
+        border-bottom: 1px solid #a8a8a8;
+        padding-top: 2px;
+    }
+    .navbar-nav {
+        .nav-item {
+            background: url('~static/images/header_left_btn01.png');
+            .nav-link {
+                width: 55px;
+                height: 31px;
+                line-height: 31px;
+                text-align: center;
+                color: #fff;
+            }
+            &:hover {
+                background: url('~static/images/header_left_btn01_hover.png');
+                .nav-link {
+                    color: #fff;
+                }
+            }
+            &:nth-child(4) {
+                background: url('~static/images/header_left_btn04.png');
+                &:hover {
+                    background: url('~static/images/header_left_btn04_hover.png');
+                }
+            }
+            &:nth-child(5) {
+                height: 31px;
+                background: url('~static/images/header_left_bg02.png') left top no-repeat;
+                .navbar-txt {
+                    line-height: 31px;
+                }
+            }
+        }
+        .nav-item-text {
+            color: #004489;
+            padding-left: 20px;
+        }
+    }
+}
+
+.userInfo  {
+    .userInfo-header {
+        font-size: 16px;
+        color: #fff;
+        background: url('~static/images/table_th_bg_big.png') #4278af;
+        border-radius: 3px;
+        margin: 1px;
+    }
+    .userInfo-content {
+        .el-table .cell {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000
+        }
+    }
+}
+.itemDetail {
+    .itemDetail-header {
+        .header__title {
+            font-size: 14px;
+            color: #004489;
+        }
+    }
+}
+.el-table th {
+    color: #fff;
+    background: url('~static/images/table_th_bg.png') #4278af;
+}
+.el-table__body-wrapper, .el-table tr {
+    background-color: #f1f1f1;
+}
+.el-table .cell {
+    line-height: 25px;
+    height: 25px;
+}
+.el-table--border th, .el-table--border td,
+.el-table th.is-leaf, .el-table td {
+    border-color: #b7babc;
+}

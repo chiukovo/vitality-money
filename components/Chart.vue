@@ -1,6 +1,7 @@
 <template>
   <div>
     <highcharts v-if="items.length > 0" :options="options"></highcharts>
+    <div v-loading="loading" v-else style="height: 300px"></div>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
     return {
       items: [],
       options: {},
+      loading: true,
     }
   },
   methods: {
@@ -34,6 +36,12 @@ export default {
       this.options = {
         chart: {
           marginRight: 50,
+          events: {
+            load: function () {
+              //load over
+              this.loading = false
+            }
+          }
         },
         title: {
           text: name

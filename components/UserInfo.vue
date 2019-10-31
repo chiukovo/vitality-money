@@ -1,7 +1,7 @@
 <template lang='pug'>
 #userInfo
   .userInfo
-    .userInfo-header DNAM8(正常收單)
+    .userInfo-header {{ userInfo.Account }}(正常收單)
     .userInfo-content
       el-table.table(:data='tableData', :show-header='false' style='width: 100%' border)
         el-table-column(prop='title', label='標題')
@@ -25,7 +25,7 @@ export default {
     userInfo(userInfo) {
       this.tableData = [{
           title: '客戶名稱:',
-          infor: userInfo.Account,
+          infor: userInfo.Name,
         }, {
           title: '服務人員:',
           infor: '',
