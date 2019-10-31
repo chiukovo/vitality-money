@@ -18,4 +18,5 @@ export default () => ({
   chartType: '',
   userInfo: [],
   commidyArray: [],
+  loading: true,
 })

@@ -1,12 +1,21 @@
-<template>
-  <div>
-    <div style="background: #fff">
-			帳號<input type="text" v-model="account">
-			密碼<input type="password" v-model="password">
-			<button @click="doLogin">登入</button>
-			{{ $store.state.localStorage.userAuth }}
-    </div>
-  </div>
+<template lang='pug'>
+  .container.login-wrap
+    .login
+      .login__header 登入
+      .login__form
+        el-form(label-width='40px')
+          el-form-item(label='線路')
+            el-select(placeholder='伺服器' v-model='server' style='width: 100%;')
+              el-option(label='10-伺服器' value='server10')
+              el-option(label='11-伺服器' value='server11')
+          el-form-item(label='帳號')
+            el-input(v-model='account' placeholder='请输入帳號')
+          el-form-item(label='密碼')
+            el-input(v-model='password' type='password' placeholder='请输入密碼')
+          el-form-item
+            el-checkbox 記住我
+          el-form-item
+            el-button(type='primary' @click="doLogin") 登入
 </template>
 
 <script>
@@ -19,13 +28,16 @@ export default {
 	  return {
       account: '',
       password: '',
+      server: 'server10',
 	  }
 	},
 	mounted() {
 	},
 	methods: {
 		async doLogin() {
+
 			if (this.account == '' || this.password == '') {
+				this.$alert('帳號或密碼不得為空', '注意!')
 				return
 			}
 
@@ -38,7 +50,7 @@ export default {
 				const result = response.data
 
 			  if (result['Code'] <= 0) {
-			  	console.log(result['ErrorMsg'])
+			  	this.$alert(result['ErrorMsg'], '注意!')
 			  	return
 			  }
 

@@ -22,6 +22,8 @@ import UserInfo from "~/components/UserInfo"
 import History from "~/components/History"
 import Operating from "~/components/Operating"
 import Footer from "~/components/Footer"
+import { mapState } from 'vuex'
+import { Loading } from 'element-ui';
 
 export default {
 	data () {
@@ -46,10 +48,6 @@ export default {
   },
   mounted () {
   	this.checkLogin()
-
-    this.$nextTick(() => {
-      this.resizeHeight()
-    })
 	},
 	computed: {
 	  websocketConnected () {
@@ -58,8 +56,14 @@ export default {
 	  sendResult () {
 	    return this.$store.state.socket.message
 	  },
+	  mainItem () {
+	  	return this.$store.state.mainItem
+	  }
 	},
 	watch: {
+		mainItem () {
+			this.resizeHeight()
+		},
 	  websocketConnected () {
 	    let isConnected = this.$store.state.socket.isConnected
 
