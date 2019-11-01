@@ -8,35 +8,24 @@ Vue.mixin({
   		let _this = this
   		_this.LoginLoopCheck()
 
+      //取得一次初始訂單資料
+      this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+
   		window.setInterval(function() {
   			_this.LoginLoopCheck()
   		}, 5000)
   	},
   	LoginLoopCheck () {
-  			const userAuth = this.$store.state.localStorage.userAuth
+			const userAuth = this.$store.state.localStorage.userAuth
 
-  			if (typeof userAuth.token == 'undefined' || typeof userAuth.userId == 'undefined') {
-  				location.href = "/"
-  			} else {
-  				this.getUserInfo()
-  			}
+			if (typeof userAuth.token == 'undefined' || typeof userAuth.userId == 'undefined') {
+				location.href = "/"
+			} else {
+				this.getUserInfo()
+			}
   	},
 		async getUserInfo () {
-			const lang = this.$store.state.localStorage.lang
-			const userId = this.$store.state.localStorage.userAuth.userId
-			const token = this.$store.state.localStorage.userAuth.token
-
-			await axios.post("/api/query_member_and_commoditylist?lang=" + lang, qs.stringify({
-			  UserID: userId,
-			  Token: token,
-			}))
-			.then(response => {
-				const result = response.data
-
-				if (result['Code'] > 0) {
-					this.$store.commit('setUserInfo', result)
-				}
-			})
+			this.$store.dispatch('CALL_MEMBER_INFO')
 		},
   }
 })

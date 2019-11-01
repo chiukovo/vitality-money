@@ -13,6 +13,40 @@ export default {
       commit('setApiExample', response.data)
     })
 	},
+  async CALL_MEMBER_ORDER_LIST ({ commit, state }) {
+    const lang = state.localStorage.lang
+    const userId = state.localStorage.userAuth.userId
+    const token = state.localStorage.userAuth.token
+
+    await axios.post("/api/query_orderlist?lang=" + lang, qs.stringify({
+      UserID: userId,
+      Token: token,
+    }))
+    .then(response => {
+      const result = response.data
+
+      if (result['Code'] > 0) {
+        commit('setUserOrder', result)
+      }
+    })
+  },
+  async CALL_MEMBER_INFO ({ commit, state }) {
+    const lang = state.localStorage.lang
+    const userId = state.localStorage.userAuth.userId
+    const token = state.localStorage.userAuth.token
+
+    await axios.post("/api/query_member_and_commoditylist?lang=" + lang, qs.stringify({
+      UserID: userId,
+      Token: token,
+    }))
+    .then(response => {
+      const result = response.data
+
+      if (result['Code'] > 0) {
+        commit('setUserInfo', result)
+      }
+    })
+  },
 	async CALL_QUERY_TECH ({ commit, state }, params) {
 		await axios.post("/api/query_tech?lang=" + state.localStorage.lang, qs.stringify({
         userID: state.localStorage.userAuth.userId,

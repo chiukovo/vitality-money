@@ -17,6 +17,7 @@ export default () => ({
   itemName: '台指期',
   chartType: '',
   userInfo: [],
+  userOrder: [],
   commidyArray: [],
   loading: true,
 })

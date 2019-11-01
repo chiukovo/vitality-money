@@ -20,6 +20,9 @@ export default {
 
     state.userInfo = data.UserArray
   },
+  setUserOrder(state, data) {
+    state.userOrder = data
+  },
   setClickItemId(state, {id, name}) {
     state.clickItemId = id
     state.itemName = name

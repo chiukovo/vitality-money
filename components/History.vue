@@ -7,27 +7,46 @@
         v-model='activeName',
         type='card',
         @tab-click='handleClick')
-        el-tab-pane(label='買賣下單(0)', name='tabs1')
+        el-tab-pane(:label="'買賣下單(' + buySell.length + ')'", name='tabs1')
           .history-tabs-header
             el-button(size='mini') 刪單
             el-button(size='mini') 全選
             el-button(size='mini') 全不選
-          el-table.table(:data='tableData', min-width='100%', border)
-            el-table-column(prop='th1', label='操作')
-            el-table-column(prop='th2', label='序號')
-            el-table-column(prop='th3', label='商品')
-            el-table-column(prop='th4', label='倒')
-            el-table-column(prop='th5', label='多空')
-            el-table-column(prop='th6', label='委託價')
-            el-table-column(prop='th7', label='口數')
-            el-table-column(prop='th8', label='成交價')
-            el-table-column(prop='th9', label='下單時間')
-            el-table-column(prop='th10', label='完成時間')
-            el-table-column(prop='th11', label='型別')
-            el-table-column(prop='th12', label='損失點數')
-            el-table-column(prop='th13', label='獲利點數')
-            el-table-column(prop='th14', label='狀態')
-        el-tab-pane(label='未平倉(0)', name='tabs2')
+          el-table.table(:data='buySell', min-width='100%', border)
+            el-table-column(label='操作')
+            el-table-column(prop='Serial', label='序號')
+            el-table-column(prop='Name', label='商品')
+            el-table-column(label='多空')
+              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+            el-table-column(prop='OrderPrice', label='委託價')
+            el-table-column(prop='Quantity', label='口數')
+            el-table-column(prop='FinalPrice', label='成交價')
+            el-table-column(prop='OrderTime', label='下單時間')
+            el-table-column(prop='FinalTime', label='完成時間')
+            el-table-column(prop='Odtype', label='型別')
+            el-table-column(prop='LossPoint', label='損失點數')
+            el-table-column(prop='WinPoint', label='獲利點數')
+            el-table-column(prop='State', label='狀態')
+        el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
+          .history-tabs-header
+            el-button(size='mini') 全選
+            el-button(size='mini') 全不選
+          el-table.table(:data='uncovered', min-width='100%', border)
+            el-table-column(label='操作')
+            el-table-column(prop='Serial', label='序號')
+            el-table-column(prop='Name', label='商品')
+            el-table-column(label='型別')
+              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+            el-table-column(prop='FinalPrice', label='成交價')
+            el-table-column(prop='Quantity', label='口數')
+            el-table-column(prop='Fee', label='手續費')
+            el-table-column(prop='LossPoint', label='損失點數')
+            el-table-column(prop='WinPoint', label='獲利點數')
+            el-table-column(prop='invertPoint', label='倒限(利)')
+            el-table-column(prop='WinPoint', label='未平損益')
+            el-table-column(prop='WinPoint', label='點數')
+            el-table-column(prop='Day', label='天數')
+            el-table-column(prop='State', label='狀態')
         el-tab-pane(label='已平倉', name='tabs3')
         el-tab-pane(label='商品統計', name='tabs4')
           .history-tabs-header
@@ -61,41 +80,41 @@
                 el-button(size='mini') 本週
                 el-button(size='mini') 上週
                 el-button(size='mini') 上月
-
-
-
-
         el-tab-pane(label='投顧訊息(0)', name='tabs6')
         el-tab-pane(label='自訂窗口', name='tabs7')
 </template>
 
 <script>
+
+import { mapState } from 'vuex';
+
 export default {
   data() {
-    let data = []
-    for (let num = 1; num <= 3; num++) {
-      data.push({
-          th1: '-',
-          th2: '-',
-          th3: '-',
-          th4: '-',
-          th5: '-',
-          th6: '-',
-          th7: '-',
-          th8: '-',
-          th9: '-',
-          th10: '-',
-          th11: '-',
-          th12: '-',
-          th13: '-',
-          th14: '-',
-      })
-    }
     return {
       activeName: 'tabs1',
-      tableData: data,
+      buySell: [], //下單列表
+      uncovered: [], //未平倉
+      covered: [], //已平倉
+      commodity: [], //商品列表
+      unCoverBuySum: 0, //未平倉多單總數列表
+      unCoverSellSum: 0, //未平倉空單總數
+      unCoverTotal: 0, //未平倉總數
       checked: false,
-      valueDateInterval: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+      valueDateInterval: [],
+    }
+  },
+  computed: mapState([
+    'userOrder',
+  ]),
+  watch: {
+    userOrder(data) {
+      this.buySell = data.OrderArray
+      this.uncovered = data.UncoveredArray
+      this.covered = data.CoveredArray
+      this.commodity = data.CommodityArray
+      this.unCoverBuySum = data.UnCoverSellSum
+      this.unCoverSellSum = data.UnCoverBuySum
+      this.unCoverTotal = parseInt(data.UnCoverSellSum) + parseInt(data.UnCoverBuySum)
     }
   },
   methods: {
