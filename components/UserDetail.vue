@@ -1,31 +1,40 @@
-<template>
-  <div>
-    <div>
-      <table>
-        <thead>
-        <tr>
-          <th>商品/屬性</th>
-          <th v-for="header in headers">{{ header.Name }}</th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, key) in items">
-            <td v-for="dt in item">
-              {{ dt }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</template>
-<script>
+<template lang='pug'>
 
+  el-table(:data='tableData')
+    el-table-column(
+    v-for='{ prop, label } in colConfigs'
+    :key='prop'
+    :prop='prop'
+    :label='label')
+</template>
+
+  // table.el-table
+  //   thead
+  //     tr
+  //       th 商品/屬性
+  //       th(v-for='header in headers') {{ header.Name }}
+  //   tbody
+  //     tr(v-for='(item, key) in items')
+  //       td(v-for='dt in item')
+  //         | {{ dt }}
+
+<script>
 import { mapState } from 'vuex'
 
 export default {
   data() {
+    this.colConfigs = [
+      { prop: 'th1', label: '商品/屬性' },
+      { prop: 'th2', label: '加權指' },
+      { prop: 'th3', label: '台指全' }
+    ]
     return {
+      tableData: [{
+        th1: [],
+        // 可以塞fields?
+        th2: '200',
+        th3: '200'
+      }],
       items: [],
       headers: [],
       fields: [
