@@ -24,7 +24,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  data () {
+  data() {
     return {
       items: [],
       headers: [],
@@ -44,12 +44,22 @@ export default {
       ]
     }
   },
+  mounted() {
+    const sourceCommidyArray = this.$store.state.commidyArray
+    this.getUserInfo(sourceCommidyArray)
+  },
   computed: mapState([
     'commidyArray',
   ]),
   watch: {
-    commidyArray () {
-      let commidyArray = JSON.parse(JSON.stringify(this.$store.state.commidyArray))
+    commidyArray(sourceCommidyArray) {
+      this.getUserInfo(sourceCommidyArray)
+    }
+  },
+  methods: {
+    getUserInfo(sourceCommidyArray) {
+      let commidyArray = JSON.parse(JSON.stringify(sourceCommidyArray))
+
       let _this = this
       _this.items = []
       _this.headers = commidyArray

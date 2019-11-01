@@ -223,7 +223,7 @@ export default {
             if (state.clickItemId == "TXF" || state.clickItemId == "EXF" || state.clickItemId == "FXF" || state.clickItemId == "TSLQ") {
               let t = historyData[1].split(":");
               if(parseInt(t[0]) * 60 + parseInt(t[1]) > 825) {
-                  continue;
+                //continue;
               }
             }
 

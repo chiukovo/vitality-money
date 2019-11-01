@@ -1,5 +1,9 @@
 <template lang='pug'>
   nav.navbar
+    Dialog(
+      :click-type="dialog.clickType",
+      :visible.sync="dialog.isOpen"
+    )
     ul.navbar-nav
       li.nav-item
         a.nav-link(href="#") 連線
@@ -9,7 +13,7 @@
       li.nav-item
         a.nav-link(href="#") 檢視
         .dropdown-menu
-          a.dropdown-item(href="#") 個人資料
+          a.dropdown-item(href="#" @click="openModal('userDetail')") 個人資料
           a.dropdown-item(href="#") 歷史損益
           a.dropdown-item(href="#") 歷史報價
           a.dropdown-item(href="#") 儲值記錄
@@ -54,13 +58,22 @@
 
 <script>
 
+import Dialog from "~/components/Dialog"
+
 import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
+      dialog: {
+        clickType: '',
+        isOpen: false,
+      },
       endDate: ''
     }
+  },
+  components: {
+    Dialog,
   },
   computed: mapState([
     'mainItem',
@@ -76,6 +89,12 @@ export default {
           _this.endDate = val.end_date
         }
       })
+    }
+  },
+  methods: {
+    openModal (type) {
+      this.dialog.clickType = type
+      this.dialog.isOpen= true
     }
   }
 }

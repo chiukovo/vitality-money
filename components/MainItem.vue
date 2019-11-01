@@ -1,29 +1,10 @@
 <template lang="pug">
 #mainItem.mainItem
   .mainItem-content
-    el-dialog(
-      :visible.sync='dialogVisible'
-      :fullscreen='dialogFullScreen'
-      :modal='false'
-      :before-close="handleClose"
-      title='$store.state.itemName'
-      v-dialogDrag)
-      .header-custom(slot='title')
-        i.el-icon-info
-        |  {{ $store.state.itemName }}
-        .el-dialog__button-group
-          //- 點擊 dialog__screen, dialogFullScreen 變成 true
-          button.el-dialog__headerbtn.el-dialog__screen(@click='dialogFullScreen == true')
-            i.el-icon.el-icon-top-right(v-if='dialogFullScreen == false')
-            i.el-icon.el-icon-bottom-left(v-else)
-          //- 點擊 dialog__min, 給 .el-dialog class el-dialog-min
-          button.el-dialog__headerbtn.el-dialog__min
-            i.el-icon.el-icon-minus
-      template
-        client-only
-          Kchart(v-if="clickType == 1")
-          Chart(v-if="clickType == 2")
-
+    Dialog(
+      :click-type="dialog.clickType",
+      :visible.sync="dialog.isOpen"
+    )
     el-table.table(
       :data='items',
       :height='this.$parent.mainItemTable',
@@ -73,24 +54,23 @@
 </template>
 <script>
 
-import Kchart from "~/components/Kchart"
-import Chart from "~/components/Chart"
+import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
 export default {
 	data () {
 	  return {
-      clickType: '',
-      dialogVisible: false,
-      dialogFullScreen: false,
+      dialog: {
+        clickType: '',
+        isOpen: false,
+      },
       items: [],
       itemId: '',
       borderName: ''
 	  }
 	},
   components: {
-    Kchart,
-    Chart,
+    Dialog,
   },
   computed: mapState([
     'mainItem',
@@ -284,8 +264,10 @@ export default {
         'type': 'kline',
         'num': 2
       })
-      this.clickType = 1
-      this.dialogVisible = true
+
+      //dialog
+      this.dialog.clickType = 'kLine'
+      this.dialog.isOpen = true
     },
     clickChart(item) {
       this.$store.dispatch('CALL_QUERY_TECH', {
@@ -293,8 +275,10 @@ export default {
         'type': 'minone',
         'num': 1
       })
-      this.clickType = 2
-      this.dialogVisible = true
+
+      //dialog
+      this.dialog.clickType = 'chart'
+      this.dialog.isOpen = true
     },
     updateKlineData(items, kLineData) {
       const _this = this
@@ -307,12 +291,6 @@ export default {
       let clickItemId = this.$store.state.clickItemId
 
       _this.$store.commit('doUpdateChartData', items)
-    },
-    handleClose (done) {
-      //clear data
-      this.$store.commit('clearModalData')
-
-      done()
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷個別顏色
