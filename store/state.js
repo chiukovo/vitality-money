@@ -7,6 +7,7 @@ export default () => ({
   },
   mainItem: [],
   nowMainItem: [],
+  updateMainItem: [],
   nowFiveMoney: [],
   nowVolumeMoney: [],
   nowNewPrice: [],

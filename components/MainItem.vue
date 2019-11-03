@@ -74,7 +74,7 @@ export default {
   },
   computed: mapState([
     'mainItem',
-    'nowMainItem',
+    'updateMainItem',
     'nowFiveMoney',
     'clickItemId',
   ]),
@@ -119,7 +119,7 @@ export default {
 
       this.items = JSON.parse(JSON.stringify(result))
     },
-    nowMainItem (res) {
+    updateMainItem (res) {
       //{商品1 第一筆成交時間} 0
       //{商品1 第一筆成交價格} 1
       //{商品1 第ㄧ筆成交量} 2
@@ -211,6 +211,9 @@ export default {
 
         return val
       })
+
+      //現在items 加入store
+      _this.$store.commit('setNowMainItem', _this.items)
 
       //remove border
       setTimeout(function() {

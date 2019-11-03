@@ -1,56 +1,31 @@
 <template lang='pug'>
-
-  el-table(:data='tableData')
-    el-table-column(
-    v-for='{ prop, label } in colConfigs'
-    :key='prop'
-    :prop='prop'
-    :label='label')
+  el-table.table(
+    :data='items'
+    style='width: 100%'
+    border)
+    el-table-column(fixed, prop="Name", label='商品名稱')
+    el-table-column(prop="PointMoney" label='每點價格')
+    el-table-column(prop="Fee" label='手續費(進/出)')
+    el-table-column(prop="SubmitMax" label='單商品每筆上限')
+    el-table-column(prop="RemaingLimit" label='單商品留倉上限')
+    el-table-column(prop="RemaingDayLimit" label='單商品留倉天數')
+    el-table-column(prop="OpenMaxPoint" label='開盤最大漲跌')
+    el-table-column(prop="SubmitMaxPoint" label='每口最大漲跌')
+    el-table-column(prop="StopPoint" label='停損利')
+    el-table-column(label='可下單時間' width="200")
+      template(slot-scope="scope") <span v-html="scope.row.TradeTime"></span>
+    el-table-column(prop="State" label='狀態')
+    el-table-column(prop="NotNewPercent" label='禁新')
+    el-table-column(prop="CoverPercent" label='強平')
 </template>
-
-  // table.el-table
-  //   thead
-  //     tr
-  //       th 商品/屬性
-  //       th(v-for='header in headers') {{ header.Name }}
-  //   tbody
-  //     tr(v-for='(item, key) in items')
-  //       td(v-for='dt in item')
-  //         | {{ dt }}
 
 <script>
 import { mapState } from 'vuex'
 
 export default {
   data() {
-    this.colConfigs = [
-      { prop: 'th1', label: '商品/屬性' },
-      { prop: 'th2', label: '加權指' },
-      { prop: 'th3', label: '台指全' }
-    ]
     return {
-      tableData: [{
-        th1: [],
-        // 可以塞fields?
-        th2: '200',
-        th3: '200'
-      }],
       items: [],
-      headers: [],
-      fields: [
-        '每點價格',
-        '手續費(進/出)',
-        '單商品每筆上限',
-        '單商品留倉上限',
-        '單商品留倉天數',
-        '開盤最大漲跌',
-        '每口最大漲跌',
-        '停損利',
-        '可下單時間',
-        '狀態',
-        '禁新',
-        '強平',
-      ]
     }
   },
   mounted() {
@@ -67,56 +42,7 @@ export default {
   },
   methods: {
     getUserInfo(sourceCommidyArray) {
-      let commidyArray = JSON.parse(JSON.stringify(sourceCommidyArray))
-
-      let _this = this
-      _this.items = []
-      _this.headers = commidyArray
-
-      _this.fields.forEach(function(field, key) {
-        if (typeof _this.items[key] == 'undefined') {
-          _this.items[key] = []
-        }
-
-        _this.items[key].push(field)
-
-        commidyArray.forEach(function(val) {
-          switch (key) {
-            case 0:
-              _this.items[key].push(val.Fee)
-              break
-            case 1:
-              _this.items[key].push(val.SubmitMax)
-              break
-            case 2:
-              _this.items[key].push(val.RemaingLimit)
-              break
-            case 3:
-              _this.items[key].push(val.RemaingDayLimit)
-              break
-            case 4:
-              _this.items[key].push(val.OpenMaxPoint)
-              break
-            case 5:
-              _this.items[key].push(val.SubmitMaxPoint)
-              break
-            case 6:
-              _this.items[key].push(val.StopPoint)
-              break
-            case 7:
-              _this.items[key].push(val.TradeTime)
-            case 8:
-              _this.items[key].push(val.State)
-              break
-            case 9:
-              _this.items[key].push(val.NotNewPercent)
-              break
-            case 10:
-              _this.items[key].push(val.CoverPercent)
-              break
-          }
-        })
-      })
+      this.items = JSON.parse(JSON.stringify(sourceCommidyArray))
     }
   }
 }

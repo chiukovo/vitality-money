@@ -8,7 +8,7 @@
     v-dialogDrag)
     .header-custom(slot='title')
       i.el-icon-info
-      |  {{ $store.state.itemName }}
+      |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
       .el-dialog__button-group
         //- 點擊 dialog__screen, dialogFullScreen 變成 true
         button.el-dialog__headerbtn.el-dialog__screen(@click='dialogFullScreen == true')
@@ -21,7 +21,7 @@
       client-only
         Kchart(v-if="clickType == 'kLine'")
         Chart(v-if="clickType == 'chart'")
-        Chart(v-if="clickType == 'chart'")
+        HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
         UserDetail(v-if="clickType == 'userDetail'")
 </template>
 <script>
@@ -29,9 +29,10 @@
 import Kchart from "~/components/Kchart"
 import Chart from "~/components/Chart"
 import UserDetail from "~/components/UserDetail"
+import HistoryWinLoss from "~/components/HistoryWinLoss"
 
 export default {
-  props: ['clickType', 'visible'],
+  props: ['clickType', 'visible', 'title'],
   data () {
     return {
       dialogFullScreen: false,
@@ -41,6 +42,7 @@ export default {
     Kchart,
     Chart,
     UserDetail,
+    HistoryWinLoss,
   },
   methods: {
     handleClose (done) {

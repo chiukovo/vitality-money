@@ -23,6 +23,9 @@ export default {
   setUserOrder(state, data) {
     state.userOrder = data
   },
+  setNowMainItem(state, data) {
+    state.nowMainItem = data
+  },
   setClickItemId(state, {id, name}) {
     state.clickItemId = id
     state.itemName = name
@@ -30,8 +33,8 @@ export default {
   setMainItem(state, data) {
     state.mainItem = data
   },
-  setNowMainItem(state, data) {
-    state.nowMainItem = data
+  setUpdateMainItem(state, data) {
+    state.updateMainItem = data
   },
   setNowNewPrice(state, {itemId, newPrice}) {
     Vue.set(state.nowNewPrice, itemId, 0)

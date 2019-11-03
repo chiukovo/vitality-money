@@ -105,6 +105,7 @@ export default {
   },
   computed: mapState([
     'userOrder',
+    'nowMainItem',
   ]),
   watch: {
     userOrder(data) {
@@ -115,6 +116,39 @@ export default {
       this.unCoverBuySum = data.UnCoverSellSum
       this.unCoverSellSum = data.UnCoverBuySum
       this.unCoverTotal = parseInt(data.UnCoverSellSum) + parseInt(data.UnCoverBuySum)
+    },
+    nowMainItem(mainItem) {
+      //計算
+      if (this.uncovered.length > 0) {
+        let uncoverMoney = 0
+
+        this.uncovered = this.uncovered.map(function(val) {
+          // 取得點數現價差，要更新在未平單上
+          let thisSerialPointDiff
+          // 此單未平損益 (要算手續費)，要更新在未平單上
+          val.thisSerialTotalMoney = 0
+          // 取得價格
+          const nowPrice = mainItem[val.ID]['newest_price']
+          // 取得點數現價差
+          const diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
+
+          // 如果是買單
+          if(val.BuyOrSell == 0) {
+              // 此單未平點數
+              thisSerialPointDiff = diff
+              // 總共未平損益
+              uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          }
+          else {
+              thisSerialPointDiff = diff * -1;
+              uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          }
+          // 此單未平損益 (要算手續費)，要更新在未平單上
+          val.thisSerialTotalMoney = thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
+
+          return val
+        })
+      }
     }
   },
   methods: {

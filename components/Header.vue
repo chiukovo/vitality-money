@@ -3,6 +3,7 @@
     Dialog(
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
+      :title="dialog.title"
     )
     ul.navbar-nav
       li.nav-item
@@ -13,8 +14,8 @@
       li.nav-item
         a.nav-link(href="#") 檢視
         .dropdown-menu
-          a.dropdown-item(href="#" @click="openModal('userDetail')") 個人資料
-          a.dropdown-item(href="#") 歷史損益
+          a.dropdown-item(href="#" @click="openModal('userDetail', '個人資料')") 個人資料
+          a.dropdown-item(href="#" @click="openModal('historyWinLoss', '歷史損益')") 歷史損益
           a.dropdown-item(href="#") 歷史報價
           a.dropdown-item(href="#") 儲值記錄
           a.dropdown-item(href="#") 動作日誌
@@ -68,6 +69,7 @@ export default {
       dialog: {
         clickType: '',
         isOpen: false,
+        title: '',
       },
       endDate: ''
     }
@@ -92,9 +94,10 @@ export default {
     }
   },
   methods: {
-    openModal (type) {
+    openModal (type, title) {
       this.dialog.clickType = type
-      this.dialog.isOpen= true
+      this.dialog.title = title
+      this.dialog.isOpen = true
     }
   }
 }
