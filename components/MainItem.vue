@@ -215,6 +215,9 @@ export default {
       //現在items 加入store
       _this.$store.commit('setNowMainItem', _this.items)
 
+      //store out
+      _this.items = JSON.parse(JSON.stringify(_this.items))
+
       //remove border
       setTimeout(function() {
         _this.items = _this.items.map(function (val) {

@@ -111,7 +111,7 @@ export default {
 	    				result = val.substring(2).split(";")
 
 	    				if(result.length > 1) {
-	    					_this.$store.commit('setNowMainItem', result)
+	    					_this.$store.commit('setUpdateMainItem', result)
 	    				}
 
 	    				break
