@@ -39,6 +39,66 @@ Vue.mixin({
     formatTime (time) {
       return time.substring(0, 2) + ":" + time.substring(2, 4) + ":" + time.substring(4, 6)
     },
+    selectDayType(type) {
+      let start
+      let end
+      const date = new Date()
+      const weekday = date.getDay() || 7
+
+      switch (type) {
+        case "today":
+          end = new Date()
+          end.setHours(23, 59, 59)
+          start = new Date(end)
+          start.setTime(end.getTime() - 3600 * 1000 * 24 + 1000)
+          break
+        case "yesterday":
+          start = new Date()
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 1)
+          end = start
+          break
+        case "thisWeek":
+          end = date.getTime()
+          date.setDate(date.getDate() - weekday + 1)
+          start = date.getTime()
+          break
+        case "beforeWeek":
+          date.setDate(date.getDate() - weekday + 1)
+          end = date.getTime()
+          date.setDate(date.getDate() - 7)
+          start = date.getTime()
+          break
+        case "thisMonth":
+          end = date.getTime()
+          date.setDate(1)
+          start = date.getTime()
+          break
+        case "beforeMonth":
+          const oneDaySeconds = 3600 * 1000 * 24
+          date.setDate(1)
+          end = date.getTime() - oneDaySeconds
+          start = end - oneDaySeconds * 30
+          break
+      }
+
+      this.form.start = this.formatDate(start)
+      this.form.end = this.formatDate(end)
+
+      this.query()
+    },
+    formatDate(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear()
+
+      if (month.length < 2)
+          month = '0' + month
+      if (day.length < 2)
+          day = '0' + day
+
+      return [year, month, day].join('-')
+    },
     updateScroll() {
       //$('.fixed-table-body').slimScroll({height: '100%'})
     },

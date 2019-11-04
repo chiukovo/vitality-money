@@ -12,36 +12,39 @@
                   :label="data.name"
                   :value="data.id"
                 )
-      .row
-        .col
-          el-form(ref='form' size='mini' :inline='true')
             el-form-item(label='開始日期:')
               el-form-item
-                el-date-picker(v-model='form.start' type='date' placeholder='開始日期' style="width: 130px;")
+                el-date-picker(
+                  v-model='form.start',
+                  type='date',
+                  placeholder='開始日期',
+                  style="width: 130px;",
+                )
             el-form-item(label='開始時間: ' size='mini')
-              el-time-picker(v-model='form.startDt' style="width: 132px;")
-            el-button(size='mini') 送出
+              el-time-picker(
+                v-model='form.startDt'
+                style="width: 132px;"
+                value-format="HH:mm:ss"
+                format="HH:mm:ss"
+              )
+            el-button(size='mini' @click="query") 送出
           el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
     .itemDetailtabs__content
       .row
-        .col-6
-          el-table.table(
-            :data='items'
-            min-width='100%'
-            border)
-            el-table-column(label='市場時間' min-width='30%')
-            el-table-column(label='口' min-width='14%')
-            el-table-column(label='價格' min-width='28%')
-            el-table-column(label='次序' min-width='28%')
-        .col-6
-          el-table.table(
-            :data='items'
-            min-width='100%'
-            border)
-            el-table-column(label='市場時間' min-width='30%')
-            el-table-column(label='口' min-width='14%')
-            el-table-column(label='價格' min-width='28%')
-            el-table-column(label='次序' min-width='28%')
+        el-table.table(
+          :data='items.slice((currentPage-1)*pagesize,currentPage*pagesize)'
+          min-width='100%'
+          border)
+          el-table-column(prop="time" label='市場時間' min-width='30%')
+          el-table-column(prop="submit" label='口' min-width='14%')
+          el-table-column(prop="price" label='價格' min-width='28%')
+      .row
+        el-pagination(
+          background
+          layout="prev, pager, next"
+          :total="total"
+          @current-change="currentChange"
+        )
 </template>
 <script>
 
@@ -53,20 +56,27 @@ export default {
     return {
       form: {
         start: '',
-        startDt: '',
+        startDt: '00:00:00',
         end: '',
         itemType: 'TXF', //default
       },
       items: [],
       commidy: [],
+      total: 0,
+      pagesize: 10,
+      currentPage: 1
     }
   },
   mounted () {
     //end date
+    this.form.start = this.formatDate(new Date())
     this.form.end = this.formatDate(new Date())
     this.getItems()
   },
   methods: {
+    currentChange(currentPage) {
+      this.currentPage = currentPage;
+    },
     getItems() {
       //取得商品列表
       let commidyArray = this.$store.state.commidyArray
@@ -85,22 +95,56 @@ export default {
     async query() {
       let _this = this
 
-      if (this.form.start != '' && this.form.end != '') {
+      if (this.form.start != '' && this.form.startDt != '') {
         const userId = this.$store.state.localStorage.userAuth.userId
         const token = this.$store.state.localStorage.userAuth.token
         const lang = this.$store.state.localStorage.lang
 
-        await axios.post("/api/query_moneylist_detail?lang=" + lang, qs.stringify({
+        await axios.post("/api/query_com_history_data?lang=" + lang, qs.stringify({
           UserID: userId,
           Token: token,
-          StartDate: this.form.start,
-          EndDate: this.form.end,
-          DaySelect: -1,
+          queryLen: 3,
+          queryComId: this.form.itemType,
+          queryTime: this.form.start + ' ' + this.form.startDt,
         }))
         .then(response => {
           const result = response.data
 
-          _this.items = result.CoveredArray
+          if (result.Code == 1) {
+            //計算
+            let history = result.ComDataArray.split(",");
+            if(history.length < 3) {
+              return;
+            }
+
+            for(let i = 0; i < history.length; i += 3) {
+              for(let j = i + 3;j < history.length; j += 3) {
+                if(history[i] > history[j]) {
+                  let temp = history[i];
+                  let temp1 = history[i+1];
+                  let temp2 = history[i+2];
+                  history[i] = history[j];
+                  history[i+1] = history[j+1];
+                  history[j+2] = history[j+2];
+                  history[j] = temp;
+                  history[j+1] = temp1;
+                  history[j+2] = temp2;
+                }
+              }
+            }
+
+            for(let i = 0;i < history.length; i += 3) {
+              if(parseInt(history[i + 2]) > 0) {
+                _this.items.push({
+                  time: _this.form.start + ' ' + _this.formatTime(history[i]),
+                  submit: history[i + 2],
+                  price: history[i + 1],
+                })
+              }
+            }
+
+            _this.total= _this.items.length;
+          }
         })
       }
     }
