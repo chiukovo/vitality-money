@@ -24,6 +24,7 @@
         Chart(v-if="clickType == 'chart'")
         HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
         UserDetail(v-if="clickType == 'userDetail'")
+        HistoryPrices(v-if="clickType == 'historyPrices'")
 </template>
 <script>
 
@@ -31,6 +32,7 @@ import Kchart from "~/components/Kchart"
 import Chart from "~/components/Chart"
 import UserDetail from "~/components/UserDetail"
 import HistoryWinLoss from "~/components/HistoryWinLoss"
+import HistoryPrices from "~/components/HistoryPrices"
 
 export default {
   props: ['clickType', 'visible', 'title'],
@@ -44,6 +46,7 @@ export default {
     Chart,
     UserDetail,
     HistoryWinLoss,
+    HistoryPrices,
   },
   methods: {
     handleClose (done) {

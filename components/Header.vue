@@ -16,7 +16,7 @@
         .dropdown-menu
           a.dropdown-item(href="#" @click="openModal('userDetail', '個人資料')") 個人資料
           a.dropdown-item(href="#" @click="openModal('historyWinLoss', '歷史損益')") 歷史損益
-          a.dropdown-item(href="#") 歷史報價
+          a.dropdown-item(href="#" @click="openModal('historyPrices', '歷史報價')") 歷史報價
           a.dropdown-item(href="#") 儲值記錄
           a.dropdown-item(href="#") 動作日誌
       li.nav-item
