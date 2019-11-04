@@ -1,11 +1,12 @@
 <template lang='pug'>
   el-dialog(
-    :visible.sync='visible'
-    :fullscreen='dialogFullScreen'
-    :modal='false'
-    :before-close="handleClose"
-    title='$store.state.itemName'
-    v-dialogDrag)
+      :visible.sync='visible'
+      :fullscreen='dialogFullScreen'
+      :before-close="handleClose"
+      title='$store.state.itemName'
+      :close-on-click-modal="false"
+      width="80%"
+    )
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
