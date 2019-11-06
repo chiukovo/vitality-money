@@ -10,7 +10,7 @@
       :height='this.$parent.mainItemTable',
       :cell-class-name='tableCellClassName',
       @row-click="clickItem",
-      highlight-current-row
+      :row-class-name="getTrClass"
       min-width='100%'
       border)
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
@@ -66,7 +66,8 @@ export default {
       },
       items: [],
       itemId: '',
-      borderName: ''
+      borderName: '',
+      currentRow: ''
 	  }
 	},
   components: {
@@ -79,9 +80,6 @@ export default {
     'clickItemId',
   ]),
 	watch: {
-    clickItemId (id) {
-
-    },
     mainItem (res) {
       const _this = this
       let result = []
@@ -257,6 +255,11 @@ export default {
     },
 	},
   methods: {
+    getTrClass({ row, rowIndex }) {
+      if (row.product_id == this.itemId) {
+        return 'current-row'
+      }
+    },
     clickItem(item) {
       this.itemId = item.product_id
       this.$store.commit('setClickItemId', {
