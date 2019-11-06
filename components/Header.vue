@@ -5,7 +5,7 @@
       :visible.sync="dialog.isOpen"
       :title="dialog.title"
     )
-    ul.navbar-nav
+    ul.navbar-nav.navbar-nav-left
       li.nav-item
         a.nav-link(href="#") 連線
         .dropdown-menu.animated.fadeInDown
@@ -45,7 +45,7 @@
           span.text-success 10531
           |, 
           span.text-danger 12151
-    ul.navbar-nav
+    ul.navbar-nav.navbar-nav-right
       li.nav-item
         a.nav-link.material-icons(href="#") color_lens
         .dropdown-menu

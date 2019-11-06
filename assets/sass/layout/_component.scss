@@ -30,17 +30,17 @@
 }
 tr.border-tr {
     td {
-        border-top: 1px solid $infor;
-        border-bottom-color: $infor;
+        border-top: 1px solid $primary;
+        border-bottom-color: $primary;
         &:first-child {
-            border-left: 1px solid $infor;
+            border-left: 1px solid $primary;
         }
         &:last-child {
-            border-right: 1px solid $infor;
+            border-right: 1px solid $primary;
         }
         &:nth-child(3) {
             color: #fff;
-            background-color: $infor;
+            background-color: $primary;
         }
     }
     &:hover {

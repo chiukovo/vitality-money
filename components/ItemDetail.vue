@@ -13,6 +13,8 @@
   .itemDetail-content
     el-tabs(
       v-model='activeName'
+      type='card'
+      stretch=true
       tabPosition='bottom')
       //- tabs1
       el-tab-pane(label='五檔揭示' name='tabs1')

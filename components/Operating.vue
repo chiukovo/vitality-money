@@ -39,9 +39,8 @@
           el-button(plainsize='mini') 編輯
           el-button(plainsize='mini') 還原
     .operating-4
-      el-button-group
         el-button(type="danger") 下多單
-        el-button(size='mini' disabled) 全平
+        el-button(size='mini') 全平
         el-button(type="success") 下空單
     .operating-5
       el-checkbox-group(v-model='checkList')
