@@ -27,22 +27,12 @@
             style='width: 100%'
             height="500"
             border)
-            el-table-column(prop="CoverSerial" label='序號')
-            el-table-column(prop="Name" label='商品')
-            el-table-column(prop="NewSerial" label='新倉序號')
-            el-table-column(prop="NewDate" label='成交日期' width="150")
-            el-table-column(prop="NewPrice" label='成交價')
-            el-table-column(prop="CoverSerial" label='平倉序號')
-            el-table-column(prop="CoverDate" label='平倉日期' width="150")
-            el-table-column(prop="CoverPrice" label='平倉價')
-            el-table-column(label='口數')
-              template(slot-scope='scope') 1
-            el-table-column(label='多空')
-              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-            el-table-column(prop="NewType" label='新倉型別')
-            el-table-column(prop="CoverType" label='種類')
-            el-table-column(prop="Fee" label='手續費')
-            el-table-column(prop="Money" label='損益')
+            el-table-column(prop="Index" label='序號')
+            el-table-column(prop="ActionUserAccount" label='帳號')
+            el-table-column(prop="ActionType" label='動作類別')
+            el-table-column(prop="ActionData" label='說明')
+            el-table-column(prop="ActionTime" label='日期')
+            el-table-column(prop="ActionIP" label='IP紀錄')
 </template>
 <script>
 
@@ -71,7 +61,7 @@ export default {
         const token = this.$store.state.localStorage.userAuth.token
         const lang = this.$store.state.localStorage.lang
 
-        await axios.post("/api/query_moneylist_detail?lang=" + lang, qs.stringify({
+        await axios.post("/api/query_actionlist?lang=" + lang, qs.stringify({
           UserID: userId,
           Token: token,
           StartDate: this.form.start,
@@ -81,7 +71,7 @@ export default {
         .then(response => {
           const result = response.data
 
-          _this.items = result.CoveredArray
+          _this.items = result.ActionArray
         })
       }
     }

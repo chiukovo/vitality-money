@@ -18,6 +18,7 @@
                   v-model='form.start',
                   type='date',
                   placeholder='開始日期',
+                  value-format="yyyy-MM-dd"
                   style="width: 130px;",
                 )
             el-form-item(label='開始時間: ' size='mini')
@@ -89,8 +90,6 @@ export default {
           id: val.ID,
         })
       })
-
-      console.log(_this.commidy)
     },
     async query() {
       let _this = this

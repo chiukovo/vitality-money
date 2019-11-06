@@ -18,6 +18,8 @@
         UserDetail(v-if="clickType == 'userDetail'")
         HistoryPrices(v-if="clickType == 'historyPrices'")
         StoredRecords(v-if="clickType == 'storedRecords'")
+        ActionLog(v-if="clickType == 'actionLog'")
+        ChangPassword(v-if="clickType == 'changePassword'")
 </template>
 <script>
 
@@ -27,6 +29,8 @@ import UserDetail from "~/components/UserDetail"
 import HistoryWinLoss from "~/components/HistoryWinLoss"
 import HistoryPrices from "~/components/HistoryPrices"
 import StoredRecords from "~/components/StoredRecords"
+import ActionLog from "~/components/ActionLog"
+import ChangPassword from "~/components/ChangPassword"
 
 export default {
   props: ['clickType', 'visible', 'title'],
@@ -42,6 +46,8 @@ export default {
     HistoryWinLoss,
     HistoryPrices,
     StoredRecords,
+    ActionLog,
+    ChangPassword,
   },
   methods: {
     handleClose (done) {

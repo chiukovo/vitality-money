@@ -18,11 +18,11 @@
           a.dropdown-item(href="#" @click="openModal('historyWinLoss', '歷史損益')") 歷史損益
           a.dropdown-item(href="#" @click="openModal('historyPrices', '歷史報價')") 歷史報價
           a.dropdown-item(href="#" @click="openModal('storedRecords', '儲值記錄')") 儲值記錄
-          a.dropdown-item(href="#") 動作日誌
+          a.dropdown-item(href="#" @click="openModal('actionLog', '動作日誌')") 動作日誌
       li.nav-item
         a.nav-link(href="#") 設定
         .dropdown-menu
-          a.dropdown-item(href="#") 變更密碼
+          a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼')") 變更密碼
           a.dropdown-item(href="#") 商品選擇
           a.dropdown-item(href="#") 版面選擇
           a.dropdown-item(href="#") 視覺下單
