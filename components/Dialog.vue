@@ -2,10 +2,10 @@
   el-dialog(
       :visible.sync='visible'
       :fullscreen='dialogFullScreen'
-      :before-close="handleClose"
+      :before-close='handleClose'
       title='$store.state.itemName'
-      :close-on-click-modal="false"
-      width="80%"
+      :close-on-click-modal='false'
+      width='80%'
     )
     .header-custom(slot='title')
       i.el-icon-info

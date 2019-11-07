@@ -5,10 +5,10 @@
       .header__title 五檔揭示[{{ $store.state.itemName }}]
     .itemDetail-header(v-if="activeName === 'tabs2'" @click="clickType(1)")
       .header__title 量價分佈[{{ $store.state.itemName }}]
-      el-button(@click='dialogVisible2 = true' size='mini') 歷史
+      el-button(@click='dialogVisible2 = true' type='primary' size='mini') 歷史
     .itemDetail-header(v-if="activeName === 'tabs3'" @click="clickType(2)")
       .header__title 報價明細[{{ $store.state.itemName }}]
-      el-button(@click='dialogVisible3 = true' size='mini') 查詢
+      el-button(@click='dialogVisible3 = true' type='primary' size='mini') 查詢
       el-checkbox(checked) 置底
   .itemDetail-content
     el-tabs(

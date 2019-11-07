@@ -282,7 +282,6 @@
         padding: 4px 10px;
         overflow-x: auto;
         .col {
-            flex: 1 0 auto;
             padding: 4px 10px;
         }
     }
@@ -346,5 +345,19 @@
                 flex-direction: column;
             }
         }
+    }
+}
+
+
+//-------------- changePassword
+.changePassword {
+    max-width: 360px;
+    margin: 1rem auto;
+    .el-form-item {
+        margin-bottom: 2px;
+    }
+    .rules-list {
+        font-size: 12px;
+        padding: 1rem 0 1rem 80px;
     }
 }

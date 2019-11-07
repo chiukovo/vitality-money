@@ -67,6 +67,8 @@
   }
 }
 .el-dialog__body {
+  max-height: 660px;
+  overflow: auto;
   padding: 0;
   img {
     width: 100%;

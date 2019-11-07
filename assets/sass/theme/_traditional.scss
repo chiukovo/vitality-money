@@ -57,6 +57,7 @@ body {
         position: relative;
         .nav-item {
             width: 39px;
+            overflow: hidden;
             > .nav-link {
                 font-size: 0;
             }
@@ -206,25 +207,32 @@ body {
     border-color: #b7babc;
 }
 
+@mixin button($font, $border, $bg1, $bg2) {
+    color: $font;
+    border-color: $border;
+    background: linear-gradient(to bottom, $bg1 0%, $bg2 100%);
+    &:hover, &:focus {
+        color: $font;
+        border-color: darken($border, 2%);
+        background: linear-gradient(to bottom, darken($bg1, 2%) 0%, darken($bg2, 4%) 100%);
+    }
+}
 .el-button--default {
-    color: #204650;
-    border-color: #5897bf;
-    background: linear-gradient(to bottom, #fff 0%,#c5daef 100%);
+    @include button(#606266, #DCDFE6, #fff, #fff);
+}
+.el-button--primary {
+    @include button(#204650, #5897bf, #fff, #c5daef);
 }
 .el-button--danger {
-    color: #770000;
-    border-color: #e04c50;
-    background: linear-gradient(to bottom, #f3b9bb 0%,#f76065 100%);
+    @include button(#770000, #e04c50, #f3b9bb, #f76065);
 }
 .el-button--success {
-    color: #0e680c;
-    border-color: #4bdc50;
-    background: linear-gradient(to bottom, #b4f5b8 0%,#4de353 100%);
+    @include button(#0e680c, #4bdc50, #b4f5b8, #4de353);
 }
 
 
 .el-input__inner {
-    border-color: #457797;
+    border-color: #5897bf;
     background: #f1f1f1;
 }
 
@@ -241,6 +249,9 @@ body {
     background: #295f95;
     background: linear-gradient(to bottom, #5283b6 0%, #295f95 100%);
     .el-dialog__close {
+        color: #fff;
+    }
+    .header-custom i {
         color: #fff;
     }
 }

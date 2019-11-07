@@ -25,19 +25,19 @@
       .numberbtn
         el-form(ref='form' size='mini' label-width='50px')
           el-button-group
-            el-button(plain size='mini') 1
-            el-button(plain size='mini') 2
-            el-button(plain size='mini') 3
-            el-button(plain size='mini') 4
-            el-button(plain size='mini') 5
+            el-button(type='primary' size='mini') 1
+            el-button(type='primary' size='mini') 2
+            el-button(type='primary' size='mini') 3
+            el-button(type='primary' size='mini') 4
+            el-button(type='primary' size='mini') 5
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
-          el-form-item(label='口數:')
+          el-form-item(label='口數:' style='margin: 6px 0 0 0;')
             el-input-number(v-model='num3' controls-position='right' :min='1' :max='10')
       .editbtn
         el-button-group
-          el-button(plainsize='mini') 編輯
-          el-button(plainsize='mini') 還原
+          el-button(type='primary' size='mini') 編輯
+          el-button(type='primary' size='mini') 還原
     .operating-4
         el-button(type="danger") 下多單
         el-button(size='mini') 全平

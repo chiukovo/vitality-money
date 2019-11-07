@@ -1,16 +1,24 @@
 <template lang='pug'>
-  el-form
-    el-form-item(label="帳號")
-      el-input(:value="$store.state.userInfo.Account" :disabled="true")
-    el-form-item(label="舊密碼")
-      el-input(type="password" v-model="form.oldPassword")
-    el-form-item(label="新密碼")
-      el-input(type="password" v-model="form.newPassword")
-    el-form-item(label="確認密碼")
-      el-input(type="password" v-model="form.checkPassword")
-    el-form-item
-      el-button(type='primary' @click="submit") 確認
-      el-button(@click="cancel") 取消
+  .changePassword
+    el-form(
+      size='mini'
+      label-width="80px")
+      el-form-item(label="帳號")
+        el-input(:value="$store.state.userInfo.Account" :disabled="true")
+      el-form-item(label="舊密碼")
+        el-input(type="password" v-model="form.oldPassword")
+      el-form-item(label="新密碼")
+        el-input(type="password" v-model="form.newPassword")
+      el-form-item(label="確認密碼")
+        el-input(type="password" v-model="form.checkPassword")
+      el-form-item
+        el-button(type='primary' @click="submit") 確認
+        el-button(@click="cancel") 取消
+    ul.rules-list
+      li 密碼規則:
+      li 1.必須6位長度;
+      li 2.需要數字和非數字組合;
+      li 3.不能有４位或以上連續數字或字母(比如1111,aaaa,1234,abcd)
 </template>
 <script>
 
@@ -28,7 +36,7 @@ export default {
     }
   },
   mounted () {
-    
+
   },
   methods: {
     cancel() {
