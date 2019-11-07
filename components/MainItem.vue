@@ -67,24 +67,42 @@ export default {
       items: [],
       itemId: '',
       borderName: '',
-      currentRow: ''
 	  }
 	},
   components: {
     Dialog,
+  },
+  mounted() {
   },
   computed: mapState([
     'mainItem',
     'updateMainItem',
     'nowFiveMoney',
     'clickItemId',
+    'customItemSetting',
   ]),
 	watch: {
-    mainItem (res) {
+    customItemSetting (setting) {
       const _this = this
+      const mainItem = _this.$store.state.mainItem
+
       let result = []
+      _this.itemId = _this.$store.state.clickItemId
+
       //計算
-      res.forEach(function(val) {
+      mainItem.forEach(function(val) {
+        //確認此筆是否要隱藏
+        let hide = false
+        setting.forEach(function(custom) {
+          if (custom.id == val.product_id && !custom.show) {
+            hide = true
+          }
+        })
+
+        if (hide) {
+          return
+        }
+
         //顏色 昨收價 < 成交價 紅
         val.color = ''
         val.newest_price_change = ''

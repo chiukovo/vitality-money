@@ -8,6 +8,19 @@ Vue.mixin({
     startToken () {
       return 'a:test,test'
     },
+    marketInfo () {
+      return {
+        "TW": "台灣期貨交易所",
+        "SGX": "新加坡交易所",
+        "CME": "芝加哥商品交易所",
+        "JPX": "日本交易所集團",
+        "CBOT": "芝加哥期貨交易所",
+        "NYMEX": "紐約商品期貨交易所",
+        "EURX": "歐洲期貨交易所",
+        "HKEX": "香港交易所",
+        "CFFE": "中國金融期貨交易所"
+      }
+    },
     allItemIds () {
       return [
         'TXF',
@@ -38,6 +51,13 @@ Vue.mixin({
     },
     formatTime (time) {
       return time.substring(0, 2) + ":" + time.substring(2, 4) + ":" + time.substring(4, 6)
+    },
+    objectIsEmpty (obj) {
+      for(let key in obj) {
+        if(this.hasOwnProperty(key))
+            return false;
+      }
+      return true;
     },
     selectDayType(type) {
       let start

@@ -23,7 +23,7 @@
         a.nav-link(href="#") 設定
         .dropdown-menu
           a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼')") 變更密碼
-          a.dropdown-item(href="#") 商品選擇
+          a.dropdown-item(href="#" @click="openModal('customItem', '商品選擇')") 商品選擇
           a.dropdown-item(href="#") 版面選擇
           a.dropdown-item(href="#") 視覺下單
           a.dropdown-item(href="#") 刪單不確認

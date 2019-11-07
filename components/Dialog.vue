@@ -20,6 +20,7 @@
         StoredRecords(v-if="clickType == 'storedRecords'")
         ActionLog(v-if="clickType == 'actionLog'")
         ChangPassword(v-if="clickType == 'changePassword'")
+        CustomItem(v-if="clickType == 'customItem'")
 </template>
 <script>
 
@@ -31,6 +32,7 @@ import HistoryPrices from "~/components/HistoryPrices"
 import StoredRecords from "~/components/StoredRecords"
 import ActionLog from "~/components/ActionLog"
 import ChangPassword from "~/components/ChangPassword"
+import CustomItem from "~/components/CustomItem"
 
 export default {
   props: ['clickType', 'visible', 'title'],
@@ -48,6 +50,7 @@ export default {
     StoredRecords,
     ActionLog,
     ChangPassword,
+    CustomItem,
   },
   methods: {
     handleClose (done) {

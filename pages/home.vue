@@ -99,6 +99,12 @@ export default {
 
 	    				if (result['code'] > 0) {
 	    					_this.$store.commit('setMainItem', result['data'])
+
+	    					//取得自定義商品開關
+	    					_this.$store.dispatch('CALL_MEMBER_CUSTOM_ITEM', {
+	    						defaultData: result['data'],
+	    						marketInfo: _this.marketInfo()
+	    					})
 	    				}
 
 	    				//呼叫即時資料

@@ -30,6 +30,44 @@ export default {
       }
     })
   },
+  async CALL_MEMBER_CUSTOM_ITEM ({ commit, state }, {defaultData, marketInfo}) {
+    const userId = state.localStorage.userAuth.userId
+    const token = state.localStorage.userAuth.token
+
+    await axios.post("/api/query_member_setting", qs.stringify({
+      UserID: userId,
+      Token: token,
+    }))
+    .then(response => {
+      const result = response.data
+
+      if (result.Code == 1) {
+        //有值
+        if (result.UserSettingData != '{}') {
+          const customItemSetting = JSON.parse(result.UserSettingData)
+          commit('setCustomItemSetting', customItemSetting)
+
+        } else {
+          //default
+          let newDefaultData = []
+
+          defaultData.forEach(function(val) {
+            let newVal = {
+              id: val.product_id,
+              name: val.product_name,
+              trade_time: val.open_date_time.split(' ')[1] + ' ~ ' + val.close_date_time.split(' ')[1],
+              market_name: marketInfo[val.market],
+              show: true
+            }
+
+            newDefaultData.push(newVal)
+          })
+
+          commit('setCustomItemSetting', newDefaultData)
+        }
+      }
+    })
+  },
   async CALL_MEMBER_INFO ({ commit, state }) {
     const lang = state.localStorage.lang
     const userId = state.localStorage.userAuth.userId

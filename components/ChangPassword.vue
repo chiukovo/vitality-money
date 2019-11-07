@@ -80,7 +80,6 @@ export default {
           return
         } else {
           _this.$alert("密碼更改成功")
-          _this.cancel()
         }
       })
     }

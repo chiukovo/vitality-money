@@ -4,6 +4,22 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  setCustomItemSetting(state, data) {
+    //default item 選擇第一筆
+    let first = true
+
+    if (data.length > 0) {
+      data.forEach(function(val){
+        if (val.show && first) {
+          state.clickItemId = val['id']
+          state.itemName = val['name']
+
+          first = false
+        }
+      })
+    }
+    state.customItemSetting = data
+  },
   setuserAuth(state, data) {
     //set localStorage
     state.localStorage.userAuth = {
