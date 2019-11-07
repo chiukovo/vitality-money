@@ -78,17 +78,17 @@ export default {
     Dialog,
   },
   computed: mapState([
-    'mainItem',
+    'clickItemId',
   ]),
   watch: {
-    mainItem (res) {
+    clickItemId (nowItems) {
       let _this = this
-      let nowItems = this.$store.state.clickItemId
       let mainItem = this.$store.state.mainItem
 
-      res.forEach(function(val) {
+      mainItem.forEach(function(val) {
         if (nowItems == val.product_id) {
           _this.endDate = val.end_date
+          console.log(_this.endDate)
         }
       })
     }

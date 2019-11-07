@@ -29,6 +29,13 @@ import axios from 'axios'
 import qs from 'qs'
 
 export default {
+	head() {
+	  return {
+	    htmlAttrs: {
+	       class: this.$store.state.customStyle.htmlClass + ' login'
+	    }
+	  }
+	},
 	data () {
 	  return {
       account: '',

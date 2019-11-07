@@ -27,6 +27,9 @@ export default {
       token: data.Token,
     }
 
+    //set cookie
+    document.cookie = `token=${data.Token}`
+
     location.href = "/home"
   },
   setUserInfo(state, data) {
@@ -47,6 +50,25 @@ export default {
     state.itemName = name
   },
   setMainItem(state, data) {
+    const commidyArray = state.commidyArray
+
+    //計算禁新 強平
+    data = data.map(function (val) {
+      let newPoint, cover
+
+      commidyArray.forEach(function (commidy) {
+        if (val.product_id == commidy.ID) {
+          newPoint = commidy.NotNewPercent
+          cover = commidy.CoverPercent
+        }
+      })
+
+      //參考價 +- 參考價*禁新%
+      //val.newPoint =
+
+      return val
+    })
+
     state.mainItem = data
   },
   setUpdateMainItem(state, data) {

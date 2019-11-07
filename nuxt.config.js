@@ -47,6 +47,7 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/style-resources',
+    'cookie-universal-nuxt',
     ['vue-currency-filter/nuxt', {
       thousandsSeparator: ',',
       symbolPosition: 'front',

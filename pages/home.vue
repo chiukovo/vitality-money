@@ -26,6 +26,14 @@ import { mapState } from 'vuex'
 import { Loading } from 'element-ui';
 
 export default {
+	head() {
+	  return {
+	    htmlAttrs: {
+	      class: this.$store.state.customStyle.htmlClass
+	    }
+	  }
+	},
+	middleware: 'serverAuth',
 	data () {
 		return {
 			mainStyles: {},

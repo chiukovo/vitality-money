@@ -20,6 +20,10 @@ export default () => ({
   userInfo: [],
   userOrder: [],
   commidyArray: [],
+  headerItem: [],
   customItemSetting: [],
   loading: true,
+  customStyle: {
+    htmlClass: 'gennki'
+  },
 })

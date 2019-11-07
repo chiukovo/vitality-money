@@ -3,7 +3,7 @@ import Vue from 'vue'
 import qs from 'qs'
 
 export default {
-  nuxtServerInit ({ commit, state }) {
+  nuxtServerInit ({ commit, state }, { req, redirect }) {
   },
 	async CALL_API_EXAMPLE ({ commit }) {
 		await axios.get("/api/apiTest.php", {
