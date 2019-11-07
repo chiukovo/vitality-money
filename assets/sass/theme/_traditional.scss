@@ -266,3 +266,97 @@ body {
 .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #578bc1;
 }
+
+
+
+
+//-------------- login
+.login {
+    body {
+        width: 960px;
+        min-width: auto;
+        background: #131419 url('~static/images/theme_traditional/login_bg.png') center top no-repeat;
+        margin: 0 auto;
+    }
+    .login-wrap {
+        width: 960px;
+        margin: auto;
+        .login-nav {
+            line-height: 3;
+            margin: 16px 0 0 270px;
+            a {
+                display: inline-block;
+                width: 80px;
+                text-align: center;
+                color: transparent;
+                + a {
+                    margin-left: 46px;
+                }
+            }
+        }
+        .login__header {
+            display: none;
+        }
+        .login__form {
+            position: relative;
+            float: right;
+            width: 268px;
+            margin: 123px 78px 0 0;
+        }
+        .el-form-item__label {
+            display: none;
+        }
+        .el-form-item__content {
+            margin-left: 0 !important;
+        }
+        .el-input__inner {
+            height: 31px;
+            line-height: 31px;
+            background: transparent;
+            border-color: transparent;
+            &:focus {
+                border-color: #002148;
+            }
+        }
+        .el-select:hover .el-input__inner, .el-select .el-input.is-focus .el-input__inner {
+            border-color: #002148;
+        }
+        .el-form-item {
+            margin-bottom: 13px;
+            .el-select__caret {
+                display: none;
+            }
+        }
+        .el-form {
+            .el-form-item {
+                &:nth-child(2) {
+                    margin-bottom: 18px;
+                }
+                &:nth-child(3) {
+                    margin-bottom: 0;
+                }
+                &:nth-child(4) {
+                    .el-checkbox__label {
+                        color: #fff;
+                    }
+                    .el-form-item__content {
+                        line-height: 1;
+                        padding-left: 5px;
+                    }
+                }
+                &:nth-child(5) {
+                    position: absolute;
+                    right: 1px;
+                    bottom: -10px;
+                    .el-button {
+                        color: transparent;
+                        background: transparent url('~static/images/theme_traditional/login_button.png');
+                        border: 0;
+                        width: 100px;
+                        height: 31px;
+                    }
+                }
+            }
+        }
+    }
+}

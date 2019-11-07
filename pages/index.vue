@@ -1,21 +1,26 @@
 <template lang='pug'>
-  .container.login-wrap
-    .login
-      .login__header 登入
-      .login__form
-        el-form(label-width='40px')
-          el-form-item(label='線路')
-            el-select(placeholder='伺服器' v-model='server' style='width: 100%;')
-              el-option(label='10-伺服器' value='server10')
-              el-option(label='11-伺服器' value='server11')
-          el-form-item(label='帳號')
-            el-input(v-model='account' placeholder='请输入帳號')
-          el-form-item(label='密碼')
-            el-input(v-model='password' type='password' placeholder='请输入密碼')
-          el-form-item
-            el-checkbox 記住我
-          el-form-item
-            el-button(type='primary' @click="doLogin") 登入
+.login-wrap
+	.login-nav
+		a(href="#") 遠端協助
+		a(href="#") html5
+		a(href="#") 網頁版登入
+		a(href="#") 意見留言
+	.login-box
+		.login__header 登入
+		.login__form
+			el-form(label-width='40px')
+				el-form-item(label='線路')
+					el-select(placeholder='伺服器' v-model='server' style='width: 100%;')
+						el-option(label='10-伺服器' value='server10')
+						el-option(label='11-伺服器' value='server11')
+				el-form-item(label='帳號')
+					el-input(v-model='account' placeholder='请输入帳號')
+				el-form-item(label='密碼')
+					el-input(v-model='password' type='password' placeholder='请输入密碼')
+				el-form-item
+					el-checkbox 記住我
+				el-form-item
+					el-button(type='primary' @click="doLogin") 登入
 </template>
 
 <script>
