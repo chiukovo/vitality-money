@@ -155,11 +155,11 @@ Vue.mixin({
 
       //- *** mainItem ***
       this.operating = this.$el.querySelector('#operating').offsetHeight
-      this.history = this.$el.querySelector('#history').offsetHeight
+      this.history = this.$el.querySelector('#history').offsetHeight - this.operating
       // console.log(`operating height: ${this.operating}`)
       // console.log(`history height: ${this.history}`)
 
-      this.mainItemTable = this.main - this.operating - this.history
+      this.mainItemTable = this.main - this.operating - this.history - this.operating
       // console.log(`mainItem height: ${this.mainItem}`)
     }
   }
