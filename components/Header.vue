@@ -90,8 +90,6 @@ export default {
           _this.targetItem = val
         }
       })
-
-      console.log(_this.targetItem)
     }
   },
   methods: {

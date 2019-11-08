@@ -19,6 +19,8 @@
               :height='$parent.history',
               border)
               el-table-column(label='操作')
+                template(slot-scope='scope')
+                  el-button(v-if="scope.row.CoveredQuantity == 0") 平昌
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
               el-table-column(label='多空')
@@ -29,8 +31,12 @@
               el-table-column(prop='OrderTime', label='下單時間')
               el-table-column(prop='FinalTime', label='完成時間')
               el-table-column(prop='Odtype', label='型別')
-              el-table-column(prop='LossPoint', label='損失點數')
+              el-table-column(label='損失點數')
+                template(slot-scope='scope')
+                  el-button(size='mini' :disabled="scope.row.CoveredQuantity != 0") {{ scope.row.LossPoint }}
               el-table-column(prop='WinPoint', label='獲利點數')
+                template(slot-scope='scope')
+                  el-button(size='mini' :disabled="scope.row.CoveredQuantity != 0") {{ scope.row.WinPoint }}
               el-table-column(prop='State', label='狀態')
           el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
