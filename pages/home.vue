@@ -57,6 +57,21 @@ export default {
   },
   mounted () {
   	this.checkLogin()
+  	const _this = this
+
+  	//檢查是否token過期
+  	this.$socketOrder.onopen = function(e) {
+  		const userId = _this.$store.state.localStorage.userAuth.userId
+  		const token = _this.$store.state.localStorage.userAuth.token
+  		const isMobile = _this.$store.state.isMobile
+
+  		this.send('a:' + userId + ',' + token + ',' + isMobile)
+  	}
+
+  	//order websocket
+  	this.$socketOrder.onmessage = function(e) {
+  		_this.orderSendResult(e)
+  	}
 	},
 	computed: {
 	  websocketConnected () {
@@ -105,7 +120,6 @@ export default {
 	    		switch (type) {
 	    			case "t":
 	    				result = JSON.parse(val.substring(2))
-
 	    				if (result['code'] > 0) {
 	    					_this.$store.commit('setMainItem', result['data'])
 
@@ -138,10 +152,60 @@ export default {
 	    				}
 
 	    				break
+	    			case "c": //下單
+	    				result = val.substring(2).split(",")
+	    				console.log(result)
+	    				console.log(val)
+	    				break
 	    		}
 	    	})
 	    }
-	  }
+	  },
+	},
+	methods: {
+		orderSendResult(event) {
+			let source = event.data
+			let type = 0
+			let _this = this
+			let sourceFormat
+
+			if (typeof source === "string") {
+				type = source.substring(0, 1);
+			}
+
+			switch (type) {
+				case "c": //下單
+					sourceFormat = JSON.parse(event.data.substring(2))
+
+					if (sourceFormat.Code <= 0) {
+						_this.$alert(sourceFormat.ErrorMsg)
+						return
+					}
+
+					//call order list
+					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+
+					break
+				case "i": //成交
+					//call order list
+					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+
+					break
+				case "j": //檢查token
+					sourceFormat = JSON.parse(event.data.substring(2))
+
+					if (sourceFormat == 0) {
+		        /*_this.$alert('重複登入', '提示', {
+		          confirmButtonText: '确定',
+		          callback: action => {
+		          	location.href = "/"
+		          }
+		        })*/
+					}
+
+					break
+			}
+		}
 	}
 }
 </script>

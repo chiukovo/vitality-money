@@ -18,9 +18,11 @@
               min-width='100%'
               :height='$parent.history',
               border)
-              el-table-column(label='操作')
+              el-table-column(label='操作' width="150px")
                 template(slot-scope='scope')
-                  el-button(v-if="scope.row.CoveredQuantity == 0") 平昌
+                  el-button(size='mini' v-if="scope.row.Operation[0]") 改
+                  el-button(size='mini' v-if="scope.row.Operation[1]") 刪
+                  el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
               el-table-column(label='多空')
@@ -141,12 +143,14 @@ export default {
           // 取得價格
           let nowPrice = 0
 
+          //Operation ( 0=>可否編輯(改口數、價格), 1 =>可否刪除, 2 => 可否平倉, 3=> 可否更新倒限利, 4=>用不到 )
+
           mainItem.forEach(function(mainVal) {
             if (val.ID == mainVal.product_id) {
               nowPrice = mainVal.newest_price
             }
           })
-          
+
           // 取得點數現價差
           let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
 
@@ -170,7 +174,23 @@ export default {
     }
   },
   methods: {
-    handleClick(tab, event) {}
+    handleClick () {
+
+    },
+    doCovered (row, count) {
+      const isMobile = this.$store.state.isMobile
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+      let _this = this
+      let sendText
+
+      switch (count) {
+        case 1:
+          sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
+          _this.$socketOrder.send(sendText)
+          break
+      }
+    }
   }
 }
 </script>

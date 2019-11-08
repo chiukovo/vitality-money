@@ -23,6 +23,7 @@ export default () => ({
   headerItem: [],
   customItemSetting: [],
   loading: true,
+  isMobile: 0, //0桌面 1手機
   customStyle: {
     htmlClass: 'gennki'
   },
