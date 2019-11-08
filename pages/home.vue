@@ -39,7 +39,8 @@ export default {
 			mainStyles: {},
 			itemDetailStyles: {},
 			ItemDetailTable: 0,
-			mainItemTable: 0
+			mainItemTable: 0,
+			history: 0
 		}
 	},
 	components: {

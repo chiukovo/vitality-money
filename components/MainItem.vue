@@ -7,7 +7,7 @@
     )
     el-table.table(
       :data='items',
-      :height='this.$parent.mainItemTable',
+      :height='$parent.mainItemTable',
       :cell-class-name='tableCellClassName',
       @row-click="clickItem",
       :row-class-name="getTrClass"

@@ -13,7 +13,11 @@
               el-button(size='mini') 刪單
               el-button(size='mini') 全選
               el-button(size='mini') 全不選
-            el-table.table(:data='buySell', min-width='100%', border)
+            el-table.table(
+              :data='buySell'
+              min-width='100%'
+              :height='$parent.history',
+              border)
               el-table-column(label='操作')
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
@@ -129,9 +133,16 @@ export default {
           // 此單未平損益 (要算手續費)，要更新在未平單上
           val.thisSerialTotalMoney = 0
           // 取得價格
-          const nowPrice = mainItem[val.ID]['newest_price']
+          let nowPrice = 0
+
+          mainItem.forEach(function(mainVal) {
+            if (val.ID == mainVal.product_id) {
+              nowPrice = mainVal.newest_price
+            }
+          })
+          
           // 取得點數現價差
-          const diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
+          let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
 
           // 如果是買單
           if(val.BuyOrSell == 0) {

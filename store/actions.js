@@ -82,6 +82,8 @@ export default {
 
       if (result['Code'] > 0) {
         commit('setUserInfo', result)
+      } else {
+        //logout
       }
     })
   },
