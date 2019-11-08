@@ -54,17 +54,23 @@ export default {
 
     //計算禁新 強平
     data = data.map(function (val) {
-      let newPoint, cover
+      let newPoint = 0,
+        cover = 0
 
       commidyArray.forEach(function (commidy) {
         if (val.product_id == commidy.ID) {
-          newPoint = commidy.NotNewPercent
-          cover = commidy.CoverPercent
+          newPoint = parseInt(commidy.NotNewPercent)
+          cover = parseInt(commidy.CoverPercent)
         }
       })
 
+      val.yesterday_close_price = parseInt(val.yesterday_close_price)
+
       //參考價 +- 參考價*禁新%
-      //val.newPoint =
+      val.new_point1 = val.yesterday_close_price + val.yesterday_close_price * newPoint
+      val.new_point2 = val.yesterday_close_price - val.yesterday_close_price * newPoint
+      val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
+      val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
 
       return val
     })

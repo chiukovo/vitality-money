@@ -36,15 +36,15 @@
           a.dropdown-item(href="#") 相關網站
       li.nav-item.nav-item-text
         .navbar-txt 商品: {{ $store.state.itemName }}
-        .navbar-txt 最後交易日: {{ endDate }}
+        .navbar-txt 最後交易日: {{ targetItem.end_date }}
         .navbar-txt 禁新: 
-          span.text-success 10531
+          span.text-success {{ targetItem.new_point1 }}
           |, 
-          span.text-danger 12151
+          span.text-danger {{ targetItem.new_point2 }}
         .navbar-txt 強平: 
-          span.text-success 10531
+          span.text-success {{ targetItem.cover_point1 }}
           |, 
-          span.text-danger 12151
+          span.text-danger {{ targetItem.cover_point2 }}
     ul.navbar-nav.navbar-nav-right
       li.nav-item
         a.nav-link.material-icons(href="#") color_lens
@@ -71,7 +71,7 @@ export default {
         isOpen: false,
         title: '',
       },
-      endDate: ''
+      targetItem: {}
     }
   },
   components: {
@@ -87,10 +87,11 @@ export default {
 
       mainItem.forEach(function(val) {
         if (nowItems == val.product_id) {
-          _this.endDate = val.end_date
-          console.log(_this.endDate)
+          _this.targetItem = val
         }
       })
+
+      console.log(_this.targetItem)
     }
   },
   methods: {
