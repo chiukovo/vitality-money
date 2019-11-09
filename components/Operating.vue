@@ -54,10 +54,10 @@
         el-button(size='mini') 全平
         el-button(type="success" @click="doOrder(1)") 下空單
     .operating-5
-      el-checkbox-group(v-model="group")
-        el-checkbox(:label="'(' + $store.state.itemName + ')全盤收平'" name="overall")
-        el-checkbox(label='下單不確認' name="noConfirm")
-        el-checkbox(label='限價成交提示' name="prompt")
+      el-checkbox-group(v-model="customGroup")
+        el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
+        el-checkbox(label='noConfirm') 下單不確認
+        el-checkbox(label='prompt') 限價成交提示
 </template>
 
 <script>
@@ -69,7 +69,7 @@ export default {
     return {
       nowPrice: 0,
       dialogVisible: false,
-      group: [],
+      customGroup: [],
       radioA: '0',
       buyType: '0',
       profit: 0,
@@ -84,17 +84,25 @@ export default {
     'clickItemId',
   ]),
   watch: {
-    clickItemId (itemId) {
+    clickItemId(itemId) {
       this.getNowPrice(itemId)
     },
+    customGroup(data) {
+      this.$cookies.set('customGroup', this.customGroup)
+    }
   },
   mounted() {
     const customSubmitNums = this.$cookies.get('customSubmitNums')
+    const customGroup = this.$cookies.get('customGroup')
 
     if (typeof customSubmitNums == 'undefined') {
       this.customSubmitNums = this.defaultAllSubmit
     } else {
       this.customSubmitNums = customSubmitNums
+    }
+
+    if (typeof customGroup != 'undefined') {
+      this.customGroup = customGroup
     }
   },
   methods: {
@@ -102,7 +110,6 @@ export default {
       const nowNewPrice = this.$store.state.nowNewPrice
 
       this.nowPrice = nowNewPrice[itemId]
-      console.log(this.nowPrice)
     },
     setNum() {
       //set cookie
@@ -121,6 +128,8 @@ export default {
       const nowPrice = this.buyType == 1 ? this.nowPrice : 0
 
       const sendText = 's:' + userId + ',' + type + ',' + this.submitNum + ',' + clickItem + ',' + this.profit + ',' + this.damage + ',' + nowPrice + ',' + this.buyType + ',' + token + ',' + isMobile
+
+      //看是否有勾選下單不確認
 
       this.$socketOrder.send(sendText)
     }

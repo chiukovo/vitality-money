@@ -8,6 +8,18 @@ Vue.mixin({
     startToken () {
       return 'a:test,test'
     },
+    midDragbarMove (e) {
+      document.selection
+              ? document.selection.empty()
+              : window.getSelection().removeAllRanges()
+
+      let midDragbar = document.getElementById('midDragbar');
+      let mainItem = document.getElementById('mainItem')
+      let history = document.getElementById('history')
+
+      /*mainItem.style.height = e.pageY - midDragbar.offsetHeight + "px"
+      history.style.height = e.pageY + midDragbar.offsetHeight + "px"*/
+    },
     marketInfo () {
       return {
         "TW": "台灣期貨交易所",
@@ -154,13 +166,21 @@ Vue.mixin({
       this.$el.querySelector('#itemDetail .el-tabs').style.height = this.itemDetailRow + 'px'
 
       //- *** mainItem ***
-      this.operating = this.$el.querySelector('#operating').offsetHeight
-      this.history = this.$el.querySelector('#history').offsetHeight - this.operating
+      //this.operating = this.$el.querySelector('#operating').offsetHeight
+      //this.history = this.$el.querySelector('#history').offsetHeight - this.operating
       // console.log(`operating height: ${this.operating}`)
       // console.log(`history height: ${this.history}`)
 
-      this.mainItemTable = this.main - this.operating - this.history - this.operating
-      // console.log(`mainItem height: ${this.mainItem}`)
+      //this.mainItemTable = this.main - this.operating - this.history - this.operating
+
+      const operatingH = this.$el.querySelector('#operating').offsetHeight
+
+      this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
+
+      const historyH = (this.main - operatingH) * 0.6
+      this.$el.querySelector('#history .history').style.height =  historyH + 'px'
+
+      this.historyTableMaxH = historyH - 65
     }
   }
 })

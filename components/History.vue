@@ -16,8 +16,9 @@
             el-table.table(
               :data='buySell'
               min-width='100%'
-              :height='$parent.history',
-              border)
+              :height="$parent.historyTableMaxH"
+              border
+            )
               el-table-column(label='操作' width="150px")
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[0]") 改
@@ -44,7 +45,12 @@
             .history-tabs-header
               el-button(size='mini') 全選
               el-button(size='mini') 全不選
-            el-table.table(:data='uncovered', min-width='100%', border)
+            el-table.table(
+              :data='uncovered'
+              min-width='100%'
+              :height="$parent.historyTableMaxH"
+              border
+            )
               el-table-column(label='操作')
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')

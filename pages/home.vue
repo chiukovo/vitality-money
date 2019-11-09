@@ -8,6 +8,7 @@
         ItemDetail
       #mainRight.main-right
         MainItem
+        #midDragbar(height="10px")
         History
         Operating
     #footer.footer
@@ -40,6 +41,7 @@ export default {
 			itemDetailStyles: {},
 			ItemDetailTable: 0,
 			mainItemTable: 0,
+			historyTableMaxH: 0,
 			history: 0
 		}
 	},
@@ -72,6 +74,18 @@ export default {
   	this.$socketOrder.onmessage = function(e) {
   		_this.orderSendResult(e)
   	}
+
+  	//中間拉霸
+  	let midDragbar = document.getElementById('midDragbar')
+
+  	midDragbar.addEventListener('mousedown', () => {
+  	  document.addEventListener('mousemove', this.midDragbarMove);
+  	})
+
+  	midDragbar.addEventListener('mouseup', () => {
+  		console.log('in')
+  	  document.removeEventListener('mousemove', this.midDragbarMove);
+  	})
 	},
 	computed: {
 	  websocketConnected () {
