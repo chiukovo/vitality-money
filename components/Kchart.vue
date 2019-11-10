@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       ohlcv: [],
+      volume: [],
       stockOptions: {},
       loading: true,
     }
@@ -30,8 +31,16 @@ export default {
   watch: {
     kLineData (res) {
       let name = this.$store.state.itemName
+      let _this = this
+      this.volume = []
 
       this.ohlcv = JSON.parse(JSON.stringify(res))
+      this.ohlcv.forEach(function(val) {
+        _this.volume.push([
+          val[0],
+          val[5]
+        ])
+      })
 
       this.stockOptions = {
         chart: {
@@ -88,11 +97,6 @@ export default {
         tooltip: {
           split: false,
           shared: true,
-          pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {series.name}</b><br/>' +
-              '開盤: {point.open}<br/>' +
-              '最高: {point.high}<br/>' +
-              '最低: {point.low}<br/>' +
-              '收盤: {point.close}<br/>'
         },
         yAxis: [{
           labels: {
@@ -140,14 +144,27 @@ export default {
           upColor: 'red',
           upLineColor: 'red',
           tooltip: {
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {series.name}</b><br/>' +
+                '開盤: {point.open}<br/>' +
+                '最高: {point.high}<br/>' +
+                '最低: {point.low}<br/>' +
+                '收盤: {point.close}<br/>'
           },
           data: this.ohlcv,
+        }, {
+          name: '成交量',
+          type: 'column',
+          data: this.volume,
+          tooltip: {
+            split: false,
+            shared: true,
+          },
+          yAxis: 1,
         }]
       }
     }
   },
   mounted () {
-
   },
 }
 </script>

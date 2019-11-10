@@ -53,6 +53,12 @@
         el-button(type="danger" @click="doOrder(0)") 下多單
         el-button(size='mini') 全平
         el-button(type="success" @click="doOrder(1)") 下空單
+        el-dialog(
+          :visible.sync='orderConfirm'
+          :modal='false'
+          width="400px"
+          title='確認下單'
+          v-dialogDrag)
     .operating-5
       el-checkbox-group(v-model="customGroup")
         el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
@@ -69,6 +75,7 @@ export default {
     return {
       nowPrice: 0,
       dialogVisible: false,
+      orderConfirm: false,
       customGroup: [],
       radioA: '0',
       buyType: '0',
@@ -130,7 +137,6 @@ export default {
       const sendText = 's:' + userId + ',' + type + ',' + this.submitNum + ',' + clickItem + ',' + this.profit + ',' + this.damage + ',' + nowPrice + ',' + this.buyType + ',' + token + ',' + isMobile
 
       //看是否有勾選下單不確認
-
       this.$socketOrder.send(sendText)
     }
   }
