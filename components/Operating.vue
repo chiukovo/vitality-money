@@ -50,15 +50,33 @@
                 el-button(type='primary' size='mini' @click="setNum") 送出
                 el-button(type='primary' size='mini' @click="dialogVisible = false") 取消
     .operating-4
-        el-button(type="danger" @click="doOrder(0)") 下多單
+        el-button(type="danger" @click="checkOrder(0)") 下多單
         el-button(size='mini') 全平
-        el-button(type="success" @click="doOrder(1)") 下空單
+        el-button(type="success" @click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'
           width="400px"
           title='確認下單'
           v-dialogDrag)
+          .header-custom(slot='title')
+            i.el-icon-info
+            |  確認下單
+          el-table.table(
+            :data="confirmData"
+            min-width='100%'
+            height="200px"
+            border
+          )
+            el-table-column(prop="name" label='目標商品')
+            el-table-column(prop="userName" label='用戶名稱')
+            el-table-column(prop="buy" label='買賣')
+            el-table-column(prop="price" label='價格')
+            el-table-column(prop="submit" label='口數')
+          .row
+            el-button(type='primary' @click="doOrder") 確認
+            el-button(@click="cancel") 取消
+
     .operating-5
       el-checkbox-group(v-model="customGroup")
         el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
@@ -73,10 +91,12 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
+      sendText: '',
       nowPrice: 0,
       dialogVisible: false,
       orderConfirm: false,
       customGroup: [],
+      confirmData: [],
       radioA: '0',
       buyType: '0',
       profit: 0,
@@ -89,13 +109,30 @@ export default {
   },
   computed: mapState([
     'clickItemId',
+    'commidyArray',
   ]),
   watch: {
+    commidyArray() {
+      this.getNowOverall()
+    },
     clickItemId(itemId) {
       this.getNowPrice(itemId)
+      this.getNowOverall()
     },
     customGroup(data) {
       this.$cookies.set('customGroup', this.customGroup)
+
+      //修改收盤全平
+      let overall = 0
+
+      this.customGroup.forEach(function(val){
+        if (val == 'overall') {
+          overall = 1
+        }
+      })
+
+      this.$store.dispatch('CALL_SET_CLOSE_OVER_ALL', { overall })
+      this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
     }
   },
   mounted() {
@@ -113,6 +150,39 @@ export default {
     }
   },
   methods: {
+    getNowOverall() {
+      //使用者設定
+      const commidyArray = this.$store.state.commidyArray
+      const clickItem = this.$store.state.clickItemId
+      let newCustomGroup = []
+      let dayCover = ''
+
+      commidyArray.forEach(function(val) {
+        if (val.ID == clickItem) {
+          dayCover = val.DayCover
+        }
+      })
+
+      let has = false
+      
+      this.customGroup.forEach(function(val) {
+        if (val == 'overall') {
+          has = true
+
+          if (dayCover == '1') {
+            newCustomGroup.push(val)
+          }
+        } else {
+          newCustomGroup.push(val)
+        }
+      })
+
+      if (!has && dayCover == '1') {
+        newCustomGroup.push('overall')
+      }
+
+      this.customGroup = newCustomGroup
+    },
     getNowPrice(itemId) {
       const nowNewPrice = this.$store.state.nowNewPrice
 
@@ -127,18 +197,56 @@ export default {
       this.customSubmitNums = this.defaultAllSubmit
       this.$cookies.set('customSubmitNums', this.defaultAllSubmit)
     },
-    doOrder(type) {
+    checkOrder(type) {
       const clickItem = this.$store.state.clickItemId
       const isMobile = this.$store.state.isMobile
       const userId = this.$store.state.localStorage.userAuth.userId
       const token = this.$store.state.localStorage.userAuth.token
       const nowPrice = this.buyType == 1 ? this.nowPrice : 0
 
-      const sendText = 's:' + userId + ',' + type + ',' + this.submitNum + ',' + clickItem + ',' + this.profit + ',' + this.damage + ',' + nowPrice + ',' + this.buyType + ',' + token + ',' + isMobile
+      this.sendText = 's:' + userId + ',' + type + ',' + this.submitNum + ',' + clickItem + ',' + this.profit + ',' + this.damage + ',' + nowPrice + ',' + this.buyType + ',' + token + ',' + isMobile
+
+      let buyTypeName
+
+      if (this.buyType == 0) {
+        buyTypeName = '市價單'
+      } else if (this.buyType == 1) {
+        buyTypeName = '限價單'
+      } else if (this.buyType == 2) {
+        buyTypeName = '收盤單'
+      }
+
+      this.confirmData = [{
+        name: this.$store.state.itemName,
+        userName: this.$store.state.userInfo.Account,
+        buy: type == 1 ? '空' : '多',
+        price: buyTypeName,
+        submit: this.submitNum,
+      }]
 
       //看是否有勾選下單不確認
-      this.$socketOrder.send(sendText)
-    }
+      let noConfirm = false
+
+      this.customGroup.forEach(function(val){
+        if (val == 'noConfirm') {
+          noConfirm = true
+        }
+      })
+
+      if (noConfirm) {
+        this.doOrder()
+      } else {
+        this.orderConfirm = true
+      }
+    },
+    cancel() {
+      this.orderConfirm = false
+    },
+    doOrder() {
+      this.orderConfirm = false
+
+      this.$socketOrder.send(this.sendText)
+    },
   }
 }
 </script>

@@ -21,7 +21,8 @@
             )
               el-table-column(label='操作' width="150px")
                 template(slot-scope='scope')
-                  el-button(size='mini' v-if="scope.row.Operation[0]") 改
+                  el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
+                  //-改單 
                   el-button(size='mini' v-if="scope.row.Operation[1]") 刪
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
@@ -40,7 +41,34 @@
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ scope.row.WinPoint }}
-              el-table-column(prop='State', label='狀態')
+              el-table-column(prop='State', label='狀態'  width="150px")
+          el-dialog(
+            :visible.sync='editDialog'
+            :modal='false'
+            width="400px"
+            title='改價減量'
+            v-dialogDrag)
+            .header-custom(slot='title') 改價減量
+            template
+              el-form(ref='form' size='mini' label-width='50px')
+                el-form-item(label="序號")
+                  el-input(:value="edit.serial" :disabled="true")
+                el-form-item(label="商品")
+                  el-input(:value="edit.itemName" :disabled="true")
+                el-form-item(label="會員")
+                  el-input(:value="$store.state.userInfo.Account" :disabled="true")
+                el-form-item(label="買賣")
+                  el-input(:value="edit.buyOrSellName" :disabled="true")
+                el-form-item(label="口數")
+                  el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
+                el-form-item
+                  el-radio(v-model='edit.buyType' label='市價單')
+                  el-radio(v-model='edit.buyType' label='限價單')
+                el-form-item(label="限價" v-if="edit.buyType == '限價單'")
+                  el-input-number(v-model="edit.nowPrice")
+                el-form-item
+                  el-button(type='primary' size='mini') 送出
+                  el-button(type='primary' size='mini' @click="editDialog = false") 取消
           el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
               el-button(size='mini') 全選
@@ -73,7 +101,7 @@
               el-table-column(prop='WinPoint', label='未平損益')
               el-table-column(prop='WinPoint', label='點數')
               el-table-column(prop='Day', label='天數')
-              el-table-column(prop='State', label='狀態')
+              el-table-column(prop='State', label='狀態' width="150px")
           el-tab-pane(label='已平倉', name='tabs3')
             .history-tabs-header
               el-button(size='mini') 全選
@@ -192,6 +220,15 @@ export default {
         start: '',
         end: '',
       },
+      edit: {
+        serial: '',
+        itemName: '',
+        submit: 0,
+        submitMax: 0,
+        buyType: '',
+        buyOrSellName: '',
+        nowPrice: 0,
+      },
       accountMoneyList: [],
       activeName: 'tabs1',
       buySell: [], //下單列表
@@ -202,6 +239,7 @@ export default {
       unCoverSellSum: 0, //未平倉空單總數
       unCoverTotal: 0, //未平倉總數
       checked: false,
+      editDialog: false,
       valueDateInterval: [],
     }
   },
@@ -329,6 +367,21 @@ export default {
       if (!row.show && !this.checked) {
         return 'hide'
       }
+    },
+    openEdit(row) {
+      this.editDialog = true
+
+      this.edit = {
+        serial: row.Serial,
+        itemName: row.Name,
+        submit: row.Quantity,
+        submitMax: parseInt(row.Quantity),
+        buyType: row.Odtype,
+        buyOrSellName: row.BuyOrSell == 0 ? '多' : '空',
+        nowPrice: row.OrderPrice,
+      }
+
+      console.log(this.edit)
     },
     handleClick() {
 

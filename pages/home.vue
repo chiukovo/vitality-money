@@ -204,17 +204,47 @@ export default {
 					//call order list
 					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
+					sourceFormat = JSON.parse(event.data.substring(2))
+					//看是否有成交提示
+					const customGroup = this.$cookies.get('customGroup')
+					//看是否有勾選限價成交提示
+					let prompt = false
+
+					customGroup.forEach(function(val){
+					  if (val == 'prompt') {
+					    prompt = true
+					  }
+					})
+
+					if ((sourceFormat.SubmitType == '限價單' || sourceFormat.SubmitType == '倒限單') && prompt) {
+						const h = _this.$createElement
+
+						_this.$message({
+							showClose: true,
+							duration: 0,
+							message: h('p', null, [
+							  h('b', null, '限價成交提示'),
+							  h('p', null, '序號: ' + sourceFormat.Serial),
+							  h('p', null, '類別: ' + sourceFormat.SubmitType),
+							  h('p', null, '商品: ' + sourceFormat.Name),
+							  h('p', null, '狀態: 成交'),
+							  h('p', null, '口數: ' + sourceFormat.Quantity),
+							  h('p', null, '價格: ' + sourceFormat.SuccessPrice),
+							])
+		        });
+					}
+
 					break
 				case "j": //檢查token
 					sourceFormat = JSON.parse(event.data.substring(2))
 
 					if (sourceFormat == 0) {
-		        /*_this.$alert('重複登入', '提示', {
+		        _this.$alert('重複登入', '提示', {
 		          confirmButtonText: '确定',
 		          callback: action => {
 		          	location.href = "/"
 		          }
-		        })*/
+		        })
 					}
 
 					break

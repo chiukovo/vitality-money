@@ -30,7 +30,7 @@ export default {
       }
     })
   },
-  async CALL_MEMBER_CUSTOM_ITEM ({ commit, state }, {defaultData, marketInfo}) {
+  async CALL_MEMBER_CUSTOM_ITEM ({ commit, state }, { defaultData, marketInfo }) {
     const userId = state.localStorage.userAuth.userId
     const token = state.localStorage.userAuth.token
 
@@ -66,6 +66,21 @@ export default {
           commit('setCustomItemSetting', newDefaultData)
         }
       }
+    })
+  },
+  async CALL_SET_CLOSE_OVER_ALL ({ commit, state }, { overall }) {
+    const lang = state.localStorage.lang
+    const userId = state.localStorage.userAuth.userId
+    const token = state.localStorage.userAuth.token
+    const itemId = state.clickItemId
+
+    await axios.post("/api/set_close_cover_all?lang=" + lang, qs.stringify({
+      UserID: userId,
+      Token: token,
+      SetCloseCover: overall,
+      SetCloseCommodity: itemId,
+    }))
+    .then(response => {
     })
   },
   async CALL_MEMBER_INFO ({ commit, state }) {
