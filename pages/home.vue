@@ -24,7 +24,8 @@ import History from "~/components/History"
 import Operating from "~/components/Operating"
 import Footer from "~/components/Footer"
 import { mapState } from 'vuex'
-import { Loading } from 'element-ui';
+import { Loading } from 'element-ui'
+import '@/assets/sass/style.scss'
 
 export default {
 	head() {
@@ -197,6 +198,10 @@ export default {
 					}
 
 					//call order list
+					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+
+					break
+				case "d":
 					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
 					break

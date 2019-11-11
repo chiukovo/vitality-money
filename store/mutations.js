@@ -50,6 +50,9 @@ export default {
   setNowMainItem(state, data) {
     state.nowMainItem = data
   },
+  setMobile(state, data) {
+    state.isMobile = data
+  },
   setClickItemId(state, {id, name}) {
     state.clickItemId = id
     state.itemName = name

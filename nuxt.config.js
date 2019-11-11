@@ -20,7 +20,6 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/assets/sass/mobile.scss',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -62,11 +61,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
   },
   proxy: {
     '/api': {
@@ -78,6 +72,7 @@ module.exports = {
       }
   },
   router: {
+    middleware: ["device"],
   },
   chainWebpack: config => {
     //close eslint

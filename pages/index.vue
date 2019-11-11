@@ -27,6 +27,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
+import '@/assets/sass/style.scss'
 
 export default {
 	head() {

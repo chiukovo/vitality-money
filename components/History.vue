@@ -23,7 +23,7 @@
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                   //-改單 
-                  el-button(size='mini' v-if="scope.row.Operation[1]") 刪
+                  el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
@@ -37,11 +37,38 @@
               el-table-column(prop='Odtype', label='型別')
               el-table-column(label='損失點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ scope.row.LossPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ parseInt(scope.row.LossPoint) }}
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ scope.row.WinPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ parseInt(scope.row.WinPoint) }}
               el-table-column(prop='State', label='狀態'  width="150px")
+          //-刪除
+          el-dialog(
+            :visible.sync='deleteConfirm'
+            :modal='false'
+            width="400px"
+            title='確認刪除'
+            v-dialogDrag)
+            .header-custom(slot='title')
+              i.el-icon-info
+              |  確認刪除
+            el-table.table(
+              :data="confirmDeleteData"
+              min-width='100%'
+              height="200px"
+              border
+            )
+              el-table-column(prop="name" label='目標商品')
+              el-table-column(prop="userName" label='用戶名稱')
+              el-table-column(prop="buy" label='買賣')
+              el-table-column(prop="price" label='價格')
+              el-table-column(prop="submit" label='口數')
+            .row
+              el-button(type='primary' @click="doDelete") 確認
+              el-button(@click="deleteConfirm = false") 取消
+          //-新獲利點數
+          //-新損失點數
+          //-改價減量
           el-dialog(
             :visible.sync='editDialog'
             :modal='false'
@@ -62,12 +89,12 @@
                 el-form-item(label="口數")
                   el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
                 el-form-item
-                  el-radio(v-model='edit.buyType' label='市價單')
-                  el-radio(v-model='edit.buyType' label='限價單')
-                el-form-item(label="限價" v-if="edit.buyType == '限價單'")
+                  el-radio(v-model='edit.buyType' label='0') 市價單
+                  el-radio(v-model='edit.buyType' label='1') 限價單
+                el-form-item(label="限價" v-if="edit.buyType == '1'")
                   el-input-number(v-model="edit.nowPrice")
                 el-form-item
-                  el-button(type='primary' size='mini') 送出
+                  el-button(type='primary' size='mini' @click="doEdit") 送出
                   el-button(type='primary' size='mini' @click="editDialog = false") 取消
           el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
@@ -216,19 +243,25 @@ import qs from 'qs'
 export default {
   data() {
     return {
+      isMobile: '',
+      userId: '',
+      token: '',
       form: {
         start: '',
         end: '',
       },
       edit: {
+        itemId: '',
         serial: '',
         itemName: '',
         submit: 0,
         submitMax: 0,
         buyType: '',
+        sourceBuyType: '',
         buyOrSellName: '',
         nowPrice: 0,
       },
+      confirmDeleteData: [],
       accountMoneyList: [],
       activeName: 'tabs1',
       buySell: [], //下單列表
@@ -240,6 +273,7 @@ export default {
       unCoverTotal: 0, //未平倉總數
       checked: false,
       editDialog: false,
+      deleteConfirm: false,
       valueDateInterval: [],
     }
   },
@@ -338,6 +372,11 @@ export default {
       }
     }
   },
+  mounted() {
+    this.isMobile = this.$store.state.isMobile
+    this.userId = this.$store.state.localStorage.userAuth.userId
+    this.token = this.$store.state.localStorage.userAuth.token
+  },
   methods: {
     async query() {
       let _this = this
@@ -370,26 +409,68 @@ export default {
     },
     openEdit(row) {
       this.editDialog = true
+      let buyType = '0'
+
+      if (row.Odtype == '限價單' || row.Inverted == '1') {
+        buyType = '1'
+      }
 
       this.edit = {
+        itemId: row.ID,
         serial: row.Serial,
         itemName: row.Name,
         submit: row.Quantity,
         submitMax: parseInt(row.Quantity),
-        buyType: row.Odtype,
+        buyType: buyType,
+        sourceBuyType: buyType,
         buyOrSellName: row.BuyOrSell == 0 ? '多' : '空',
         nowPrice: row.OrderPrice,
       }
-
-      console.log(this.edit)
     },
-    handleClick() {
+    deleteOrder(row) {
+      this.deleteConfirm = true
 
+      this.confirmDeleteData = [{
+        name: this.$store.state.itemName,
+        userName: this.$store.state.userInfo.Account,
+        buy: row.BuyOrSell == 1 ? '空' : '多',
+        price: row.Odtype,
+        submit: row.Quantity,
+        itemId: row.ID,
+        serial: row.Serial,
+      }]
     },
+    doDelete() {
+      let _this = this
+
+      this.confirmDeleteData.forEach(function(val) {
+        //send
+        let sendText = 'e:' + _this.userId + ',0,' + val.itemId + ',0,0,0,0,' + val.serial + ',' + _this.token + ',' + _this.isMobile
+        _this.$socketOrder.send(sendText)
+      })
+
+      this.deleteConfirm = false
+    },
+    doEdit() {
+      let sendText
+
+      //限價改市價
+      if (this.edit.buyType == '0' && this.edit.sourceBuyType == '1') {
+        sendText = 'e:' + this.userId + ',0,' + this.edit.itemId + ',0,0,0,6,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
+        this.$socketOrder.send(sendText)
+      } else {
+        //改數量 + 價格
+        sendText = 'e:' + this.userId + ',' + this.edit.submit + ',' + this.edit.itemId + ',0,0,' + this.edit.nowPrice + ',2,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
+        this.$socketOrder.send(sendText)
+      }
+
+      this.editDialog = false
+    },
+    handleClick() {},
     doCovered(row, count) {
-      const isMobile = this.$store.state.isMobile
-      const userId = this.$store.state.localStorage.userAuth.userId
-      const token = this.$store.state.localStorage.userAuth.token
+      const isMobile = this.isMobile
+      const userId = this.userId
+      const token = this.token
       let _this = this
       let sendText
 

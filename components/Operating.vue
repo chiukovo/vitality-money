@@ -51,7 +51,7 @@
                 el-button(type='primary' size='mini' @click="dialogVisible = false") 取消
     .operating-4
         el-button(type="danger" @click="checkOrder(0)") 下多單
-        el-button(size='mini') 全平
+        el-button(size='mini' @click="checkOrderAll()") 全平
         el-button(type="success" @click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
@@ -164,7 +164,7 @@ export default {
       })
 
       let has = false
-      
+
       this.customGroup.forEach(function(val) {
         if (val == 'overall') {
           has = true
@@ -196,6 +196,38 @@ export default {
     resetNum() {
       this.customSubmitNums = this.defaultAllSubmit
       this.$cookies.set('customSubmitNums', this.defaultAllSubmit)
+    },
+    checkOrderAll() {
+      //看是否有勾選下單不確認
+      let noConfirm = false
+      const clickItem = this.$store.state.clickItemId
+      const isMobile = this.$store.state.isMobile
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+
+      let sendText = 't:' + userId + ',0,' + token + ',' + isMobile + ',' + clickItem
+
+      this.customGroup.forEach(function(val){
+        if (val == 'noConfirm') {
+          noConfirm = true
+        }
+      })
+
+      if (noConfirm) {
+        //全平
+        this.$socketOrder.send(sendText)
+      } else {
+        //確認
+        this.$confirm('確認要全平 (' + this.$store.state.itemName + ') ?', '注意! ', {
+          confirmButtonText: '確定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$socketOrder.send(sendText)
+        }).catch(() => {
+
+        })
+      }
     },
     checkOrder(type) {
       const clickItem = this.$store.state.clickItemId

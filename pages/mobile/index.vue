@@ -52,6 +52,7 @@
 // import Footer from "~/components/Footer"
 // import { mapState } from 'vuex'
 // import { Loading } from 'element-ui';
+import '@/assets/sass/mobile.scss'
 
 export default {
 	head() {
