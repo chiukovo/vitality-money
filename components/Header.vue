@@ -32,7 +32,7 @@
       li.nav-item
         a.nav-link(href="#") 說明
         .dropdown-menu
-          a.dropdown-item(href="#") 交易規則
+          a.dropdown-item(href="/rules") 交易規則
           a.dropdown-item(href="#") 相關網站
       li.nav-item.nav-item-text
         .navbar-txt 商品: {{ $store.state.itemName }}

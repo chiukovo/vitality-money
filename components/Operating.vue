@@ -29,7 +29,7 @@
             el-button(type='primary' size='mini' v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
-          el-form-item(label='口數:' style='margin: 6px 0 0 0;')
+          el-form-item(label='口數:' style='margin: 2px 0 2px 0;')
             el-input-number(v-model='submitNum' controls-position='right' :min="0")
       .editbtn
         el-button-group
