@@ -77,7 +77,7 @@ body {
                 background: url('~static/images/header_right_btn02.png');
             }
             &:nth-child(3) {
-                background: url('~static/images/header_right_btn02.png');
+                background: url('~static/images/header_right_btn03.png');
             }
         }
     }
@@ -229,11 +229,12 @@ body {
 .el-button--success {
     @include button(#0e680c, #4bdc50, #b4f5b8, #4de353);
 }
-
-
 .el-input__inner {
     border-color: #5897bf;
     background: #f1f1f1;
+}
+.el-progress-bar__outer {
+    background-color: #f1f1f1;
 }
 
 

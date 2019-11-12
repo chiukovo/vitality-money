@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .changePassword
+  .dialog__body
     el-form(
       size='mini'
       label-width="80px")

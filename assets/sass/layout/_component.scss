@@ -9,7 +9,7 @@
     color: $success;
 }
 .text-lg {
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 .text-bold {
     font-weight: bold;
@@ -52,6 +52,11 @@ tr.border-tr {
 }
 
 // table
+.el-table {
+    .el-button {
+        padding: 2px 6px;
+    }
+}
 // 移除左右 border
 .el-table, .el-table--border {
     border-left: 0;
@@ -93,4 +98,15 @@ tr.border-tr {
         border-width: 8px 5px 0 5px;
         border-color: $success transparent transparent transparent;
     }
+}
+
+
+.blink {
+    animation: blink .8s linear infinite;
+}
+@keyframes blink {
+    0% { color: red; }
+    50% { color: red; }
+    50.01% { color: black; }
+    100% { color: black; }
 }

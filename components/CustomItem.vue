@@ -2,24 +2,22 @@
   .itemDetai__history
     .itemDetailtabs__header
     .itemDetailtabs__content
-      .row
-        .col
-          el-table.table(
-            :data='items'
-            ref="multipleTable"
-            style='width: 100%'
-            height="500"
-            @selection-change="handleSelectionChange"
-            border)
-            el-table-column(label='選取' type="selection")
-            el-table-column(prop="name" label='商品')
-            el-table-column(prop="id" label='代碼')
-            el-table-column(label='可下單時間')
-              template(slot-scope="scope") <span v-html="scope.row.trade_time"></span>
-            el-table-column(prop="market_name" label='交易所')
-      .row
-        el-button(type='primary' @click="submit") 確認
-        el-button(@click="cancel") 取消
+      el-table.table(
+        :data='items'
+        ref="multipleTable"
+        style='width: 100%'
+        height="500"
+        @selection-change="handleSelectionChange"
+        border)
+        el-table-column(label='選取' type="selection")
+        el-table-column(prop="name" label='商品')
+        el-table-column(prop="id" label='代碼')
+        el-table-column(label='可下單時間')
+          template(slot-scope="scope") <span v-html="scope.row.trade_time"></span>
+        el-table-column(prop="market_name" label='交易所')
+    .dialog__footer
+      el-button(@click="cancel") 取消
+      el-button(type='primary' @click="submit") 確認
 </template>
 <script>
 

@@ -20,10 +20,10 @@
       el-table-column(label='倉位', fixed)
       el-table-column(label='K線')
         template(slot-scope='scope')
-          el-button(type='text' @click='clickKline(scope.row)' size='mini') k線
+          a(href="#" @click='clickKline(scope.row)') k線
       el-table-column(label='走勢')
         template(slot-scope='scope')
-          el-button(type='text' @click="clickChart(scope.row)" size='mini') 走勢
+          a(href="#" @click='clickChart(scope.row)') 走勢
       el-table-column(label='成交')
         template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
       el-table-column(label='買進')

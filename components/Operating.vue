@@ -43,12 +43,12 @@
           v-dialogDrag)
             .header-custom(slot='title') 調整數量
             template
-              .row
-                .col(v-for="(customSubmitNum, key) in customSubmitNums" :key="key")
-                  el-input-number(controls-position='right' width="10px" v-model="customSubmitNums[key]" :min="0")
-              .row
-                el-button(type='primary' size='mini' @click="setNum") 送出
-                el-button(type='primary' size='mini' @click="dialogVisible = false") 取消
+              .dialog__body
+                  .numberBtn-box(v-for="(customSubmitNum, key) in customSubmitNums" :key="key")
+                    el-input-number(size="mini" controls-position='right' v-model="customSubmitNums[key]" :min="0")
+              .dialog__footer
+                el-button(@click="dialogVisible = false") 取消
+                el-button(type='primary' @click="setNum") 送出
     .operating-4
         el-button(type="danger" @click="checkOrder(0)") 下多單
         el-button(size='mini' @click="checkOrderAll()") 全平
@@ -73,9 +73,9 @@
             el-table-column(prop="buy" label='買賣')
             el-table-column(prop="price" label='價格')
             el-table-column(prop="submit" label='口數')
-          .row
-            el-button(type='primary' @click="doOrder") 確認
-            el-button(@click="cancel") 取消
+          .dialog__footer
+              el-button(@click="cancel") 取消
+              el-button(type='primary' @click="doOrder") 確認
 
     .operating-5
       el-checkbox-group(v-model="customGroup")

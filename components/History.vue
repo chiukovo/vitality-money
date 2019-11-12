@@ -19,10 +19,10 @@
               :height="$parent.historyTableMaxH"
               border
             )
-              el-table-column(label='操作' width="150px")
+              el-table-column(label='操作' width="90px")
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
-                  //-改單 
+                  //-改單
                   el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
@@ -46,6 +46,7 @@
           el-dialog(
             :visible.sync='deleteConfirm'
             :modal='false'
+            :show-close='false'
             width="400px"
             title='確認刪除'
             v-dialogDrag)
@@ -55,7 +56,7 @@
             el-table.table(
               :data="confirmDeleteData"
               min-width='100%'
-              height="200px"
+              height="100px"
               border
             )
               el-table-column(prop="name" label='目標商品')
@@ -63,9 +64,9 @@
               el-table-column(prop="buy" label='買賣')
               el-table-column(prop="price" label='價格')
               el-table-column(prop="submit" label='口數')
-            .row
-              el-button(type='primary' @click="doDelete") 確認
+            .dialog__footer
               el-button(@click="deleteConfirm = false") 取消
+              el-button(type='primary' @click="doDelete") 確認
           //-新獲利點數
           //-新損失點數
           //-改價減量
@@ -77,25 +78,26 @@
             v-dialogDrag)
             .header-custom(slot='title') 改價減量
             template
-              el-form(ref='form' size='mini' label-width='50px')
-                el-form-item(label="序號")
-                  el-input(:value="edit.serial" :disabled="true")
-                el-form-item(label="商品")
-                  el-input(:value="edit.itemName" :disabled="true")
-                el-form-item(label="會員")
-                  el-input(:value="$store.state.userInfo.Account" :disabled="true")
-                el-form-item(label="買賣")
-                  el-input(:value="edit.buyOrSellName" :disabled="true")
-                el-form-item(label="口數")
-                  el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
-                el-form-item
-                  el-radio(v-model='edit.buyType' label='0') 市價單
-                  el-radio(v-model='edit.buyType' label='1') 限價單
-                el-form-item(label="限價" v-if="edit.buyType == '1'")
-                  el-input-number(v-model="edit.nowPrice")
-                el-form-item
-                  el-button(type='primary' size='mini' @click="doEdit") 送出
-                  el-button(type='primary' size='mini' @click="editDialog = false") 取消
+              .dialog__body
+                el-form(ref='form' size='mini' label-width='50px')
+                  el-form-item(label="序號")
+                    el-input(:value="edit.serial" :disabled="true")
+                  el-form-item(label="商品")
+                    el-input(:value="edit.itemName" :disabled="true")
+                  el-form-item(label="會員")
+                    el-input(:value="$store.state.userInfo.Account" :disabled="true")
+                  el-form-item(label="買賣")
+                    el-input(:value="edit.buyOrSellName" :disabled="true")
+                  el-form-item(label="口數")
+                    el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
+                  el-form-item
+                    el-radio(v-model='edit.buyType' label='0') 市價單
+                    el-radio(v-model='edit.buyType' label='1') 限價單
+                  el-form-item(label="限價" v-if="edit.buyType == '1'")
+                    el-input-number(v-model="edit.nowPrice")
+              .dialog__footer
+                el-button(@click="editDialog = false") 取消
+                el-button(type='primary' @click="doEdit") 送出
           el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
               el-button(size='mini') 全選
