@@ -16,7 +16,7 @@
             el-table.table(
               :data='buySell'
               min-width='100%'
-              :height="$parent.historyTableMaxH"
+              :height="$parent.historyTableMaxH - 30"
               border
             )
               el-table-column(label='操作' width="90px")
@@ -24,6 +24,7 @@
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                   //-改單
                   el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
+                  el-checkbox(v-if="scope.row.Operation[1]" v-model="multiDelete[scope.$index].checked")
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
@@ -41,7 +42,10 @@
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ parseInt(scope.row.WinPoint) }}
-              el-table-column(prop='State', label='狀態'  width="150px")
+              el-table-column(label='狀態'  width="150px")
+                template(slot-scope='scope')
+                  span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
+                  span(v-else) {{ scope.row.State }}
           //-刪除
           el-dialog(
             :visible.sync='deleteConfirm'
@@ -105,7 +109,7 @@
             el-table.table(
               :data='uncovered'
               min-width='100%'
-              :height="$parent.historyTableMaxH"
+              :height="$parent.historyTableMaxH - 30"
               border
             )
               el-table-column(label='操作')
@@ -138,7 +142,7 @@
             el-table.table(
               :data='covered'
               min-width='100%'
-              :height="$parent.historyTableMaxH"
+              :height="$parent.historyTableMaxH - 30"
               border
             )
               el-table-column(prop="Name" label='商品')
@@ -172,7 +176,7 @@
             el-table.table(
               :data='commodity'
               min-width='100%'
-              :height="$parent.historyTableMaxH"
+              :height="$parent.historyTableMaxH - 30"
               :row-class-name="checkRowShow"
               border
             )
@@ -218,7 +222,7 @@
             el-table.table(
               :data='accountMoneyList'
               min-width='100%'
-              :height="$parent.historyTableMaxH"
+              :height="$parent.historyTableMaxH - 30"
               border
             )
               el-table-column(prop="Date" label='日期')
@@ -277,6 +281,7 @@ export default {
       editDialog: false,
       deleteConfirm: false,
       valueDateInterval: [],
+      multiDelete: [],
     }
   },
   computed: mapState([
@@ -287,6 +292,7 @@ export default {
     userOrder(data) {
       const allCommodity = this.$store.state.commidyArray
       let _this = this
+      this.multiDelete = []
 
       this.selectDayType('today')
       this.buySell = data.OrderArray
@@ -295,6 +301,16 @@ export default {
       this.unCoverBuySum = data.UnCoverSellSum
       this.unCoverSellSum = data.UnCoverBuySum
       this.unCoverTotal = parseInt(data.UnCoverSellSum) + parseInt(data.UnCoverBuySum)
+
+      //加入多檔刪除
+      this.buySell.forEach(function(source) {
+        const multiDeleteInfo = {
+          itemId: source.ID,
+          checked: false
+        }
+
+        _this.multiDelete.push(multiDeleteInfo)
+      })
 
       //商品統計 加入其他
       allCommodity.forEach(function(source) {

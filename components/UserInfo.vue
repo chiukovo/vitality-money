@@ -1,8 +1,7 @@
 <template lang='pug'>
 #userInfo
   .userInfo
-    .userInfo-header {{ userInfo.Account }}
-      span.blink (正常收單)
+    .userInfo-header {{ userInfo.Account }} (正常收單)
     .userInfo-content
       el-table.table(
         :data='tableData'
