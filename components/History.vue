@@ -38,10 +38,10 @@
               el-table-column(prop='Odtype', label='型別')
               el-table-column(label='損失點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ parseInt(scope.row.LossPoint) }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ parseInt(scope.row.WinPoint) }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
               el-table-column(label='狀態'  width="150px")
                 template(slot-scope='scope')
                   span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
@@ -71,8 +71,36 @@
             .dialog__footer
               el-button(@click="deleteConfirm = false") 取消
               el-button(type='primary' @click="doDelete") 確認
+          //-新倒限利點數
+          el-dialog(
+            :visible.sync='profitPointDialog'
+            :modal='false'
+            width="400px"
+            title='新倒限利點數'
+            v-dialogDrag)
+            .header-custom(slot='title') 新倒限利點數
+            template
+              .dialog__body
           //-新獲利點數
+          el-dialog(
+            :visible.sync='winPointDialog'
+            :modal='false'
+            width="400px"
+            title='新獲利點數'
+            v-dialogDrag)
+            .header-custom(slot='title') 新獲利點數
+            template
+              .dialog__body
           //-新損失點數
+          el-dialog(
+            :visible.sync='lossPointDialog'
+            :modal='false'
+            width="400px"
+            title='新損失點數'
+            v-dialogDrag)
+            .header-custom(slot='title') 新損失點數
+            template
+              .dialog__body
           //-改價減量
           el-dialog(
             :visible.sync='editDialog'
@@ -124,13 +152,13 @@
               el-table-column(prop='Fee', label='手續費')
               el-table-column(label='損失點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ scope.row.LossPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false") {{ scope.row.WinPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[0] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
               el-table-column(label='倒限(利)')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false") {{ scope.row.InvertedPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
               el-table-column(prop='WinPoint', label='未平損益')
               el-table-column(prop='WinPoint', label='點數')
               el-table-column(prop='Day', label='天數')
@@ -188,7 +216,7 @@
                 template(slot-scope='scope')
                   span.text-success {{ scope.row.TotalSellSubmit}}
               el-table-column(label='未平倉')
-                template(slot-scope='scope') {{ scope.row.RemainingBuyStock + scope.row.RemainingSellStock }}
+                template(slot-scope='scope') {{ uncovered.length }}
               el-table-column(prop="TotalSubmit" label='總口數')
               el-table-column(prop="TotalFee" label='手續費合計')
               el-table-column(label='損益')
@@ -267,6 +295,13 @@ export default {
         buyOrSellName: '',
         nowPrice: 0,
       },
+      editPoint: {
+        type: '',
+        itemId: '',
+        serial: '',
+        price: '',
+        buyOrSellName: '',
+      },
       confirmDeleteData: [],
       accountMoneyList: [],
       activeName: 'tabs1',
@@ -280,6 +315,9 @@ export default {
       checked: false,
       editDialog: false,
       deleteConfirm: false,
+      lossPointDialog: false,
+      winPointDialog: false,
+      profitPointDialog: false,
       valueDateInterval: [],
       multiDelete: [],
     }
@@ -300,7 +338,7 @@ export default {
       this.covered = data.CoveredArray
       this.unCoverBuySum = data.UnCoverSellSum
       this.unCoverSellSum = data.UnCoverBuySum
-      this.unCoverTotal = parseInt(data.UnCoverSellSum) + parseInt(data.UnCoverBuySum)
+      this.unCoverTotal = this.uncovered.length
 
       //加入多檔刪除
       this.buySell.forEach(function(source) {
@@ -423,6 +461,15 @@ export default {
     checkRowShow({row, index}){
       if (!row.show && !this.checked) {
         return 'hide'
+      }
+    },
+    openEditPoint(type, row) {
+      if (type == 'lossPointDialog') {
+        this.lossPointDialog = true
+      } else if (type == 'winPointDialog') {
+        this.winPointDialog = true
+      } else if (type == 'profitPointDialog') {
+        this.profitPointDialog = true
       }
     },
     openEdit(row) {
