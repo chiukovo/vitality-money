@@ -9,9 +9,7 @@ Vue.mixin({
   		_this.LoginLoopCheck()
 
       //取得一次初始訂單資料 (預設10秒call一次)
-      window.setInterval(function() {
-        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
-      }, 10000)
+      _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
   		window.setInterval(function() {
   			_this.LoginLoopCheck()

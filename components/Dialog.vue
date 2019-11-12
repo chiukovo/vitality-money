@@ -5,7 +5,9 @@
       :before-close='handleClose'
       title='$store.state.itemName'
       :close-on-click-modal='false'
-      width='80%'
+      :width='diaiogSize'
+      :modal='false'
+      v-dialogDrag
     )
     .header-custom(slot='title')
       i.el-icon-info
@@ -35,10 +37,11 @@ import ChangPassword from "~/components/ChangPassword"
 import CustomItem from "~/components/CustomItem"
 
 export default {
-  props: ['clickType', 'visible', 'title'],
+  props: ['clickType', 'visible', 'title', 'size'],
   data () {
     return {
       dialogFullScreen: false,
+      diaiogSize: '80%',
     }
   },
   components: {
@@ -51,6 +54,15 @@ export default {
     ActionLog,
     ChangPassword,
     CustomItem,
+  },
+  watch: {
+    visible(isOpen) {
+      if (isOpen) {
+        if (this.size != '' && typeof this.size != 'undefined') {
+          this.diaiogSize = this.size
+        }
+      }
+    }
   },
   methods: {
     handleClose (done) {

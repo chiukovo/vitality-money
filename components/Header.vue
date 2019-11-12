@@ -4,6 +4,7 @@
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
       :title="dialog.title"
+      :size="dialog.size"
     )
     ul.navbar-nav.navbar-nav-left
       li.nav-item
@@ -22,7 +23,7 @@
       li.nav-item
         a.nav-link(href="#") 設定
         .dropdown-menu
-          a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼')") 變更密碼
+          a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼', '360px')") 變更密碼
           a.dropdown-item(href="#" @click="openModal('customItem', '商品選擇')") 商品選擇
           //-a.dropdown-item(href="#") 版面選擇
           //-a.dropdown-item(href="#") 視覺下單
@@ -32,7 +33,7 @@
       li.nav-item
         a.nav-link(href="#") 說明
         .dropdown-menu
-          a.dropdown-item(href="/rules") 交易規則
+          a.dropdown-item(href="/rules" target="_blank") 交易規則
           a.dropdown-item(href="#") 相關網站
       li.nav-item.nav-item-text
         .navbar-txt 商品: {{ $store.state.itemName }}
@@ -69,6 +70,7 @@ export default {
         clickType: '',
         isOpen: false,
         title: '',
+        size: '',
       },
       targetItem: {}
     }
@@ -92,10 +94,14 @@ export default {
     }
   },
   methods: {
-    openModal (type, title) {
+    openModal (type, title, size) {
       this.dialog.clickType = type
       this.dialog.title = title
       this.dialog.isOpen = true
+
+      if (typeof size != 'undefined') {
+        this.dialog.size = size
+      }
     },
     setCustomSetting(type) {
       this.$store.commit('setCustomSetting', type)
