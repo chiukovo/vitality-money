@@ -25,3 +25,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 
 // theme
 @import 'theme/traditional';
+
+#__nuxt {
+	display: block;
+}
