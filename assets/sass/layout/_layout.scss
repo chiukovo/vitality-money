@@ -80,6 +80,7 @@
     align-items: center;
     width: 100%;
     height: 50px;
+    z-index: 5;
     color: #fff;
     background-color: #191B1D;
     #news {
@@ -291,6 +292,7 @@
     align-items: stretch;
     background-color: $block-bg;
     border: 1px solid $border-color;
+    position: relative;
     .operating-header {
         display: flex;
         align-items: center;

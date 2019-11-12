@@ -4,6 +4,11 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  setCustomSetting(state, type) {
+    state.localStorage.customSetting[type] = !state.localStorage.customSetting[type]
+
+    console.log(state.localStorage.customSetting)
+  },
   setCustomItemSetting(state, data) {
     //default item 選擇第一筆
     let first = true

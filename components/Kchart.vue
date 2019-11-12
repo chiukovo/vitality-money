@@ -52,7 +52,7 @@ export default {
           }
         },
         rangeSelector: {
-          selected: 1,
+          selected: 2,
           buttons: [
           {
             type: 'minute',

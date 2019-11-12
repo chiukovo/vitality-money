@@ -1,14 +1,18 @@
 <template lang='pug'>
 #itemDetail.itemDetail(:style='this.$parent.itemDetailStyles')
+  Dialog(
+    :click-type="dialog.clickType",
+    :visible.sync="dialog.isOpen"
+    :title="dialog.title"
+  )
   #itemDetailHeader
     .itemDetail-header(v-if="activeName === 'tabs1'" @click="clickType(0)")
       .header__title 五檔揭示[{{ $store.state.itemName }}]
     .itemDetail-header(v-if="activeName === 'tabs2'" @click="clickType(1)")
       .header__title 量價分佈[{{ $store.state.itemName }}]
-      el-button(@click='dialogVisible2 = true' type='primary' size='mini') 歷史
     .itemDetail-header(v-if="activeName === 'tabs3'" @click="clickType(2)")
       .header__title 報價明細[{{ $store.state.itemName }}]
-      el-button(@click='dialogVisible3 = true' type='primary' size='mini') 查詢
+      el-button(@click="openModal('historyPrices', '歷史報價查詢')" type='primary' size='mini') 查詢
       el-checkbox(checked) 置底
   .itemDetail-content
     el-tabs(
@@ -109,106 +113,10 @@
               span
           el-table-column(label='價格' min-width='28%')
             template(slot-scope='scope') {{ scope.row['price'] }}
-  el-dialog(
-  :visible.sync='dialogVisible3'
-  :modal='false'
-  width="80%"
-  title='歷史報價'
-  v-dialogDrag)
-    .header-custom(slot='title') 歷史報價
-    template
-      .itemDetai__history
-        .itemDetailtabs__header
-          .row
-            .col
-              el-form(ref='form' size='mini' :inline='true')
-                el-form-item(label='商品: ' size='mini')
-                  el-select(v-model='valueSelect1' placeholder='請選擇' style="width: 90px;")
-                    el-option(label='加權指' value='val')
-                el-form-item(label='日期:')
-                  el-form-item
-                    el-date-picker(type='date' placeholder='日期' v-model='valueDate' style="width: 130px;")
-                el-form-item(label='條件: ' size='mini')
-                  el-select(v-model='valueSelect2' placeholder='請選擇' style="width: 90px;")
-                    el-option(label='時間' value='val')
-                el-button(size='mini') 送出
-          .row
-            .col
-              el-form(ref='form' size='mini' :inline='true')
-                //- 條件篩選: 時間
-                //- endTime placeholder 預設為當前時間
-                //- 範圍為 9:00 - 24:00
-                el-form-item(label='時間: ' size='mini')
-                  el-time-picker(placeholder='9:00:00' v-model='startTime' :picker-options="{selectableRange: '9:00:00 - 20:30:00'}" style="width: 132px;")
-                  el-time-picker(placeholder='13:30:05' v-model='endTime' :picker-options="{selectableRange: '9:00:00 - 24:00:00'}" style="width: 132px;")
-                //- 條件篩選: 價錢
-                //- el-form-item(label='價錢: ' size='mini')
-                  el-input-number(v-model='num1' controls-position='right' :min='1' :max='10')
-                //- 條件篩選: 次序
-                //- 請把第一個條件時間也開啟
-                el-form-item(label='序號: ' size='mini')
-                  el-input-number(v-model='num1' controls-position='right' :min='1' :max='10')
-          .row
-            .col
-              //- 很奇怪的顯示? 切換時間也不會換? 不知道幹嘛用的
-              el-divider(content-position='center') 時間: 2019-10-28 09:00:00 ~ 2019-10-28 13:30:05
-        .itemDetailtabs__content
-          .row
-            .col-6
-              el-table.table(
-                :data='items2'
-                min-width='100%'
-                border)
-                el-table-column(prop='data1' label='市場時間' min-width='30%')
-                el-table-column(prop='data2' label='口' min-width='14%')
-                el-table-column(prop='data3' label='價格' min-width='28%')
-                el-table-column(prop='data4' label='次序' min-width='28%')
-            .col-6
-              el-table.table(
-                :data='items2'
-                min-width='100%'
-                border)
-                el-table-column(prop='data1' label='市場時間' min-width='30%')
-                el-table-column(prop='data2' label='口' min-width='14%')
-                el-table-column(prop='data3' label='價格' min-width='28%')
-                el-table-column(prop='data4' label='次序' min-width='28%')
-  el-dialog(
-  :visible.sync='dialogVisible2'
-  :modal='false'
-  width="80%"
-  title='量價分佈歷史查詢'
-  v-dialogDrag)
-    .header-custom(slot='title') 歷史報價
-    template
-      .itemDetai__history
-        .itemDetailtabs__header
-          .row
-            .col-lg-auto
-              el-form(ref='form' size='mini' :inline='true')
-                el-form-item(label='商品: ' size='mini')
-                  el-select(v-model='valueSelect1' placeholder='請選擇' style="width: 90px;")
-                    el-option(label='加權指' value='val')
-                el-form-item(label='開始日期:')
-                  el-form-item
-                    el-date-picker(type='date' placeholder='開始日期' v-model='valueDateInterval[0]' style="width: 130px;")
-                el-form-item(label='結束日期:')
-                  el-form-item
-                    el-date-picker(type='date' placeholder='結束日期' v-model='valueDateInterval[1]' style="width: 130px;")
-                el-button(size='mini') 送出
-            .col-lg-auto
-              span.label 快速查詢
-              el-button(size='mini') 今日
-              el-button(size='mini') 昨日
-              el-button(size='mini') 本週
-              el-button(size='mini') 上週
-              el-button(size='mini') 上月
-        .itemDetailtabs__content
-          .row
-            .col
-              |table
 </template>
 <script>
 
+import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
 export default {
@@ -217,6 +125,11 @@ export default {
       items0: [], //五檔揭示
       items1: [], //量價分布
       items2: [], //分價揭示
+      dialog: {
+        clickType: '',
+        isOpen: false,
+        title: '',
+      },
       fiveTotal: {
         more: 0,
         morePercent: 0,
@@ -239,6 +152,9 @@ export default {
       num1: 1,
       valueDateInterval: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 10, 10, 10)]
     }
+  },
+  components: {
+    Dialog,
   },
   computed: mapState([
     'historyPrice',
@@ -343,6 +259,11 @@ export default {
       if(rowIndex == 4) {
         return 'border-tr';
       }
+    },
+    openModal (type, title) {
+      this.dialog.clickType = type
+      this.dialog.title = title
+      this.dialog.isOpen = true
     }
   }
 }

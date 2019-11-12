@@ -10,7 +10,7 @@
         a.nav-link(href="#") 連線
         .dropdown-menu.animated.fadeInDown
           a.dropdown-item(href="#") 連線登入
-          a.dropdown-item(href="#") 中斷連接
+          a.dropdown-item(href="#" @click="logout") 中斷連接
       li.nav-item
         a.nav-link(href="#") 檢視
         .dropdown-menu
@@ -24,11 +24,11 @@
         .dropdown-menu
           a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼')") 變更密碼
           a.dropdown-item(href="#" @click="openModal('customItem', '商品選擇')") 商品選擇
-          a.dropdown-item(href="#") 版面選擇
-          a.dropdown-item(href="#") 視覺下單
-          a.dropdown-item(href="#") 刪單不確認
-          a.dropdown-item(href="#") 下單回報
-          a.dropdown-item(href="#") 拍手動畫
+          //-a.dropdown-item(href="#") 版面選擇
+          //-a.dropdown-item(href="#") 視覺下單
+          a.dropdown-item(href="#" @click="setCustomSetting('noConfirmDelete')") 刪單不確認
+          a.dropdown-item(href="#" @click="setCustomSetting('orderReport')") 下單回報
+          a.dropdown-item(href="#" @click="setCustomSetting('clapping')") 拍手動畫
       li.nav-item
         a.nav-link(href="#") 說明
         .dropdown-menu
@@ -54,7 +54,7 @@
       li.nav-item
         a.nav-link.material-icons(href="#") notifications
       li.nav-item
-        a.nav-link.material-icons(href="#") exit_to_app
+        a.nav-link.material-icons(href="#" @click="logout") exit_to_app
 </template>
 
 <script>
@@ -96,6 +96,15 @@ export default {
       this.dialog.clickType = type
       this.dialog.title = title
       this.dialog.isOpen = true
+    },
+    setCustomSetting(type) {
+      this.$store.commit('setCustomSetting', type)
+    },
+    logout() {
+      //unset cookie
+      let token = this.$cookies.remove('token')
+
+      location.href = "/"
     }
   }
 }

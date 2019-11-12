@@ -67,7 +67,7 @@ export default {
 			  }
 
 			  //set user info
-			  this.$store.commit('setuserAuth', result);
+			  this.$store.commit('setuserAuth', result)
 			})
 		}
 	},
