@@ -40,13 +40,14 @@ export default {
 	},
 	data () {
 	  return {
-		loading: true,
-		account: '',
-		password: '',
-		server: 'server10',
+			loading: true,
+			account: '',
+			password: '',
+			server: 'server10',
 	  }
 	},
 	mounted() {
+		this.loading = false
 	},
 	methods: {
 		async doLogin() {

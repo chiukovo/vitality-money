@@ -43,12 +43,14 @@ export default {
 	},
 	data () {
 	  return {
+      loading: true,
       account: '',
       password: '',
-	  server: 'server10'
+	  	server: 'server10'
 	  }
 	},
 	mounted() {
+		this.loading = false
 	},
 	methods: {
 		nuxt: function() {
