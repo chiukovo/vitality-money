@@ -8,33 +8,21 @@ export default function(context) {
     context.deviceType = deviceType(context.userAgent)
 
     let isMobile = context.app.$cookies.get('isMobile')
-    let needAddCookie = false
-
-    if (typeof isMobile == 'undefined') {
-    	needAddCookie = true
-    }
+    let routeGroup = context.route.name.split('-')
 
     if (context.deviceType.type === "pc") {
     	context.store.commit("setMobile", 0)
     	context.app.$cookies.set('isMobile', 0)
 
-    	if (needAddCookie) {
+    	if (routeGroup[0] == 'mobile') {
     		context.redirect(302, '/')
-    	} else {
-    		if (isMobile != 0) {
-    			context.redirect(302, '/')
-    		}
     	}
     } else {
     	context.store.commit("setMobile", 1)
     	context.app.$cookies.set('isMobile', 1)
 
-    	if (needAddCookie) {
-    		context.redirect(302, '/mobile')
-    	} else {
-    		if (isMobile != 1) {
-    			context.redirect(302, '/mobile')
-    		}
-    	}
+      if (routeGroup[0] != 'mobile') {
+          context.redirect(302, '/mobile/login')
+      }
     }
 }

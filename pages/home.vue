@@ -57,7 +57,6 @@ export default {
 	},
   beforeMount () {
     window.addEventListener('resize', this.resizeHeight)
-    console.log('in')
   },
   mounted () {
   	this.checkLogin()
