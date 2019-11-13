@@ -9,11 +9,24 @@
     color: $success;
 }
 .text-lg {
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
-.text-bold {
-    font-weight: bold;
+
+$weight: bold;
+@each $author in $weight {
+    .text-#{$author} {
+        text-align: #{$author};
+    }
 }
+
+$align: center right left;
+@each $author in $align {
+    .text-#{$author} {
+        text-align: #{$author};
+    }
+}
+
+
 .label {
     font-size: 12px;
     margin: 0 4px 0.5rem 0;

@@ -1,23 +1,22 @@
-// $primary: #409EFF;
-// $secondary: #909399;
-// $danger: #F56C6C;
-// $success: #67C23A;
-// $infor: #409EFF;
+$white:    #fff !default;
+$gray-100: #9A9898 !default;
+$gray-200: #716F6F !default;
+$gray-300: #535151 !default;
+$gray-400: #474545 !default;
+$gray-500: #3B3939 !default;
+$gray-600: #312F2F !default;
+$gray-700: #292727 !default;
+$gray-800: #222020 !default;
+$gray-900: #1C1B1B !default;
+$black:    #000 !default;
 
-// $header-font-color: #fff;
-// $header-font-hover-color: $primary;
-// $header-bg-color: #191B1D;
-// $footer-font-color: #fff;
-// $footer-font-hover-color: $primary;
-// $footer-bg-color: #191B1D;
 
-// $border-color: #EBEEF5;
 $block-bg: #fff;
 
 $primary: #409EFF;
 $secondary: #909399;
-$danger: #ff0000;
-$success: #007b47;
+$success: #28a745;
+$danger: #dc3545;
 $infor: #1900a5;
 
 $header-font-color: #000;
@@ -27,8 +26,8 @@ $footer-font-color: #fff;
 $footer-font-hover-color: $primary;
 $footer-bg-color: #191B1D;
 
-$table-border-color: #cfc9c9;
-$border-color: #6285ab;
+$table-border-color: $gray-100;
+$border-color: $gray-100;
 
 // bootstrap
 $font-size-base: 1rem;
@@ -39,26 +38,25 @@ $base-duration: .3s;
 $use-fadeInDown: true;
 
 // element ui
-$--font-size-base: 12px;
-$--color-text-regular: #fff;
-$--color-text-placeholder: #606266;
+$--color-text-regular: $white;
+$--color-text-placeholder: rgba($gray-100, .5);
 
 $--checkbox-font-size: 12px;
 $--checkbox-font-color: #fff;
 $--checkbox-checked-font-color: #fff;
-$--checkbox-background-color: #252527;
+$--checkbox-background-color: $gray-800;
 
 $--radio-font-size: 12px;
 $--radio-checked-font-color: #fff;
 $--radio-font-color: #fff;
 
-$--input-background-color: #252527;
-$--border-color-base: #1c1d1f;
+$--input-background-color: $gray-800;
+$--border-color-base: $gray-500;
 $--input-hover-border: $primary;
 $--input-focus-border: $primary;
 
 $--button-default-font-color: #fff;
-$--button-default-background-color: #252427;
+$--button-default-background-color: $gray-900;
 
 // material icons
 $material-icons-font-size: 22px !default;

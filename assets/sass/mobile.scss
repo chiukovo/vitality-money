@@ -19,6 +19,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 
 
 // *** layout ***
+@import 'layout/component';
 
 //-------------- layout
 html, body {
@@ -26,7 +27,7 @@ html, body {
 }
 body {
     color: #fff;
-    background-color: #303133;
+    background-color: $gray-900;
 }
 .container-fluid {
     position: fixed;
@@ -42,23 +43,85 @@ body {
 
 //-------------- header
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 44px;
-    background-color: #0c0d11;
-    .header__left {
+    position: relative;
+    background-color: $gray-700;
+    .header__title, .header__left, .header__right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header__title {
+        width: 100%;
+        height: 44px;
+    }
+    .header__left,
+    .header__right {
+        position: absolute;
+        top: 0;
         width: 90px;
+        height: 100%;
+    }
+    .header__left {
+        left: 10px;
+        justify-content: flex-start;
     }
     .header__right {
-        width: 90px;
-        text-align: right;
+        right: 10px;
+        justify-content: flex-end;
     }
 }
 
 //-------------- main
 .main {
     height: calc(100% - 88px);
+    overflow: auto;
+}
+.area {
+    .area__header {
+        text-align: center;
+        color: $--color-text-regular;
+        background-color: $gray-600;
+        padding: 5px 10px;
+        .area__title {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .el-checkbox {
+            margin-bottom: 0;
+        }
+    }
+    .area__content {
+        padding: 12px 10px;
+    }
+}
+.el-table td {
+    padding: 8px 0;
+    .el-button {
+        background-color: $gray-500;
+    }
+}
+.el-table td.limit {
+    padding: 2px 0;
+    .el-input-number {
+        margin-right: 40px;
+    }
+    &.limit__2 {
+        .el-input-number {
+            margin-right: 10px;
+        }
+        .el-button {
+            position: relative;
+            top: 1px;
+            padding: 7px 8px;
+        }
+    }
+}
+.table-icon {
+    vertical-align: bottom;
+    .icon-arrow {
+        top: 8px;
+        margin-right: 3px;
+    }
 }
 
 
@@ -68,7 +131,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #0c0d11;
+    background-color: #161414;
 }
 .tabs-list {
     display: flex;
@@ -92,30 +155,87 @@ body {
     }
 }
 
-//-------------- table
+//-------------- element ui
 .el-table {
+    thead {
+        color: $--color-text-placeholder;
+    }
+    tbody {
+        font-size: 15px;
+    }
     th {
-        background-color: #323234;
+        background-color: $gray-600;
     }
     tr {
-        background-color: #18191b;
+        background-color: $gray-900;
     }
 }
 .el-table, .el-table--border th, .el-table--border td {
-    border-color: #323234;
+    border-color: $gray-600;
 }
 .el-table th.is-leaf, .el-table td {
-    border-bottom-color: #000;
+    border-bottom-color: $gray-800;
 }
 .el-table__fixed::before, .el-table__fixed-right::before,
 .el-table--group::after, .el-table--border::after, .el-table::before {
-    background-color: #000;
+    background-color: $gray-800;
 }
 .el-table__body tr.hover-row > td, .el-table__body tr.hover-row.current-row > td,
 .el-table__body tr.current-row > td {
-    background-color: #2e3f56;
+    background-color: rgba($primary, .2);
+}
+.el-table th {
+    padding: 6px 0;
+}
+.table {
+    width: 100%;
+    text-align: center;
+}
+.progress-table {
+    td {
+        .cell {
+            padding: 0;
+        }
+        &:first-child {
+            padding-left: 10px;
+            .el-progress-bar__inner {
+                left: auto;
+                right: 0;
+            }
+        }
+        &:last-child {
+            padding-right: 10px;
+        }
+    }
+    .el-progress-bar__outer,
+    .el-progress-bar__inner {
+        border-radius: 0;
+    }
+    .el-progress-bar__outer {
+        background: transparent;
+    }
 }
 
+.el-input-number__decrease {
+    background-color: $success;
+}
+.el-input-number__increase {
+    background-color: $danger;
+}
+.el-input-number__increase:hover, .el-input-number__decrease:hover {
+    color: #fff;
+}
+
+.el-select-dropdown__item {
+    color: $gray-900;
+}
+
+.el-button--success {
+    background-color: $success;
+}
+.el-button--danger {
+    background-color: $danger;
+}
 
 
 //-------------- login
