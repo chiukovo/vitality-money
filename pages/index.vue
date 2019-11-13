@@ -21,7 +21,7 @@
 					el-checkbox 記住我
 				el-form-item
 					el-button(type='primary' @click="doLogin") 登入
-	.loading(v-loading='loading')
+	.loading(v-loading='loading' v-if="loading")
 </template>
 
 <script>
