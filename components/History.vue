@@ -458,17 +458,27 @@ export default {
         })
       }
     },
-    checkRowShow({row, index}){
+    checkRowShow({row, index}) {
       if (!row.show && !this.checked) {
         return 'hide'
       }
     },
     openEditPoint(type, row) {
+      //商品現價
+      let nowPrice = this.$store.state.nowNewPrice
+
+      if (this.$store.state.nowNewPrice.length > 0) {
+        nowPrice = this.$store.state.nowNewPrice[row.ID]
+      }
+
+      //新損
       if (type == 'lossPointDialog') {
         this.lossPointDialog = true
       } else if (type == 'winPointDialog') {
+        //新獲利
         this.winPointDialog = true
       } else if (type == 'profitPointDialog') {
+        //新倒利
         this.profitPointDialog = true
       }
     },

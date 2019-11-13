@@ -84,7 +84,6 @@ export default {
   	})
 
   	midDragbar.addEventListener('mouseup', () => {
-  		console.log('in')
   	  document.removeEventListener('mousemove', this.midDragbarMove);
   	})
 	},
@@ -169,8 +168,6 @@ export default {
 	    				break
 	    			case "c": //下單
 	    				result = val.substring(2).split(",")
-	    				console.log(result)
-	    				console.log(val)
 	    				break
 	    		}
 	    	})
@@ -222,32 +219,29 @@ export default {
 					})
 
 					if ((sourceFormat.SubmitType == '限價單' || sourceFormat.SubmitType == '倒限單') && prompt) {
-						const h = _this.$createElement
-
-						_this.$message({
-							showClose: true,
-							duration: 0,
-							message: h('p', null, [
-							  h('b', null, '限價成交提示'),
-							  h('p', null, '序號: ' + sourceFormat.Serial),
-							  h('p', null, '類別: ' + sourceFormat.SubmitType),
-							  h('p', null, '商品: ' + sourceFormat.Name),
-							  h('p', null, '狀態: 成交'),
-							  h('p', null, '口數: ' + sourceFormat.Quantity),
-							  h('p', null, '價格: ' + sourceFormat.SuccessPrice),
-							])
-		        });
+	        	_this.$notify({
+	            title: '限價成交提示',
+	            type: 'success',
+	            dangerouslyUseHTMLString: true,
+	            message: 
+	            '<p>序號: ' + sourceFormat.Serial + '</p>' +
+	            '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
+	            '<p>商品: ' + sourceFormat.Name + '</p>' +
+	            '<p>狀態: 成交' +
+	            '<p>口數: ' + sourceFormat.Quantity + '</p>' +
+	            '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
+	          })
 					}
 
 					break
 				case "j": //檢查token
 					sourceFormat = JSON.parse(event.data.substring(2))
 
-					if (sourceFormat == 0) {
+					if (sourceFormat == 0 && process.env.NUXT_ENV_OPEN_REPEAT_LOGOUT != 'true') {
 		        _this.$alert('重複登入', '提示', {
 		          confirmButtonText: '确定',
 		          callback: action => {
-		          	location.href = "/"
+								location.href = "/"
 		          }
 		        })
 					}
