@@ -35,7 +35,11 @@ export default {
     //set cookie
     document.cookie = `token=${data.Token}`
 
-    location.href = "/home"
+    if (state.isMobile) {
+      location.href = "/mobile/home"
+    } else {
+      location.href = "/home"
+    }
   },
   setUserInfo(state, data) {
     if (state.commidyArray.length == 0) {

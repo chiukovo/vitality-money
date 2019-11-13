@@ -22,7 +22,7 @@ export default function(context) {
     	context.app.$cookies.set('isMobile', 1)
 
       if (routeGroup[0] != 'mobile') {
-          context.redirect(302, '/mobile/login')
+          context.redirect(302, '/mobile')
       }
     }
 }

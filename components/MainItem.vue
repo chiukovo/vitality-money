@@ -49,24 +49,10 @@
         template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
       el-table-column(label='昨結算')
         template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
-      el-table-column(label='狀態')
+      el-table-column(label='狀態' fixed="right")
         template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>
 
-<style>
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background: rgb(219,219,219);
-}
-</style>
 <script>
 
 import Dialog from "~/components/Dialog"
@@ -363,6 +349,13 @@ export default {
       //判斷整行顏色
       if(columnIndex >= 4 && columnIndex != 9 && columnIndex != 15) {
         return row.color
+      }
+
+      //判斷狀態
+      if(columnIndex == 15) {
+        if (row.state != 2) {
+          return 'text-secondary'
+        }
       }
     },
   }
