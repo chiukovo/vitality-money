@@ -18,7 +18,8 @@
 								el-option(label='11-伺服器' value='server11')
 				el-form-item
 					el-button(type='primary' @click="doLogin") 登入
-
+					
+	.loading(v-loading='loading')
 	//- el-dialog(title='提示' :visible.sync='doLogin' width="90%" :modal='false')
 		span 登入訊息改這個大小
 </template>

@@ -21,6 +21,7 @@
 					el-checkbox 記住我
 				el-form-item
 					el-button(type='primary' @click="doLogin") 登入
+	.loading(v-loading='loading')
 </template>
 
 <script>
@@ -39,9 +40,10 @@ export default {
 	},
 	data () {
 	  return {
-      account: '',
-      password: '',
-      server: 'server10',
+		loading: true,
+		account: '',
+		password: '',
+		server: 'server10',
 	  }
 	},
 	mounted() {
