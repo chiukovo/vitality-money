@@ -194,10 +194,10 @@ export default {
 							_this.$alert(sourceFormat.ErrorMsg)
 							return
 						}
-
-						//call order list
-						_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 					}
+
+					//call order list
+					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
 					break
 				case "d":
