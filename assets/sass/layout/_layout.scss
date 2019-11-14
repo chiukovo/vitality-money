@@ -1,9 +1,8 @@
 * {
-    box-sizing: border-box;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -o-user-select:none;
     user-select:none;
+}
+p {
+    margin-bottom: 8px;
 }
 
 //-------------- header
@@ -379,6 +378,11 @@
     .rules-list {
         font-size: 12px;
         padding: 1rem 0 1rem 80px;
+    }
+    span {
+        + span {
+            margin-left: 10px;
+        }
     }
 }
 .dialog__footer {

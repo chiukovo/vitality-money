@@ -13,9 +13,7 @@
 				el-select(placeholder='臺指早' size='mini')
 					el-option(label='臺指早' value='1')
 		.header(v-if='tabShow == 3')
-			.header__title 買賣單據
-			.header__right
-				el-button(size='mini' icon='el-icon-refresh-left') 刷新
+			.header__title 單據列表
 	#main.main
 		.main-area(v-if='tabShow == 1')
 			el-table(:data='tableData'
@@ -105,18 +103,71 @@
 											:show-text='false'
 											status="success")
 		.main-area(v-if='tabShow == 3')
-			el-table(:data='tableData'
-			border
-			:highlight-current-row='true'
-			style='width: 100%')
-				el-table-column(prop='th1' label='商品' align='center' fixed)
-				el-table-column(prop='th2' label='操作' align='center')
-					template
-						el-button(size='mini') 改
-						el-button(size='mini') 刪
-				el-table-column(prop='th3' label='多空' align='center' )
-				el-table-column(prop='th4' label='委託價' align='center')
-				el-table-column(prop='th5' label='口數' align='center')
+			.nav-list
+				li: a(@click='handleDocument(1)' href='#') 買賣單據
+				li: a(@click='handleDocument(2)' href='#') 未平倉單
+				li: a(@click='handleDocument(3)' href='#') 已平倉單
+				li: a(href='#') 掛單
+				li: a(href='#') 商品統計
+			template(v-if='documentShow == 1')
+				.modals.documents
+					#header
+						.header
+							.header__left
+								el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
+							.header__title 買賣單據
+							.header__right
+								el-button(size='mini' icon='el-icon-refresh-left') 刷新
+					#main.main
+						el-table(:data='tableData'
+						border
+						:highlight-current-row='true'
+						style='width: 100%')
+							el-table-column(prop='th1' label='商品' align='center' fixed)
+							el-table-column(prop='th2' label='操作' align='center' width='80')
+								template
+									.hsbutton
+										el-button(size='mini') 改
+										el-button(size='mini') 刪
+							el-table-column(prop='th3' label='多空' align='center' )
+							el-table-column(prop='th4' label='委託價' align='center')
+							el-table-column(prop='th5' label='口數' align='center')
+			template(v-if='documentShow == 2')
+				.modals.documents
+						#header
+							.header
+								.header__left
+									el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
+								.header__title 未平倉單
+								.header__right
+									el-button(size='mini' icon='el-icon-refresh-left') 刷新
+						#main.main
+							.area
+								.area__header
+									el-button(size='mini') 全選
+									el-button(size='mini') 全不選
+									el-button(size='mini') 平倉
+								el-table(:data='tableData'
+								border
+								:highlight-current-row='true'
+								style='width: 100%')
+									el-table-column(prop='th1' label='商品' align='center' fixed)
+									el-table-column(prop='th2' label='操作' align='center' width='80')
+										template
+											.hsbutton
+												el-button(size='mini') 平倉
+									el-table-column(prop='th3' label='多空' align='center' )
+									el-table-column(prop='th4' label='委託價' align='center')
+									el-table-column(prop='th5' label='口數' align='center')
+			template(v-if='documentShow == 3')
+				.documents
+					.mask-wrap 已平倉單
+			template(v-if='documentShow == 4')
+				.documents
+					.mask-wrap 掛單
+			template(v-if='documentShow == 5')
+				.documents
+					.mask-wrap 商品統計
 		.main-area(v-if='tabShow == 4') 4
 		.main-area(v-if='tabShow == 5') 5
 	#footer.footer
@@ -167,6 +218,7 @@ export default {
 		return {
 			loading: true,
 			tabShow: 3,
+			documentShow: 0,
 			tableData: [{
 				th1: '加權指',
 				th2: '0',
@@ -190,9 +242,12 @@ export default {
 	},
 	methods: {
 		handleTab(e) {
-			this.tabShow = e,
-			console.log(this.tabShow)
+			this.tabShow = e
 		},
+		handleDocument(e) {
+			this.documentShow = e
+			console.log(this.documentShow)
+		}
 	}
 }
 </script>

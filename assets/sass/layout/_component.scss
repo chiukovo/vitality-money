@@ -14,11 +14,14 @@
 .text-lg {
     font-size: 1.25rem;
 }
+.bg-colr-warring {
+    background-color: #fff8b6;
+}
 
 $weight: bold;
 @each $author in $weight {
     .text-#{$author} {
-        text-align: #{$author};
+        font-weight: #{$author};
     }
 }
 

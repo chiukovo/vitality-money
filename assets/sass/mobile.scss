@@ -76,6 +76,9 @@ body {
     height: calc(100% - 88px);
     overflow: auto;
 }
+.el-link [class*="el-icon-"] + span {
+    font-size: 12px;
+}
 .area {
     .area__header {
         text-align: center;
@@ -89,15 +92,53 @@ body {
         .el-checkbox {
             margin-bottom: 0;
         }
+        + .el-table {
+            margin-top: 1px;
+        }
     }
     .area__content {
         padding: 12px 10px;
     }
 }
+.nav-list {
+    list-style-type: none;
+    li {
+        margin: 10px;
+        a {
+            display: block;
+            color: #fff;
+            background-color: rgba($white, .04);
+            padding: 10px;
+        }
+    }
+}
+.modals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $gray-900;
+}
+
 .el-table td {
     padding: 8px 0;
     .el-button {
         background-color: $gray-500;
+        padding: 7px 8px;
+    }
+    .hsbutton {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .el-button + .el-button {
+        margin-left: 7px;
     }
 }
 .el-table td.limit {
