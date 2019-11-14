@@ -20,7 +20,7 @@
 				el-form-item
 					el-checkbox 記住我
 				el-form-item
-					el-button(type='primary' @click="doLogin") 登入
+					el-button(type='primary' native-type="submit" @click.native.prevent="doLogin") 登入
 	.loading(v-loading='loading' v-if="loading")
 </template>
 

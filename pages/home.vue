@@ -189,13 +189,15 @@ export default {
 				case "c": //下單
 					sourceFormat = JSON.parse(event.data.substring(2))
 
-					if (sourceFormat.Code <= 0) {
-						_this.$alert(sourceFormat.ErrorMsg)
-						return
-					}
+					if (typeof sourceFormat.HaveMessage != 'undefined') {
+						if (sourceFormat.Code <= 0) {
+							_this.$alert(sourceFormat.ErrorMsg)
+							return
+						}
 
-					//call order list
-					_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+						//call order list
+						_this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+					}
 
 					break
 				case "d":

@@ -17,7 +17,7 @@
 								el-option(label='10-伺服器' value='server10')
 								el-option(label='11-伺服器' value='server11')
 				el-form-item
-					el-button(type='primary' @click="doLogin") 登入
+					el-button(type='primary' native-type="submit" @click.native.prevent="doLogin") 登入
 					
 	.loading(v-loading='loading' v-if="loading")
 	//- el-dialog(title='提示' :visible.sync='doLogin' width="90%" :modal='false')

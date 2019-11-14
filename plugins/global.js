@@ -131,9 +131,6 @@ Vue.mixin({
 
       return [year, month, day].join('-')
     },
-    updateScroll() {
-      //$('.fixed-table-body').slimScroll({height: '100%'})
-    },
     resizeHeight () {
       this.windowHeight = window.innerHeight
       this.headHeight = this.$el.querySelector('#header').offsetHeight
