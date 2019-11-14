@@ -8,7 +8,7 @@
         ItemDetail
       #mainRight.main-right
         MainItem
-        #midDragbar(height="10px")
+        #midDragbar(style="height: 10px")
         History
         Operating
     #footer.footer

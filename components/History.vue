@@ -1,6 +1,6 @@
 <template lang='pug'>
 #history
-  .history
+  .history(id="historyScroll")
     .history-wrap
       .history-header
       .history-content
@@ -10,15 +10,15 @@
           @tab-click='handleClick')
           el-tab-pane(:label="'買賣下單(' + buySell.length + ')'", name='tabs1')
             .history-tabs-header
-              el-button(size='mini') 刪單
-              el-button(size='mini') 全選
-              el-button(size='mini') 全不選
+              el-button(size='mini' @click="deleteConfirm = true") 刪單
             el-table.table(
               :data='buySell'
               min-width='100%'
               :height="$parent.historyTableMaxH - 30"
+              @selection-change="selectionChangeDelete"
               border
             )
+              el-table-column(type="selection" width="55" :selectable="selectCheckDelete")
               el-table-column(label='操作' width="90px" fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
@@ -46,6 +46,32 @@
                 template(slot-scope='scope')
                   span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
                   span(v-else) {{ scope.row.State }}
+          //-多單平倉
+          el-dialog(
+            :visible.sync='multiOrderConfirm'
+            :modal='false'
+            :show-close='false'
+            width="400px"
+            title='確認平倉'
+            v-dialogDrag)
+            .header-custom(slot='title')
+              i.el-icon-info
+              |  確認平倉
+            el-table.table(
+              :data="multiOrderData"
+              min-width='100%'
+              height="100px"
+              border
+            )
+              el-table-column(prop="serial" label='序號')
+              el-table-column(prop="name" label='目標商品')
+              el-table-column(prop="userName" label='用戶名稱')
+              el-table-column(prop="buy" label='買賣')
+              el-table-column(prop="price" label='價格')
+              el-table-column(prop="submit" label='口數')
+            .dialog__footer
+              el-button(@click="multiOrderConfirm = false") 取消
+              el-button(type='primary' @click="doMultiCovered") 確認
           //-刪除
           el-dialog(
             :visible.sync='deleteConfirm'
@@ -63,6 +89,7 @@
               height="100px"
               border
             )
+            el-table-column(prop="serial" label='序號')
               el-table-column(prop="name" label='目標商品')
               el-table-column(prop="userName" label='用戶名稱')
               el-table-column(prop="buy" label='買賣')
@@ -192,14 +219,19 @@
                 el-button(type='primary' @click="doEdit") 送出
           el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
-              el-button(size='mini') 全選
-              el-button(size='mini') 全不選
+              el-button(size='mini' @click="openMultiOrder") 多單平倉
             el-table.table(
               :data='uncovered'
               min-width='100%'
               :height="$parent.historyTableMaxH - 30"
+              ref="multipleTable"
               border
             )
+              el-table-column(width="55px" fixed)
+                template(slot="header" slot-scope="scope")
+                  el-checkbox(v-model="multiOrderAll" @change="multiOrderAllClick")
+                template(slot-scope='scope')
+                  el-checkbox(v-model="multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
               el-table-column(label='操作' fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -380,6 +412,7 @@ export default {
       checked: false,
       editDialog: false,
       deleteConfirm: false,
+      multiOrderConfirm: false,
       lossPointDialog: false,
       winPointDialog: false,
       profitPointDialog: false,
@@ -387,6 +420,10 @@ export default {
       multiDelete: [],
       allCommodity: [],
       openEditPointRow: [],
+      selectToDelete: [],
+      multiOrderSelect: [],
+      multiOrderData: [],
+      multiOrderAll: false,
     }
   },
   computed: mapState([
@@ -406,6 +443,11 @@ export default {
       this.unCoverBuySum = data.UnCoverSellSum
       this.unCoverSellSum = data.UnCoverBuySum
       this.unCoverTotal = this.uncovered.length
+
+      //全選
+      this.uncovered.forEach(function(source){
+        _this.multiOrderSelect[source.Serial] = false
+      })
 
       //加入多檔刪除
       this.buySell.forEach(function(source) {
@@ -530,6 +572,63 @@ export default {
           }
         })
       }
+    },
+    openMultiOrder() {
+      let _this = this
+      this.multiOrderData = []
+
+      this.multiOrderSelect.forEach(function(val, serial) {
+        _this.uncovered.forEach(function(row) {
+          if (row.Serial == serial && val) {
+            _this.multiOrderData.push({
+              name: _this.$store.state.itemName,
+              userName: _this.$store.state.userInfo.Account,
+              buy: row.BuyOrSell == 0 ? '多' : '空',
+              price: row.Odtype,
+              submit: row.Quantity,
+              itemId: row.ID,
+              serial: row.Serial,
+            })
+          }
+        })
+      })
+
+      this.multiOrderConfirm = true
+    },
+    multiOrderAllClick() {
+      let _this = this
+
+      this.multiOrderSelect = this.multiOrderSelect.map(function() {
+        if (!_this.multiOrderAll) {
+          return false
+        } else {
+          return true
+        }
+        return false
+      })
+    },
+    selectCheckDelete(row) {
+      if (row.Operation[0]) {
+        return true
+      }
+
+      return false
+    },
+    selectionChangeDelete(target) {
+      let _this = this
+      this.confirmDeleteData = []
+
+      target.forEach(function(row) {
+        _this.confirmDeleteData.push({
+          name: _this.$store.state.itemName,
+          userName: _this.$store.state.userInfo.Account,
+          buy: row.BuyOrSell == 0 ? '多' : '空',
+          price: row.Odtype,
+          submit: row.Quantity,
+          itemId: row.ID,
+          serial: row.Serial,
+        })
+      })
     },
     checkRowShow({row, index}) {
       if (!row.show && !this.checked) {
@@ -706,6 +805,7 @@ export default {
         _this.$socketOrder.send(sendText)
       })
 
+      this.confirmDeleteData = []
       this.deleteConfirm = false
     },
     doEdit() {
@@ -724,6 +824,29 @@ export default {
       this.editDialog = false
     },
     handleClick() {},
+    doMultiCovered() {
+      if (this.multiOrderData.length > 0) {
+        let itemIdStr = ''
+        let serialStr = ''
+        const count = this.multiOrderData.length
+        let sendText
+
+        this.multiOrderData.forEach(function(val, key) {
+          if (count == key + 1) {
+            itemIdStr += val.itemId
+            serialStr += val.serial
+          } else {
+            itemIdStr += val.itemId + ';'
+            serialStr += val.serial + ';'
+          }
+        })
+
+        sendText = 't:' + this.userId + ',' + serialStr + ',' + this.token + ',' + this.isMobile + ',' + itemIdStr
+        this.$socketOrder.send(sendText)
+      }
+
+      this.multiOrderConfirm = false
+    },
     doCovered(row, count) {
       const isMobile = this.isMobile
       const userId = this.userId

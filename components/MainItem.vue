@@ -6,6 +6,7 @@
       :visible.sync="dialog.isOpen"
     )
     el-table.table(
+    id="mainTable"
     :data='items',
     :height='$parent.mainItemTable',
     :cell-class-name='tableCellClassName',

@@ -12,13 +12,18 @@ Vue.mixin({
       document.selection
               ? document.selection.empty()
               : window.getSelection().removeAllRanges()
-
+      const windowHeight = window.innerHeight
       let midDragbar = document.getElementById('midDragbar');
-      let mainItem = document.getElementById('mainItem')
-      let history = document.getElementById('history')
+      let mainTable = document.getElementById('mainTable')
+      let historyScroll = document.getElementById('historyScroll')
+      let footer = document.getElementById('footer')
+      let operating = document.getElementById('operating')
 
-      /*mainItem.style.height = e.pageY - midDragbar.offsetHeight + "px"
-      history.style.height = e.pageY + midDragbar.offsetHeight + "px"*/
+      mainTable.style.height = e.pageY - midDragbar.offsetHeight - 44 + 'px'
+
+      const historyH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20)
+      historyScroll.style.height = historyH + 'px'
+      this.historyTableMaxH = historyH - 45
     },
     marketInfo () {
       return {
