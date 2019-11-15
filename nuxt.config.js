@@ -28,11 +28,9 @@ module.exports = {
   plugins: [
     '~/plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
-    {src: '~plugins/trading.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/highcharts.js', ssr: true},
-    '@/plugins/element-ui',
-    '@/static/js/el-dialogdrag'
+    {src: '~plugins/element-ui', ssr: true },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -62,6 +60,21 @@ module.exports = {
   ** Build configuration
   */
   build: {
+
+  },
+  vender: [
+    'element-ui'
+  ],
+  babel: {
+    "plugins": [["component", [
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-default"
+      },
+      'transform-async-to-generator',
+      'transform-runtime'
+    ]]],
+    comments: true
   },
   proxy: {
     '/api': {

@@ -25,7 +25,6 @@ import History from "~/components/History"
 import Operating from "~/components/Operating"
 import Footer from "~/components/Footer"
 import { mapState } from 'vuex'
-import { Loading } from 'element-ui'
 import '@/assets/sass/style.scss'
 
 export default {

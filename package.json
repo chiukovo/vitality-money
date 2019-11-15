@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
+    "build": "nuxt build --analyze",
     "start": "nuxt start --hostname 0.0.0.0",
     "generate": "nuxt generate"
   },
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "animate-sass": "^0.8.2",
+    "babel-plugin-component": "^1.1.1",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "material-icons": "^0.3.1",

@@ -89,7 +89,7 @@
               height="100px"
               border
             )
-            el-table-column(prop="serial" label='序號')
+              el-table-column(prop="serial" label='序號')
               el-table-column(prop="name" label='目標商品')
               el-table-column(prop="userName" label='用戶名稱')
               el-table-column(prop="buy" label='買賣')
@@ -805,8 +805,6 @@ export default {
       }
     },
     deleteOrder(row) {
-      this.deleteConfirm = true
-
       this.confirmDeleteData = [{
         name: this.$store.state.itemName,
         userName: this.$store.state.userInfo.Account,
@@ -816,6 +814,8 @@ export default {
         itemId: row.ID,
         serial: row.Serial,
       }]
+
+      this.deleteConfirm = true
     },
     doDelete() {
       let _this = this
