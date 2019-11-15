@@ -29,6 +29,12 @@ body {
     color: #fff;
     background-color: $gray-900;
 }
+a {
+    &:hover, &:focus {
+        color: $primary;
+        text-decoration: none;
+    }
+}
 .container-fluid {
     position: fixed;
     top: 0;
@@ -82,33 +88,58 @@ body {
 .area {
     .area__header {
         text-align: center;
+        font-size: 13px;
         color: $--color-text-regular;
         background-color: $gray-600;
         padding: 5px 10px;
         .area__title {
             display: inline-block;
+            font-size: 1rem;
             margin-right: 10px;
         }
         .el-checkbox {
             margin-bottom: 0;
         }
-        + .el-table {
-            margin-top: 1px;
-        }
     }
     .area__content {
         padding: 12px 10px;
     }
+    .area__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li, a {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #fff;
+            border-bottom: 1px solid rgba($white, .04);
+            padding: 8px;
+            .el-icon-arrow-right {
+                border-bottom: 1px solid rgba($white, .04);
+                margin: 0 8px 0 auto;
+            }
+            &:hover, &:focus {
+                background-color: rgba($primary, .1);
+            }
+        }
+    }
+    + .el-table {
+        margin-top: 1px;
+    }
 }
 .nav-list {
     list-style-type: none;
-    li {
+    padding: 0;
+    margin: 0;
+    li, a {
+        display: block;
+        color: #fff;
+        background-color: rgba($white, .04);
+        padding: 10px;
         margin: 10px;
-        a {
-            display: block;
-            color: #fff;
-            background-color: rgba($white, .04);
-            padding: 10px;
+        &:hover, &:focus {
+            background-color: rgba($primary, .1);
         }
     }
 }

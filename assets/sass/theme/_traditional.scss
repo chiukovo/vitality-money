@@ -423,3 +423,11 @@ body {
         }
     }
 }
+
+
+//-------------- scrollbar
+// scrollbar background
+body::-webkit-scrollbar-track {
+    border-radius: 0;
+    background: #104a84;
+}

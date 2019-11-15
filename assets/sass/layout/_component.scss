@@ -151,24 +151,3 @@ tr.border-tr {
         border-bottom: 1px solid #4c81b8;
     }
 }
-
-
-//-------------- scrollbar
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-// scrollbar bar
-::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background: rgba(0,0,0,0.2);
-}
-// scrollbar background
-::-webkit-scrollbar-track {
-    border-radius: 3px;
-    background: rgba(0,0,0,0.01);
-}
-body::-webkit-scrollbar-track {
-    border-radius: 0;
-    background: #104a84;
-}

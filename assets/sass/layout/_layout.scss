@@ -390,3 +390,20 @@ p {
     background: #f1f1f1;
     padding: 6px;
 }
+
+
+//-------------- scrollbar
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+// scrollbar bar
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0,0,0,0.2);
+}
+// scrollbar background
+::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background: rgba(0,0,0,0.01);
+}
