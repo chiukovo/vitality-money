@@ -108,22 +108,29 @@
             .header-custom(slot='title') 新倒限利點數
             template
               .dialog__body
-                p [{{ editPoint.name }}]
-                p 報價: {{ editPoint.nowPrice }}
-                p 類型: {{ editPoint.buyOrSellName }}
-                p 成交: {{ editPoint.nowPrice - editPoint.limitPoint }}
-                  span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                  span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p 新倒限利不得大於: [{{ editPoint.limitPoint }}]
-                p 新倒限利需大於會員最低停損點數: [{{ editPoint.stopPoint }}]
-                p 新倒限利
-                p
+                p.text-center
+                  span [{{ editPoint.name }}]
+                  span 報價: 
+                    span.text-bold {{ editPoint.nowPrice }}
+                  span 類型: 
+                    span.text-bold {{ editPoint.buyOrSellName }}
+                  span 成交: 
+                    span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+                      span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+                      span(v-else class="text-success") ({{editPoint.limitPoint}})
+                p.text-center 新倒限利不得大於: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+                p.text-center 新倒限利需大於會員最低停損點數: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+                p.text-center 新倒限利
+                p.text-center
                   el-button(type="mini" @click="editPoint.price -= 10") -10
                   el-button(type="mini" @click="editPoint.price -= 5") -5
-                  el-input-number(v-model="editPoint.price" size="mini")
+                  el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p 計算結果: {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+                p.text-center 計算結果: 
+                  span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
                 el-button(@click="profitPointDialog = false") 取消
@@ -138,22 +145,29 @@
             .header-custom(slot='title') 新獲利點數
             template
               .dialog__body
-                p [{{ editPoint.name }}]
-                p 報價: {{ editPoint.nowPrice }}
-                p 類型: {{ editPoint.buyOrSellName }}
-                p 成交: {{ editPoint.nowPrice - editPoint.limitPoint }}
-                  span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                  span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p 新獲利點需大於: [{{ editPoint.limitPoint }}]
-                p 新獲利點需大於會員最低停損點數: [{{ editPoint.stopPoint }}]
-                p 新獲利點
-                p
+                p.text-center
+                  span [{{ editPoint.name }}]
+                  span 報價: 
+                    span.text-bold {{ editPoint.nowPrice }}
+                  span 類型: 
+                    span.text-bold {{ editPoint.buyOrSellName }}
+                  span 成交: 
+                    span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+                      span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+                      span(v-else class="text-success") ({{editPoint.limitPoint}})
+                p.text-center 新獲利點需大於: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+                p.text-center 新獲利點需大於會員最低停損點數: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+                p.text-center 新獲利點
+                p.text-center 
                   el-button(type="mini" @click="editPoint.price -= 10") -10
                   el-button(type="mini" @click="editPoint.price -= 5") -5
-                  el-input-number(v-model="editPoint.price" size="mini")
+                  el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p 計算結果: {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+                p.text-center 計算結果: 
+                  span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
                 el-button(@click="winPointDialog = false") 取消
@@ -168,22 +182,29 @@
             .header-custom(slot='title') 新損失點數
             template
               .dialog__body
-                p [{{ editPoint.name }}]
-                p 報價: {{ editPoint.nowPrice }}
-                p 類型: {{ editPoint.buyOrSellName }}
-                p 成交: {{ editPoint.nowPrice - editPoint.limitPoint }}
-                  span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                  span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p 新損失點需大於: [{{ editPoint.limitPoint }}]
-                p 新損失點需大於會員最低停損點數: [{{ editPoint.stopPoint }}]
-                p 新損點
-                p
+                p.text-center
+                  span [{{ editPoint.name }}]
+                  span 報價: 
+                    span.text-bold {{ editPoint.nowPrice }}
+                  span 類型: 
+                    span.text-bold {{ editPoint.buyOrSellName }}
+                  span 成交: 
+                    span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+                      span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+                      span(v-else class="text-success") ({{editPoint.limitPoint}})
+                p.text-center 新損失點需大於: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+                p.text-center 新損失點需大於會員最低停損點數: 
+                  span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+                p.text-center 新損點
+                p.text-center
                   el-button(type="mini" @click="editPoint.price -= 10") -10
                   el-button(type="mini" @click="editPoint.price -= 5") -5
-                  el-input-number(v-model="editPoint.price" size="mini")
+                  el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p 計算結果: {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+                p.text-center 計算結果: 
+                  span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
                 el-button(@click="lossPointDialog = false") 取消

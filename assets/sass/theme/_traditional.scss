@@ -354,8 +354,8 @@ body {
                 }
                 &:nth-child(5) {
                     position: absolute;
-                    right: 1px;
-                    bottom: -10px;
+                    right: 0;
+                    bottom: -8px;
                     .el-button {
                         color: transparent;
                         background: transparent url('~static/images/theme_traditional/login_button.png');
