@@ -7,16 +7,12 @@
 
 // element ui
 $--font-path: '~element-theme-chalk/src/fonts';
-@import '~element-theme-chalk/src/index.scss';
-// @import 'vendor/element';
+// @import '~element-theme-chalk/src/index.scss';
+@import 'vendor/element';
 
 // material icons
 $material-icons-font-path: '~material-icons/iconfont/';
 @import '~material-icons/iconfont/material-icons.scss';
-
-// animate
-@import '~animate-sass/animate';
-
 
 // *** layout ***
 @import 'layout/component';
