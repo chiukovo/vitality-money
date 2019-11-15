@@ -31,6 +31,7 @@ module.exports = {
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/highcharts.js', ssr: true},
     {src: '~plugins/element-ui', ssr: true },
+    '@/static/js/el-dialogdrag'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -60,7 +61,17 @@ module.exports = {
   ** Build configuration
   */
   build: {
-
+    extend (config, { isDev, isClient }) {
+      // ..
+      config.module.rules.push(
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          loader: 'file-loader'
+        }
+      )
+      // Sets webpack's mode to development if `isDev` is true.
+      if (isDev) { config.mode = 'development' }
+    }
   },
   vender: [
     'element-ui'
