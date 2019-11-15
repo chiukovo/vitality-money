@@ -189,11 +189,9 @@ export default {
 				case "c": //下單
 					sourceFormat = JSON.parse(event.data.substring(2))
 
-					if (typeof sourceFormat.HaveMessage != 'undefined') {
-						if (sourceFormat.Code <= 0) {
-							_this.$alert(sourceFormat.ErrorMsg)
-							return
-						}
+					if (sourceFormat.Code <= 0) {
+						_this.$alert(sourceFormat.ErrorMsg)
+						return
 					}
 
 					//call order list

@@ -51,11 +51,14 @@ export default {
 	},
 	methods: {
 		async doLogin() {
+			let _this = this
 
 			if (this.account == '' || this.password == '') {
 				this.$alert('帳號或密碼不得為空', '注意!')
 				return
 			}
+
+			this.loading = true
 
 			await axios.post("/api/validation", qs.stringify({
 			  LoginAccount: this.account,
@@ -67,6 +70,7 @@ export default {
 
 			  if (result['Code'] <= 0) {
 			  	this.$alert(result['ErrorMsg'], '注意!')
+			  	_this.loading = false
 			  	return
 			  }
 
