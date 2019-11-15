@@ -174,15 +174,18 @@ Vue.mixin({
       // console.log(`history height: ${this.history}`)
 
       //this.mainItemTable = this.main - this.operating - this.history - this.operating
-
+      const sourceMainTable = this.$el.querySelector('#mainTable').offsetHeight
       const operatingH = this.$el.querySelector('#operating').offsetHeight
 
-      this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
-
-      const historyH = (this.main - operatingH) * 0.6
-      this.$el.querySelector('#history .history').style.height =  historyH - 21 + 'px'
-
-      this.historyTableMaxH = historyH - 65
+      if (sourceMainTable == 1) {
+        this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
+        const historyH = (this.main - operatingH) * 0.6
+        this.$el.querySelector('#history .history').style.height =  historyH - 21 + 'px'
+        this.historyTableMaxH = historyH - 65
+      } else {
+        console.log(sourceMainTable, this.main)
+        this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 21 + 'px'
+      }
     }
   }
 })
