@@ -390,15 +390,17 @@ export default {
 
       if (fiveData.length > 0) {
         this.service.itemDetail.items0 = fiveData
-
         //計算total
-        this.service.itemDetail.items0.forEach(function(val) {
-          if (val[1] != '') {
-            _this.service.itemDetail.fiveTotal.more += parseInt(val[1])
-          }
+        this.service.itemDetail.items0.forEach(function(val, key) {
 
-          if (val[3] != '') {
-            _this.service.itemDetail.fiveTotal.nullNum += parseInt(val[3])
+          if (key != 5) {
+            if (val[1] != '') {
+              _this.service.itemDetail.fiveTotal.more += parseInt(val[1])
+            }
+
+            if (val[3] != '') {
+              _this.service.itemDetail.fiveTotal.nullNum += parseInt(val[3])
+            }
           }
         })
 

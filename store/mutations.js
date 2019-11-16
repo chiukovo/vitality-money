@@ -146,10 +146,18 @@ export default {
       fiveData[num]['newPrice'] = nowPrice
     }
 
+    fiveData.splice(5, 0, [
+      '',
+      '',
+      nowPrice,
+      '',
+      '',
+    ])
+
     formatData = fiveData.map(function(val, key) {
       let result
 
-      if (key < 4) {
+      if (key <= 5) {
         result = [
           '',
           '',
@@ -159,18 +167,7 @@ export default {
         ]
       }
 
-      //中間
-      if (key == 4) {
-        result = [
-          '',
-          '',
-          nowPrice,
-          '',
-          '',
-        ]
-      }
-
-      if (key > 4) {
+      if (key > 5) {
         result = [
           val['percent'],
           val[0],

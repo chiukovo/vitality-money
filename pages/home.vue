@@ -59,8 +59,29 @@ export default {
   beforeMount () {
     window.addEventListener('resize', this.resizeHeight)
   },
+  computed: {
+    mainItem () {
+      return this.$store.state.mainItem
+    }
+  },
+  watch: {
+    mainItem () {
+      this.resizeHeight()
+    },
+  },
   mounted () {
   	this.checkLogin()
+
+  	//中間拉霸
+  	let midDragbar = document.getElementById('midDragbar')
+
+  	midDragbar.addEventListener('mousedown', () => {
+  	  document.addEventListener('mousemove', this.midDragbarMove);
+  	})
+
+  	midDragbar.addEventListener('mouseup', () => {
+  	  document.removeEventListener('mousemove', this.midDragbarMove);
+  	})
 	}
 }
 </script>

@@ -18,93 +18,10 @@
 		.header(v-if='tabShow == 4')
 			.header__title 報表查詢
 	#main.main
-		.main-area(v-if='tabShow == 1')
-			el-table(:data='tableData'
-			border
-			:highlight-current-row='true'
-			style='width: 100%')
-				el-table-column(prop='th1' label='商品' align='center' fixed)
-				el-table-column(prop='th2' label='倉位' align='center' fixed width='50')
-				el-table-column(prop='th3' label='成交' align='center' )
-				el-table-column(prop='th4' label='漲跌' align='center')
-				el-table-column(prop='th5' label='買進' align='center')
-		.main-area(v-if='tabShow == 2')
-			.area
-				.area__header
-					el-button(type='primary' size='mini') 一般下單
-					el-button(size='mini') 雷電下單
-				.area__content
-					el-radio(label='0') 市價單
-					el-radio(label='1') 限價單
-					el-radio(label='2') 收盤單
-					el-radio(label='3') 收盤單
-			.area
-				table.el-table
-					thead
-						tr
-							th: .cell.text-center 商品
-							th: .cell.text-center 倉位
-							th: .cell.text-center 成交
-							th: .cell.text-center 漲跌
-					tbody
-						tr
-							td: .cell.text-center.text-down 臺指早
-							td: .cell.text-center 0
-							td: .cell.text-center.text-down 11573
-							td: .cell.text-center.text-down
-								.table-icon
-									.icon-arrow(class='icon-arrow-down')
-									|23
-						tr
-							td.limit.limit__1(colspan='4'): .cell.text-center 口數：
-								el-input-number(size='small' :min='0')
-						tr
-							td.limit.limit__2(colspan='4'): .cell.text-center 限價：
-								el-input-number(size='small' :min='0')
-								el-button 現
-						tr
-							td.limit.limit__3(colspan='4'): .cell.text-center 停利：
-								el-input-number(size='small' :min='0')
-						tr
-							td.limit.limit__4(colspan='4'): .cell.text-center 停損：
-								el-input-number(size='small' :min='0')
-			.area
-				.area__header
-					.area__title(style='color: yellow') 目前下單商品: 臺指早
-					el-checkbox(size='mini' label='收盤全平')
-				.area__content.text-center
-					el-button(type="danger" @click="checkOrder(0)") 下多單
-					el-button(type="success" @click="checkOrder(1)") 下空單
-			.area
-				table.el-table.progress-table
-					thead
-						tr
-							th(colspan='2'): .cell.text-right 委買
-							th(colspan='2'): .cell.text-center 價格
-							th(colspan='2'): .cell.text-left 委賣
-					tbody
-						- for (var x = 0; x < 3; x++)
-							tr
-								td(style='width:20%'): .cell
-									.progress-bar
-										el-progress(
-											:text-inside='true'
-											:stroke-width='14'
-											:percentage='8'
-											:show-text='false'
-											status="exception")
-								td: .cell.text-center 8
-								td: .cell.text-center.text-up 11572
-								td: .cell.text-center.text-down 11573
-								td: .cell.text-center 33
-								td(style='width:20%'): .cell
-									.progress-bar
-										el-progress(
-											:text-inside='true'
-											:stroke-width='14'
-											:percentage='33'
-											:show-text='false'
-											status="success")
+		.main-area(v-show='tabShow == 1')
+			MainItem
+		.main-area(v-show='tabShow == 2')
+			Operating
 		.main-area(v-if='tabShow == 3')
 			ul.nav-list
 				li(@click='handleDocument(1)') 買賣單據
@@ -252,16 +169,15 @@
 				+tab-list__item('tab', 'handleTab', '3', '單據', 'el-icon-s-order')
 				+tab-list__item('tab', 'handleTab', '4', '報表', 'el-icon-s-marketing')
 				+tab-list__item('tab', 'handleTab', '5', '系統', 'el-icon-s-tools')
-	//- .loading(v-loading='loading')
 </template>
 <script>
-// import Mixins from "@/components/mobile/Mixins"
+
+import websocketService from '~/plugins/service/websocketService.js'
+import MainItem from "~/components/mobile/MainItem"
+import Operating from "~/components/mobile/Operating"
 import '@/assets/sass/mobile.scss'
 
 export default {
-	// components: {
-	// 	Mixins
-	// },
 	head() {
 	  return {
 	    htmlAttrs: {
@@ -272,39 +188,34 @@ export default {
 			]
 	  }
 	},
+	mixins: [websocketService],
+	components: {
+		MainItem,
+		Operating,
+	},
 	data() {
 		return {
 			loading: true,
-			tabShow: 4,
+			tabShow: 1,
 	  	product: '1',
 			documentShow: 0,
 			quoteShow: 0,
 			quoteShowDetail: true,
-			tableData: [{
-				th1: 'th1',
-				th2: 'th2',
-				th3: 'th3',
-				th4: 'th4',
-				th5: 'th5'
-			},{
-				th1: 'th1',
-				th2: 'th2',
-				th3: 'th3',
-				th4: 'th4',
-				th5: 'th5'
-			},{
-				th1: 'th1',
-				th2: 'th2',
-				th3: 'th3',
-				th4: 'th4',
-				th5: 'th5'
-			}]
+			allHeight: {
+				mainItem: 0,
+			}
 		}
+	},
+	beforeMount () {
+	  //算好所有手機板高度
+	  this.mobileAllHeight()
+  },
+  mounted () {
+  	this.checkLogin()
 	},
 	methods: {
 		handleTab(e) {
 			this.tabShow = e
-			console.log(e)
 		},
 		handleDocument(e) {
 			this.documentShow = e

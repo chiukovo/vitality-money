@@ -4,6 +4,7 @@ import {
   Input,
   InputNumber,
   Radio,
+  Link,
   RadioGroup,
   RadioButton,
   Checkbox,
@@ -20,6 +21,8 @@ import {
   TimeSelect,
   TimePicker,
   Form,
+  Row,
+  Col,
   FormItem,
   Tabs,
   TabPane,
@@ -44,6 +47,9 @@ Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Link);
+Vue.use(Row);
+Vue.use(Col);
 Vue.use(OptionGroup);
 Vue.use(Button);
 Vue.use(ButtonGroup);

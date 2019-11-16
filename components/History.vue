@@ -36,10 +36,10 @@
               el-table-column(prop='Odtype', label='型別')
               el-table-column(label='損失點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ parseInt(scope.row.LossPoint) }}
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
+                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ parseInt(scope.row.WinPoint) }}
               el-table-column(prop='OrderTime', label='下單時間' width="150px")
               el-table-column(prop='FinalTime', label='完成時間' width="150px")
               el-table-column(label='狀態'  width="150px" fixed="right")
@@ -265,10 +265,10 @@
               el-table-column(prop='Fee', label='手續費')
               el-table-column(label='損失點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
               el-table-column(label='獲利點數')
                 template(slot-scope='scope')
-                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
+                  el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
               el-table-column(label='倒限(利)')
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}

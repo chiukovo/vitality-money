@@ -16,17 +16,6 @@ export default {
     this.$socketOrder.onmessage = function(e) {
       _this.orderSendResult(e)
     }
-
-    //中間拉霸
-    let midDragbar = document.getElementById('midDragbar')
-
-    midDragbar.addEventListener('mousedown', () => {
-      document.addEventListener('mousemove', this.midDragbarMove);
-    })
-
-    midDragbar.addEventListener('mouseup', () => {
-      document.removeEventListener('mousemove', this.midDragbarMove);
-    })
   },
   computed: {
     websocketConnected () {
@@ -34,15 +23,9 @@ export default {
     },
     sendResult () {
       return this.$store.state.socket.message
-    },
-    mainItem () {
-      return this.$store.state.mainItem
     }
   },
   watch: {
-    mainItem () {
-      this.resizeHeight()
-    },
     websocketConnected () {
       let isConnected = this.$store.state.socket.isConnected
 

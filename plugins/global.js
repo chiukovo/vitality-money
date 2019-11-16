@@ -136,6 +136,13 @@ Vue.mixin({
 
       return [year, month, day].join('-')
     },
+    mobileAllHeight() {
+      const windowHeight = window.innerHeight
+      const headH = this.$el.querySelector('#header').offsetHeight
+      const footH = this.$el.querySelector('#footer').offsetHeight
+
+      this.allHeight.mainItem = windowHeight - (headH + footH)
+    },
     resizeHeight () {
       this.windowHeight = window.innerHeight
       this.headHeight = this.$el.querySelector('#header').offsetHeight
@@ -183,7 +190,6 @@ Vue.mixin({
         this.$el.querySelector('#history .history').style.height =  historyH - 21 + 'px'
         this.historyTableMaxH = historyH - 65
       } else {
-        console.log(sourceMainTable, this.main)
         this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 21 + 'px'
       }
     }
