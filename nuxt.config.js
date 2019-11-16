@@ -26,7 +26,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/global',
+    '~plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/highcharts.js', ssr: true},

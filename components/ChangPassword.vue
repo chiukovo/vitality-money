@@ -22,6 +22,7 @@
 </template>
 <script>
 
+import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -35,6 +36,7 @@ export default {
       },
     }
   },
+  mixins: [dataService],
   mounted () {
 
   },
@@ -63,8 +65,8 @@ export default {
         return
       }
 
-      const userId = this.$store.state.localStorage.userAuth.userId
-      const token = this.$store.state.localStorage.userAuth.token
+      const userId = this.service.userInfo.userId
+      const token = this.service.userInfo.token
 
       await axios.post("/api/set_password", qs.stringify({
         UserID: userId,
@@ -80,6 +82,7 @@ export default {
           return
         } else {
           _this.$alert("密碼更改成功")
+          _this.$parent.handleClose()
         }
       })
     }

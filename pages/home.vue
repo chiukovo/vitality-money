@@ -16,7 +16,7 @@
 </template>
 <script>
 
-import websocketService from '~/mixins/service/websocketService.js'
+import websocketService from '~/plugins/service/websocketService.js'
 import Header from "~/components/Header"
 import MainItem from "~/components/MainItem"
 import ItemDetail from "~/components/ItemDetail"

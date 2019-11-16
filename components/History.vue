@@ -12,7 +12,7 @@
             .history-tabs-header
               el-button(size='mini' @click="deleteConfirm = true") 刪單
             el-table.table(
-              :data='buySell'
+              :data='service.history.buySell'
               min-width='100%'
               :height="$parent.historyTableMaxH - 30"
               @selection-change="selectionChangeDelete"
@@ -242,7 +242,7 @@
             .history-tabs-header
               el-button(size='mini' @click="openMultiOrder") 多單平倉
             el-table.table(
-              :data='uncovered'
+              :data='service.history.uncovered'
               min-width='100%'
               :height="$parent.historyTableMaxH - 30"
               ref="multipleTable"
@@ -304,18 +304,19 @@
           el-tab-pane(label='商品統計', name='tabs4')
             .history-tabs-header
               .col 預設額度: 
-                span.text-lg.text-bold 0
+                span.text-lg.text-bold {{ $store.state.userInfo.TouchPoint }}
               .col 今日損益: 
                 //- colors class.text-danger | text-success
-                span.text-lg.text-bold.text-danger -50
+                span(v-if="$store.state.userInfo.TodayMoney < 0").text-lg.text-bold.text-danger {{ $store.state.userInfo.TodayMoney }}
+                span(v-else).text-lg.text-bold.text-success {{ $store.state.userInfo.TodayMoney }}
               .col 留倉預扣: 
-                span.text-lg.text-bold 0
+                span.text-lg.text-bold {{ $store.state.userInfo.WithholdingMoney }}
               .col 帳戶餘額: 
-                span.text-lg.text-bold.text-infor 96,350
+                span.text-lg.text-bold.text-infor {{ $store.state.userInfo.Money }}
               .col
                 el-checkbox(v-model='checked') 顯示全部
             el-table.table(
-              :data='commodity'
+              :data='service.history.commodity'
               min-width='100%'
               :height="$parent.historyTableMaxH - 30"
               :row-class-name="checkRowShow"
@@ -386,6 +387,7 @@
 import { mapState } from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
+import dataService from '~/plugins/service/dataService.js'
 
 export default {
   data() {
@@ -447,116 +449,12 @@ export default {
       multiOrderAll: false,
     }
   },
+  mixins: [dataService],
   computed: mapState([
-    'userOrder',
     'nowMainItem',
   ]),
   watch: {
-    userOrder(data) {
-      this.allCommodity = this.$store.state.commidyArray
-      let _this = this
-      this.multiDelete = []
-
-      this.selectDayType('today')
-      this.buySell = data.OrderArray
-      this.uncovered = data.UncoveredArray
-      this.covered = data.CoveredArray
-      this.unCoverBuySum = data.UnCoverSellSum
-      this.unCoverSellSum = data.UnCoverBuySum
-      this.unCoverTotal = this.uncovered.length
-
-      //全選
-      this.uncovered.forEach(function(source){
-        _this.multiOrderSelect[source.Serial] = false
-      })
-
-      //加入多檔刪除
-      this.buySell.forEach(function(source) {
-        const multiDeleteInfo = {
-          itemId: source.ID,
-          checked: false
-        }
-
-        _this.multiDelete.push(multiDeleteInfo)
-      })
-
-      //商品統計 加入其他
-      this.allCommodity.forEach(function(source) {
-        let pushData = {
-          Name: source.Name,
-          TotalBuySubmit: 0,
-          TotalSellSubmit: 0,
-          RemainingBuyStock: 0,
-          RemainingSellStock: 0,
-          TotalSubmit: 0,
-          TotalFee: 0,
-          TotalPoint: 0,
-          RemainingWithholding: 0,
-          show: false,
-        }
-
-        data.CommodityArray.forEach(function(target) {
-          if (source.ID == target.ID) {
-            pushData = {
-              Name: target.Name,
-              TotalBuySubmit: target.TotalBuySubmit,
-              TotalSellSubmit: target.TotalSellSubmit,
-              RemainingBuyStock: target.RemainingBuyStock,
-              RemainingSellStock: target.RemainingSellStock,
-              TotalSubmit: target.TotalSubmit,
-              TotalFee: target.TotalFee,
-              TotalPoint: target.TotalPoint,
-              RemainingWithholding: target.RemainingWithholding,
-              show: true,
-            }
-          }
-        })
-
-        _this.commodity.push(pushData)
-      })
-    },
     nowMainItem(mainItem) {
-      //計算
-      if (this.uncovered.length > 0) {
-        let uncoverMoney = 0
-
-        this.uncovered = this.uncovered.map(function(val) {
-          // 取得點數現價差，要更新在未平單上
-          let thisSerialPointDiff
-          // 此單未平損益 (要算手續費)，要更新在未平單上
-          val.thisSerialTotalMoney = 0
-          // 取得價格
-          let nowPrice = 0
-
-          //Operation ( 0=>可否編輯(改口數、價格), 1 =>可否刪除, 2 => 可否平倉, 3=> 可否更新倒限利, 4=>用不到 )
-
-          mainItem.forEach(function(mainVal) {
-            if (val.ID == mainVal.product_id) {
-              nowPrice = mainVal.newest_price
-            }
-          })
-
-          // 取得點數現價差
-          let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
-
-          // 如果是買單
-          if(val.BuyOrSell == 0) {
-              // 此單未平點數
-              thisSerialPointDiff = diff
-              // 總共未平損益
-              uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
-          }
-          else {
-              thisSerialPointDiff = diff * -1;
-              uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
-          }
-          // 此單未平損益 (要算手續費)，要更新在未平單上
-          val.thisSerialTotalMoney = thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
-
-          return val
-        })
-      }
-
       //有editPoint資料就要更新更新
       if (this.editPoint.itemId != '') {
         this.udpateEditPointData(this.editPoint.type, this.openEditPointRow)
@@ -564,19 +462,19 @@ export default {
     }
   },
   mounted() {
-    this.isMobile = this.$store.state.isMobile
-    this.userId = this.$store.state.localStorage.userAuth.userId
-    this.token = this.$store.state.localStorage.userAuth.token
-    this.commidyArray = this.$store.state.localStorage.userAuth.token
+    this.selectDayType('today')
+    this.userId = this.service.userInfo.userId
+    this.token = this.service.userInfo.token
+    this.isMobile = this.service.userInfo.lang
   },
   methods: {
     async query() {
       let _this = this
 
       if (this.form.start != '' && this.form.end != '') {
-        const userId = this.$store.state.localStorage.userAuth.userId
-        const token = this.$store.state.localStorage.userAuth.token
-        const lang = this.$store.state.localStorage.lang
+        const userId = this.service.userInfo.userId
+        const token = this.service.userInfo.token
+        const lang = this.service.userInfo.lang
 
         await axios.post("/api/query_moneylist?lang=" + lang, qs.stringify({
           UserID: userId,

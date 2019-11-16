@@ -23,7 +23,7 @@
       //- tabs1
       el-tab-pane(label='五檔揭示' name='tabs1')
         el-table.table.itemDetailTab1table(
-          :data="items0"
+          :data="service.itemDetail.items0"
           :row-class-name='tableCenterHeightLight'
           min-width='50%'
           width='50%'
@@ -60,9 +60,9 @@
                   status="success")
         .itemDetailTabTotal
           .row
-            .col {{ fiveTotal.more }}
+            .col {{ service.itemDetail.fiveTotal.more }}
             .col 總計
-            .col {{ fiveTotal.nullNum }}
+            .col {{ service.itemDetail.fiveTotal.nullNum }}
           .row
             .col.text-up 多勢
             .col.progress-bar
@@ -70,13 +70,13 @@
                 :text-inside='true'
                 :stroke-width='10'
                 :show-text='false'
-                :percentage='fiveTotal.morePercent'
+                :percentage='service.itemDetail.fiveTotal.morePercent'
                 status='exception')
             .col.text-down 空勢
 
       //- tabs2
       el-tab-pane(label='量價分佈' name='tabs2')
-        el-table.table.itemDetailTab2table(:data='items1' min-width='100%' :height='this.$parent.itemDetailTable' border)
+        el-table.table.itemDetailTab2table(:data='service.itemDetail.items1' min-width='100%' :height='this.$parent.itemDetailTable' border)
           el-table-column(label='價格' min-width='30%')
             template(slot-scope='scope') {{ scope.row[1] }}
           el-table-column(label='' min-width='20%')
@@ -97,7 +97,7 @@
       //- tabs3
       el-tab-pane(label='分價揭示' name='tabs3')
         el-table.table(
-          :data='items2'
+          :data='service.itemDetail.items2'
           :height='this.$parent.itemDetailTable'
           :cell-class-name='tableCellClassName'
           min-width='100%'
@@ -116,6 +116,7 @@
 </template>
 <script>
 
+import dataService from '~/plugins/service/dataService.js'
 import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
@@ -130,118 +131,15 @@ export default {
         isOpen: false,
         title: '',
       },
-      fiveTotal: {
-        more: 0,
-        morePercent: 0,
-        nullNum: 0,
-      },
-      type: 0,
-      borderName: 'border border-primary',
       activeName: 'tabs1',
-      dialogVisible2: false,
-      dialogVisible3: false,
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }],
-      valueDate: new Date(2000, 10, 10, 10, 10),
-      valueSelect1: 'val',
-      valueSelect2: 'val',
-      startTime: new Date(2016, 9, 10, 18, 40),
-      endTime: new Date(2016, 9, 10, 18, 40),
       num1: 1,
-      valueDateInterval: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 10, 10, 10)]
     }
   },
+  mixins: [dataService],
   components: {
     Dialog,
   },
-  computed: mapState([
-    'historyPrice',
-    'nowFiveMoney',
-    'nowVolumeMoney',
-    'clickItemId',
-  ]),
-  watch: {
-    historyPrice (history) {
-      let itemId = this.$store.state.clickItemId
-      this.itemChange(history[itemId])
-    },
-    nowVolumeMoney (money) {
-      let itemId = this.$store.state.clickItemId
-      this.volumeChange(money[itemId])
-    },
-    nowFiveMoney (fiveData) {
-      let itemId = this.$store.state.clickItemId
-
-      this.fiveItemChange(fiveData[itemId])
-    },
-    clickItemId (itemId) {
-      this.fiveTotal = {
-        more: 0,
-        morePercent: 0,
-        nullNum: 0,
-      }
-
-      let history = this.$store.state.historyPrice[itemId]
-      let fiveData = this.$store.state.nowFiveMoney[itemId]
-      let volumeMoney = this.$store.state.nowVolumeMoney[itemId]
-      this.items0 = []
-      this.items1 = []
-      this.items2 = []
-
-      this.itemChange(history)
-      this.fiveItemChange(fiveData)
-      this.volumeChange(volumeMoney)
-    }
-  },
   methods: {
-    fiveItemChange(fiveData) {
-      let _this = this
-
-      if (typeof fiveData == 'undefined') {
-        this.items0 = []
-        return
-      }
-
-      if (fiveData.length > 0) {
-        this.items0 = fiveData
-
-        //計算total
-        this.items0.forEach(function(val) {
-          if (val[1] != '') {
-            _this.fiveTotal.more += parseInt(val[1])
-          }
-
-          if (val[3] != '') {
-            _this.fiveTotal.nullNum += parseInt(val[3])
-          }
-        })
-
-        //多勢 %
-        _this.fiveTotal.morePercent = parseInt(100 / (_this.fiveTotal.more + _this.fiveTotal.nullNum) * _this.fiveTotal.more)
-      }
-    },
-    volumeChange(money) {
-      if (typeof money == 'undefined') {
-        this.items1 = []
-        return
-      }
-
-      if (money.length > 0) {
-        this.items1 = money
-      }
-    },
-    itemChange(history) {
-      if (typeof history == 'undefined') {
-        this.items2 = []
-        return
-      }
-
-      if (history.length > 0) {
-        this.items2 = history
-      }
-    },
     clickType (type) {
       this.type = type
     },
