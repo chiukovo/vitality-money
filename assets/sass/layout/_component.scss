@@ -144,7 +144,7 @@ tr.border-tr {
     }
 }
 .straight{
-    cursor: ew-resize;
+    cursor: col-resize;
     &:before {
         top: 50%;
         left: 3px;
@@ -154,41 +154,9 @@ tr.border-tr {
         border-left: 1px solid #4c81b8;
         border-right: 1px solid #4c81b8;
     }
-    .straightLine {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        z-index: 9;
-        display: block;
-        width: 1px;
-        height: 100%;
-        &.show {
-            display: block;
-            background-color: rgba(0,0,0,.3);
-            cursor: ew-resize;
-        }
-    }
 }
 .horizontal {
-    cursor: ns-resize;
-    .horizontalLine {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 9;
-        display: block;
-        width: 100%;
-        height: 1px;
-        &.show {
-            display: block;
-            background-color: rgba(0,0,0,.3);
-            cursor: ns-resize;
-        }
-    }
+    cursor: row-resize;
     &:before {
         top: 3px;
         left: 50%;
@@ -197,5 +165,37 @@ tr.border-tr {
         height: 3px;
         border-top: 1px solid #4c81b8;
         border-bottom: 1px solid #4c81b8;
+    }
+}
+
+.straightLine {
+    bottom: 0;
+    width: 1px;
+    height: 100%;
+}
+.horizontalLine {
+    right: 0;
+    width: 100%;
+    height: 1px;
+}
+.straightLine, .horizontalLine {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    &.show {
+        display: block;
+        background-color: rgba(0,0,0,.3);
+        &:after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 8;
+            background-color: transparent;
+        }
     }
 }
