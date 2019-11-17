@@ -119,6 +119,13 @@ body {
     }
 }
 
+//-------------- mainItem
+.mainItemTable {
+    tr td:nth-child(n+5) {
+        font-weight: bold;
+    }
+}
+
 //-------------- history
 .history {
     background-color: #f1f1f1;

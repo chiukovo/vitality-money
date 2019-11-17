@@ -6,22 +6,22 @@
       #mainLeft.main-left
         UserInfo
         #leftTopDragbar(style="height: 10px" class="horizontal")
-          div(
-            :class="dragLeftTopStart ? 'dragLeftTopStart' : ''"
-            :style="{left: dragY + 'px'}"
+          .horizontalLine(
+            :class="dragLeftTopStart ? 'show' : ''"
+            :style="{top: dragY + 'px'}"
           )
         ItemDetail
       #leftDragbar(style="width: 10px" class="straight")
-        div(
-          :class="dragLeftStart ? 'dragLeftStart' : ''"
+        .straightLine(
+          :class="dragLeftStart ? 'show' : ''"
           :style="{left: dragX + 'px'}"
         )
       #mainRight.main-right
         MainItem
         #midDragbar(style="height: 10px" class="horizontal")
-          div(
-            :class="dragMidStart ? 'dragMidStart' : ''"
-            :style="{left: dragY + 'px'}"
+          .horizontalLine(
+            :class="dragMidStart ? 'show' : ''"
+            :style="{top: dragY + 'px'}"
           )
         History
         Operating

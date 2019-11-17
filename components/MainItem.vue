@@ -5,7 +5,7 @@
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
     )
-    el-table.table(
+    el-table.mainItemTable.table(
     id="mainTable"
     :data='service.mainList',
     :height='$parent.mainItemTable',

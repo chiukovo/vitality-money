@@ -154,19 +154,41 @@ tr.border-tr {
         border-left: 1px solid #4c81b8;
         border-right: 1px solid #4c81b8;
     }
-    .dragLeftStart {
-        position: absolute;
+    .straightLine {
+        display: none;
+        position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
+        z-index: 9;
         display: block;
         width: 1px;
         height: 100%;
-        background-color: #f00;
+        &.show {
+            display: block;
+            background-color: rgba(0,0,0,.3);
+            cursor: ew-resize;
+        }
     }
 }
 .horizontal {
     cursor: ns-resize;
+    .horizontalLine {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9;
+        display: block;
+        width: 100%;
+        height: 1px;
+        &.show {
+            display: block;
+            background-color: rgba(0,0,0,.3);
+            cursor: ns-resize;
+        }
+    }
     &:before {
         top: 3px;
         left: 50%;
