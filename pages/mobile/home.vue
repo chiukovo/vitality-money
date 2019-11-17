@@ -1,6 +1,7 @@
 <template lang='pug'>
 .container-fluid
-	include mixins.pug
+	client-only
+		include mixins.pug
 	#header
 		.header(v-if='tabShow == 1')
 			.header__left
