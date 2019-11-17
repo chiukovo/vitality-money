@@ -46,6 +46,7 @@
 </template>
 <script>
 
+import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -62,6 +63,7 @@ export default {
   mounted () {
     this.selectDayType('today')
   },
+  mixins: [dataService],
   methods: {
     async query() {
       let _this = this

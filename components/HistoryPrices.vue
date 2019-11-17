@@ -49,6 +49,7 @@
 </template>
 <script>
 
+import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -68,6 +69,7 @@ export default {
       currentPage: 1
     }
   },
+  mixins: [dataService],
   mounted () {
     //end date
     this.form.start = this.formatDate(new Date())

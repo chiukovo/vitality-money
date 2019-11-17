@@ -5,6 +5,8 @@ import {
   InputNumber,
   Radio,
   Link,
+  Pagination,
+  Divider,
   RadioGroup,
   RadioButton,
   Checkbox,
@@ -48,6 +50,8 @@ Vue.use(CheckboxGroup);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Link);
+Vue.use(Pagination);
+Vue.use(Divider);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(OptionGroup);
