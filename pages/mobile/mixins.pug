@@ -2,14 +2,14 @@
 mixin tab-list__item(group, handle, id, name, icon)
 	.tab-list__item(@click=`${handle}(${id})` :class=`{'current': ${group}Show == ${id}}`)
 		i.item__icon(class=icon)
-		.item__name name
+		.item__name=name
 
 mixin header__Back_Reload(title)
 	#header
 		.header
 			.header__left
 				el-link(@click='handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
-			.header__title title
+			.header__title=title
 			.header__right
 				el-button(size='mini' icon='el-icon-refresh-left') 刷新
 </template>
