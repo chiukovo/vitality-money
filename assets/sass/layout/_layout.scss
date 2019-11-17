@@ -110,7 +110,7 @@ p {
 }
 .main {
     display: flex;
-    padding: 10px 10px 0 10px;
+    margin: 10px;
 }
 .main-left {
     width: 270px;
@@ -120,15 +120,16 @@ p {
 }
 
 //-------------- userInfo
-#userInfo {
-}
 .userInfo {
-    background-color: $block-bg;
+    background-color: #f1f1f1;
     border: 1px solid $border-color;
     .userInfo-header {
         background-color: #F5F7FA;
         border-bottom: 1px solid $border-color;
         padding: 4px 10px;
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 .userInfor__content {
@@ -149,6 +150,10 @@ p {
         .header__title {
             display: inline-block;
             line-height: 2;
+            width: 100%;
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .el-button {
             margin: 0 10px;
@@ -342,6 +347,12 @@ p {
             .el-button-group > .el-button {
                 flex: 1;
                 padding: 7px;
+            }
+        }
+        .operating-4 {
+            .el-button--danger,
+            .el-button--success {
+                font-weight: bold;
             }
         }
         .operating-5 {

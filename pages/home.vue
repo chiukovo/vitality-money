@@ -7,10 +7,11 @@
         UserInfo
         #leftTopDragbar(style="height: 10px" class="horizontal" :class="dragLeftTopStart ? 'dragLeftTopStart' : ''")
         ItemDetail
-      #leftDragbar(style="width: 10px" class="straight" :class="dragLeftStart ? 'dragLeftStart' : ''")
+      #leftDragbar(style="width: 10px" class="straight dragLeftStart" :class="dragLeftStart ? 'dragLeftStart' : ''")
+        .dragLeftStart
       #mainRight.main-right
         MainItem
-        #midDragbar(style="height: 10px" class="straight" :class="dragMidStart ? 'dragMidStart' : ''")
+        #midDragbar(style="height: 10px" class="horizontal" :class="dragMidStart ? 'dragMidStart' : ''")
         History
         Operating
     #footer.footer

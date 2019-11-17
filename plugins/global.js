@@ -50,6 +50,8 @@ Vue.mixin({
       let right = document.getElementById('mainRight')
 
       right.style.width = windowWidth - e.pageX + 'px'
+      console.log(e.pageY)
+
       left.style.width = e.pageX - leftDragbar.offsetWidth + 'px'
     },
     midDragbarMove(e) {
