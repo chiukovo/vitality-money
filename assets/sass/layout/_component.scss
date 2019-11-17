@@ -135,16 +135,31 @@ tr.border-tr {
 
 
 //-------------- Split
-#midDragbar {
+.straight {
     position: relative;
     cursor: ns-resize;
     &:before {
         content: '';
         position: absolute;
+        display: block;
+    }
+}
+#leftDragbar {
+    &:before {
+        top: 50%;
+        left: 3px;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 18px;
+        border-left: 1px solid #4c81b8;
+        border-right: 1px solid #4c81b8;
+    }
+}
+#midDragbar {
+    &:before {
         top: 3px;
         left: 50%;
-        transform: translate(-50%);
-        display: block;
+        transform: translateX(-50%);
         width: 18px;
         height: 3px;
         border-top: 1px solid #4c81b8;

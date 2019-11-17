@@ -53,11 +53,11 @@ Vue.mixin({
       let footer = document.getElementById('footer')
       let operating = document.getElementById('operating')
 
-      mainTable.style.height = e.pageY - midDragbar.offsetHeight - 44 + 'px'
+      mainTable.style.height = e.pageY - midDragbar.offsetHeight - 54 + 'px'
 
       const historyH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20)
       historyScroll.style.height = historyH + 'px'
-      this.historyTableMaxH = historyH - 45
+      this.historyTableMaxH = historyH - 40
     },
     marketInfo () {
       return {
@@ -195,7 +195,7 @@ Vue.mixin({
       // console.log(`UserInfo height: ${this.userInfo}`)
 
       //- *** itemDetail ***
-      this.itemDetail = this.main - this.userInfo
+      this.itemDetail = this.main - this.userInfo - 18
       this.$set(this.itemDetailStyles, 'height', this.itemDetail + 'px')
 
       //- for itemDetail table height
@@ -225,8 +225,8 @@ Vue.mixin({
       if (sourceMainTable == 1) {
         this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
         const historyH = (this.main - operatingH) * 0.6
-        this.$el.querySelector('#history .history').style.height =  historyH - 21 + 'px'
-        this.historyTableMaxH = historyH - 65
+        this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
+        this.historyTableMaxH = historyH - 60
       } else {
         this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 21 + 'px'
       }
