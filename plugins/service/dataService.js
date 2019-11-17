@@ -252,14 +252,12 @@ export default {
         val.highest_price_change = ''
         val.lowest_price_change = ''
 
-        if (val.state == 2) {
-          if (val.newest_price > val.yesterday_close_price) {
-            val.color = 'text-up'
-            _this.borderName = 'border border-up'
-          } else if (val.newest_price < val.yesterday_close_price) {
-            val.color = 'text-down'
-            _this.borderName = 'border border-down'
-          }
+        if (val.newest_price > val.yesterday_close_price) {
+          val.color = 'text-up'
+          _this.borderName = 'border border-up'
+        } else if (val.newest_price < val.yesterday_close_price) {
+          val.color = 'text-down'
+          _this.borderName = 'border border-down'
         }
 
         val.gain = val.newest_price - val.yesterday_close_price

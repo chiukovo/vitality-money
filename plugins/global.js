@@ -12,6 +12,12 @@ Vue.mixin({
       let audio = document.getElementById('successSound')
       audio.play()
     },
+    dragMousemove(e) {
+      this.pageY = e.pageY
+      this.pageX = e.pageX
+
+      console.log(this.pageX, this.pageY)
+    },
     leftTopDragbarMove(e) {
       const windowHeight = window.innerHeight
       const headHeight = this.$el.querySelector('#header').offsetHeight
@@ -31,6 +37,10 @@ Vue.mixin({
       this.$el.querySelector('#userInfo .userInfo').style.height = resultUserInfo + 'px'
       this.$el.querySelector('#itemDetail .el-tabs').style.height = resultItemDetail + 'px'
       this.$el.querySelector('#itemDetail').style.height = resultItemDetail + 40 + 'px'
+
+      if (this.windowHeight <= 755) {
+      this.$el.querySelector('#itemDetail .itemDetailTab1table').style.height = resultItemDetail - 105 + 'px'
+      }
     },
     leftDragbarMove(e) {
       const windowWidth = window.innerWidth

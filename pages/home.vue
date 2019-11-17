@@ -52,6 +52,8 @@ export default {
       dragMidStart: false,
       dragLeftStart: false,
       dragLeftTopStart: false,
+      pageY: 0,
+      pageX: 0,
 		}
 	},
 	mixins: [websocketService],
@@ -85,8 +87,9 @@ export default {
   	//中間拉霸
   	let midDragbar = document.getElementById('midDragbar')
 
-  	midDragbar.addEventListener('mousedown', () => {
+  	midDragbar.addEventListener('mousedown', (e) => {
       _this.dragMidStart = true
+      document.addEventListener('mousemove', _this.dragMousemove)
   	})
 
   	document.addEventListener('mouseup', (e) => {
@@ -94,13 +97,15 @@ export default {
         _this.midDragbarMove(e)
       }
       _this.dragMidStart = false
+      document.removeEventListener('mousemove', _this.dragMousemove)
   	})
 
     //左拉霸
     let leftDragbar = document.getElementById('leftDragbar')
 
-    leftDragbar.addEventListener('mousedown', () => {
+    leftDragbar.addEventListener('mousedown', (e) => {
       _this.dragLeftStart = true
+      document.addEventListener('mousemove', _this.dragMousemove)
     })
 
     document.addEventListener('mouseup', (e) => {
@@ -108,13 +113,15 @@ export default {
         _this.leftDragbarMove(e)
       }
       _this.dragLeftStart = false
+      document.removeEventListener('mousemove', _this.dragMousemove)
     })
 
     //左上拉霸
     let leftTopDragbar = document.getElementById('leftTopDragbar')
 
-    leftTopDragbar.addEventListener('mousedown', () => {
+    leftTopDragbar.addEventListener('mousedown', (e) => {
       _this.dragLeftTopStart = true
+      document.addEventListener('mousemove', _this.dragMousemove)
     })
 
     document.addEventListener('mouseup', (e) => {
@@ -122,6 +129,7 @@ export default {
         _this.leftTopDragbarMove(e)
       }
       _this.dragLeftTopStart = false
+      document.removeEventListener('mousemove', _this.dragMousemove)
     })
 	},
 }
