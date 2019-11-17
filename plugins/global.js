@@ -15,8 +15,6 @@ Vue.mixin({
     dragMousemove(e) {
       this.dragY = e.pageY
       this.dragX = e.pageX
-
-      console.log(this.dragX, this.dragY)
     },
     leftTopDragbarMove(e) {
       const windowHeight = window.innerHeight
@@ -29,9 +27,16 @@ Vue.mixin({
       let itemDetail = document.getElementById('itemDetail')
 
       //限制最小高度
-      let resultUserInfo = e.pageY - leftTopDragbar.offsetHeight
-      let resultItemDetail = windowHeight - e.pageY - headHeight - footHeight - footHeight
+      let resultUserInfo = e.pageY - headHeight - leftTopDragbar.offsetHeight
+      let source = windowHeight - headHeight - footHeight - 80
       resultUserInfo = resultUserInfo < 194 ? 194 : resultUserInfo
+      let resultItemDetail = source - resultUserInfo
+
+      if (this.windowHeight > 750) {
+        resultUserInfo = resultUserInfo > 362 ? 362 : resultUserInfo
+        resultItemDetail = source - resultUserInfo
+      }
+
       resultItemDetail = resultItemDetail > 601 ? 601 : resultItemDetail
 
       this.$el.querySelector('#userInfo .userInfo').style.height = resultUserInfo + 'px'
@@ -39,18 +44,16 @@ Vue.mixin({
       this.$el.querySelector('#itemDetail').style.height = resultItemDetail + 40 + 'px'
 
       if (this.windowHeight <= 755) {
-      this.$el.querySelector('#itemDetail .itemDetailTab1table').style.height = resultItemDetail - 105 + 'px'
+        this.$el.querySelector('#itemDetail .itemDetailTab1table').style.height = resultItemDetail - 105 + 'px'
       }
     },
     leftDragbarMove(e) {
       const windowWidth = window.innerWidth
-
-      let leftDragbar = document.getElementById('leftDragbar')
       let left = document.getElementById('mainLeft')
       let right = document.getElementById('mainRight')
 
-      right.style.width = windowWidth - e.pageX + 'px'
-      left.style.width = e.pageX - leftDragbar.offsetWidth + 'px'
+      right.style.width = right.offsetWidth - this.sumX + 'px'
+      left.style.width = left.offsetWidth + this.sumX + 'px'
     },
     midDragbarMove(e) {
       document.selection
@@ -63,11 +66,9 @@ Vue.mixin({
       let footer = document.getElementById('footer')
       let operating = document.getElementById('operating')
 
-      mainTable.style.height = e.pageY - midDragbar.offsetHeight - 54 + 'px'
-
-      const historyH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20)
-      historyScroll.style.height = historyH + 'px'
-      this.historyTableMaxH = historyH - 40
+      mainTable.style.height = mainTable.offsetHeight + this.sumY + 'px'
+      historyScroll.style.height = historyScroll.offsetHeight - this.sumY + 'px'
+      this.historyTableMaxH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20) - 40
     },
     marketInfo () {
       return {

@@ -66,6 +66,8 @@ export default {
       dragLeftTopStart: false,
       dragY: 0,
       dragX: 0,
+      sumX: 0,
+      sumY: 0,
 		}
 	},
 	mixins: [websocketService],
@@ -101,11 +103,17 @@ export default {
 
   	midDragbar.addEventListener('mousedown', (e) => {
       _this.dragMidStart = true
+      _this.sumX = e.pageX
+      _this.sumY = e.pageY
+
       document.addEventListener('mousemove', _this.dragMousemove)
   	})
 
   	document.addEventListener('mouseup', (e) => {
   	  if (_this.dragMidStart) {
+        _this.sumX = e.pageX - _this.sumX
+        _this.sumY = e.pageY - _this.sumY
+
         _this.midDragbarMove(e)
       }
       _this.dragMidStart = false
@@ -117,11 +125,17 @@ export default {
 
     leftDragbar.addEventListener('mousedown', (e) => {
       _this.dragLeftStart = true
+      _this.sumX = e.pageX
+      _this.sumY = e.pageY
+
       document.addEventListener('mousemove', _this.dragMousemove)
     })
 
     document.addEventListener('mouseup', (e) => {
       if (_this.dragLeftStart) {
+        _this.sumX = e.pageX - _this.sumX
+        _this.sumY = e.pageY - _this.sumY
+
         _this.leftDragbarMove(e)
       }
       _this.dragLeftStart = false
@@ -133,11 +147,17 @@ export default {
 
     leftTopDragbar.addEventListener('mousedown', (e) => {
       _this.dragLeftTopStart = true
+      _this.sumX = e.pageX
+      _this.sumY = e.pageY
+
       document.addEventListener('mousemove', _this.dragMousemove)
     })
 
     document.addEventListener('mouseup', (e) => {
       if (_this.dragLeftTopStart) {
+        _this.sumX = e.pageX - _this.sumX
+        _this.sumY = e.pageY - _this.sumY
+
         _this.leftTopDragbarMove(e)
       }
       _this.dragLeftTopStart = false

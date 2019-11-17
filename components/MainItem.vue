@@ -18,13 +18,13 @@
       //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
       el-table-column(label='商品', fixed)
         template(slot-scope='scope') {{ scope.row['product_name'] }}
-      el-table-column(label='倉位', fixed)
+      el-table-column(label='倉位', fixed width="50px")
       el-table-column(label='K線')
         template(slot-scope='scope')
-          a(href="#" @click='clickKline(scope.row)') k線
+          a(href="#" @click='clickKline(scope.row)' width="30px") k線
       el-table-column(label='走勢')
         template(slot-scope='scope')
-          a(href="#" @click='clickChart(scope.row)') 走勢
+          a(href="#" @click='clickChart(scope.row)' width="30px") 走勢
       el-table-column(label='成交')
         template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
       el-table-column(label='買進')
