@@ -2,11 +2,15 @@ import Vue from 'vue'
 
 Vue.mixin({
   methods: {
-    testGlobal () {
+    testGlobal() {
       return 'success'
     },
-    startToken () {
+    startToken() {
       return 'a:test,test'
+    },
+    playSuccessSound() {
+      let audio = document.getElementById('successSound')
+      audio.play()
     },
     leftTopDragbarMove(e) {
       const windowHeight = window.innerHeight
@@ -193,15 +197,19 @@ Vue.mixin({
       //- *** itemDetail ***
       this.itemDetail = this.main - this.userInfo
       this.$set(this.itemDetailStyles, 'height', this.itemDetail + 'px')
-      // console.log(`itemDetailStyles height: ${this.itemDetail}`)
 
       //- for itemDetail table height
       this.itemDetailHeader = this.$el.querySelector('#itemDetailHeader').offsetHeight
       this.itemDetailTabs = this.$el.querySelector('#itemDetail .el-tabs__header').offsetHeight
       this.itemDetailTable = this.itemDetail - this.itemDetailHeader - this.itemDetailTabs
-      // console.log(`itemDetailTable height: ${this.itemDetailTable}`)
+
+      if (this.windowHeight <= 755) {
+        this.itemDetailTableFive = this.itemDetail - 143
+      } else {
+        this.itemDetailTableFive = 314
+      }
+
       this.itemDetailRow = this.itemDetail - this.itemDetailHeader
-      // console.log(`itemDetailRow height: ${this.itemDetailRow}`)
       this.$el.querySelector('#itemDetail .el-tabs').style.height = this.itemDetailRow + 'px'
 
       //- *** mainItem ***

@@ -27,6 +27,7 @@
           :row-class-name='tableCenterHeightLight'
           min-width='50%'
           width='50%'
+          :height="$parent.itemDetailTableFive"
           border)
           el-table-column(label='比例' min-width='20%' align='center' )
             //- 當無資料時, 應不顯示
@@ -76,7 +77,7 @@
 
       //- tabs2
       el-tab-pane(label='量價分佈' name='tabs2')
-        el-table.table.itemDetailTab2table(:data='service.itemDetail.items1' min-width='100%' :height='this.$parent.itemDetailTable' border)
+        el-table.table.itemDetailTab2table(:data='service.itemDetail.items1' min-width='100%' :height='$parent.itemDetailTable' border)
           el-table-column(label='價格' min-width='30%')
             template(slot-scope='scope') {{ scope.row[1] }}
           el-table-column(label='' min-width='20%')
@@ -98,7 +99,7 @@
       el-tab-pane(label='分價揭示' name='tabs3')
         el-table.table(
           :data='service.itemDetail.items2'
-          :height='this.$parent.itemDetailTable'
+          :height='$parent.itemDetailTable'
           :cell-class-name='tableCellClassName'
           min-width='100%'
           border)

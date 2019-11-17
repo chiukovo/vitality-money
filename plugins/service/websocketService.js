@@ -157,6 +157,8 @@ export default {
             })
           }
 
+          _this.playSuccessSound()
+
           break
         case "j": //檢查token
           sourceFormat = JSON.parse(event.data.substring(2))

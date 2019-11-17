@@ -2,8 +2,7 @@
   .container-fluid
     #header.header
       Header
-      <audio src="@/assets/sound/order_success.mp3" controls></audio>
-    #main.main(:style='mainStyles')
+    #main.main()
       #mainLeft.main-left
         UserInfo
         #leftTopDragbar(style="height: 10px" class="horizontal" :class="dragLeftTopStart ? 'dragLeftTopStart' : ''")
@@ -16,6 +15,7 @@
         Operating
     #footer.footer
       Footer
+      Sound
 </template>
 <script>
 
@@ -27,6 +27,7 @@ import UserInfo from "~/components/UserInfo"
 import History from "~/components/History"
 import Operating from "~/components/Operating"
 import Footer from "~/components/Footer"
+import Sound from "~/components/Sound"
 import { mapState } from 'vuex'
 import '@/assets/sass/style.scss'
 
@@ -39,11 +40,12 @@ export default {
 	  }
 	},
 	middleware: 'serverAuth',
-	data () {
+	data() {
 		return {
 			mainStyles: {},
 			itemDetailStyles: {},
 			ItemDetailTable: 0,
+      itemDetailTableFive: 314,
 			mainItemTable: 0,
 			historyTableMaxH: 0,
 			history: 0,
@@ -61,21 +63,22 @@ export default {
 		History,
 		Operating,
 		Footer,
+    Sound,
 	},
-  beforeMount () {
+  beforeMount() {
     window.addEventListener('resize', this.resizeHeight)
   },
   computed: {
-    mainItem () {
+    mainItem() {
       return this.$store.state.mainItem
     }
   },
   watch: {
-    mainItem () {
+    mainItem() {
       this.resizeHeight()
     },
   },
-  mounted () {
+  mounted() {
     let _this = this
   	this.checkLogin()
 
@@ -120,6 +123,6 @@ export default {
       }
       _this.dragLeftTopStart = false
     })
-	}
+	},
 }
 </script>
