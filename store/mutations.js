@@ -157,7 +157,7 @@ export default {
     formatData = fiveData.map(function(val, key) {
       let result
 
-      if (key <= 5) {
+      if (key < 5) {
         result = [
           '',
           '',
@@ -175,6 +175,10 @@ export default {
           '',
           '',
         ]
+      }
+
+      if (key == 5) {
+        result = val
       }
 
       return result

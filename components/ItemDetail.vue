@@ -154,7 +154,7 @@ export default {
     },
     tableCenterHeightLight({ row, rowIndex }) {
       // 在列表垂置置中的位置加入 border-tr
-      if(rowIndex == 4) {
+      if(rowIndex == 5) {
         return 'border-tr';
       }
     },
