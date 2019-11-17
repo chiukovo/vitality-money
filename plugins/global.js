@@ -13,10 +13,10 @@ Vue.mixin({
       audio.play()
     },
     dragMousemove(e) {
-      this.pageY = e.pageY
-      this.pageX = e.pageX
+      this.dragY = e.pageY
+      this.dragX = e.pageX
 
-      console.log(this.pageX, this.pageY)
+      console.log(this.dragX, this.dragY)
     },
     leftTopDragbarMove(e) {
       const windowHeight = window.innerHeight
@@ -50,8 +50,6 @@ Vue.mixin({
       let right = document.getElementById('mainRight')
 
       right.style.width = windowWidth - e.pageX + 'px'
-      console.log(e.pageY)
-
       left.style.width = e.pageX - leftDragbar.offsetWidth + 'px'
     },
     midDragbarMove(e) {

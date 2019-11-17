@@ -5,13 +5,24 @@
     #main.main()
       #mainLeft.main-left
         UserInfo
-        #leftTopDragbar(style="height: 10px" class="horizontal" :class="dragLeftTopStart ? 'dragLeftTopStart' : ''")
+        #leftTopDragbar(style="height: 10px" class="horizontal")
+          div(
+            :class="dragLeftTopStart ? 'dragLeftTopStart' : ''"
+            :style="{left: dragY + 'px'}"
+          )
         ItemDetail
-      #leftDragbar(style="width: 10px" class="straight dragLeftStart" :class="dragLeftStart ? 'dragLeftStart' : ''")
-        .dragLeftStart
+      #leftDragbar(style="width: 10px" class="straight")
+        div(
+          :class="dragLeftStart ? 'dragLeftStart' : ''"
+          :style="{left: dragX + 'px'}"
+        )
       #mainRight.main-right
         MainItem
-        #midDragbar(style="height: 10px" class="horizontal" :class="dragMidStart ? 'dragMidStart' : ''")
+        #midDragbar(style="height: 10px" class="horizontal")
+          div(
+            :class="dragMidStart ? 'dragMidStart' : ''"
+            :style="{left: dragY + 'px'}"
+          )
         History
         Operating
     #footer.footer
@@ -53,8 +64,8 @@ export default {
       dragMidStart: false,
       dragLeftStart: false,
       dragLeftTopStart: false,
-      pageY: 0,
-      pageX: 0,
+      dragY: 0,
+      dragX: 0,
 		}
 	},
 	mixins: [websocketService],
@@ -79,7 +90,7 @@ export default {
   watch: {
     mainItem() {
       this.resizeHeight()
-    },
+    }
   },
   mounted() {
     let _this = this
