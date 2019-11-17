@@ -5,10 +5,12 @@
     #main.main(:style='mainStyles')
       #mainLeft.main-left
         UserInfo
+        #leftTopDragbar(style="height: 10px" class="horizontal")
         ItemDetail
+      #leftDragbar(style="width: 10px" class="straight")
       #mainRight.main-right
         MainItem
-        #midDragbar(style="height: 10px")
+        #midDragbar(style="height: 10px" class="straight")
         History
         Operating
     #footer.footer
@@ -43,7 +45,10 @@ export default {
 			ItemDetailTable: 0,
 			mainItemTable: 0,
 			historyTableMaxH: 0,
-			history: 0
+			history: 0,
+      dragMidStart: false,
+      dragLeftStart: false,
+      dragLeftTopStart: false,
 		}
 	},
 	mixins: [websocketService],
@@ -70,18 +75,50 @@ export default {
     },
   },
   mounted () {
+    let _this = this
   	this.checkLogin()
 
   	//中間拉霸
   	let midDragbar = document.getElementById('midDragbar')
 
   	midDragbar.addEventListener('mousedown', () => {
-  	  document.addEventListener('mousemove', this.midDragbarMove);
+      _this.dragMidStart = true
   	})
 
-  	midDragbar.addEventListener('mouseup', () => {
-  	  document.removeEventListener('mousemove', this.midDragbarMove);
+  	document.addEventListener('mouseup', (e) => {
+  	  if (_this.dragMidStart) {
+        _this.midDragbarMove(e)
+      }
+      _this.dragMidStart = false
   	})
+
+    //左拉霸
+    let leftDragbar = document.getElementById('leftDragbar')
+
+    leftDragbar.addEventListener('mousedown', () => {
+      _this.dragLeftStart = true
+    })
+
+    document.addEventListener('mouseup', (e) => {
+      if (_this.dragLeftStart) {
+        _this.leftDragbarMove(e)
+      }
+      _this.dragLeftStart = false
+    })
+
+    //左上拉霸
+    let leftTopDragbar = document.getElementById('leftTopDragbar')
+
+    leftTopDragbar.addEventListener('mousedown', () => {
+      _this.dragLeftTopStart = true
+    })
+
+    document.addEventListener('mouseup', (e) => {
+      if (_this.dragLeftTopStart) {
+        _this.leftTopDragbarMove(e)
+      }
+      _this.dragLeftTopStart = false
+    })
 	}
 }
 </script>

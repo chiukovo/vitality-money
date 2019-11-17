@@ -114,16 +114,14 @@ p {
     padding: 10px;
 }
 .main-left {
-    width: 280px;
+    width: 270px;
 }
 .main-right {
     width: calc(100% - 280px);
-    padding-left: 10px;
 }
 
 //-------------- userInfo
 #userInfo {
-    padding-bottom: 10px;
 }
 .userInfo {
     background-color: $block-bg;

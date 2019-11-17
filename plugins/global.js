@@ -8,12 +8,42 @@ Vue.mixin({
     startToken () {
       return 'a:test,test'
     },
-    midDragbarMove (e) {
+    leftTopDragbarMove(e) {
+      const windowHeight = window.innerHeight
+      const headHeight = this.$el.querySelector('#header').offsetHeight
+      const footHeight = this.$el.querySelector('#footer').offsetHeight
+      const main = windowHeight - headHeight - footHeight - 20
+      let leftTopDragbar = document.getElementById('leftTopDragbar')
+
+      let userInfo = document.getElementById('userInfo')
+      let itemDetail = document.getElementById('itemDetail')
+
+      //限制最小高度
+      let resultUserInfo = e.pageY - leftTopDragbar.offsetHeight
+      let resultItemDetail = windowHeight - e.pageY - headHeight - footHeight - footHeight
+      resultUserInfo = resultUserInfo < 194 ? 194 : resultUserInfo
+      resultItemDetail = resultItemDetail > 601 ? 601 : resultItemDetail
+
+      this.$el.querySelector('#userInfo .userInfo').style.height = resultUserInfo + 'px'
+      this.$el.querySelector('#itemDetail .el-tabs').style.height = resultItemDetail + 'px'
+      this.$el.querySelector('#itemDetail').style.height = resultItemDetail + 40 + 'px'
+    },
+    leftDragbarMove(e) {
+      const windowWidth = window.innerWidth
+
+      let leftDragbar = document.getElementById('leftDragbar')
+      let left = document.getElementById('mainLeft')
+      let right = document.getElementById('mainRight')
+
+      right.style.width = windowWidth - e.pageX + 'px'
+      left.style.width = e.pageX - leftDragbar.offsetWidth + 'px'
+    },
+    midDragbarMove(e) {
       document.selection
               ? document.selection.empty()
               : window.getSelection().removeAllRanges()
       const windowHeight = window.innerHeight
-      let midDragbar = document.getElementById('midDragbar');
+      let midDragbar = document.getElementById('midDragbar')
       let mainTable = document.getElementById('mainTable')
       let historyScroll = document.getElementById('historyScroll')
       let footer = document.getElementById('footer')

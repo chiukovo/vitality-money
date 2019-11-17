@@ -29,7 +29,7 @@ module.exports = {
     '~plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
-    {src: '~plugins/highcharts.js', ssr: true},
+    {src: '~plugins/highcharts.js', ssr: false},
     {src: '~plugins/element-ui', ssr: true },
     '@/static/js/el-dialogdrag'
   ],
