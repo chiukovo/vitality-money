@@ -91,9 +91,8 @@ export default {
     state.updateMainItem = data
   },
   setNowNewPrice(state, {itemId, newPrice}) {
-    Vue.set(state.nowNewPrice, itemId, 0)
-
     state.nowNewPrice[itemId] = newPrice
+    state.nowNewPrice = Object.assign({}, state.nowNewPrice)
   },
   setNowFiveMoney(state, data) {
     let five = data

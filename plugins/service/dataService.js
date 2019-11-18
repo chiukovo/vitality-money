@@ -46,6 +46,7 @@ export default {
     'customItemSetting',
     'historyPrice',
     'nowVolumeMoney',
+    'nowNewPrice',
   ]),
   mounted() {
     this.service.userInfo.userId = this.$store.state.localStorage.userAuth.userId
@@ -53,15 +54,34 @@ export default {
     this.service.userInfo.lang = this.$store.state.localStorage.lang
   },
   watch: {
-    historyPrice (history) {
+    nowNewPrice(newPrice) {
+      //更新五檔
+      //量價分布
+      //分價揭示
+      let itemId = this.$store.state.clickItemId
+      let fiveData = this.$store.state.nowFiveMoney[itemId]
+      let targetNewPrice = newPrice[itemId]
+      let history = this.$store.state.historyPrice[itemId]
+      let volumeMoney = this.$store.state.nowVolumeMoney[itemId]
+
+      if (typeof fiveData != "undefined") {
+        if (fiveData[5][2] != targetNewPrice) {
+          this.fiveItemChange(fiveData)
+        }
+      }
+
+      this.itemChange(history)
+      this.volumeChange(volumeMoney)
+    },
+    historyPrice(history) {
       let itemId = this.$store.state.clickItemId
       this.itemChange(history[itemId])
     },
-    nowVolumeMoney (money) {
+    nowVolumeMoney(money) {
       let itemId = this.$store.state.clickItemId
       this.volumeChange(money[itemId])
     },
-    clickItemId (itemId) {
+    clickItemId(itemId) {
       this.service.itemDetail.fiveTotal = {
         more: 0,
         morePercent: 0,
@@ -381,9 +401,17 @@ export default {
     },
     fiveItemChange(fiveData) {
       let _this = this
+      let itemId = this.$store.state.clickItemId
+      let targetNewPrice = this.$store.state.nowNewPrice[itemId]
+
+      if (typeof fiveData != "undefined") {
+        if (fiveData[5][2] != targetNewPrice) {
+          fiveData[5][2] = targetNewPrice
+        }
+      }
 
       if (typeof fiveData == 'undefined') {
-        this.items0 = []
+        this.service.itemDetail.items0 = []
         return
       }
 
