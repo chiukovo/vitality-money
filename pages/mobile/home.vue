@@ -160,7 +160,16 @@
 				.modals.quote
 					+header__Back_Reload('動作日誌')
 					#main.main
-						|123
+						.area
+							ul.area-data__list
+								li
+									.area-data__title 登入系統
+									.area-data__infor 登入系統
+									.area-data__date 2019-11-11 08:44:01(39.10.99.104)
+								li
+									.area-data__title 取消打勾收盤平倉
+									.area-data__infor 台指全
+									.area-data__date 2019-11-11 06:44:01(39.10.99.104)
 		.main-area(v-if='tabShow == 5') 5
 	#footer.footer
 		.nav-tab
@@ -197,10 +206,10 @@ export default {
 	data() {
 		return {
 			loading: true,
-			tabShow: 1,
+			tabShow: 4,
 	  	product: '1',
 			documentShow: 0,
-			quoteShow: 0,
+			quoteShow: 4,
 			quoteShowDetail: true,
 			allHeight: {
 				mainItem: 0,

@@ -20,6 +20,10 @@
 .bg-colr-danger {
     background-color: #ffdfdf;
 }
+.btn-lg {
+    font-size: 20px;
+    padding: 1.6rem 2rem;
+}
 
 $weight: bold;
 @each $author in $weight {

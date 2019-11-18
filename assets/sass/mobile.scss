@@ -74,7 +74,7 @@ a {
 
 //-------------- main
 .main {
-    height: calc(100% - 88px);
+    height: calc(100% - 100px);
     overflow: auto;
 }
 .el-link [class*="el-icon-"] + span {
@@ -117,6 +117,39 @@ a {
             &:hover, &:focus {
                 background-color: rgba($primary, .1);
             }
+        }
+    }
+    .area-data__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 13px;
+            background: rgba(255, 255, 255, .3);
+            + li {
+                margin-top: 1px;
+            }
+        }
+        .area-data__title {
+            width: 26%;
+            text-align: center;
+            color: $infor;
+            background: rgba(0, 0, 0, .3);
+            padding: 16px 10px;
+        }
+        .area-data__infor {
+            padding: 10px;
+        }
+        .area-data__date {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .3);
         }
     }
     + .el-table {
@@ -191,6 +224,23 @@ a {
     }
 }
 
+.itemDetailTabTotal {
+    text-align: center;
+    .col {
+        height: 26px;
+        line-height: 26px;
+        font-size: 13px;
+    }
+    .row + .row {
+        border-top: 1px solid $gray-700;
+    }
+    .progress-bar {
+        .el-progress {
+            top: 8px;
+        }
+    }
+}
+
 
 //-------------- footer tabs
 .footer {
@@ -260,6 +310,7 @@ a {
 }
 .progress-table {
     td {
+        padding: 0;
         .cell {
             padding: 0;
         }

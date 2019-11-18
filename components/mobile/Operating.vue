@@ -2,7 +2,7 @@
   div
     .area
       .area__header
-        el-button(v-model='radioA' label='0') 一般下單
+        el-button(v-model='radioA' label='0' size='mini') 一般下單
       .area__content
         el-radio(v-model='buyType' label='0') 市價單
         el-radio(v-model='buyType' label='2') 收盤單
@@ -45,8 +45,8 @@
           el-checkbox(label='noConfirm') 下單不確認
           el-checkbox(label='prompt') 限價成交提示
       .area__content.text-center
-        el-button(type="danger" @click="checkOrder(0)") 下多單
-        el-button(type="success" @click="checkOrder(1)") 下空單
+        el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
+        el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
     .area
       table.el-table.progress-table
         thead
@@ -78,9 +78,9 @@
                     status="success")
       .itemDetailTabTotal
         .row
-          .col {{ service.itemDetail.fiveTotal.more }}
+          .col.text-up {{ service.itemDetail.fiveTotal.more }}
           .col 總計
-          .col {{ service.itemDetail.fiveTotal.nullNum }}
+          .col.text-down {{ service.itemDetail.fiveTotal.nullNum }}
         .row
           .col.text-up 多勢
           .col.progress-bar

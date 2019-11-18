@@ -50,9 +50,9 @@
                 el-button(@click="dialogVisible = false") 取消
                 el-button(type='primary' @click="setNum") 送出
     .operating-4
-        el-button(type="danger" @click="checkOrder(0)") 下多單
+        el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
         el-button(size='mini' @click="checkOrderAll()") 全平
-        el-button(type="success" @click="checkOrder(1)") 下空單
+        el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'
