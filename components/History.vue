@@ -24,7 +24,7 @@
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                   //-改單
                   el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-                  el-checkbox(v-if="scope.row.Operation[1]" v-model="multiDelete[scope.$index].checked")
+                  el-checkbox(v-if="scope.row.Operation[1]" v-model="service.history.multiDelete[scope.$index].checked")
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
@@ -252,7 +252,7 @@
                 template(slot="header" slot-scope="scope")
                   el-checkbox(v-model="multiOrderAll" @change="multiOrderAllClick")
                 template(slot-scope='scope')
-                  el-checkbox(v-model="multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
+                  el-checkbox(v-model="service.history.multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
               el-table-column(label='操作' fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -395,6 +395,7 @@ export default {
       isMobile: '',
       userId: '',
       token: '',
+      lang: '',
       form: {
         start: '',
         end: '',
@@ -440,11 +441,9 @@ export default {
       winPointDialog: false,
       profitPointDialog: false,
       valueDateInterval: [],
-      multiDelete: [],
       allCommodity: [],
       openEditPointRow: [],
       selectToDelete: [],
-      multiOrderSelect: [],
       multiOrderData: [],
       multiOrderAll: false,
     }
@@ -465,7 +464,8 @@ export default {
     this.selectDayType('today')
     this.userId = this.service.userInfo.userId
     this.token = this.service.userInfo.token
-    this.isMobile = this.service.userInfo.lang
+    this.lang = this.service.userInfo.lang
+    this.isMobile = this.$store.state.isMobile
   },
   methods: {
     async query() {
@@ -496,7 +496,7 @@ export default {
       let _this = this
       this.multiOrderData = []
 
-      this.multiOrderSelect.forEach(function(val, serial) {
+      _this.service.history.multiOrderSelect.forEach(function(val, serial) {
         _this.uncovered.forEach(function(row) {
           if (row.Serial == serial && val) {
             _this.multiOrderData.push({
@@ -517,7 +517,7 @@ export default {
     multiOrderAllClick() {
       let _this = this
 
-      this.multiOrderSelect = this.multiOrderSelect.map(function() {
+      _this.service.history.multiOrderSelect = _this.service.history.multiOrderSelect.map(function() {
         if (!_this.multiOrderAll) {
           return false
         } else {

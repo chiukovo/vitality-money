@@ -18,6 +18,7 @@ export default {
           unCoverBuySum: 0, //未平倉多單總數列表
           unCoverSellSum: 0, //未平倉空單總數
           unCoverTotal: 0, //未平倉總數
+          multiOrderSelect: [], //全選
           allCommodity: [],
           multiDelete: [], //多檔刪除
         },
