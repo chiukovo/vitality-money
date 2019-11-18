@@ -180,6 +180,9 @@ a {
     background-color: $gray-900;
 }
 
+.el-table {
+    background-color: $gray-900;
+}
 .el-table td {
     padding: 8px 0;
     .el-button {
@@ -227,8 +230,8 @@ a {
 .itemDetailTabTotal {
     text-align: center;
     .col {
-        height: 26px;
-        line-height: 26px;
+        height: 30px;
+        line-height: 30px;
         font-size: 13px;
     }
     .row + .row {
@@ -241,6 +244,36 @@ a {
     }
 }
 
+.conditions {
+    .conditions__tab {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 60px;
+        background-color: #000;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border: 5px solid #000;
+        }
+        li.current {
+            color: #fefe54;
+            background-color: #323334;
+            border-color: #48494b;
+        }
+    }
+    .conditions__content {
+        height: calc(100% - 60px);
+    }
+}
+
 
 //-------------- footer tabs
 .footer {
@@ -248,6 +281,7 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 99;
     background-color: #161414;
 }
 .tabs-list {

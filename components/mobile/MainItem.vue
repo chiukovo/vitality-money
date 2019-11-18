@@ -1,57 +1,65 @@
 <template lang="pug">
-#mainItem.mainItem
-  .mainItem-content
-    Dialog(
-      :click-type="dialog.clickType",
-      :visible.sync="dialog.isOpen"
-    )
-    el-table.table(
-    id="mainTable"
-    :data='service.mainList',
-    :height='$parent.allHeight.mainItem',
-    :cell-class-name='tableCellClassName',
-    @row-click="clickItem",
-    :row-class-name="getTrClass"
-    style="width: 100%"
-    border)
-      //- 上升/下降 td .cell add class: '.text-up || .text-down'
-      //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
-      el-table-column(label='商品', fixed)
-        template(slot-scope='scope') {{ scope.row['product_name'] }}
-      el-table-column(label='倉位', fixed)
-      el-table-column(label='K線')
-        template(slot-scope='scope')
-          a(href="#" @click='clickKline(scope.row)') k線
-      el-table-column(label='走勢')
-        template(slot-scope='scope')
-          a(href="#" @click='clickChart(scope.row)') 走勢
-      el-table-column(label='成交')
-        template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
-      el-table-column(label='買進')
-        template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
-      el-table-column(label='賣出')
-        template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
-      el-table-column(label='漲跌')
-        template(slot-scope='scope')
-          .table-icon
-            .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-          span {{ scope.row['gain'] }}
-      el-table-column(label='漲跌幅')
-        template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
-      el-table-column(label='總量')
-        template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
-      el-table-column(label='開盤')
-        template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
-      el-table-column(label='最高')
-        template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
-      el-table-column(label='最低')
-        template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
-      el-table-column(label='昨收盤')
-        template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
-      el-table-column(label='昨結算')
-        template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
-      el-table-column(label='狀態')
-        template(slot-scope='scope') {{ scope.row['state_name'] }}
+.page
+  .header
+    .header__left
+      el-button(size='mini') 自選商品
+    .header__title 商品報價
+    .header__right
+      el-button(size='mini' icon='el-icon-user-solid')
+  .main
+    #mainItem.mainItem
+      .mainItem-content
+        Dialog(
+          :click-type="dialog.clickType",
+          :visible.sync="dialog.isOpen"
+        )
+        el-table.table(
+        id="mainTable"
+        :data='service.mainList',
+        :height='$parent.allHeight.mainItem',
+        :cell-class-name='tableCellClassName',
+        @row-click="clickItem",
+        :row-class-name="getTrClass"
+        style="width: 100%"
+        border)
+          //- 上升/下降 td .cell add class: '.text-up || .text-down'
+          //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
+          el-table-column(label='商品', fixed)
+            template(slot-scope='scope') {{ scope.row['product_name'] }}
+          el-table-column(label='倉位', fixed)
+          //- el-table-column(label='K線')
+            template(slot-scope='scope')
+              a(href="#" @click='clickKline(scope.row)') k線
+          //- el-table-column(label='走勢')
+            template(slot-scope='scope')
+              a(href="#" @click='clickChart(scope.row)') 走勢
+          el-table-column(label='成交')
+            template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+          el-table-column(label='買進')
+            template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
+          el-table-column(label='賣出')
+            template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
+          el-table-column(label='漲跌')
+            template(slot-scope='scope')
+              .table-icon
+                .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              span {{ scope.row['gain'] }}
+          el-table-column(label='漲跌幅')
+            template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
+          el-table-column(label='總量')
+            template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+          el-table-column(label='開盤')
+            template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
+          el-table-column(label='最高')
+            template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
+          el-table-column(label='最低')
+            template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
+          el-table-column(label='昨收盤')
+            template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
+          el-table-column(label='昨結算')
+            template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
+          el-table-column(label='狀態')
+            template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>
 
 <script>

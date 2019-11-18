@@ -1,5 +1,11 @@
 <template lang='pug'>
-  div
+.page
+  .header
+    .header__title 商品下單
+    .header__right
+      el-select(v-model='product' placeholder='臺指早' size='mini')
+        el-option(label='臺指早' value='1')
+  .main
     .area
       .area__header
         el-button(v-model='radioA' label='0' size='mini') 一般下單
@@ -101,6 +107,7 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
+	  	product: '1',
       sendText: '',
       nowPrice: 0,
       dialogVisible: false,
