@@ -153,9 +153,10 @@ p {
         padding: 4px 10px;
         .header__title {
             display: inline-block;
+            vertical-align: top;
             line-height: 2;
-            width: 100%;
-            overflow:hidden;
+            width: 110px;
+            overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
