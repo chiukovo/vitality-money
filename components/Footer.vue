@@ -8,7 +8,8 @@
 				a.news__item(href='#') 新增F G 版面,供黑馬元氣會員下單,B版供RSI DT 會員下單
 				a.news__item(href='#') 此版為測試帳號,損益不列入計算,此帳號將不定時刪除交易記錄與強平所有倉位!
 		#today
-			.today__date {{ dateTime }}
+			.today__date
+				span {{ dateTime }}
 				el-button(size='mini') 12-伺服器
 </template>
 
