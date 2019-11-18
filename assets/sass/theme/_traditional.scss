@@ -243,6 +243,23 @@ body {
 .el-progress-bar__outer {
     background-color: #f1f1f1;
 }
+.btn-Kline, .btn-Chart {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    vertical-align: top;
+    width: 18px;
+    height: 18px;
+    font-size: 0;
+    color: transparent;
+}
+.btn-Kline {
+    background: url('~static/images/theme_traditional/btn_kline.png');
+}
+.btn-Chart {
+    background: url('~static/images/theme_traditional/btn_chart.png');
+}
+
 
 
 .el-dialog__wrapper {

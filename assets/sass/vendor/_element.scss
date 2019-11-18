@@ -131,3 +131,7 @@
 .el-table__body tr.current-row > td {
   background-color: #ffdbdb;
 }
+
+.el-button.is-disabled, .el-button.is-disabled:hover, .el-button.is-disabled:focus {
+  color: #fff !important;
+}
