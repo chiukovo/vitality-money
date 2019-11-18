@@ -55,6 +55,8 @@ export default {
   },
   watch: {
     nowNewPrice(newPrice) {
+      //計算未平損益
+      this.service.history.uncovered = this.computedUncovered(this.service.history.uncovered)
       //更新五檔
       //量價分布
       //分價揭示
@@ -106,10 +108,10 @@ export default {
       this.service.history.commodity = []
 
       this.service.history.buySell = data.OrderArray
-      this.service.history.uncovered = data.UncoveredArray
+      this.service.history.uncovered = this.computedUncovered(data.UncoveredArray)
       this.service.history.covered = data.CoveredArray
-      this.service.history.unCoverBuySum = data.UnCoverSellSum
-      this.service.history.unCoverSellSum = data.UnCoverBuySum
+      this.service.history.unCoverBuySum = data.UnCoverBuySum
+      this.service.history.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
       this.service.history.unCoverTotal = this.service.history.uncovered.length
 
       //全選
@@ -158,66 +160,15 @@ export default {
             }
           }
         })
-      })
 
-      console.log(_this.service.history.commodity)
+        _this.service.history.commodity.push(pushData)
+      })
     },
     nowMainItem(mainItem) {
-      //計算
-      if (this.service.history.uncovered.length > 0) {
-        let uncoverMoney = 0
-
-        this.service.history.uncovered = this.service.history.uncovered.map(function(val) {
-          // 取得點數現價差，要更新在未平單上
-          let thisSerialPointDiff
-          // 此單未平損益 (要算手續費)，要更新在未平單上
-          val.thisSerialTotalMoney = 0
-          // 取得價格
-          let nowPrice = 0
-
-          //Operation ( 0=>可否編輯(改口數、價格), 1 =>可否刪除, 2 => 可否平倉, 3=> 可否更新倒限利, 4=>用不到 )
-
-          mainItem.forEach(function(mainVal) {
-            if (val.ID == mainVal.product_id) {
-              nowPrice = mainVal.newest_price
-            }
-          })
-
-          // 取得點數現價差
-          let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
-
-          // 如果是買單
-          if(val.BuyOrSell == 0) {
-              // 此單未平點數
-              thisSerialPointDiff = diff
-              // 總共未平損益
-              uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
-          }
-          else {
-              thisSerialPointDiff = diff * -1;
-              uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
-          }
-          // 此單未平損益 (要算手續費)，要更新在未平單上
-          val.thisSerialTotalMoney = thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
-
-          return val
-        })
-      }
     },
-    customItemSetting (setting) {
+    customItemSetting(setting) {
       //計算mainList
       this.computedMainList(setting)
-    },
-    updateMainItem (res) {
-      //{商品1 第一筆成交時間} 0
-      //{商品1 第一筆成交價格} 1
-      //{商品1 第ㄧ筆成交量} 2
-      //{商品1 第ㄧ筆成交Uniq Index} 3
-      //{商品1 第二筆成交時間-第一筆成交時間} 4
-      //{商品1 第二筆成交價格-第一筆成交價格} 5
-      //{商品1 第二筆成交量-第一筆成交量} 6
-      //{商品1 第二筆成交Uniq Index-第一筆成交Uniq Index} 7
-      this.doUpdateMainItem(res)
     },
     nowFiveMoney (five) {
       //陣列第[3]：第一筆買價
@@ -456,5 +407,35 @@ export default {
         this.service.itemDetail.items2 = history
       }
     },
+    computedUncovered(uncovered) {
+      let nowNewPrice = this.$store.state.nowNewPrice
+      let uncoverMoney = 0
+
+      uncovered = uncovered.map(function(val) {
+        // 取得點數現價差，要更新在未平單上
+        val.thisSerialPointDiff = 0
+        // 取得價格
+        let nowPrice = nowNewPrice[val.ID]
+        // 取得點數現價差
+        let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
+        // 如果是買單
+        if (val.BuyOrSell == 0) {
+            // 此單未平點數
+            val.thisSerialPointDiff = diff
+            // 總共未平損益
+            uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+        } else {
+            val.thisSerialPointDiff = diff * -1;
+            uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+        }
+
+        // 此單未平損益 (要算手續費)，要更新在未平單上
+        val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
+
+        return val
+      })
+
+      return uncovered
+    }
   }
 }

@@ -238,7 +238,7 @@
               .dialog__footer
                 el-button(@click="editDialog = false") 取消
                 el-button(type='primary' @click="doEdit") 送出
-          el-tab-pane(:label="'未平倉(' + service.history.unCoverTotal + ')'", name='tabs2')
+          el-tab-pane(:label="'未平倉(' + service.history.unCoverBuySum + ',' + service.history.unCoverSellSum + ')'", name='tabs2')
             .history-tabs-header
               el-button(size='mini' @click="openMultiOrder") 多單平倉
             el-table.table(
@@ -273,8 +273,8 @@
               el-table-column(label='倒限(利)')
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
-              el-table-column(prop='WinPoint', label='未平損益')
-              el-table-column(prop='WinPoint', label='點數')
+              el-table-column(prop='thisSerialTotalMoney', label='未平損益')
+              el-table-column(prop='thisSerialPointDiff', label='點數')
               el-table-column(prop='Day', label='天數')
               el-table-column(prop='State', label='狀態' width="150px" fixed="right")
           el-tab-pane(label='已平倉', name='tabs3')

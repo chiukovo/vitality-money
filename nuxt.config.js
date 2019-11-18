@@ -1,6 +1,5 @@
 require('dotenv').config()
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   mode: 'universal',
@@ -64,23 +63,8 @@ module.exports = {
   */
   build: {
     extractCSS: true,
-    transpile: [/^vuetify/],
-    /*
-    ** You can extend webpack config here
-    */
+    transpile: [/^element-ui/],
     extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-      config.plugins.push(
-        new VuetifyLoaderPlugin()
-      )
       config.plugins.unshift(new LodashModuleReplacementPlugin)
       config.module.rules[2].use[0].options.plugins = ['lodash']
     },
@@ -106,8 +90,5 @@ module.exports = {
   chainWebpack: config => {
     //close eslint
     config.module.rules.delete("eslint");
-  },
-  build: {
-    transpile: [/^element-ui/],
   }
 }
