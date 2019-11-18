@@ -51,7 +51,7 @@
             :visible.sync='multiOrderConfirm'
             :modal='false'
             :show-close='false'
-            width="400px"
+            width="600px"
             title='確認平倉'
             v-dialogDrag)
             .header-custom(slot='title')
@@ -77,7 +77,7 @@
             :visible.sync='deleteConfirm'
             :modal='false'
             :show-close='false'
-            width="400px"
+            width="600px"
             title='確認刪除'
             v-dialogDrag)
             .header-custom(slot='title')
@@ -497,7 +497,7 @@ export default {
       this.multiOrderData = []
 
       _this.service.history.multiOrderSelect.forEach(function(val, serial) {
-        _this.uncovered.forEach(function(row) {
+        _this.service.history.uncovered.forEach(function(row) {
           if (row.Serial == serial && val) {
             _this.multiOrderData.push({
               name: _this.$store.state.itemName,
