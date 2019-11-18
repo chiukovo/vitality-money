@@ -8,12 +8,13 @@
           v-model='activeName',
           type='card',
           @tab-click='handleClick')
-          el-tab-pane(:label="'買賣下單(' + buySell.length + ')'", name='tabs1')
+          el-tab-pane(:label="'買賣下單(' + service.history.buySell.length + ')'", name='tabs1')
             .history-tabs-header
               el-button(size='mini' @click="deleteConfirm = true") 刪單
             el-table.table(
               :data='service.history.buySell'
-              min-width='100%'
+              style="width: 100%"
+              :cell-class-name='buySelltableCellClassName',
               :height="$parent.historyTableMaxH - 30"
               @selection-change="selectionChangeDelete"
               border
@@ -59,7 +60,6 @@
               |  確認平倉
             el-table.table(
               :data="multiOrderData"
-              min-width='100%'
               height="100px"
               border
             )
@@ -85,7 +85,7 @@
               |  確認刪除
             el-table.table(
               :data="confirmDeleteData"
-              min-width='100%'
+              style="width: 100%"
               height="100px"
               border
             )
@@ -238,12 +238,13 @@
               .dialog__footer
                 el-button(@click="editDialog = false") 取消
                 el-button(type='primary' @click="doEdit") 送出
-          el-tab-pane(:label="'未平倉(' + unCoverTotal + ')'", name='tabs2')
+          el-tab-pane(:label="'未平倉(' + service.history.unCoverTotal + ')'", name='tabs2')
             .history-tabs-header
               el-button(size='mini' @click="openMultiOrder") 多單平倉
             el-table.table(
               :data='service.history.uncovered'
-              min-width='100%'
+              style="width: 100%"
+              :cell-class-name='uncoveredTableCellClassName',
               :height="$parent.historyTableMaxH - 30"
               ref="multipleTable"
               border
@@ -281,8 +282,8 @@
               el-button(size='mini') 全選
               el-button(size='mini') 全不選
             el-table.table(
-              :data='covered'
-              min-width='100%'
+              :data='service.history.covered'
+              style="width: 100%"
               :height="$parent.historyTableMaxH - 30"
               border
             )
@@ -317,7 +318,7 @@
                 el-checkbox(v-model='checked') 顯示全部
             el-table.table(
               :data='service.history.commodity'
-              min-width='100%'
+              style="width: 100%"
               :height="$parent.historyTableMaxH - 30"
               :row-class-name="checkRowShow"
               border
@@ -330,7 +331,7 @@
                 template(slot-scope='scope')
                   span.text-success {{ scope.row.TotalSellSubmit}}
               el-table-column(label='未平倉')
-                template(slot-scope='scope') {{ uncovered.length }}
+                template(slot-scope='scope') {{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}
               el-table-column(prop="TotalSubmit" label='總口數')
               el-table-column(prop="TotalFee" label='手續費合計')
               el-table-column(label='損益')
@@ -363,7 +364,7 @@
                   el-button(size='mini' @click="selectDayType('beforeMonth')") 上月
             el-table.table(
               :data='accountMoneyList'
-              min-width='100%'
+              style="width: 100%"
               :height="$parent.historyTableMaxH - 30"
               border
             )
@@ -778,6 +779,35 @@ export default {
           sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
           _this.$socketOrder.send(sendText)
           break
+      }
+    },
+    buySelltableCellClassName({ row, column, columnIndex }) {
+      //red
+      if (columnIndex >= 3 && columnIndex <= 8) {
+        if (row.BuyOrSell == 0) {
+          return 'text-up'
+        } else {
+          return 'text-down'
+        }
+      }
+    },
+    buySelltableCellClassName({ row, column, columnIndex }) {
+      //red
+      if (columnIndex >= 3 && columnIndex <= 8) {
+        if (row.BuyOrSell == 0) {
+          return 'text-up'
+        } else {
+          return 'text-down'
+        }
+      }
+    },
+    uncoveredTableCellClassName({ row, column, columnIndex }) {
+      if (columnIndex >= 1 && columnIndex <= 13) {
+        if (row.BuyOrSell == 0) {
+          return 'text-up'
+        } else {
+          return 'text-down'
+        }
       }
     }
   }

@@ -19,6 +19,9 @@
       el-table-column(label='商品', fixed)
         template(slot-scope='scope') {{ scope.row['product_name'] }}
       el-table-column(label='倉位', fixed width="50px")
+        template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
+          <span class="bg-red" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
+          <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
       el-table-column(label='K線' width="50px")
         template(slot-scope='scope')
           a.btn-Kline(href="#" @click='clickKline(scope.row)') k線

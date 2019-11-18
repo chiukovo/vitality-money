@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import 'default-passive-events';
 import {
   Dialog,
   Input,

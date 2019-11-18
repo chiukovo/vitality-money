@@ -103,6 +103,7 @@ export default {
       this.service.history.allCommodity = this.$store.state.commidyArray
       let _this = this
       this.service.history.multiDelete = []
+      this.service.history.commodity = []
 
       this.service.history.buySell = data.OrderArray
       this.service.history.uncovered = data.UncoveredArray
@@ -157,9 +158,9 @@ export default {
             }
           }
         })
-
-        _this.service.history.commodity.push(pushData)
       })
+
+      console.log(_this.service.history.commodity)
     },
     nowMainItem(mainItem) {
       //計算

@@ -1,4 +1,6 @@
 require('dotenv').config()
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   mode: 'universal',
@@ -61,30 +63,33 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    extend (config, { isDev, isClient }) {
-      config.module.rules.push(
-        {
-          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-          loader: 'file-loader'
-        }
+    extractCSS: true,
+    transpile: [/^vuetify/],
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+      config.plugins.push(
+        new VuetifyLoaderPlugin()
       )
-      // Sets webpack's mode to development if `isDev` is true.
-      if (isDev) { config.mode = 'development' }
+      config.plugins.unshift(new LodashModuleReplacementPlugin)
+      config.module.rules[2].use[0].options.plugins = ['lodash']
+    },
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000
+      }
     }
-  },
-  vender: [
-    'element-ui'
-  ],
-  babel: {
-    "plugins": [["component", [
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-default"
-      },
-      'transform-async-to-generator',
-      'transform-runtime'
-    ]]],
-    comments: true
   },
   proxy: {
     '/api': {
