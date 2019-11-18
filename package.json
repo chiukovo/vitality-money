@@ -17,6 +17,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "cookie-universal-nuxt": "^2.0.18",
     "cross-env": "^5.2.0",
+    "default-passive-events": "^1.0.10",
     "element-theme-chalk": "^2.12.0",
     "element-ui": "^2.4.11",
     "highcharts": "^7.2.0",

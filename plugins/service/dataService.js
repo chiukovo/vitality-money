@@ -308,7 +308,7 @@ export default {
       let chartData = _this.$store.state.chartData
 
       if (kLineData.length > 0 && itemId == clickItemId) {
-        _this.updateKlineData(nowItems, kLineData)
+        _this.$store.commit('doUpdateklLineData', nowItems)
       }
 
       _this.service.mainList = _this.service.mainList.map(function (val) {

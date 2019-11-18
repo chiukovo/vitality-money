@@ -109,18 +109,6 @@ export default {
       this.dialog.clickType = 'chart'
       this.dialog.isOpen = true
     },
-    updateKlineData(items, kLineData) {
-      const _this = this
-      let clickItemId = this.$store.state.clickItemId
-
-      _this.$store.commit('doUpdateklLineData', items)
-    },
-    updateChartData(items, kLineData) {
-      const _this = this
-      let clickItemId = this.$store.state.clickItemId
-
-      _this.$store.commit('doUpdateChartData', items)
-    },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷個別顏色
       if(columnIndex == 4) {
