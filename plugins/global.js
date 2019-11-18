@@ -237,9 +237,9 @@ Vue.mixin({
         this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
         const historyH = (this.main - operatingH) * 0.6
         this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
-        this.historyTableMaxH = historyH - 60
+        this.historyTableMaxH = historyH - 69
       } else {
-        this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 21 + 'px'
+        this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 28 + 'px'
       }
     }
   }

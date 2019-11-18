@@ -163,6 +163,6 @@ export default {
       _this.dragLeftTopStart = false
       document.removeEventListener('mousemove', _this.dragMousemove)
     })
-	},
+	}
 }
 </script>

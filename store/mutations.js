@@ -48,6 +48,30 @@ export default {
   },
   setUserOrder(state, data) {
     state.userOrder = data
+
+    let uncoveredCountDetail = []
+
+    //計算未平倉數量
+    data.UncoveredArray.forEach(function(val) {
+      if (typeof uncoveredCountDetail[val.ID] == 'undefined') {
+        uncoveredCountDetail[val.ID] = 1
+        if (val.BuyOrSell == 0) {
+          uncoveredCountDetail[val.ID] = 1
+        } else {
+          uncoveredCountDetail[val.ID] = -1
+        }
+      } else {
+        if (val.BuyOrSell == 0) {
+          uncoveredCountDetail[val.ID] += 1
+        } else {
+          uncoveredCountDetail[val.ID] += -1
+        }
+      }
+    })
+
+    state.uncoveredCountDetail = Object.assign({}, uncoveredCountDetail)
+
+    console.log(state.uncoveredCountDetail)
   },
   setNowMainItem(state, data) {
     state.nowMainItem = data
