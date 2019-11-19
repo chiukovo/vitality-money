@@ -46,7 +46,6 @@
 </template>
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -63,15 +62,14 @@ export default {
   mounted () {
     this.selectDayType('today')
   },
-  mixins: [dataService],
   methods: {
     async query() {
       let _this = this
 
       if (this.form.start != '' && this.form.end != '') {
-        const userId = this.service.userInfo.userId
-        const token = this.service.userInfo.token
-        const lang = this.service.userInfo.lang
+        const userId = this.$store.state.localStorage.userAuth.userId
+        const token = this.$store.state.localStorage.userAuth.token
+        const lang = this.$store.state.localStorage.lang
 
         await axios.post("/api/query_moneylist_detail?lang=" + lang, qs.stringify({
           UserID: userId,

@@ -49,7 +49,6 @@
 </template>
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -69,7 +68,6 @@ export default {
       currentPage: 1
     }
   },
-  mixins: [dataService],
   mounted () {
     //end date
     this.form.start = this.formatDate(new Date())
@@ -97,9 +95,9 @@ export default {
       let _this = this
 
       if (this.form.start != '' && this.form.startDt != '') {
-        const userId = this.service.userInfo.userId
-        const token = this.service.userInfo.token
-        const lang = this.service.userInfo.lang
+        const userId = this.$store.state.localStorage.userAuth.userId
+        const token = this.$store.state.localStorage.userAuth.token
+        const lang = this.$store.state.localStorage.lang
 
         await axios.post("/api/query_com_history_data?lang=" + lang, qs.stringify({
           UserID: userId,

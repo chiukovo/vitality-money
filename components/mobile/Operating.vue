@@ -60,18 +60,18 @@
             th(colspan='2'): .cell.text-right 委買
             th(colspan='2'): .cell.text-center 價格
             th(colspan='2'): .cell.text-left 委賣
-        tbody(v-if="service.itemDetail.items0.length > 0")
-            tr(v-for="(val, key) in service.itemDetail.items0" v-if="key <= 4")
+        tbody(v-if="$store.state.itemDetail.items0.length > 0")
+            tr(v-for="(val, key) in $store.state.itemDetail.items0" v-if="key <= 4")
               td(style='width:20%'): .cell
                 .progress-bar
                   el-progress(
                     :text-inside='true'
                     :stroke-width='14'
-                    :percentage='service.itemDetail.items0[key + 6][0]'
+                    :percentage='$store.state.itemDetail.items0[key + 6][0]'
                     :show-text='false'
                     status="exception")
-              td: .cell.text-center {{ service.itemDetail.items0[key + 6][1] }}
-              td: .cell.text-center.text-up {{ service.itemDetail.items0[key + 6][2] }}
+              td: .cell.text-center {{ $store.state.itemDetail.items0[key + 6][1] }}
+              td: .cell.text-center.text-up {{ $store.state.itemDetail.items0[key + 6][2] }}
               td: .cell.text-center.text-down {{ val[2] }}
               td: .cell.text-center {{ val[3] }}
               td(style='width:20%'): .cell
@@ -84,9 +84,9 @@
                     status="success")
       .itemDetailTabTotal
         .row
-          .col.text-up {{ service.itemDetail.fiveTotal.more }}
+          .col.text-up {{ $store.state.itemDetail.fiveTotal.more }}
           .col 總計
-          .col.text-down {{ service.itemDetail.fiveTotal.nullNum }}
+          .col.text-down {{ $store.state.itemDetail.fiveTotal.nullNum }}
         .row
           .col.text-up 多勢
           .col.progress-bar
@@ -94,14 +94,13 @@
               :text-inside='true'
               :stroke-width='10'
               :show-text='false'
-              :percentage='service.itemDetail.fiveTotal.morePercent'
+              :percentage='$store.state.itemDetail.fiveTotal.morePercent'
               status='exception')
           .col.text-down 空勢
 </template>
 
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -124,7 +123,6 @@ export default {
       customSubmitNums: []
     };
   },
-  mixins: [dataService],
   computed: mapState([
     'clickItemId',
     'commidyArray',

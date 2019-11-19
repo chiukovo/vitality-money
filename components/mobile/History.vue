@@ -108,8 +108,6 @@
 <script>
 
 import HistoryFilters from "~/components/mobile/HistoryFilters"
-
-import dataService from '~/plugins/service/dataService.js'
 import { mapState } from 'vuex'
 
 export default {

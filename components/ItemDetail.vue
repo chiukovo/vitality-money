@@ -23,7 +23,7 @@
       //- tabs1
       el-tab-pane(label='五檔揭示' name='tabs1')
         el-table.table.itemDetailTab1table(
-          :data="service.itemDetail.items0"
+          :data="$store.state.itemDetail.items0"
           :row-class-name='tableCenterHeightLight'
           min-width='50%'
           width='50%'
@@ -61,9 +61,9 @@
                   status="success")
         .itemDetailTabTotal
           .row
-            .col {{ service.itemDetail.fiveTotal.more }}
+            .col {{ $store.state.itemDetail.fiveTotal.more }}
             .col 總計
-            .col {{ service.itemDetail.fiveTotal.nullNum }}
+            .col {{ $store.state.itemDetail.fiveTotal.nullNum }}
           .row
             .col.text-up 多勢
             .col.progress-bar
@@ -71,13 +71,13 @@
                 :text-inside='true'
                 :stroke-width='10'
                 :show-text='false'
-                :percentage='service.itemDetail.fiveTotal.morePercent'
+                :percentage='$store.state.itemDetail.fiveTotal.morePercent'
                 status='exception')
             .col.text-down 空勢
 
       //- tabs2
       el-tab-pane(label='量價分佈' name='tabs2')
-        el-table.table.itemDetailTab2table(:data='service.itemDetail.items1' min-width='100%' :height='$parent.itemDetailTable' border)
+        el-table.table.itemDetailTab2table(:data='$store.state.itemDetail.items1' min-width='100%' :height='$parent.itemDetailTable' border)
           el-table-column(label='價格' min-width='30%')
             template(slot-scope='scope') {{ scope.row[1] }}
           el-table-column(label='' min-width='20%')
@@ -98,7 +98,7 @@
       //- tabs3
       el-tab-pane(label='分價揭示' name='tabs3')
         el-table.table(
-          :data='service.itemDetail.items2'
+          :data='$store.state.itemDetail.items2'
           :height='$parent.itemDetailTable'
           :cell-class-name='tableCellClassName'
           min-width='100%'
@@ -117,16 +117,12 @@
 </template>
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      items0: [], //五檔揭示
-      items1: [], //量價分布
-      items2: [], //分價揭示
       dialog: {
         clickType: '',
         isOpen: false,
@@ -136,7 +132,6 @@ export default {
       num1: 1,
     }
   },
-  mixins: [dataService],
   components: {
     Dialog,
   },

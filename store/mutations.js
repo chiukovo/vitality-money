@@ -22,6 +22,58 @@ export default {
       })
     }
     state.customItemSetting = data
+
+    //計算mainItem
+    this.commit('computedMainItem', data)
+  },
+  computedMainItem(state, setting) {
+    const _this = this
+    const mainItem = state.mainItem
+
+    let result = []
+
+    mainItem.forEach(function(val) {
+      //確認此筆是否要隱藏
+      let hide = false
+      setting.forEach(function(custom) {
+        if (custom.id == val.product_id && !custom.show) {
+          hide = true
+        }
+      })
+
+      if (hide) {
+        return
+      }
+
+      //顏色 昨收價 < 成交價 紅
+      val.color = ''
+      val.newest_price_change = ''
+      val.bp_price_change = ''
+      val.sp_price_change = ''
+      val.total_qty_change = ''
+      val.highest_price_change = ''
+      val.lowest_price_change = ''
+
+      if (val.newest_price > val.yesterday_close_price) {
+        val.color = 'text-up'
+        _this.borderName = 'border border-up'
+      } else if (val.newest_price < val.yesterday_close_price) {
+        val.color = 'text-down'
+        _this.borderName = 'border border-down'
+      }
+
+      val.gain = val.newest_price - val.yesterday_close_price
+      //(成交價-昨日收盤)/昨日收盤*100%
+      val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
+      val.state_name = val.state == 2 ? '交易中' : '未開盤'
+
+      //寫入store 目前最新成交價錢
+      _this.commit('setNowNewPrice', {itemId: val.product_id, newPrice: val.newest_price})
+
+      result.push(val)
+    })
+
+    state.mainList = result
   },
   setuserAuth(state, data) {
     //set localStorage
@@ -48,9 +100,7 @@ export default {
   },
   setUserOrder(state, data) {
     state.userOrder = data
-
     let uncoveredCountDetail = []
-
     //計算未平倉數量
     data.UncoveredArray.forEach(function(val) {
       if (typeof uncoveredCountDetail[val.ID] == 'undefined') {
@@ -68,8 +118,73 @@ export default {
         }
       }
     })
-
     state.uncoveredCountDetail = Object.assign({}, uncoveredCountDetail)
+
+    //計算歷史資料
+    this.commit('setHistoryData', data)
+  },
+  setHistoryData(state, data) {
+   state.history.allCommodity = state.commidyArray
+    let _this = this
+   state.history.multiDelete = []
+   state.history.commodity = []
+
+   state.history.buySell = data.OrderArray
+   this.commit('computedUncovered', data.UncoveredArray)
+   state.history.covered = data.CoveredArray
+   state.history.unCoverBuySum = data.UnCoverBuySum
+   state.history.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
+   state.history.unCoverTotal =state.history.uncovered.length
+
+    //全選
+   state.history.uncovered.forEach(function(source){
+      state.history.multiOrderSelect[source.Serial] = false
+    })
+
+    //加入多檔刪除
+   state.history.buySell.forEach(function(source) {
+      const multiDeleteInfo = {
+        itemId: source.ID,
+        checked: false
+      }
+
+      state.history.multiDelete.push(multiDeleteInfo)
+    })
+
+    //商品統計 加入其他
+   state.history.allCommodity.forEach(function(source) {
+      let pushData = {
+        Name: source.Name,
+        TotalBuySubmit: 0,
+        TotalSellSubmit: 0,
+        RemainingBuyStock: 0,
+        RemainingSellStock: 0,
+        TotalSubmit: 0,
+        TotalFee: 0,
+        TotalPoint: 0,
+        RemainingWithholding: 0,
+        show: false,
+      }
+
+      data.CommodityArray.forEach(function(target) {
+        if (source.ID == target.ID) {
+          pushData = {
+            Name: target.Name,
+            TotalBuySubmit: target.TotalBuySubmit,
+            TotalSellSubmit: target.TotalSellSubmit,
+            RemainingBuyStock: target.RemainingBuyStock,
+            RemainingSellStock: target.RemainingSellStock,
+            TotalSubmit: target.TotalSubmit,
+            TotalFee: target.TotalFee,
+            TotalPoint: target.TotalPoint,
+            RemainingWithholding: target.RemainingWithholding,
+            show: true,
+          }
+        }
+      })
+
+      state.history.commodity.push(pushData)
+    })
   },
   setNowMainItem(state, data) {
     state.nowMainItem = data
@@ -80,6 +195,22 @@ export default {
   setClickItemId(state, {id, name}) {
     state.clickItemId = id
     state.itemName = name
+
+    state.itemDetail.fiveTotal = {
+      more: 0,
+      morePercent: 0,
+      nullNum: 0,
+    }
+    let history = state.historyPrice[id]
+    let fiveData = state.nowFiveMoney[id]
+    let volumeMoney = state.nowVolumeMoney[id]
+    state.itemDetail.items0 = []
+    state.itemDetail.items1 = []
+    state.itemDetail.items2 = []
+
+    this.commit('setItemChange', history)
+    this.commit('setFiveItemChange', fiveData)
+    this.commit('setVolumeChange', volumeMoney)
   },
   setMainItem(state, data) {
     const commidyArray = state.commidyArray
@@ -214,6 +345,109 @@ export default {
   setNowNewPrice(state, {itemId, newPrice}) {
     state.nowNewPrice[itemId] = newPrice
     state.nowNewPrice = Object.assign({}, state.nowNewPrice)
+
+    //計算未平損益
+    this.commit('computedUncovered', state.history.uncovered)
+    //更新五檔
+    //量價分布
+    //分價揭示
+    let fiveData = state.nowFiveMoney[itemId]
+    let targetNewPrice = newPrice[itemId]
+    let history = state.historyPrice[itemId]
+    let volumeMoney = state.nowVolumeMoney[itemId]
+
+    if (typeof fiveData != "undefined") {
+      if (fiveData[5][2] != targetNewPrice) {
+        this.commit('setFiveItemChange', fiveData)
+      }
+    }
+
+    this.commit('setItemChange', history)
+    this.commit('setVolumeChange', volumeMoney)
+  },
+  computedUncovered(state, data) {
+    let nowNewPrice = state.nowNewPrice
+    let uncoverMoney = 0
+
+    state.history.uncovered = data.map(function(val) {
+      // 取得點數現價差，要更新在未平單上
+      val.thisSerialPointDiff = 0
+      // 取得價格
+      let nowPrice = nowNewPrice[val.ID]
+      // 取得點數現價差
+      let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
+      // 如果是買單
+      if (val.BuyOrSell == 0) {
+          // 此單未平點數
+          val.thisSerialPointDiff = diff
+          // 總共未平損益
+          uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+      } else {
+          val.thisSerialPointDiff = diff * -1;
+          uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+      }
+
+      // 此單未平損益 (要算手續費)，要更新在未平單上
+      val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
+
+      return val
+    })
+  },
+  setFiveItemChange(state, fiveData) {
+    let _this = this
+    let itemId = state.clickItemId
+    let targetNewPrice = state.nowNewPrice[itemId]
+
+    if (typeof fiveData != "undefined") {
+      if (fiveData[5][2] != targetNewPrice) {
+        fiveData[5][2] = targetNewPrice
+      }
+    }
+
+    if (typeof fiveData == 'undefined') {
+      state.itemDetail.items0 = []
+      return
+    }
+
+    if (fiveData.length > 0) {
+      state.itemDetail.items0 = fiveData
+      //計算total
+      state.itemDetail.items0.forEach(function(val, key) {
+
+        if (key != 5) {
+          if (val[1] != '') {
+            state.itemDetail.fiveTotal.more += parseInt(val[1])
+          }
+
+          if (val[3] != '') {
+            state.itemDetail.fiveTotal.nullNum += parseInt(val[3])
+          }
+        }
+      })
+
+      //多勢 %
+      state.itemDetail.fiveTotal.morePercent = parseInt(100 / (state.itemDetail.fiveTotal.more +state.itemDetail.fiveTotal.nullNum) * state.itemDetail.fiveTotal.more)
+    }
+  },
+  setItemChange(state, history) {
+    if (typeof history == 'undefined') {
+      state.itemDetail.items2 = []
+      return
+    }
+
+    if (history.length > 0) {
+      state.itemDetail.items2 = history
+    }
+  },
+  setVolumeChange(state, money) {
+    if (typeof money == 'undefined') {
+      state.itemDetail.items1 = []
+      return
+    }
+
+    if (money.length > 0) {
+      state.itemDetail.items1 = money
+    }
   },
   setNowFiveMoney(state, data) {
     let five = data
@@ -225,7 +459,6 @@ export default {
     let sell = 0
     let nowPrice = state.nowNewPrice[itemId]
     let formatData = []
-
     Vue.set(state.nowFiveMoney, itemId, [])
 
     for (let i = 0; i < buyCount; i++) {
@@ -305,6 +538,17 @@ export default {
     })
 
     state.nowFiveMoney[itemId] = formatData
+
+    //陣列第[3]：第一筆買價
+    //陣列第[13]：第一筆賣價
+    state.mainItem = state.mainItem.map(function (val) {
+      if (itemId == val.product_id) {
+        val.bp_price = five[3]
+        val.sp_price = five[13]
+      }
+
+      return val
+    })
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
@@ -512,6 +756,8 @@ export default {
 
       return dt
     })
+
+    this.commit('setItemChange', state.historyPrice[itemId])
   },
   SOCKET_ONOPEN (state, event)  {
     Vue.prototype.$socket = event.currentTarget

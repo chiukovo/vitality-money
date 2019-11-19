@@ -8,11 +8,11 @@
           v-model='activeName',
           type='card',
           @tab-click='handleClick')
-          el-tab-pane(:label="'買賣下單(' + service.history.buySell.length + ')'", name='tabs1')
+          el-tab-pane(:label="'買賣下單(' + $store.state.history.buySell.length + ')'", name='tabs1')
             .history-tabs-header
               el-button(size='mini' @click="deleteConfirm = true") 刪單
             el-table.table(
-              :data='service.history.buySell'
+              :data='$store.state.history.buySell'
               style="width: 100%"
               :cell-class-name='buySelltableCellClassName',
               :height="$parent.historyTableMaxH - 30"
@@ -25,7 +25,7 @@
                   el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                   //-改單
                   el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-                  el-checkbox(v-if="scope.row.Operation[1]" v-model="service.history.multiDelete[scope.$index].checked")
+                  el-checkbox(v-if="scope.row.Operation[1]" v-model="$store.state.history.multiDelete[scope.$index].checked")
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
               el-table-column(prop='Serial', label='序號')
               el-table-column(prop='Name', label='商品')
@@ -238,11 +238,11 @@
               .dialog__footer
                 el-button(@click="editDialog = false") 取消
                 el-button(type='primary' @click="doEdit") 送出
-          el-tab-pane(:label="'未平倉(' + service.history.unCoverBuySum + ',' + service.history.unCoverSellSum + ')'", name='tabs2')
+          el-tab-pane(:label="'未平倉(' + $store.state.history.unCoverBuySum + ',' + $store.state.history.unCoverSellSum + ')'", name='tabs2')
             .history-tabs-header
               el-button(size='mini' @click="openMultiOrder") 多單平倉
             el-table.table(
-              :data='service.history.uncovered'
+              :data='$store.state.history.uncovered'
               style="width: 100%"
               :cell-class-name='uncoveredTableCellClassName',
               :height="$parent.historyTableMaxH - 30"
@@ -253,7 +253,7 @@
                 template(slot="header" slot-scope="scope")
                   el-checkbox(v-model="multiOrderAll" @change="multiOrderAllClick")
                 template(slot-scope='scope')
-                  el-checkbox(v-model="service.history.multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
+                  el-checkbox(v-model="$store.state.history.multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
               el-table-column(label='操作' fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -282,7 +282,7 @@
               el-button(size='mini') 全選
               el-button(size='mini') 全不選
             el-table.table(
-              :data='service.history.covered'
+              :data='$store.state.history.covered'
               style="width: 100%"
               :height="$parent.historyTableMaxH - 30"
               border
@@ -317,7 +317,7 @@
               .col
                 el-checkbox(v-model='checked') 顯示全部
             el-table.table(
-              :data='service.history.commodity'
+              :data='$store.state.history.commodity'
               style="width: 100%"
               :height="$parent.historyTableMaxH - 30"
               :row-class-name="checkRowShow"
@@ -388,7 +388,6 @@
 import { mapState } from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
-import dataService from '~/plugins/service/dataService.js'
 
 export default {
   data() {
@@ -449,7 +448,6 @@ export default {
       multiOrderAll: false,
     }
   },
-  mixins: [dataService],
   computed: mapState([
     'nowMainItem',
   ]),
@@ -463,9 +461,9 @@ export default {
   },
   mounted() {
     this.selectDayType('today')
-    this.userId = this.service.userInfo.userId
-    this.token = this.service.userInfo.token
-    this.lang = this.service.userInfo.lang
+    this.userId = this.$store.state.userInfo.userId
+    this.token = this.$store.state.userInfo.token
+    this.lang = this.$store.state.userInfo.lang
     this.isMobile = this.$store.state.isMobile
   },
   methods: {
@@ -473,9 +471,9 @@ export default {
       let _this = this
 
       if (this.form.start != '' && this.form.end != '') {
-        const userId = this.service.userInfo.userId
-        const token = this.service.userInfo.token
-        const lang = this.service.userInfo.lang
+        const userId = this.$store.state.userInfo.userId
+        const token = this.$store.state.userInfo.token
+        const lang = this.$store.state.userInfo.lang
 
         await axios.post("/api/query_moneylist?lang=" + lang, qs.stringify({
           UserID: userId,
@@ -497,8 +495,8 @@ export default {
       let _this = this
       this.multiOrderData = []
 
-      _this.service.history.multiOrderSelect.forEach(function(val, serial) {
-        _this.service.history.uncovered.forEach(function(row) {
+      _this.$store.state.history.multiOrderSelect.forEach(function(val, serial) {
+        _this.$store.state.history.uncovered.forEach(function(row) {
           if (row.Serial == serial && val) {
             _this.multiOrderData.push({
               name: _this.$store.state.itemName,
@@ -518,7 +516,7 @@ export default {
     multiOrderAllClick() {
       let _this = this
 
-      _this.service.history.multiOrderSelect = _this.service.history.multiOrderSelect.map(function() {
+      _this.$store.state.history.multiOrderSelect = _this.$store.state.history.multiOrderSelect.map(function() {
         if (!_this.multiOrderAll) {
           return false
         } else {

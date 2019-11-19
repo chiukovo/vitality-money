@@ -15,7 +15,7 @@
         )
         el-table.table(
         id="mainTable"
-        :data='service.mainList',
+        :data='$store.state.mainItem',
         :height='$parent.allHeight.mainItem',
         :cell-class-name='tableCellClassName',
         @row-click="clickItem",
@@ -64,7 +64,6 @@
 
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
@@ -77,7 +76,6 @@ export default {
       },
 	  }
 	},
-  mixins: [dataService],
   components: {
     Dialog,
   },

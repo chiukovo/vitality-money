@@ -22,7 +22,6 @@
 </template>
 <script>
 
-import dataService from '~/plugins/service/dataService.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -36,7 +35,6 @@ export default {
       },
     }
   },
-  mixins: [dataService],
   mounted () {
 
   },
@@ -65,8 +63,8 @@ export default {
         return
       }
 
-      const userId = this.service.userInfo.userId
-      const token = this.service.userInfo.token
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
 
       await axios.post("/api/set_password", qs.stringify({
         UserID: userId,
