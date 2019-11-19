@@ -70,8 +70,6 @@ export default {
     })
 
     state.uncoveredCountDetail = Object.assign({}, uncoveredCountDetail)
-
-    console.log(state.uncoveredCountDetail)
   },
   setNowMainItem(state, data) {
     state.nowMainItem = data
@@ -85,7 +83,6 @@ export default {
   },
   setMainItem(state, data) {
     const commidyArray = state.commidyArray
-
     //計算禁新 強平
     data = data.map(function (val) {
       let newPoint = 0,
@@ -112,7 +109,107 @@ export default {
     state.mainItem = data
   },
   setUpdateMainItem(state, data) {
-    state.updateMainItem = data
+    const _this = this
+
+    let borderName
+    let itemId = data[0]
+    let clickItemId = state.clickItemId
+    let nowItems = data[1].split(",").map(function(item) {
+      return parseInt(item, 10)
+    })
+
+    //k線圖資料更新判斷
+    let kLineData = state.kLineData
+    //長條圖更新
+    let chartData = state.chartData
+
+    if (kLineData.length > 0 && itemId == clickItemId) {
+      _this.commit('doUpdateklLineData', nowItems)
+    }
+
+    state.mainItem = state.mainItem.map(function (val) {
+      if (itemId == val.product_id) {
+        //計算
+        let dindex = 0;
+        let prices = []
+        let localTime = (nowItems[0] < 10000000) ? "0" + nowItems[0] / 100 : "" + nowItems[0] / 100
+        let flocalTime = _this._vm.formatTime(localTime)
+
+        let nowDate = new Date();
+        let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
+
+        borderName = val.color == 'text-up' ? 'border border-up' : 'border border-down'
+
+        //最高
+        if (val.highest_price < nowItems[1]) {
+          val.highest_price = nowItems[1]
+          val.highest_price_change = borderName
+        } else {
+          val.highest_price_change = ''
+        }
+
+        //最低
+        if (val.lowest_price > nowItems[1]) {
+          val.lowest_price = nowItems[1]
+          val.lowest_price_change = borderName
+        } else {
+          val.lowest_price_change = ''
+        }
+
+        while(dindex < nowItems.length) {
+          if(dindex > 0 && dindex + 3 < nowItems.length) {
+            nowItems[0] += nowItems[dindex]
+            nowItems[1] += nowItems[dindex + 1]
+            nowItems[2] += nowItems[dindex + 2]
+            nowItems[3] += nowItems[dindex + 3]
+          }
+
+          prices.push([nowItems[2], nowItems[1]])
+
+          dindex += 4;
+        }
+
+        //if click 長條圖
+        if (chartData.length > 0 && itemId == clickItemId) {
+          _this.commit('doUpdateChartData', {prices, fullTime})
+        }
+
+        //總量
+        val.total_qty += nowItems[2]
+        val.total_qty_change = nowItems[2] == 0 ? '' : borderName
+        //成交
+        val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
+        val.newest_price = nowItems[1]
+
+        //寫入store 目前最新成交價錢
+        _this.commit('setNowNewPrice', {itemId, newPrice: nowItems[1]})
+
+        //漲跌
+        val.gain = val.newest_price - val.yesterday_close_price
+        //(成交價-昨日收盤)/昨日收盤*100%
+        val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
+
+        _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+      }
+
+      return val
+    })
+    //現在items 加入store
+    _this.commit('setNowMainItem', state.mainItem)
+    //remove border
+    setTimeout(function() {
+      _this.commit('rmMainItemBorder')
+    }, 600)
+  },
+  rmMainItemBorder(state, data) {
+    state.mainItem = state.mainItem.map(function (val) {
+      val.highest_price_change = ''
+      val.lowest_price_change = ''
+      val.total_qty_change = ''
+      val.newest_price_change = ''
+
+      return val
+    })
   },
   setNowNewPrice(state, {itemId, newPrice}) {
     state.nowNewPrice[itemId] = newPrice

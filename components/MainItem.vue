@@ -7,7 +7,7 @@
     )
     el-table.mainItemTable.table(
     id="mainTable"
-    :data='service.mainList',
+    :data='$store.state.mainItem',
     :height='$parent.mainItemTable',
     :cell-class-name='tableCellClassName',
     @row-click="clickItem",
