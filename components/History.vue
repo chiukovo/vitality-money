@@ -461,9 +461,9 @@ export default {
   },
   mounted() {
     this.selectDayType('today')
-    this.userId = this.$store.state.userInfo.userId
-    this.token = this.$store.state.userInfo.token
-    this.lang = this.$store.state.userInfo.lang
+    this.userId = this.$store.state.localStorage.userAuth.userId
+    this.token = this.$store.state.localStorage.userAuth.token
+    this.lang = this.$store.state.localStorage.lang
     this.isMobile = this.$store.state.isMobile
   },
   methods: {
