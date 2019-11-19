@@ -325,8 +325,6 @@ export default {
 
       return val
     })
-    //現在items 加入store
-    _this.commit('setNowMainItem', state.mainItem)
     //remove border
     setTimeout(function() {
       _this.commit('rmMainItemBorder')
@@ -363,8 +361,10 @@ export default {
       }
     }
 
-    this.commit('setItemChange', history)
-    this.commit('setVolumeChange', volumeMoney)
+    if (itemId == state.clickItemId) {
+      this.commit('setItemChange', history)
+      this.commit('setVolumeChange', volumeMoney)
+    }
   },
   computedUncovered(state, data) {
     let nowNewPrice = state.nowNewPrice

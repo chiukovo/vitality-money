@@ -274,7 +274,12 @@
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
               el-table-column(prop='thisSerialTotalMoney', label='未平損益')
-              el-table-column(prop='thisSerialPointDiff', label='點數')
+              el-table-column(label='點數')
+                template(slot-scope='scope')
+                  .table-icon
+                    .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+                  span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text-black") {{ scope.row['thisSerialPointDiff'] }}
+                  span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
               el-table-column(prop='Day', label='天數')
               el-table-column(prop='State', label='狀態' width="150px" fixed="right")
           el-tab-pane(label='已平倉', name='tabs3')
