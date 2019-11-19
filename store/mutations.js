@@ -357,7 +357,8 @@ export default {
     let volumeMoney = state.nowVolumeMoney[itemId]
 
     if (typeof fiveData != "undefined") {
-      if (fiveData[5][2] != targetNewPrice) {
+      if (fiveData[5][2] != targetNewPrice && itemId == state.clickItemId) {
+        //改五檔限價
         this.commit('setFiveItemChange', fiveData)
       }
     }
