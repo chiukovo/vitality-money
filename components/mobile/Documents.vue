@@ -1,8 +1,8 @@
 <template lang='pug'>
 .page
-  #header.header
+  .header
     .header__title 單據列表
-  #main.main
+  .main
     ul.nav-list
       li(@click='handleDocument(1)') 買賣單據
       li(@click='handleDocument(2)') 未平倉單

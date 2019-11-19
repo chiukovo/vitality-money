@@ -12,6 +12,8 @@
 		Documents(v-if='tabShow == 3')
 		//- 報表查詢
 		History(v-if='tabShow == 4')
+		//- 系統功能
+		System(v-if='tabShow == 5')
 	#footer.footer
 		.nav-tab
 			.tabs-list
@@ -28,6 +30,7 @@ import MainItem from "~/components/mobile/MainItem"
 import Operating from "~/components/mobile/Operating"
 import Documents from "~/components/mobile/Documents"
 import History from "~/components/mobile/History"
+import System from "~/components/mobile/System"
 import '@/assets/sass/mobile.scss'
 
 export default {
@@ -46,7 +49,8 @@ export default {
 		MainItem,
 		Operating,
 		Documents,
-		History
+		History,
+		System
 	},
 	data() {
 		return {

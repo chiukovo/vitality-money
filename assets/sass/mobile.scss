@@ -45,7 +45,7 @@ a {
 //-------------- header
 .header {
     position: relative;
-    background-color: $gray-700;
+    background-color: $gray-990;
     .header__title, .header__left, .header__right {
         display: flex;
         justify-content: center;
@@ -81,9 +81,21 @@ a {
     font-size: 12px;
 }
 .area {
+    &.h-100 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        .area__content {
+            width: 80%;
+            .el-form-item__label {
+                width: 80px;
+            }
+        }
+    }
     .area__header {
         text-align: center;
-        font-size: 13px;
         color: $--color-text-regular;
         background-color: $gray-600;
         padding: 5px 10px;
@@ -95,11 +107,14 @@ a {
         .el-checkbox {
             margin-bottom: 0;
         }
+        .small {
+            font-size: 13px;
+        }
     }
     .area__content {
         padding: 12px 10px;
     }
-    .area__list {
+    .area-list {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -109,9 +124,8 @@ a {
             font-size: 15px;
             color: #fff;
             border-bottom: 1px solid rgba($white, .04);
-            padding: 8px;
+            padding: 8px 6px 8px 16px;
             .el-icon-arrow-right {
-                border-bottom: 1px solid rgba($white, .04);
                 margin: 0 8px 0 auto;
             }
             &:hover, &:focus {
@@ -119,7 +133,7 @@ a {
             }
         }
     }
-    .area-data__list {
+    .area-data-list {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -127,29 +141,98 @@ a {
             position: relative;
             display: flex;
             justify-content: flex-start;
-            align-items: center;
-            font-size: 13px;
-            background: rgba(255, 255, 255, .3);
+            align-items: stretch;
+            background: rgba($gray-100, .5);
             + li {
                 margin-top: 1px;
             }
         }
         .area-data__title {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 26%;
+            min-width: 100px;
             text-align: center;
             color: $infor;
-            background: rgba(0, 0, 0, .3);
-            padding: 16px 10px;
+            background: rgba($gray-900, .3);
+            padding: 8px;
+            .area-data__date {
+                position: absolute;
+                top: 50%;
+                transform: translateY(58%);
+                text-align: center;
+                font-size: 12px;
+                color: rgba($white, .3);
+            }
+            &.hasDate {
+                position: relative;
+                padding-bottom: 10px;
+            }
         }
         .area-data__infor {
-            padding: 10px;
+            padding: 22px 10px;
+            .area-data__date {
+                position: absolute;
+                right: 2px;
+                bottom: 2px;
+                font-size: 12px;
+                color: rgba($white, .3);
+            }
         }
-        .area-data__date {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            font-size: 12px;
-            color: rgba(255, 255, 255, .3);
+    }
+    .area-infor__header {
+        width: 50%;
+        text-align: center;
+        background: darken($primary, 36%);
+        border-radius: 5px;
+        padding: 10px;
+        margin: 1rem auto;
+    }
+    .area-infor-list {
+        list-style-type: none;
+        width: 80%;
+        padding: 0;
+        margin: 0 auto;
+        li {
+            display: flex;
+            align-items: center;
+            color: $primary;
+            background-color: rgba($gray-100, .02);
+            padding: 10px 0 10px 10px;
+            margin: 10px;
+            i {
+                color: rgba($gray-100, .1);
+                margin: 0 8px 0 0;
+            }
+            .area-infor__title {
+                width: 80px;
+                color: #fff;
+            }
+        }
+    }
+    .area-switch-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        li {
+            font-size: 15px;
+            color: #fff;
+            padding: 12px;
+        }
+        .area-switch__title {
+            padding: 0 0 6px 12px;
+        }
+        .area-switch__label {
+            margin: 0 auto 0 0;
+        }
+        .area-switch__content {
+            display: flex;
+            justify-content: center;
+            background-color: rgba($gray-100, .02);
+            padding: 10px;
+
         }
     }
     + .el-table {
@@ -161,14 +244,25 @@ a {
     padding: 0;
     margin: 0;
     li, a {
-        display: block;
+        display: flex;
+        align-items: center;
         color: #fff;
-        background-color: rgba($white, .04);
-        padding: 10px;
+        background-color: rgba($gray-100, .02);
+        padding: 10px 0 10px 10px;
         margin: 10px;
+        .el-icon-arrow-right {
+            margin: 0 8px 0 auto;
+        }
         &:hover, &:focus {
             background-color: rgba($primary, .1);
         }
+    }
+}
+.nav-button {
+    text-align: center;
+    margin: 2rem;
+    .logout {
+        width: 80%;
     }
 }
 .modals {
@@ -274,6 +368,17 @@ a {
     }
 }
 
+.changPassword {
+    .el-button {
+        width: 100%;
+    }
+    .rules-list {
+        list-style: none;
+        color: rgba($gray-100, .5);
+        padding: 1rem;
+    }
+}
+
 
 //-------------- footer tabs
 .footer {
@@ -282,7 +387,7 @@ a {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: #161414;
+    background-color: $gray-990;
 }
 .tabs-list {
     display: flex;
@@ -342,6 +447,8 @@ a {
     width: 100%;
     text-align: center;
 }
+
+
 .progress-table {
     td {
         padding: 0;
@@ -368,6 +475,15 @@ a {
     }
 }
 
+
+
+.el-form-item {
+    margin-bottom: 12px;
+}
+.el-input__inner, .el-input.is-disabled .el-input__inner {
+    background-color: $gray-990;
+    border-color: $gray-800;
+}
 .el-input-number__decrease {
     background-color: $success;
 }
@@ -390,6 +506,7 @@ a {
 }
 
 
+
 //-------------- login
 .login {
     .login-wrap {
@@ -406,9 +523,6 @@ a {
     .login-box {
         width: 100%;
         max-width: 300px;
-    }
-    .el-form-item {
-        margin-bottom: 12px;
     }
     .el-form-item__label {
         display: none;

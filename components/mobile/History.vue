@@ -42,7 +42,7 @@
             el-button(size='mini' icon='el-icon-refresh-left') 刷新
         .main
           .area
-            ul.area__list
+            ul.area-list
               li(@click='quoteShowDetail = !quoteShowDetail') [臺指早] 口數:2 手續費:0 損益:-54800
                 i.el-icon-arrow-right
               li(@click='quoteShowDetail = !quoteShowDetail') [道瓊期] 口數:1 手續費:50 損益:16300
@@ -56,14 +56,14 @@
                     .header__title [臺指早] 歷史損益:250
                 #main.main
                   .area
-                    .area__header 時間 [2019-11-11]->[2019-11-17]
+                    .area__header
+                      span.small 時間 [2019-11-11]->[2019-11-17]
                   el-table(:highlight-current-row='true' border style='width: 100%')
                     el-table-column(prop='th1' label='ID' align='center' fixed)
                     el-table-column(prop='th2' label='商品' align='center' fixed)
                     el-table-column(prop='th3' label='口' align='center' )
                     el-table-column(prop='th4' label='手續費' align='center')
                     el-table-column(prop='th5' label='損益' align='center')
-    
     //- 動作日誌
     template(v-if='quoteShow == 4')
       .modals.quote
@@ -75,15 +75,15 @@
             el-button(size='mini' icon='el-icon-refresh-left') 刷新
         .main
           .area
-            ul.area-data__list
+            ul.area-data-list
               li
                 .area-data__title 登入系統
                 .area-data__infor 登入系統
-                .area-data__date 2019-11-11 08:44:01(39.10.99.104)
+                  .area-data__date 2019-11-11 08:44:01(39.10.99.104)
               li
                 .area-data__title 取消打勾收盤平倉
                 .area-data__infor 台指全
-                .area-data__date 2019-11-11 06:44:01(39.10.99.104)
+                  .area-data__date 2019-11-11 06:44:01(39.10.99.104)
     //- 歷史報價
     template(v-if='quoteShow == 5')
       .modals.quote

@@ -1,0 +1,15 @@
+<template lang='pug'>
+mixin area-list-item(click, name)
+  li(@click=`${click} = !${click}`)= name
+    i.el-icon-arrow-right
+
+mixin nav-list-item(click, id, name)
+  li(@click=`${click}(${id})`)= name
+    i.el-icon-arrow-right
+
+mixin area-infor-list-item(name, icon, content)
+  li
+    i.material-icons= icon
+    .area-infor__title= name
+    .area-infor__content&attributes(attributes)= content
+</template>
