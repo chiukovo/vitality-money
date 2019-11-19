@@ -266,7 +266,7 @@ export default {
     let chartData = state.chartData
 
     if (kLineData.length > 0 && itemId == clickItemId) {
-      //_this.commit('doUpdateklLineData', nowItems)
+      _this.commit('doUpdateklLineData', nowItems)
     }
 
     state.mainItem = state.mainItem.map(function (val) {
@@ -313,7 +313,7 @@ export default {
 
         //if click 長條圖
         if (chartData.length > 0 && itemId == clickItemId) {
-          //_this.commit('doUpdateChartData', {prices, fullTime})
+          _this.commit('doUpdateChartData', {prices, fullTime})
         }
 
         //總量
@@ -331,7 +331,7 @@ export default {
         //(成交價-昨日收盤)/昨日收盤*100%
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
 
-        //_this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+        _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
       }
 
       return val
@@ -343,7 +343,7 @@ export default {
     //remove border
     setTimeout(function() {
       _this.commit('rmMainItemBorder')
-    }, 1500)
+    }, 800)
   },
   rmMainItemBorder(state, data) {
     state.mainItem = state.mainItem.map(function (val) {

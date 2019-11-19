@@ -78,7 +78,7 @@ export default {
               result = val.substring(2).split(";")
 
               if(result.length > 1) {
-                // _this.$store.commit('setUpdateMainItem', result)
+                _this.$store.commit('setUpdateMainItem', result)
               }
 
               break
@@ -86,7 +86,7 @@ export default {
               result = val.substring(2).split(",")
 
               if(result.length > 1) {
-                // _this.$store.commit('setNowFiveMoney', result)
+                _this.$store.commit('setNowFiveMoney', result)
               }
 
               break
