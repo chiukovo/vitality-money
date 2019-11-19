@@ -251,9 +251,9 @@
             )
               el-table-column(width="55px" fixed)
                 template(slot="header" slot-scope="scope")
-                  el-checkbox(v-model="multiOrderAll" @change="multiOrderAllClick")
+                  input(type="checkbox" v-model="multiOrderAll" @change="multiOrderAllClick")
                 template(slot-scope='scope')
-                  el-checkbox(v-model="$store.state.history.multiOrderSelect[scope.row.Serial]" :value="scope.row.Serial")
+                  input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
               el-table-column(label='操作' fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -431,13 +431,6 @@ export default {
       confirmDeleteData: [],
       accountMoneyList: [],
       activeName: 'tabs1',
-      buySell: [], //下單列表
-      uncovered: [], //未平倉
-      covered: [], //已平倉
-      commodity: [], //商品統計
-      unCoverBuySum: 0, //未平倉多單總數列表
-      unCoverSellSum: 0, //未平倉空單總數
-      unCoverTotal: 0, //未平倉總數
       checked: false,
       editDialog: false,
       deleteConfirm: false,
@@ -450,18 +443,8 @@ export default {
       openEditPointRow: [],
       selectToDelete: [],
       multiOrderData: [],
+      multiOrderSelect: [],
       multiOrderAll: false,
-    }
-  },
-  computed: mapState([
-    'nowMainItem',
-  ]),
-  watch: {
-    nowMainItem(mainItem) {
-      //有editPoint資料就要更新更新
-      if (this.editPoint.itemId != '') {
-        this.udpateEditPointData(this.editPoint.type, this.openEditPointRow)
-      }
     }
   },
   mounted() {
@@ -496,9 +479,9 @@ export default {
       let _this = this
       this.multiOrderData = []
 
-      _this.$store.state.history.multiOrderSelect.forEach(function(val, serial) {
+      _this.multiOrderSelect.forEach(function(serial) {
         _this.$store.state.history.uncovered.forEach(function(row) {
-          if (row.Serial == serial && val) {
+          if (row.Serial == serial) {
             _this.multiOrderData.push({
               name: _this.$store.state.itemName,
               userName: _this.$store.state.userInfo.Account,
@@ -517,13 +500,15 @@ export default {
     multiOrderAllClick() {
       let _this = this
 
-      _this.$store.state.history.multiOrderSelect = _this.$store.state.history.multiOrderSelect.map(function() {
-        if (!_this.multiOrderAll) {
-          return false
-        } else {
-          return true
+      if (!_this.multiOrderAll) {
+        _this.multiOrderSelect = []
+        return
+      }
+
+      _this.multiOrderSelect = _this.$store.state.history.uncovered.map(function(val) {
+        if (val.Operation[2]) {
+          return val.Serial
         }
-        return false
       })
     },
     selectCheckDelete(row) {

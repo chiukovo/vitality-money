@@ -124,31 +124,27 @@ export default {
         }
       }
     })
-    state.uncoveredCountDetail = Object.assign({}, uncoveredCountDetail)
+
+    state.uncoveredCountDetail = uncoveredCountDetail
 
     //計算歷史資料
     this.commit('setHistoryData', data)
   },
   setHistoryData(state, data) {
-   state.history.allCommodity = state.commidyArray
+    state.history.allCommodity = state.commidyArray
     let _this = this
-   state.history.multiDelete = []
-   state.history.commodity = []
+    state.history.multiDelete = []
+    state.history.commodity = []
 
-   state.history.buySell = data.OrderArray
-   this.commit('computedUncovered', data.UncoveredArray)
-   state.history.covered = data.CoveredArray
-   state.history.unCoverBuySum = data.UnCoverBuySum
-   state.history.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
-   state.history.unCoverTotal =state.history.uncovered.length
-
-    //全選
-   state.history.uncovered.forEach(function(source){
-      state.history.multiOrderSelect[source.Serial] = false
-    })
+    state.history.buySell = data.OrderArray
+    state.history.uncovered = data.UncoveredArray
+    state.history.covered = data.CoveredArray
+    state.history.unCoverBuySum = data.UnCoverBuySum
+    state.history.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
+    state.history.unCoverTotal = state.history.uncovered.length
 
     //加入多檔刪除
-   state.history.buySell.forEach(function(source) {
+    state.history.buySell.forEach(function(source) {
       const multiDeleteInfo = {
         itemId: source.ID,
         checked: false
@@ -158,7 +154,7 @@ export default {
     })
 
     //商品統計 加入其他
-   state.history.allCommodity.forEach(function(source) {
+    state.history.allCommodity.forEach(function(source) {
       let pushData = {
         Name: source.Name,
         TotalBuySubmit: 0,
@@ -389,12 +385,23 @@ export default {
   computedUncovered(state, data) {
     let nowNewPrice = state.nowNewPrice
     let uncoverMoney = 0
+    let result = []
+    let needAdd = true
 
-    state.history.uncovered = data.map(function(val) {
+    if (data.length == 0) {
+      return
+    }
+
+    data.forEach(function(val) {
       // 取得點數現價差，要更新在未平單上
       val.thisSerialPointDiff = 0
       // 取得價格
       let nowPrice = nowNewPrice[val.ID]
+
+      if (typeof nowPrice == 'undefined') {
+        needAdd = false
+      }
+
       // 取得點數現價差
       let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
       // 如果是買單
@@ -411,8 +418,10 @@ export default {
       // 此單未平損益 (要算手續費)，要更新在未平單上
       val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
 
-      return val
+      result.push(val)
     })
+
+    state.history.uncovered = result
   },
   setFiveItemChange(state, fiveData) {
     let _this = this
