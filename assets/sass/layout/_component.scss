@@ -131,6 +131,24 @@ tr.border-tr {
         border-color: $success transparent transparent transparent;
     }
 }
+.cell {
+    [class*="bg-"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .bg-red {
+        color: $white;
+        background: $danger;
+    }
+    .bg-green {
+        color: $white;
+        background: $success;
+    }
+}
 
 
 .blink {

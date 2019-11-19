@@ -229,12 +229,24 @@ body {
 }
 .el-button--primary {
     @include button(#204650, #5897bf, #fff, #c5daef);
+    &.is-disabled, &.is-disabled:hover {
+        background: #e1e1e0;
+        border-color: #d6d6d6;
+    }
 }
 .el-button--danger {
     @include button(#770000, #e04c50, #f3b9bb, #f76065);
+    &.is-disabled, &.is-disabled:hover {
+        background: #e1e1e0;
+        border-color: #d6d6d6;
+    }
 }
 .el-button--success {
     @include button(#0e680c, #4bdc50, #b4f5b8, #4de353);
+    &.is-disabled, &.is-disabled:hover {
+        background: #e1e1e0;
+        border-color: #d6d6d6;
+    }
 }
 .el-input__inner {
     border-color: #5897bf;
@@ -291,11 +303,6 @@ body {
 .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #578bc1;
 }
-.el-button.is-disabled, .el-button.is-disabled:hover, .el-button.is-disabled:focus {
-    color: #c5c8d0;
-}
-
-
 
 
 //-------------- login

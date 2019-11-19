@@ -130,7 +130,7 @@
 }
 
 .el-table__body tr.current-row > td {
-  background-color: #ffdbdb;
+  background-color: #ffdbdb !important;
 }
 
 .el-button.is-disabled, .el-button.is-disabled:hover, .el-button.is-disabled:focus {
