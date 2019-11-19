@@ -105,11 +105,17 @@ Vue.mixin({
         'CIF',
       ]
     },
-    paramX () {
+    paramX() {
     	return 'x:TXF,TXFAF,EXF,FXF,TSLQ,HSI,HSIAF,E7,NK225,NK225AF,FDAX,YM,NQ,CL,GC,SI,CN,CNAF,CIF'
     },
-    paramB () {
+    paramB() {
     	return 'h:TXF,TXFAF,EXF,FXF,TSLQ,HSI,HSIAF,E7,NK225,NK225AF,FDAX,YM,NQ,CL,GC,SI,CN,CNAF,CIF'
+    },
+    paramBcancelclickId(clickItemId) {
+      return 'f:' + clickItemId
+    },
+    paramBclickId(clickItemId) {
+      return 'h:' + clickItemId
     },
     formatTime (time) {
       return time.substring(0, 2) + ":" + time.substring(2, 4) + ":" + time.substring(4, 6)

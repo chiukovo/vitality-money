@@ -1,3 +1,5 @@
+import { mapState } from 'vuex'
+
 export default {
   mounted() {
     //檢查是否token過期
@@ -70,8 +72,6 @@ export default {
 
               //呼叫即時資料
               _this.$socket.send(_this.paramX())
-              _this.$socket.send(_this.paramB())
-
               break
             case "d":
               //商品現價通知

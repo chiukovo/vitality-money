@@ -63,7 +63,7 @@ import Dialog from "~/components/Dialog"
 import { mapState } from 'vuex'
 
 export default {
-	data () {
+	data() {
 	  return {
       dialog: {
         clickType: '',

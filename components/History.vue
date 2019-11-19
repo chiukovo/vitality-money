@@ -476,13 +476,9 @@ export default {
       let _this = this
 
       if (this.form.start != '' && this.form.end != '') {
-        const userId = this.$store.state.userInfo.userId
-        const token = this.$store.state.userInfo.token
-        const lang = this.$store.state.userInfo.lang
-
-        await axios.post("/api/query_moneylist?lang=" + lang, qs.stringify({
-          UserID: userId,
-          Token: token,
+        await axios.post("/api/query_moneylist?lang=" + this.lang, qs.stringify({
+          UserID: this.userId,
+          Token: this.token,
           StartDate: this.form.start,
           EndDate: this.form.end,
           DaySelect: -1,

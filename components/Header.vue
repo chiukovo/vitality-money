@@ -61,7 +61,6 @@
 <script>
 
 import Dialog from "~/components/Dialog"
-import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -77,21 +76,6 @@ export default {
   },
   components: {
     Dialog,
-  },
-  computed: mapState([
-    'clickItemId',
-  ]),
-  watch: {
-    clickItemId (nowItems) {
-      let _this = this
-      let mainItem = this.$store.state.mainItem
-
-      mainItem.forEach(function(val) {
-        if (nowItems == val.product_id) {
-          _this.targetItem = val
-        }
-      })
-    }
   },
   methods: {
     openModal (type, title, size) {

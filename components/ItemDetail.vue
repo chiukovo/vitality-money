@@ -118,7 +118,6 @@
 <script>
 
 import Dialog from "~/components/Dialog"
-import { mapState } from 'vuex'
 
 export default {
   data () {

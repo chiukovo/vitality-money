@@ -10,12 +10,15 @@ export default {
   setCustomItemSetting(state, data) {
     //default item 選擇第一筆
     let first = true
+    let _this = this
 
     if (data.length > 0) {
       data.forEach(function(val){
         if (val.show && first) {
           state.clickItemId = val['id']
           state.itemName = val['name']
+
+          _this._vm.$socket.send(_this._vm.paramBclickId(val['id']))
 
           first = false
         }
@@ -68,10 +71,13 @@ export default {
       val.state_name = val.state == 2 ? '交易中' : '未開盤'
 
       //寫入store 目前最新成交價錢
-      _this.commit('setNowNewPrice', {itemId: val.product_id, newPrice: val.newest_price})
+      state.nowNewPrice[val.product_id] = val.newest_price
 
       result.push(val)
     })
+
+    //即時報價更新
+    _this.commit('newPriceChange')
 
     state.mainList = result
   },
@@ -193,6 +199,11 @@ export default {
     state.isMobile = data
   },
   setClickItemId(state, {id, name}) {
+    //取消before click id
+    this._vm.$socket.send(this._vm.paramBcancelclickId(state.clickItemId))
+    //註冊
+    this._vm.$socket.send(this._vm.paramBclickId(id))
+
     state.clickItemId = id
     state.itemName = name
 
@@ -255,7 +266,7 @@ export default {
     let chartData = state.chartData
 
     if (kLineData.length > 0 && itemId == clickItemId) {
-      _this.commit('doUpdateklLineData', nowItems)
+      //_this.commit('doUpdateklLineData', nowItems)
     }
 
     state.mainItem = state.mainItem.map(function (val) {
@@ -302,7 +313,7 @@ export default {
 
         //if click 長條圖
         if (chartData.length > 0 && itemId == clickItemId) {
-          _this.commit('doUpdateChartData', {prices, fullTime})
+          //_this.commit('doUpdateChartData', {prices, fullTime})
         }
 
         //總量
@@ -313,22 +324,26 @@ export default {
         val.newest_price = nowItems[1]
 
         //寫入store 目前最新成交價錢
-        _this.commit('setNowNewPrice', {itemId, newPrice: nowItems[1]})
+        state.nowNewPrice[val.product_id] = val.newest_price
 
         //漲跌
         val.gain = val.newest_price - val.yesterday_close_price
         //(成交價-昨日收盤)/昨日收盤*100%
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
 
-        _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+        //_this.commit('setHistoryPrice', {itemId, prices, flocalTime})
       }
 
       return val
     })
+
+    //即時報價更新
+    _this.commit('newPriceChange')
+
     //remove border
     setTimeout(function() {
       _this.commit('rmMainItemBorder')
-    }, 600)
+    }, 1500)
   },
   rmMainItemBorder(state, data) {
     state.mainItem = state.mainItem.map(function (val) {
@@ -340,9 +355,14 @@ export default {
       return val
     })
   },
-  setNowNewPrice(state, {itemId, newPrice}) {
-    state.nowNewPrice[itemId] = newPrice
-    state.nowNewPrice = Object.assign({}, state.nowNewPrice)
+  newPriceChange(state) {
+    const itemId = state.clickItemId
+
+    if (itemId == '') {
+      return
+    }
+
+    const newPrice = state.nowNewPrice[itemId]
 
     //計算未平損益
     this.commit('computedUncovered', state.history.uncovered)
@@ -460,7 +480,6 @@ export default {
     let sell = 0
     let nowPrice = state.nowNewPrice[itemId]
     let formatData = []
-    Vue.set(state.nowFiveMoney, itemId, [])
 
     for (let i = 0; i < buyCount; i++) {
       let buyNum = parseInt(five[i * 2 + 4]);
@@ -540,6 +559,7 @@ export default {
 
     state.nowFiveMoney[itemId] = formatData
 
+    this.commit('setFiveItemChange', formatData)
     //陣列第[3]：第一筆買價
     //陣列第[13]：第一筆賣價
     state.mainItem = state.mainItem.map(function (val) {
