@@ -205,6 +205,9 @@ body {
 .el-table__body-wrapper, .el-table tr {
     background-color: #f1f1f1;
 }
+.el-table__body tr.current-row > td {
+    background-color: #ffdbdb !important;
+}
 .el-table .cell {
     line-height: 25px;
     height: 25px;
@@ -212,6 +215,14 @@ body {
 .el-table--border th, .el-table--border td,
 .el-table th.is-leaf, .el-table td {
     border-color: #b7babc;
+}
+.cell {
+    .bg-red {
+        background: linear-gradient(180deg,#f3b9bb,#f76065);
+    }
+    .bg-green {
+        background: linear-gradient(180deg,#b4f5b8,#4de353);
+    }
 }
 
 @mixin button($font, $border, $bg1, $bg2) {
@@ -230,6 +241,7 @@ body {
 .el-button--primary {
     @include button(#204650, #5897bf, #fff, #c5daef);
     &.is-disabled, &.is-disabled:hover {
+        color: #fff;
         background: #e1e1e0;
         border-color: #d6d6d6;
     }
@@ -237,6 +249,7 @@ body {
 .el-button--danger {
     @include button(#770000, #e04c50, #f3b9bb, #f76065);
     &.is-disabled, &.is-disabled:hover {
+        color: #fff;
         background: #e1e1e0;
         border-color: #d6d6d6;
     }
@@ -244,10 +257,13 @@ body {
 .el-button--success {
     @include button(#0e680c, #4bdc50, #b4f5b8, #4de353);
     &.is-disabled, &.is-disabled:hover {
+        color: #fff;
         background: #e1e1e0;
         border-color: #d6d6d6;
     }
 }
+
+
 .el-input__inner {
     border-color: #5897bf;
     background: #f1f1f1;

@@ -195,6 +195,10 @@ Vue.mixin({
       this.allHeight.mainItem = windowHeight - (headH + footH)
     },
     resizeHeight () {
+      document.body.addEventListener('touchmove', function (e) {
+        e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+      }, {passive: false});
+
       this.windowHeight = window.innerHeight
       this.headHeight = this.$el.querySelector('#header').offsetHeight
       this.footHeight = this.$el.querySelector('#footer').offsetHeight
