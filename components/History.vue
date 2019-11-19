@@ -274,6 +274,9 @@
                 template(slot-scope='scope')
                   el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
               el-table-column(prop='thisSerialTotalMoney', label='未平損益')
+                template(slot-scope='scope')
+                  span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text-black") {{ scope.row['thisSerialTotalMoney'] }}
+                  span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialTotalMoney'] }}
               el-table-column(label='點數')
                 template(slot-scope='scope')
                   .table-icon
