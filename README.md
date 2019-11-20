@@ -1,22 +1,30 @@
 # vitality-money
 
-> My first-rate Nuxt.js project
+- 系統環境: node v12.13.0
 
-## Build Setup
+## env 設定說明
 
 ``` bash
-# install dependencies
-$ npm run install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+$ cp .env.example .env
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+必要變數說明
+| 名稱 | 說明 |
+| NUXT_ENV_API_URL | api連結 |
+| NUXT_ENV_API_WEBSOCKET | websocket連結 (數據) |
+| NUXT_ENV_API_ORDER_WEBSOCKET | websocket連結 (下訂單) |
+
+
+## 安裝步驟
+
+``` bash
+$ npm run install (or yarn)
+
+# run開發者模式
+$ npm run dev (or yarn dev)
+
+# 部屬步驟 (需架到server才需要用)
+# pm2 可掛載
+$ npm run build
+$ npm run start
+```
