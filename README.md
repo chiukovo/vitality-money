@@ -9,7 +9,9 @@ $ cp .env.example .env
 ```
 
 必要變數說明
+
 | 名稱 | 說明 |
+| ------ | ------ |
 | NUXT_ENV_API_URL | api連結 |
 | NUXT_ENV_API_WEBSOCKET | websocket連結 (數據) |
 | NUXT_ENV_API_ORDER_WEBSOCKET | websocket連結 (下訂單) |
@@ -18,7 +20,7 @@ $ cp .env.example .env
 ## 安裝步驟
 
 ``` bash
-$ npm run install (or yarn)
+$ npm install (or yarn)
 
 # run開發者模式
 $ npm run dev (or yarn dev)
