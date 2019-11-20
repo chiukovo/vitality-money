@@ -1,11 +1,12 @@
 <template lang="pug">
 .page
   .header
+    UserInfoHeader
     .header__left
       el-button(size='mini') 自選商品
     .header__title 商品報價
     .header__right
-      el-button(size='mini' icon='el-icon-user-solid')
+      el-button( size='mini' icon='el-icon-user-solid')
   .main
     #mainItem.mainItem
       .mainItem-content
@@ -22,11 +23,9 @@
         :row-class-name="getTrClass"
         style="width: 100%"
         border)
-          //- 上升/下降 td .cell add class: '.text-up || .text-down'
-          //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
-          el-table-column(label='商品', fixed)
+          el-table-column(label='商品' width='86' fixed)
             template(slot-scope='scope') {{ scope.row['product_name'] }}
-          el-table-column(label='倉位', fixed)
+          el-table-column(label='倉位' width='50' fixed)
           //- el-table-column(label='K線')
             template(slot-scope='scope')
               a(href="#" @click='clickKline(scope.row)') k線
@@ -64,20 +63,24 @@
 
 <script>
 
+import UserInfoHeader from "~/components/UserInfoHeader"
 import Dialog from "~/components/Dialog"
+
 import { mapState } from 'vuex'
 
 export default {
 	data () {
 	  return {
       dialog: {
+        UserInfoHeader: true,
         clickType: '',
         isOpen: false,
       },
 	  }
 	},
   components: {
-    Dialog,
+    UserInfoHeaderT,
+    Dialog
   },
   mounted() {
   },
