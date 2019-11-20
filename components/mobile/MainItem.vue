@@ -134,37 +134,37 @@ export default {
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷個別顏色
-      if(columnIndex == 4) {
+      if(columnIndex == 2) {
         return row.color + ' ' + row.newest_price_change
       }
 
-      if(columnIndex == 5) {
+      if(columnIndex == 3) {
         return row.color + ' ' + row.bp_price_change
       }
 
-      if(columnIndex == 6) {
+      if(columnIndex == 4) {
         return row.color + ' ' + row.sp_price_change
       }
 
-      if(columnIndex == 9) {
+      if(columnIndex == 7) {
         return row.total_qty_change
       }
 
-      if(columnIndex == 11) {
+      if(columnIndex == 9) {
         return row.color + ' ' + row.highest_price_change
       }
 
-      if(columnIndex == 12) {
+      if(columnIndex == 10) {
         return row.color + ' ' + row.lowest_price_change
       }
 
       //判斷整行顏色
-      if(columnIndex >= 4 && columnIndex != 9 && columnIndex != 15) {
+      if(columnIndex >= 2 && columnIndex != 7 && columnIndex != 13) {
         return row.color
       }
 
       //判斷狀態
-      if(columnIndex == 15) {
+      if(columnIndex == 13) {
         if (row.state != 2) {
           return 'text-secondary'
         }

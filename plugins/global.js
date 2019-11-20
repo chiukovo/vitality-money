@@ -243,14 +243,10 @@ Vue.mixin({
       const sourceMainTable = this.$el.querySelector('#mainTable').offsetHeight
       const operatingH = this.$el.querySelector('#operating').offsetHeight
 
-      if (sourceMainTable == 1) {
-        this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
-        const historyH = (this.main - operatingH) * 0.6
-        this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
-        this.historyTableMaxH = historyH - 69
-      } else {
-        this.$el.querySelector('#history .history').style.height = this.main - sourceMainTable - operatingH - 28 + 'px'
-      }
+      this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
+      const historyH = (this.main - operatingH) * 0.6
+      this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
+      this.historyTableMaxH = historyH - 69
     }
   }
 })

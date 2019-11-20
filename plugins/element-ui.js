@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import plTable from 'pl-table'
+import 'pl-table/themes/index.css'
 import {
   Dialog,
   Input,
@@ -39,6 +41,7 @@ import {
   Notification
 } from 'element-ui';
 
+Vue.use(plTable);
 Vue.use(Dialog);
 Vue.use(Input);
 Vue.use(InputNumber);
