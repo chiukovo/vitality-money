@@ -1,7 +1,7 @@
 <template lang="pug">
 .page
-  template(v-if='UserInfoHeader')
-    .header-userInfo-wrap(:class="UserInfoHeader ? 'isOpen' : ''")
+  template(v-if='UserInfoHeaderShow')
+    .header-userInfo-wrap(:class="UserInfoHeaderShow ? 'isOpen' : ''")
       UserInfoHeader
   .header
     .header__left
@@ -73,8 +73,8 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 	  return {
+      UserInfoHeaderShow: true,
       dialog: {
-        UserInfoHeader: true,
         clickType: '',
         isOpen: false,
       },
