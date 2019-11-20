@@ -131,30 +131,30 @@ export default {
     this.commit('setHistoryData', data)
   },
   setHistoryData(state, data) {
-    state.history.allCommodity = state.commidyArray
+    state.allCommodity = state.commidyArray
     let _this = this
-    state.history.multiDelete = []
-    state.history.commodity = []
+    state.multiDelete = []
+    state.commodity = []
 
-    state.history.buySell = data.OrderArray
-    state.history.uncovered = data.UncoveredArray
-    state.history.covered = data.CoveredArray
-    state.history.unCoverBuySum = data.UnCoverBuySum
-    state.history.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
-    state.history.unCoverTotal = state.history.uncovered.length
+    state.buySell = data.OrderArray
+    state.uncovered = data.UncoveredArray
+    state.covered = data.CoveredArray
+    state.unCoverBuySum = data.UnCoverBuySum
+    state.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
+    state.unCoverTotal = state.uncovered.length
 
     //加入多檔刪除
-    state.history.buySell.forEach(function(source) {
+    state.buySell.forEach(function(source) {
       const multiDeleteInfo = {
         itemId: source.ID,
         checked: false
       }
 
-      state.history.multiDelete.push(multiDeleteInfo)
+      state.multiDelete.push(multiDeleteInfo)
     })
 
     //商品統計 加入其他
-    state.history.allCommodity.forEach(function(source) {
+    state.allCommodity.forEach(function(source) {
       let pushData = {
         Name: source.Name,
         TotalBuySubmit: 0,
@@ -185,7 +185,7 @@ export default {
         }
       })
 
-      state.history.commodity.push(pushData)
+      state.commodity.push(pushData)
     })
   },
   setNowMainItem(state, data) {
@@ -203,7 +203,7 @@ export default {
     state.clickItemId = id
     state.itemName = name
 
-    state.itemDetail.fiveTotal = {
+    state.fiveTotal = {
       more: 0,
       morePercent: 0,
       nullNum: 0,
@@ -211,9 +211,9 @@ export default {
     let history = state.historyPrice[id]
     let fiveData = state.nowFiveMoney[id]
     let volumeMoney = state.nowVolumeMoney[id]
-    state.itemDetail.items0 = []
-    state.itemDetail.items1 = []
-    state.itemDetail.items2 = []
+    state.items0 = []
+    state.items1 = []
+    state.items2 = []
 
     this.commit('setItemChange', history)
     this.commit('setFiveItemChange', fiveData)
@@ -361,7 +361,7 @@ export default {
     const newPrice = state.nowNewPrice[itemId]
 
     //計算未平損益
-    this.commit('computedUncovered', state.history.uncovered)
+    this.commit('computedUncovered', state.uncovered)
     //更新五檔
     //量價分布
     //分價揭示
@@ -421,7 +421,7 @@ export default {
       result.push(val)
     })
 
-    state.history.uncovered = result
+    state.uncovered = result
   },
   setFiveItemChange(state, fiveData) {
     let _this = this
@@ -435,48 +435,48 @@ export default {
     }
 
     if (typeof fiveData == 'undefined') {
-      state.itemDetail.items0 = []
+      state.items0 = []
       return
     }
 
     if (fiveData.length > 0) {
-      state.itemDetail.items0 = fiveData
+      state.items0 = fiveData
       //計算total
-      state.itemDetail.items0.forEach(function(val, key) {
+      state.items0.forEach(function(val, key) {
 
         if (key != 5) {
           if (val[1] != '') {
-            state.itemDetail.fiveTotal.more += parseInt(val[1])
+            state.fiveTotal.more += parseInt(val[1])
           }
 
           if (val[3] != '') {
-            state.itemDetail.fiveTotal.nullNum += parseInt(val[3])
+            state.fiveTotal.nullNum += parseInt(val[3])
           }
         }
       })
 
       //多勢 %
-      state.itemDetail.fiveTotal.morePercent = parseInt(100 / (state.itemDetail.fiveTotal.more +state.itemDetail.fiveTotal.nullNum) * state.itemDetail.fiveTotal.more)
+      state.fiveTotal.morePercent = parseInt(100 / (state.fiveTotal.more +state.fiveTotal.nullNum) * state.fiveTotal.more)
     }
   },
   setItemChange(state, history) {
     if (typeof history == 'undefined') {
-      state.itemDetail.items2 = []
+      state.items2 = []
       return
     }
 
     if (history.length > 0) {
-      state.itemDetail.items2 = history
+      state.items2 = history
     }
   },
   setVolumeChange(state, money) {
     if (typeof money == 'undefined') {
-      state.itemDetail.items1 = []
+      state.items1 = []
       return
     }
 
     if (money.length > 0) {
-      state.itemDetail.items1 = money
+      state.items1 = money
     }
   },
   setNowFiveMoney(state, data) {

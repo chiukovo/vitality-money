@@ -68,6 +68,7 @@ export default {
       dragX: 0,
       sumX: 0,
       sumY: 0,
+      first: true,
 		}
 	},
 	mixins: [websocketService],
@@ -91,7 +92,11 @@ export default {
   },
   watch: {
     mainItem() {
-      this.resizeHeight()
+      if (this.first) {
+        this.resizeHeight()
+
+        this.first = false
+      }
     }
   },
   mounted() {

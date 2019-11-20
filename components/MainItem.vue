@@ -15,6 +15,7 @@
         :pagination-show="false"
         :row-height="50"
         border
+        :auto-resize="true"
       )
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
         //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'

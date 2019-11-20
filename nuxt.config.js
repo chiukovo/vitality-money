@@ -66,13 +66,7 @@ module.exports = {
     transpile: [/^element-ui/],
     extend(config, ctx) {
       config.plugins.unshift(new LodashModuleReplacementPlugin)
-      config.module.rules[2].use[0].options.plugins = ['lodash'],
-      config.module.rules.push(
-        {
-          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-          loader: 'file-loader'
-        }
-      )
+      config.module.rules[2].use[0].options.plugins = ['lodash']
     },
     optimization: {
       splitChunks: {

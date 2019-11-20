@@ -68,6 +68,7 @@ Vue.mixin({
 
       mainTable.style.height = mainTable.offsetHeight + this.sumY + 'px'
       historyScroll.style.height = historyScroll.offsetHeight - this.sumY + 'px'
+
       this.historyTableMaxH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20) - 40
     },
     marketInfo () {
@@ -245,8 +246,9 @@ Vue.mixin({
 
       this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
       const historyH = (this.main - operatingH) * 0.6
+
       this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
-      this.historyTableMaxH = historyH - 69
+      this.historyTableMaxH = historyH - 99 + 'px'
     }
   }
 })
