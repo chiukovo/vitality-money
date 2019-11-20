@@ -110,17 +110,17 @@
               .dialog__body
                 p.text-center
                   span [{{ editPoint.name }}]
-                  span 報價: 
+                  span 報價:
                     span.text-bold {{ editPoint.nowPrice }}
-                  span 類型: 
+                  span 類型:
                     span.text-bold {{ editPoint.buyOrSellName }}
-                  span 成交: 
+                  span 成交:
                     span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
                       span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
                       span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p.text-center 新倒限利不得大於: 
+                p.text-center 新倒限利不得大於:
                   span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-                p.text-center 新倒限利需大於會員最低停損點數: 
+                p.text-center 新倒限利需大於會員最低停損點數:
                   span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
                 p.text-center 新倒限利
                 p.text-center
@@ -129,7 +129,7 @@
                   el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p.text-center 計算結果: 
+                p.text-center 計算結果:
                   span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
@@ -147,26 +147,26 @@
               .dialog__body
                 p.text-center
                   span [{{ editPoint.name }}]
-                  span 報價: 
+                  span 報價:
                     span.text-bold {{ editPoint.nowPrice }}
-                  span 類型: 
+                  span 類型:
                     span.text-bold {{ editPoint.buyOrSellName }}
-                  span 成交: 
+                  span 成交:
                     span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
                       span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
                       span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p.text-center 新獲利點需大於: 
+                p.text-center 新獲利點需大於:
                   span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-                p.text-center 新獲利點需大於會員最低停損點數: 
+                p.text-center 新獲利點需大於會員最低停損點數:
                   span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
                 p.text-center 新獲利點
-                p.text-center 
+                p.text-center
                   el-button(type="mini" @click="editPoint.price -= 10") -10
                   el-button(type="mini" @click="editPoint.price -= 5") -5
                   el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p.text-center 計算結果: 
+                p.text-center 計算結果:
                   span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
@@ -184,17 +184,17 @@
               .dialog__body
                 p.text-center
                   span [{{ editPoint.name }}]
-                  span 報價: 
+                  span 報價:
                     span.text-bold {{ editPoint.nowPrice }}
-                  span 類型: 
+                  span 類型:
                     span.text-bold {{ editPoint.buyOrSellName }}
-                  span 成交: 
+                  span 成交:
                     span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
                       span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
                       span(v-else class="text-success") ({{editPoint.limitPoint}})
-                p.text-center 新損失點需大於: 
+                p.text-center 新損失點需大於:
                   span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-                p.text-center 新損失點需大於會員最低停損點數: 
+                p.text-center 新損失點需大於會員最低停損點數:
                   span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
                 p.text-center 新損點
                 p.text-center
@@ -203,7 +203,7 @@
                   el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
                   el-button(type="mini" @click="editPoint.price += 5") +5
                   el-button(type="mini" @click="editPoint.price += 10") +10
-                p.text-center 計算結果: 
+                p.text-center 計算結果:
                   span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
               .dialog__footer
                 el-button(@click="editPoint.price = 0") 清除設定
@@ -251,9 +251,17 @@
             )
               el-table-column(width="55px" fixed)
                 template(slot="header" slot-scope="scope")
-                  input(type="checkbox" v-model="multiOrderAll" @change="multiOrderAllClick")
+                  //- 選中時 .el-checkbox & .el-checkbox__input 添加class .is-checked
+                  label.el-checkbox
+                    span.el-checkbox__input
+                      span.el-checkbox__inner
+                      input.el-checkbox__original(type="checkbox" v-model="multiOrderAll" @change="multiOrderAllClick")
                 template(slot-scope='scope')
-                  input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
+                  //- 選中時 .el-checkbox & .el-checkbox__input 添加class .is-checked
+                  label.el-checkbox
+                    span.el-checkbox__input
+                      span.el-checkbox__inner
+                      input.el-checkbox__original(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
               el-table-column(label='操作' fixed)
                 template(slot-scope='scope')
                   el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -312,15 +320,15 @@
               el-table-column(prop="WinMoney" label='損益')
           el-tab-pane(label='商品統計', name='tabs4')
             .history-tabs-header
-              .col 預設額度: 
+              .col 預設額度:
                 span.text-lg.text-bold {{ $store.state.userInfo.TouchPoint }}
-              .col 今日損益: 
+              .col 今日損益:
                 //- colors class.text-danger | text-success
                 span(v-if="$store.state.userInfo.TodayMoney < 0").text-lg.text-bold.text-danger {{ $store.state.userInfo.TodayMoney }}
                 span(v-else).text-lg.text-bold.text-success {{ $store.state.userInfo.TodayMoney }}
-              .col 留倉預扣: 
+              .col 留倉預扣:
                 span.text-lg.text-bold {{ $store.state.userInfo.WithholdingMoney }}
-              .col 帳戶餘額: 
+              .col 帳戶餘額:
                 span.text-lg.text-bold.text-infor {{ $store.state.userInfo.Money }}
               .col
                 el-checkbox(v-model='checked') 顯示全部
