@@ -1,7 +1,9 @@
 <template lang="pug">
 .page
+  template(v-if='UserInfoHeader')
+    .header-userInfo-wrap(:class="UserInfoHeader ? 'isOpen' : ''")
+      UserInfoHeader
   .header
-    UserInfoHeader
     .header__left
       el-button(size='mini') 自選商品
     .header__title 商品報價
@@ -63,7 +65,7 @@
 
 <script>
 
-import UserInfoHeader from "~/components/UserInfoHeader"
+import UserInfoHeader from "~/components/mobile/UserInfoHeader"
 import Dialog from "~/components/Dialog"
 
 import { mapState } from 'vuex'
@@ -79,7 +81,7 @@ export default {
 	  }
 	},
   components: {
-    UserInfoHeaderT,
+    UserInfoHeader,
     Dialog
   },
   mounted() {

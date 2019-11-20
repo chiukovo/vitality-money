@@ -72,6 +72,39 @@ a {
     }
 }
 
+.header-userInfo {
+	position: absolute;
+	top: 44px;
+	right: 0;
+	bottom: 55px;
+	z-index: 9;
+	width: 220px;
+	height: 100%;
+	background-color: $gray-700;
+	transform: translateX(100%);
+	&.isOpen {
+		transform: translateX(0);
+	}
+	.userInfo-list {
+		list-style-type: none;
+		font-size: 15px;
+		color: $gray-100;
+		padding: 0;
+		li {
+			padding: 6px 16px;
+			+ li {
+				border-top: 1px solid $gray-600;
+			}
+		}
+		.userInfo__button {
+			.el-button {
+				width: 100%;
+			}
+		}
+	}
+}
+
+
 //-------------- main
 .main {
     height: calc(100% - 100px);
