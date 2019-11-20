@@ -6,10 +6,12 @@ Vue.mixin({
   methods: {
   	checkLogin () {
   		let _this = this
-  		_this.LoginLoopCheck()
 
-      //取得一次初始訂單資料 (預設10秒call一次)
-      _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+      setTimeout(function() {
+        //for firfox
+        _this.LoginLoopCheck()
+        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+      }, 1500)
 
   		window.setInterval(function() {
   			_this.LoginLoopCheck()

@@ -10,9 +10,9 @@
     :data='$store.state.mainItem',
     :height='$parent.mainItemTable',
     :cell-class-name='tableCellClassName',
-    @row-click="clickItem",
-    :row-class-name="getTrClass"
+    @current-change="clickItem"
     style="width: 100%"
+    highlight-current-row
     border)
       //- 上升/下降 td .cell add class: '.text-up || .text-down'
       //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
@@ -77,11 +77,6 @@ export default {
   mounted() {
   },
   methods: {
-    getTrClass({ row, rowIndex }) {
-      if (row.product_id == this.$store.state.clickItemId) {
-        return 'current-row'
-      }
-    },
     clickItem(item) {
       this.$store.commit('setClickItemId', {
         id: item.product_id,
