@@ -86,12 +86,12 @@ export default {
     window.addEventListener('resize', this.resizeHeight)
   },
   computed: {
-    mainItem() {
-      return this.$store.state.mainItem
+    items0() {
+      return this.$store.state.items0
     }
   },
   watch: {
-    mainItem() {
+    items0(items0) {
       if (this.first) {
         this.resizeHeight()
 
