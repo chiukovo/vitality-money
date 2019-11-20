@@ -3,8 +3,8 @@
   .header
     .header__title 商品下單
     .header__right
-      el-select(v-model='product' placeholder='臺指早' size='mini')
-        el-option(label='臺指早' value='1')
+      el-select(v-model='selectItemId' size='mini')
+        el-option(v-for="item in allItem" :label='item.name' :value='item.id' :key='item.id')
   .main
     .area
       .area__header
@@ -60,27 +60,27 @@
             th(colspan='2'): .cell.text-right 委買
             th(colspan='2'): .cell.text-center 價格
             th(colspan='2'): .cell.text-left 委賣
-        tbody(v-if="$store.state.itemDetail.items0.length > 0")
-            tr(v-for="(val, key) in $store.state.itemDetail.items0" v-if="key <= 4")
-              td(style='width:20%'): .cell
-                .progress-bar
-                  el-progress(
-                    :text-inside='true'
-                    :stroke-width='14'
-                    :percentage='$store.state.itemDetail.items0[key + 6][0]'
-                    :show-text='false'
-                    status="exception")
-              td: .cell.text-center {{ $store.state.itemDetail.items0[key + 6][1] }}
-              td: .cell.text-center.text-up {{ $store.state.itemDetail.items0[key + 6][2] }}
-              td: .cell.text-center.text-down {{ val[2] }}
-              td: .cell.text-center {{ val[3] }}
-              td(style='width:20%'): .cell
-                .progress-bar
-                  el-progress(
-                    :text-inside='true'
-                    :stroke-width='14'
-                    :percentage='val[4]'
-                    :show-text='false'
+        tbody(v-loading="$store.state.itemDetail.items0.length == 0")
+          tr(v-for="(val, key) in $store.state.itemDetail.items0" v-if="key <= 4")
+            td(style='width:20%'): .cell
+              .progress-bar
+                el-progress(
+                  :text-inside='true'
+                  :stroke-width='14'
+                  :percentage='$store.state.itemDetail.items0[key + 6][0]'
+                  :show-text='false'
+                  status="exception")
+            td: .cell.text-center {{ $store.state.itemDetail.items0[key + 6][1] }}
+            td: .cell.text-center.text-up {{ $store.state.itemDetail.items0[key + 6][2] }}
+            td: .cell.text-center.text-down {{ val[2] }}
+            td: .cell.text-center {{ val[3] }}
+            td(style='width:20%'): .cell
+              .progress-bar
+                el-progress(
+                  :text-inside='true'
+                  :stroke-width='14'
+                  :percentage='val[4]'
+                  :show-text='false'
                     status="success")
       .itemDetailTabTotal
         .row
@@ -106,7 +106,8 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-	  	product: '1',
+	  	allItem: [],
+      selectItemId: '',
       sendText: '',
       nowPrice: 0,
       dialogVisible: false,
@@ -128,6 +129,20 @@ export default {
     'commidyArray',
   ]),
   watch: {
+    selectItemId(id) {
+      let name = ''
+      //找出名稱
+      this.$store.state.mainItem.forEach(function(val) {
+        if (val.product_id == id) {
+          name = val.product_name
+        }
+      })
+
+      this.$store.commit('setClickItemId', {
+        id: id,
+        name: name
+      })
+    },
     commidyArray() {
       this.getNowOverall()
     },
@@ -154,6 +169,7 @@ export default {
   mounted() {
     const customSubmitNums = this.$cookies.get('customSubmitNums')
     const customGroup = this.$cookies.get('customGroup')
+    let _this = this
 
     if (typeof customSubmitNums == 'undefined') {
       this.customSubmitNums = this.defaultAllSubmit
@@ -164,6 +180,17 @@ export default {
     if (typeof customGroup != 'undefined') {
       this.customGroup = customGroup
     }
+
+    //商品列表
+    this.$store.state.mainItem.forEach(function(val) {
+      _this.allItem.push({
+        id: val.product_id,
+        name: val.product_name
+      })
+    })
+
+    //目前選擇商品
+    this.selectItemId = this.$store.state.clickItemId
   },
   methods: {
     getNowOverall() {
