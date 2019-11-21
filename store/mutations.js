@@ -25,61 +25,6 @@ export default {
       })
     }
     state.customItemSetting = data
-
-    //計算mainItem
-    this.commit('computedMainItem', data)
-  },
-  computedMainItem(state, setting) {
-    const _this = this
-    const mainItem = state.mainItem
-
-    let result = []
-
-    mainItem.forEach(function(val) {
-      //確認此筆是否要隱藏
-      let hide = false
-      setting.forEach(function(custom) {
-        if (custom.id == val.product_id && !custom.show) {
-          hide = true
-        }
-      })
-
-      if (hide) {
-        return
-      }
-
-      //顏色 昨收價 < 成交價 紅
-      val.color = ''
-      val.newest_price_change = ''
-      val.bp_price_change = ''
-      val.sp_price_change = ''
-      val.total_qty_change = ''
-      val.highest_price_change = ''
-      val.lowest_price_change = ''
-
-      if (val.newest_price > val.yesterday_close_price) {
-        val.color = 'text-up'
-        _this.borderName = 'border border-up'
-      } else if (val.newest_price < val.yesterday_close_price) {
-        val.color = 'text-down'
-        _this.borderName = 'border border-down'
-      }
-
-      val.gain = val.newest_price - val.yesterday_close_price
-      //(成交價-昨日收盤)/昨日收盤*100%
-      val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
-      val.state_name = val.state == 2 ? '交易中' : '未開盤'
-
-      //寫入store 目前最新成交價錢
-      state.nowNewPrice[val.product_id] = val.newest_price
-
-      result.push(val)
-    })
-
-    //即時報價更新
-    _this.commit('newPriceChange')
-
-    state.mainList = result
   },
   setuserAuth(state, data) {
     //set localStorage
@@ -221,8 +166,9 @@ export default {
   },
   setMainItem(state, data) {
     const commidyArray = state.commidyArray
+
     //計算禁新 強平
-    data = data.map(function (val) {
+    data.forEach(function (val) {
       let newPoint = 0,
         cover = 0
 
@@ -241,10 +187,10 @@ export default {
       val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
       val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
 
-      return val
+      Vue.set(state.mainItem, val.product_id, val)
     })
 
-    state.mainItem = data
+    console.log(state.mainItem)
   },
   setUpdateMainItem(state, data) {
     const _this = this
@@ -256,6 +202,12 @@ export default {
       return parseInt(item, 10)
     })
 
+    let mainItem = state.mainItem[itemId]
+
+    if (typeof mainItem == 'undefined') {
+      return
+    }
+
     //k線圖資料更新判斷
     let kLineData = state.kLineData
     //長條圖更新
@@ -265,91 +217,83 @@ export default {
       _this.commit('doUpdateklLineData', nowItems)
     }
 
-    state.mainItem = state.mainItem.map(function (val) {
-      if (itemId == val.product_id) {
-        //計算
-        let dindex = 0;
-        let prices = []
-        let localTime = (nowItems[0] < 10000000) ? "0" + nowItems[0] / 100 : "" + nowItems[0] / 100
-        let flocalTime = _this._vm.formatTime(localTime)
+    //計算mainItem
+    let dindex = 0;
+    let prices = []
+    let localTime = (nowItems[0] < 10000000) ? "0" + nowItems[0] / 100 : "" + nowItems[0] / 100
+    let flocalTime = _this._vm.formatTime(localTime)
 
-        let nowDate = new Date();
-        let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
+    let nowDate = new Date();
+    let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
 
-        borderName = val.color == 'text-up' ? 'border border-up' : 'border border-down'
+    borderName = mainItem.color == 'text-up' ? 'border border-up' : 'border border-down'
 
-        //最高
-        if (val.highest_price < nowItems[1]) {
-          val.highest_price = nowItems[1]
-          val.highest_price_change = borderName
-        } else {
-          val.highest_price_change = ''
-        }
+    //最高
+    if (mainItem.highest_price < nowItems[1]) {
+      mainItem.highest_price = nowItems[1]
+      mainItem.highest_price_change = borderName
+    } else {
+      mainItem.highest_price_change = ''
+    }
 
-        //最低
-        if (val.lowest_price > nowItems[1]) {
-          val.lowest_price = nowItems[1]
-          val.lowest_price_change = borderName
-        } else {
-          val.lowest_price_change = ''
-        }
+    //最低
+    if (mainItem.lowest_price > nowItems[1]) {
+      mainItem.lowest_price = nowItems[1]
+      mainItem.lowest_price_change = borderName
+    } else {
+      mainItem.lowest_price_change = ''
+    }
 
-        while(dindex < nowItems.length) {
-          if(dindex > 0 && dindex + 3 < nowItems.length) {
-            nowItems[0] += nowItems[dindex]
-            nowItems[1] += nowItems[dindex + 1]
-            nowItems[2] += nowItems[dindex + 2]
-            nowItems[3] += nowItems[dindex + 3]
-          }
-
-          prices.push([nowItems[2], nowItems[1]])
-
-          dindex += 4;
-        }
-
-        //if click 長條圖
-        if (chartData.length > 0 && itemId == clickItemId) {
-          _this.commit('doUpdateChartData', {prices, fullTime})
-        }
-
-        //總量
-        val.total_qty += nowItems[2]
-        val.total_qty_change = nowItems[2] == 0 ? '' : borderName
-        //成交
-        val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
-        val.newest_price = nowItems[1]
-
-        //寫入store 目前最新成交價錢
-        state.nowNewPrice[val.product_id] = val.newest_price
-
-        //漲跌
-        val.gain = val.newest_price - val.yesterday_close_price
-        //(成交價-昨日收盤)/昨日收盤*100%
-        val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
-
-        _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+    while(dindex < nowItems.length) {
+      if(dindex > 0 && dindex + 3 < nowItems.length) {
+        nowItems[0] += nowItems[dindex]
+        nowItems[1] += nowItems[dindex + 1]
+        nowItems[2] += nowItems[dindex + 2]
+        nowItems[3] += nowItems[dindex + 3]
       }
 
-      return val
-    })
+      prices.push([nowItems[2], nowItems[1]])
+
+      dindex += 4;
+    }
+
+    //if click 長條圖
+    if (chartData.length > 0 && itemId == clickItemId) {
+      _this.commit('doUpdateChartData', {prices, fullTime})
+    }
+
+    //總量
+    mainItem.total_qty += nowItems[2]
+    mainItem.total_qty_change = nowItems[2] == 0 ? '' : borderName
+    //成交
+    mainItem.newest_price_change = mainItem.newest_price == nowItems[1] ? '' : borderName
+    mainItem.newest_price = nowItems[1]
+
+    //寫入store 目前最新成交價錢
+    state.nowNewPrice[mainItem.product_id] = mainItem.newest_price
+
+    //漲跌
+    mainItem.gain = mainItem.newest_price - mainItem.yesterday_close_price
+    //(成交價-昨日收盤)/昨日收盤*100%
+    mainItem.gain_percent = ((mainItem.gain / mainItem.yesterday_close_price) * 100).toFixed(2)
+
+    _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+
+    Vue.set(state.mainItem, mainItem.product_id, mainItem)
 
     //即時報價更新
-    _this.commit('newPriceChange')
+    //_this.commit('newPriceChange')
 
     //remove border
     setTimeout(function() {
-      _this.commit('rmMainItemBorder')
+      //_this.commit('rmMainItemBorder', itemId)
     }, 800)
   },
-  rmMainItemBorder(state, data) {
-    state.mainItem = state.mainItem.map(function (val) {
-      val.highest_price_change = ''
-      val.lowest_price_change = ''
-      val.total_qty_change = ''
-      val.newest_price_change = ''
-
-      return val
-    })
+  rmMainItemBorder(state, itemId) {
+    Vue.set(state.mainItem[itemId], highest_price_change, '')
+    Vue.set(state.mainItem[itemId], lowest_price_change, '')
+    Vue.set(state.mainItem[itemId], total_qty_change, '')
+    Vue.set(state.mainItem[itemId], newest_price_change, '')
   },
   newPriceChange(state) {
     const itemId = state.clickItemId
@@ -571,14 +515,9 @@ export default {
     this.commit('setFiveItemChange', formatData)
     //陣列第[3]：第一筆買價
     //陣列第[13]：第一筆賣價
-    state.mainItem = state.mainItem.map(function (val) {
-      if (itemId == val.product_id) {
-        val.bp_price = five[3]
-        val.sp_price = five[13]
-      }
-
-      return val
-    })
+    state.mainItem[itemId].bp_price = five[3]
+    state.mainItem[itemId].sp_price = five[13]
+    Vue.set(state.mainItem, itemId, state.mainItem[itemId])
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
