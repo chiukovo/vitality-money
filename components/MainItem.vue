@@ -5,59 +5,57 @@
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
     )
-    #mainTable(:style="{height: $parent.mainItemTable}")
-      pl-table.mainItemTable.table(
-        :datas='mainItem',
-        :cell-class-name='tableCellClassName',
-        @current-change="clickItem"
-        :row-class-name="getTrClass"
-        style="width: 100%"
-        :pagination-show="false"
-        :row-height="50"
-        border
-        :auto-resize="true"
-      )
-        //- 上升/下降 td .cell add class: '.text-up || .text-down'
-        //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
-        pl-table-column(label='商品', fixed)
-          template(slot-scope='scope') {{ scope.row['product_name'] }}
-        pl-table-column(label='倉位', fixed width="50px")
-          template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
-            <span class="bg-red" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
-            <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
-        pl-table-column(label='K線' width="50px")
-          template(slot-scope='scope')
-            a.btn-Kline(href="#" @click='clickKline(scope.row)') k線
-        pl-table-column(label='走勢' width="50px")
-          template(slot-scope='scope')
-            a.btn-Chart(href="#" @click='clickChart(scope.row)') 走勢
-        pl-table-column(label='成交')
-          template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
-        pl-table-column(label='買進')
-          template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
-        pl-table-column(label='賣出')
-          template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
-        pl-table-column(label='漲跌')
-          template(slot-scope='scope')
-            .table-icon
-              .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-            span {{ scope.row['gain'] }}
-        pl-table-column(label='漲跌幅')
-          template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
-        pl-table-column(label='總量')
-          template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
-        pl-table-column(label='開盤')
-          template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
-        pl-table-column(label='最高')
-          template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
-        pl-table-column(label='最低')
-          template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
-        pl-table-column(label='昨收盤')
-          template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
-        pl-table-column(label='昨結算')
-          template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
-        pl-table-column(label='狀態' fixed="right")
-          template(slot-scope='scope') {{ scope.row['state_name'] }}
+    client-only
+      #mainTable(:style="{height: $parent.mainItemTable}")
+        vxe-table.mainItemTable.table(
+          :data='mainItem',
+          :cell-class-name='tableCellClassName',
+          @current-change="clickItem"
+          max-height="100%"
+          border
+          highlight-current-row
+        )
+          //- 上升/下降 td .cell add class: '.text-up || .text-down'
+          //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
+          vxe-table-column(title='商品', fixed)
+            template(slot-scope='scope') {{ scope.row['product_name'] }}
+          vxe-table-column(title='倉位', fixed width="50px")
+            template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
+              <span class="bg-red" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
+              <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
+          vxe-table-column(title='K線' width="50px")
+            template(slot-scope='scope')
+              a.btn-Kline(href="#" @click='clickKline(scope.row)') k線
+          vxe-table-column(title='走勢' width="50px")
+            template(slot-scope='scope')
+              a.btn-Chart(href="#" @click='clickChart(scope.row)') 走勢
+          vxe-table-column(title='成交')
+            template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+          vxe-table-column(title='買進')
+            template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
+          vxe-table-column(title='賣出')
+            template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
+          vxe-table-column(title='漲跌')
+            template(slot-scope='scope')
+              .table-icon
+                .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              span {{ scope.row['gain'] }}
+          vxe-table-column(title='漲跌幅')
+            template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
+          vxe-table-column(title='總量')
+            template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+          vxe-table-column(title='開盤')
+            template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
+          vxe-table-column(title='最高')
+            template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
+          vxe-table-column(title='最低')
+            template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
+          vxe-table-column(title='昨收盤')
+            template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
+          vxe-table-column(title='昨結算')
+            template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
+          vxe-table-column(title='狀態' fixed="right")
+            template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>
 
 <script>
@@ -79,7 +77,6 @@ export default {
   ]),
   watch: {
     mainItem() {
-
     }
   },
   components: {
@@ -88,15 +85,10 @@ export default {
   mounted() {
   },
   methods: {
-    getTrClass({ row, rowIndex }) {
-      if (row.product_id == this.$store.state.clickItemId) {
-        return 'current-row'
-      }
-    },
-    clickItem(item) {
+    clickItem({ row }) {
       this.$store.commit('setClickItemId', {
-        id: item.product_id,
-        name: item.product_name
+        id: row.product_id,
+        name: row.product_name
       })
     },
     clickKline(item) {
