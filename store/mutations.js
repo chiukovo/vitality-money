@@ -315,6 +315,7 @@ export default {
         //總量
         val.total_qty += nowItems[2]
         val.total_qty_change = nowItems[2] == 0 ? '' : borderName
+
         //成交
         val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
         val.newest_price = nowItems[1]
@@ -335,21 +336,20 @@ export default {
 
     //即時報價更新
     _this.commit('newPriceChange')
-
-    //remove border
-    setTimeout(function() {
-      _this.commit('rmMainItemBorder')
-    }, 800)
   },
   rmMainItemBorder(state, data) {
-    state.mainItem = state.mainItem.map(function (val) {
+    let result = []
+
+    state.mainItem.forEach(function (val) {
       val.highest_price_change = ''
       val.lowest_price_change = ''
       val.total_qty_change = ''
       val.newest_price_change = ''
 
-      return val
+      result.push(val)
     })
+
+    state.mainItem = result
   },
   newPriceChange(state) {
     const itemId = state.clickItemId
