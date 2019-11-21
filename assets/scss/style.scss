@@ -1,5 +1,54 @@
-@import 'vendor/bootstrap';
-
 #__nuxt {
   display: block;
 }
+
+// default
+$white: #fff;
+$gray-100: #f2f2f2;
+$gray-900: #191a1c;
+
+// theme
+$font-size-default: 13px;
+$bg: $white;
+$block-bg: $gray-100;
+
+@import 'vendor/bootstrap';
+@import 'vendor/splitpanes';
+@import 'vendor/vxetable';
+
+// root
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: $font-size-default;
+  background-color: $bg;
+}
+
+// layout
+#header, #footer {
+  height: 50px;
+  background-color: $gray-900;
+}
+#main {
+  height: calc(100% - 100px);
+}
+
+// splitpanes
+// .splitpanes__pane {
+//   background-color: $block-bg;
+// }
+// .splitpanes--vertical {
+//   >.splitpanes__splitter {
+//     width: 10px;
+//     background-color: $bg;
+//   }
+// }
+// .splitpanes--horizontal {
+//   >.splitpanes__splitter {
+//     height: 10px;
+//     background-color: $bg;
+//   }
+// }

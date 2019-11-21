@@ -33,6 +33,7 @@ module.exports = {
     {src: '~plugins/highcharts.js', ssr: false},
     {src: '~plugins/element-ui', ssr: true },
     {src: '~plugins/vue-splitpane', ssr: false },
+    // {src: '~plugins/vue-split', ssr: false },
     '@/static/js/el-dialogdrag'
   ],
   /*
