@@ -78,7 +78,7 @@ export default {
               result = val.substring(2).split(";")
 
               if(result.length > 1) {
-                _this.$store.commit('setUpdateMainItem', result)
+                // _this.$store.commit('setUpdateMainItem', result)
               }
 
               break
@@ -86,7 +86,7 @@ export default {
               result = val.substring(2).split(",")
 
               if(result.length > 1) {
-                _this.$store.commit('setNowFiveMoney', result)
+                // _this.$store.commit('setNowFiveMoney', result)
               }
 
               break
@@ -147,7 +147,7 @@ export default {
               title: '限價成交提示',
               type: 'success',
               dangerouslyUseHTMLString: true,
-              message: 
+              message:
               '<p>序號: ' + sourceFormat.Serial + '</p>' +
               '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
               '<p>商品: ' + sourceFormat.Name + '</p>' +
