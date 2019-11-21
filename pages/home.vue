@@ -42,6 +42,7 @@ import Footer from "~/components/Footer"
 import Sound from "~/components/Sound"
 import { mapState } from 'vuex'
 import '@/assets/sass/style.scss'
+import '@/assets/scss/style.scss'
 
 export default {
 	head() {
@@ -58,8 +59,8 @@ export default {
 			itemDetailStyles: {},
 			ItemDetailTable: 0,
       itemDetailTableFive: 314,
-			mainItemTable: 0,
-			historyTableMaxH: 0,
+			mainItemTable: '200px',
+			historyTableMaxH: '300px',
 			history: 0,
       dragMidStart: false,
       dragLeftStart: false,
@@ -83,7 +84,7 @@ export default {
     Sound,
 	},
   beforeMount() {
-    window.addEventListener('resize', this.resizeHeight)
+    //window.addEventListener('resize', this.resizeHeight)
   },
   computed: {
     items0() {
@@ -93,7 +94,7 @@ export default {
   watch: {
     items0(items0) {
       if (this.first) {
-        this.resizeHeight()
+        //this.resizeHeight()
 
         this.first = false
       }

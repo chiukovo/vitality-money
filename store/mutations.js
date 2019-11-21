@@ -58,11 +58,11 @@ export default {
       val.lowest_price_change = ''
 
       if (val.newest_price > val.yesterday_close_price) {
-        val.color = 'text-up'
-        _this.borderName = 'border border-up'
+        val.color = 'text-success'
+        _this.borderName = 'border border-success'
       } else if (val.newest_price < val.yesterday_close_price) {
-        val.color = 'text-down'
-        _this.borderName = 'border border-down'
+        val.color = 'text-danger'
+        _this.borderName = 'border border-danger'
       }
 
       val.gain = val.newest_price - val.yesterday_close_price
@@ -211,18 +211,25 @@ export default {
     let history = state.historyPrice[id]
     let fiveData = state.nowFiveMoney[id]
     let volumeMoney = state.nowVolumeMoney[id]
-    state.items0 = []
-    state.items1 = []
-    state.items2 = []
 
-    this.commit('setItemChange', history)
-    this.commit('setFiveItemChange', fiveData)
-    this.commit('setVolumeChange', volumeMoney)
+    if (typeof history != 'undefined') {
+      this.commit('setItemChange', history)
+    }
+
+    if (typeof fiveData != 'undefined') {
+      this.commit('setFiveItemChange', fiveData)
+    }
+
+    if (typeof volumeMoney != 'undefined') {
+      this.commit('setVolumeChange', volumeMoney)
+    }
   },
   setMainItem(state, data) {
     const commidyArray = state.commidyArray
+
     //計算禁新 強平
     data = data.map(function (val) {
+      let setData
       let newPoint = 0,
         cover = 0
 
@@ -241,7 +248,44 @@ export default {
       val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
       val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
 
-      return val
+      //只放入有用到的
+      setData = {
+        bp_price: val.bp_price,
+        bp_price_change: val.bp_price_change,
+        close_date_time: val.close_date_time,
+        color: val.color,
+        cover_point1: val.cover_point1,
+        cover_point2: val.cover_point2,
+        end_date: val.end_date,
+        gain: val.gain,
+        gain_percent: val.gain_percent,
+        highest_price: val.highest_price,
+        highest_price: val.highest_price,
+        highest_price_change: val.highest_price_change,
+        highest_price: val.highest_price,
+        lowest_price: val.lowest_price,
+        lowest_price_change: val.lowest_price_change,
+        market: val.market,
+        new_point1: val.new_point1,
+        new_point2: val.new_point2,
+        newest_price: val.newest_price,
+        newest_price_change: val.newest_price_change,
+        open_date_time: val.open_date_time,
+        open_price: val.open_price,
+        open_price: val.open_price,
+        product_id: val.product_id,
+        product_name: val.product_name,
+        sp_price: val.sp_price,
+        sp_price_change: val.sp_price_change,
+        state: val.state,
+        state_name: val.state_name,
+        total_qty: val.total_qty,
+        total_qty_change: val.total_qty_change,
+        yesterday_close_price: val.yesterday_close_price,
+        yesterday_last_price: val.yesterday_last_price,
+      }
+
+      return setData
     })
 
     state.mainItem = data
@@ -276,7 +320,7 @@ export default {
         let nowDate = new Date();
         let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
 
-        borderName = val.color == 'text-up' ? 'border border-up' : 'border border-down'
+        borderName = val.color == 'text-success' ? 'border border-success' : 'border border-danger'
 
         //最高
         if (val.highest_price < nowItems[1]) {
