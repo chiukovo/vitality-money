@@ -11,30 +11,25 @@
   color: #000;
 }
 
-.text-up,
 .text-danger {
-  color: $danger;
+  color: $red !important;
 }
-
-.text-down,
 .text-success {
-  color: $success;
+  color: $green !important;
 }
-
 .text-secondary {
   color: $secondary;
 }
-
 .text-lg {
   font-size: 1.25rem;
 }
 
-.bg-colr-warring {
-  background-color: #fffbd1;
+// border
+.border-danger {
+  border-color: $red !important;
 }
-
-.bg-colr-danger {
-  background-color: #ffdfdf;
+.border-success {
+  border-color: $green !important;
 }
 
 .btn-lg {

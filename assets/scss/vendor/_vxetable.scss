@@ -903,7 +903,8 @@
 .vxe-table.size--mini .vxe-body--column:not(.col--ellipsis),
 .vxe-table.size--mini .vxe-footer--column:not(.col--ellipsis),
 .vxe-table.size--mini .vxe-header--column:not(.col--ellipsis) {
-  padding: 6px 0
+  // padding: 6px 0
+  padding: 0
 }
 
 .vxe-table.size--mini .vxe-table--loading .vxe-table--spinner {

@@ -7,6 +7,9 @@ $white: #fff;
 $gray-100: #f2f2f2;
 $gray-900: #191a1c;
 
+$green: green;
+$red: red;
+
 // theme
 $font-size-default: 13px;
 $bg: $white;
@@ -34,21 +37,79 @@ $block-bg: $gray-100;
 }
 #main {
   height: calc(100% - 100px);
+  padding: 8px;
 }
 
-// splitpanes
-// .splitpanes__pane {
-//   background-color: $block-bg;
-// }
-// .splitpanes--vertical {
-//   >.splitpanes__splitter {
-//     width: 10px;
-//     background-color: $bg;
-//   }
-// }
-// .splitpanes--horizontal {
-//   >.splitpanes__splitter {
-//     height: 10px;
-//     background-color: $bg;
-//   }
-// }
+.userInfo {
+  height: 100%;
+  .userInfo-header {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 8px;
+  }
+  .userInfo-content {
+    height: calc(100% - 30px);
+  }
+}
+
+.mainItem {
+  height: 100%;
+  .mainItem-content {
+    height: 100%;
+  }
+}
+
+
+// vxe table
+.vxe-table table {
+  td {
+    border: 1px solid transparent;
+  }
+}
+
+// component
+// text
+.text-danger {
+  color: $red !important;
+}
+.text-success {
+  color: $green !important;
+}
+.text-secondary {
+  color: $secondary;
+}
+.text-lg {
+  font-size: 1.25rem;
+}
+
+// border
+.border-danger {
+  border-color: $red !important;
+}
+.border-success {
+  border-color: $green !important;
+}
+
+// table arrow up / down
+.change-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  margin-right: 4px;
+  .icon-arrow {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  .icon-arrow-up {
+    top: -1px;
+    border-width: 0 5px 8px 5px;
+    border-color: transparent transparent $danger transparent;
+  }
+  .icon-arrow-down {
+    top: 1px;
+    border-width: 8px 5px 0 5px;
+    border-color: $success transparent transparent transparent;
+  }
+}
