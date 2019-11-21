@@ -4,15 +4,21 @@
     .history-wrap
       .history-header
       .history-content
+        .tab-nav
+          #tab-item1.tabs__item(@click='handleHistoryTabs(1)' :class="{'is-active' : historyTabShow == 1}") 買賣下單( {{ $store.state.buySell.length }} )
+          #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ( {{ $store.state.unCoverBuySum }} , {{ $store.state.unCoverSellSum }} )
+          #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
+          #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
+          #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
+        template(v-if='historyTabShow == 1') 1
+        template(v-if='historyTabShow == 2') 2
         el-tabs(
           v-model='activeName',
           type='card',
-          @tab-click='handleClick'
-        )
+          @tab-click='handleClick')
           el-tab-pane(
             :label="'買賣下單(' + $store.state.buySell.length + ')'"
-            name='tabs1'
-          )
+            name='tabs1')
             .history-tabs-header
               el-button(size='mini' @click="deleteConfirm = true") 刪單
             div(:style="{height: $parent.historyTableMaxH}")
@@ -254,8 +260,7 @@
           el-tab-pane(
             :label="'未平倉(' + $store.state.unCoverBuySum + ',' + $store.state.unCoverSellSum + ')'"
             name='tabs2'
-            :style="{height: $parent.historyTableMaxH}"
-          )
+            :style="{height: $parent.historyTableMaxH}")
             .history-tabs-header
               el-button(size='mini' @click="openMultiOrder") 多單平倉
             pl-table.table(
@@ -315,8 +320,7 @@
           el-tab-pane(
             label='已平倉'
             name='tabs3'
-            :style="{height: $parent.historyTableMaxH}"
-          )
+            :style="{height: $parent.historyTableMaxH}")
             .history-tabs-header
               el-button(size='mini') 全選
               el-button(size='mini') 全不選
@@ -346,8 +350,7 @@
           el-tab-pane(
             label='商品統計'
             name='tabs4'
-            :style="{height: $parent.historyTableMaxH}"
-          )
+            :style="{height: $parent.historyTableMaxH}")
             .history-tabs-header
               .col 預設額度:
                 span.text-lg.text-bold {{ $store.state.userInfo.TouchPoint }}
@@ -392,8 +395,7 @@
           el-tab-pane(
             label='對帳表'
             name='tabs5'
-            :style="{height: $parent.historyTableMaxH}"
-          )
+            :style="{height: $parent.historyTableMaxH}")
             .history-tabs-header
               .row
                 .col-lg-auto
@@ -445,6 +447,7 @@ import qs from 'qs'
 export default {
   data() {
     return {
+      historyTabShow: 1,
       isMobile: '',
       userId: '',
       token: '',
@@ -503,6 +506,9 @@ export default {
     this.isMobile = this.$store.state.isMobile
   },
   methods: {
+    handleHistoryTabs(e) {
+			this.historyTabShow = e
+		},
     async query() {
       let _this = this
 
