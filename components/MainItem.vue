@@ -7,7 +7,7 @@
     )
     #mainTable(:style="{height: $parent.mainItemTable}")
       pl-table.mainItemTable.table(
-        :datas='$store.state.mainItem',
+        :datas='mainItem',
         :cell-class-name='tableCellClassName',
         @current-change="clickItem"
         :row-class-name="getTrClass"
@@ -74,6 +74,14 @@ export default {
       },
 	  }
 	},
+  computed: mapState([
+    'mainItem'
+  ]),
+  watch: {
+    mainItem() {
+
+    }
+  },
   components: {
     Dialog,
   },
