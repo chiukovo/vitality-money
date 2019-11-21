@@ -29,11 +29,10 @@
     "pl-table": "^2.4.9",
     "qs": "^6.9.0",
     "reset-css": "^5.0.1",
-    "splitpanes": "^2.0.0",
     "trading-vue-js": "^0.3.12",
     "vue-currency-filter": "^3.4.3",
     "vue-native-websocket": "^2.0.13",
-    "vue-split-panel": "^1.0.4",
+    "vue-nav-tabs": "^0.5.7",
     "vxe-table": "^2.6.22",
     "xe-utils": "^2.2.12"
   },
@@ -49,7 +48,6 @@
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^8.0.0",
-    "vue-multipane": "^0.9.5",
-    "vue-splitpane": "^1.0.4"
+    "splitpanes": "^2.0.0"
   }
 }
