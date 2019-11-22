@@ -3,8 +3,8 @@
   .header
     .header__title 商品下單
     .header__right
-      el-select(v-model='selectItemId' size='mini')
-        el-option(v-for="item in allItem" :label='item.name' :value='item.id' :key='item.id')
+      select(v-model='selectItemId' size='mini')
+        option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
   .main
     .area
       .area__header
@@ -21,15 +21,21 @@
             th: .cell.text-center 倉位
             th: .cell.text-center 成交
             th: .cell.text-center 漲跌
+            th: .cell.text-center 狀態
         tbody
           tr
-            td: .cell.text-center.text-down 臺指早
-            td: .cell.text-center 0
-            td: .cell.text-center.text-down 11573
+            td: .cell.text-center.text-down {{ nowMainItem.product_name }}
+            td: .cell.text-center
+              template(v-if="typeof $store.state.uncoveredCountDetail[nowMainItem.product_id] != 'undefined'")
+                <span class="bg-red" v-if="$store.state.uncoveredCountDetail[nowMainItem.product_id] > 0">{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
+                <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
+            td: .cell.text-center.text-down {{ nowMainItem.newest_price }}
             td: .cell.text-center.text-down
-              .table-icon
-                .icon-arrow(class='icon-arrow-down')
-                |23
+              template
+                .table-icon
+                  .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+                span {{ nowMainItem.gain }}
+            td: .cell.text-center {{ nowMainItem.state_name }}
           tr
             td.limit.limit__1(colspan='4'): .cell.text-center 口數：
               el-input-number(v-model='submitNum' :min="0")
@@ -60,18 +66,18 @@
             th(colspan='2'): .cell.text-right 委買
             th(colspan='2'): .cell.text-center 價格
             th(colspan='2'): .cell.text-left 委賣
-        tbody(v-loading="$store.state.itemDetail.items0.length == 0")
-          tr(v-for="(val, key) in $store.state.itemDetail.items0" v-if="key <= 4")
+        tbody(v-loading="$store.state.items0.length == 0")
+          tr(v-for="(val, key) in $store.state.items0" v-if="key <= 4")
             td(style='width:20%'): .cell
               .progress-bar
                 el-progress(
                   :text-inside='true'
                   :stroke-width='14'
-                  :percentage='$store.state.itemDetail.items0[key + 6][0]'
+                  :percentage='$store.state.items0[key + 6][0]'
                   :show-text='false'
                   status="exception")
-            td: .cell.text-center {{ $store.state.itemDetail.items0[key + 6][1] }}
-            td: .cell.text-center.text-up {{ $store.state.itemDetail.items0[key + 6][2] }}
+            td: .cell.text-center {{ $store.state.items0[key + 6][1] }}
+            td: .cell.text-center.text-up {{ $store.state.items0[key + 6][2] }}
             td: .cell.text-center.text-down {{ val[2] }}
             td: .cell.text-center {{ val[3] }}
             td(style='width:20%'): .cell
@@ -82,11 +88,11 @@
                   :percentage='val[4]'
                   :show-text='false'
                     status="success")
-      .itemDetailTabTotal
+      .tabTotal
         .row
-          .col.text-up {{ $store.state.itemDetail.fiveTotal.more }}
+          .col.text-up {{ $store.state.fiveTotal.more }}
           .col 總計
-          .col.text-down {{ $store.state.itemDetail.fiveTotal.nullNum }}
+          .col.text-down {{ $store.state.fiveTotal.nullNum }}
         .row
           .col.text-up 多勢
           .col.progress-bar
@@ -94,7 +100,7 @@
               :text-inside='true'
               :stroke-width='10'
               :show-text='false'
-              :percentage='$store.state.itemDetail.fiveTotal.morePercent'
+              :percentage='$store.state.fiveTotal.morePercent'
               status='exception')
           .col.text-down 空勢
 </template>
@@ -106,7 +112,6 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-	  	allItem: [],
       selectItemId: '',
       sendText: '',
       nowPrice: 0,
@@ -126,6 +131,8 @@ export default {
   },
   computed: mapState([
     'clickItemId',
+    'nowMainItem',
+    'mainItem',
     'commidyArray',
   ]),
   watch: {
@@ -180,14 +187,6 @@ export default {
     if (typeof customGroup != 'undefined') {
       this.customGroup = customGroup
     }
-
-    //商品列表
-    this.$store.state.mainItem.forEach(function(val) {
-      _this.allItem.push({
-        id: val.product_id,
-        name: val.product_name
-      })
-    })
 
     //目前選擇商品
     this.selectItemId = this.$store.state.clickItemId
