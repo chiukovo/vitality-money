@@ -3,17 +3,31 @@
   .operating-header
     .header__title {{ $store.state.itemName }}
     .header__mode
-      el-radio(v-model='radioA' label='0') 一般
+      label.radio
+        input.radio__input(type="radio" checked)
+        span.radio__label 一般
   .operating-content
     .operating-1
       table
         tbody
           tr
             td
-            td: el-radio(v-model='buyType' label='0') 市價單
+            td
+              label.checkbox
+                input.checkbox__input(type="checkbox")
+                span.checkbox__label 市價單
+              //- el-radio(v-model='buyType' label='0') 市價單
           tr
-            td: el-radio(v-model='buyType' label='2') 收盤單
-            td: el-radio(v-model='buyType' label='1') 限價單
+            td
+              label.checkbox
+                input.checkbox__input(type="checkbox")
+                span.checkbox__label 收盤單
+                //- el-radio(v-model='buyType' label='2') 收盤單
+            td
+              label.checkbox
+                input.checkbox__input(type="checkbox")
+                span.checkbox__label 限價單
+                //- el-radio(v-model='buyType' label='1') 限價單
     .operating-2
       el-form(ref='form' size='mini' label-width='50px')
         el-form-item(label='限價:' v-if="buyType == 1")
@@ -25,16 +39,14 @@
     .operating-3
       .numberbtn
         el-form(ref='form' size='mini' label-width='50px')
-          el-button-group
-            el-button(type='primary' size='mini' v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
+          button.button__primary(size='mini' v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
-          el-form-item(label='口數:' style='margin: 2px 0 2px 0;')
+          el-form-item(label='口數:' style='margin: 2px 0;')
             el-input-number(v-model='submitNum' controls-position='right' :min="0")
       .editbtn
-        el-button-group
-          el-button(type='primary' size='mini' @click="dialogVisible = true") 編輯
-          el-button(type='primary' size='mini' @click="resetNum") 還原
+        button.button__primary(size='mini' @click="dialogVisible = true") 編輯
+        button.button__primary(size='mini' @click="resetNum") 還原
         el-dialog(
           :visible.sync='dialogVisible'
           :modal='false'
@@ -47,12 +59,12 @@
                   .numberBtn-box(v-for="(customSubmitNum, key) in customSubmitNums" :key="key")
                     el-input-number(size="mini" controls-position='right' v-model="customSubmitNums[key]" :min="0")
               .dialog__footer
-                el-button(@click="dialogVisible = false") 取消
-                el-button(type='primary' @click="setNum") 送出
+                button(@click="dialogVisible = false") 取消
+                button.button__primary(@click="setNum") 送出
     .operating-4
-        el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
-        el-button(size='mini' @click="checkOrderAll()") 全平
-        el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
+        button.button__danger(@click="checkOrder(0)") 下多單
+        button(@click="checkOrderAll()") 全平
+        button.button__success(@click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'
@@ -66,22 +78,30 @@
             :data="confirmData"
             min-width='100%'
             height="200px"
-            border
-          )
+            border)
             el-table-column(prop="name" label='目標商品')
             el-table-column(prop="userName" label='用戶名稱')
             el-table-column(prop="buy" label='買賣')
             el-table-column(prop="price" label='價格')
             el-table-column(prop="submit" label='口數')
           .dialog__footer
-              el-button(@click="cancel") 取消
-              el-button(type='primary' @click="doOrder") 確認
+              button(@click="cancel") 取消
+              button.button__primary(@click="doOrder") 確認
 
     .operating-5
-      el-checkbox-group(v-model="customGroup")
-        el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
-        el-checkbox(label='noConfirm') 下單不確認
-        el-checkbox(label='prompt') 限價成交提示
+      label.checkbox
+        input.checkbox__input(type="checkbox")
+        span.checkbox__label ({{ $store.state.itemName }})全盤收平
+      label.checkbox
+        input.checkbox__input(type="checkbox")
+        span.checkbox__label 下單不確認
+      label.checkbox
+        input.checkbox__input(type="checkbox")
+        span.checkbox__label 限價成交提示
+      //- el-checkbox-group(v-model="customGroup")
+      //-   el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
+      //-   el-checkbox(label='noConfirm') 下單不確認
+      //-   el-checkbox(label='prompt') 限價成交提示
 </template>
 
 <script>

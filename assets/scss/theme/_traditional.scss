@@ -1,0 +1,562 @@
+//- 元氣 theme
+
+$header-bg-color: #fff;
+
+
+
+body {
+  min-width: 1366px;
+  background-color: #dcebf9;
+}
+
+//-------------- main
+#main {
+  height: calc(100% - 88px);
+}
+
+//-------------- header
+.header {
+  background: url('~static/images/theme_traditional/header_bg.png') $header-bg-color;
+
+  .navbar {
+    border-bottom: 1px solid #a8a8a8;
+    padding-top: 2px;
+  }
+
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        width: 55px;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        color: #fff;
+      }
+
+      &:hover {
+        .nav-link {
+          color: #fff;
+        }
+      }
+    }
+
+    .nav-item-text {
+      font-size: 14px;
+      color: #004489;
+      padding-left: 20px;
+    }
+  }
+
+  .navbar-nav-left {
+    .nav-item {
+      background: url('~static/images/theme_traditional/header_left_btn01.png');
+
+      &:hover {
+        background: url('~static/images/theme_traditional/header_left_btn01_hover.png');
+      }
+
+      &:nth-child(4) {
+        background: url('~static/images/theme_traditional/header_left_btn04.png');
+
+        &:hover {
+          background: url('~static/images/theme_traditional/header_left_btn04_hover.png');
+        }
+      }
+
+      &:nth-child(5) {
+        height: 31px;
+        background: url('~static/images/theme_traditional/header_left_bg02.png') left top no-repeat;
+
+        .navbar-txt {
+          line-height: 31px;
+        }
+      }
+    }
+  }
+
+  .navbar-nav-right {
+    position: relative;
+
+    .nav-item {
+      width: 39px;
+      overflow: hidden;
+
+      >.nav-link {
+        font-size: 0;
+      }
+
+      &:first-child {
+        background: url('~static/images/theme_traditional/header_right_btn01.png');
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -27px;
+          width: 27px;
+          height: 31px;
+          background: url('~static/images/theme_traditional/header_right_bg01.png') right top no-repeat;
+        }
+      }
+
+      &:nth-child(2) {
+        background: url('~static/images/theme_traditional/header_right_btn02.png');
+      }
+
+      &:nth-child(3) {
+        background: url('~static/images/theme_traditional/header_right_btn03.png');
+      }
+    }
+  }
+}
+
+// footer
+.footer {
+  border: 1px solid #104a84;
+  background: #295f95;
+  background: linear-gradient(to bottom, #5283b6 0%, #295f95 100%);
+}
+
+//-------------- userInfo
+.userInfo {
+  .userInfo-header {
+    font-size: 16px;
+    color: #fff;
+    background: url('~static/images/theme_traditional/table_th_bg_big.png') #4278af;
+    border-radius: 3px;
+    margin: 1px;
+  }
+
+  .userInfo-content {
+    .el-table {
+      font-size: 15px;
+      font-weight: bold;
+      color: #000
+    }
+  }
+}
+
+.itemDetail {
+  .itemDetail-header {
+    .header__title {
+      font-size: 14px;
+      color: #004489;
+    }
+  }
+
+  .itemDetail-content {
+    background-color: #f1f1f1;
+  }
+}
+
+//-------------- mainItem
+.mainItemTable {
+  tr td:nth-child(n+5) {
+    font-weight: bold;
+  }
+}
+
+//-------------- history
+.history {
+  background-color: #f1f1f1;
+  .tabs-nav {
+		padding: 3px 10px 0;
+		border-bottom: 1px solid #6285ab;
+    @for $i from 1 through 7 {
+      #tab-item#{$i} {
+        z-index: 10 - $i;
+      }
+    }
+    .tabs__item {
+      position: relative;
+      text-align: center;
+      min-width: 60px;
+      height: 24px;
+      line-height: 24px;
+			color: #000;
+			font-weight: bold;
+      background: url('~static/images/theme_traditional/tabs_bg_x.png') center top repeat-x;
+			margin: 0 12px;
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: -22px;
+				display: inline-block;
+				width: 22px;
+				height: 24px;
+				background: url('~static/images/theme_traditional/tabs_bg_left.png') center top repeat-x;
+			}
+			&:after {
+				left: auto;
+				right: -22px;
+				background-image: url('~static/images/theme_traditional/tabs_bg_right.png');
+			}
+			&.is-active {
+					z-index: 99 !important;
+					background: url('~static/images/theme_traditional/tabs_bg_x_active.png') center top repeat-x;
+					&:before {
+						background-image: url('~static/images/theme_traditional/tabs_bg_left_active.png');
+					}
+					&:after {
+						background-image: url('~static/images/theme_traditional/tabs_bg_right_active.png');
+					}
+			}
+    }
+  }
+}
+
+//-------------- operating
+.operating {
+  .operating-header {
+    border-color: $border-color;
+    background-color: #cbe2f8;
+  }
+
+  .operating-content {
+    background-color: #fecccb;
+  }
+}
+
+//-------------- element
+.el-table th {
+  color: #fff;
+  background: url('~static/images/theme_traditional/table_th_bg.png') #4278af;
+}
+
+.el-table__body-wrapper,
+.el-table tr {
+  background-color: #f1f1f1;
+}
+
+.el-table__body tr.current-row>td {
+  background-color: #ffdbdb !important;
+}
+
+.el-table .cell {
+  line-height: 25px;
+  height: 25px;
+}
+
+.el-table--border th,
+.el-table--border td,
+.el-table th.is-leaf,
+.el-table td {
+  border-color: #b7babc;
+}
+
+.cell {
+  .bg-red {
+    background: linear-gradient(180deg, #f3b9bb, #f76065);
+  }
+
+  .bg-green {
+    background: linear-gradient(180deg, #b4f5b8, #4de353);
+  }
+}
+
+@mixin button($font, $border, $bg1, $bg2) {
+  color: $font;
+  border-color: $border;
+  background: linear-gradient(to bottom, $bg1 0%, $bg2 100%);
+
+  &:hover,
+  &:focus {
+    color: $font;
+    border-color: darken($border, 2%);
+    background: linear-gradient(to bottom, darken($bg1, 2%) 0%, darken($bg2, 4%) 100%);
+  }
+}
+
+.el-button--default {
+  @include button(#606266, #DCDFE6, #fff, #fff);
+}
+
+.el-button--primary {
+  @include button(#204650, #5897bf, #fff, #c5daef);
+
+  &.is-disabled,
+  &.is-disabled:hover {
+    color: #fff;
+    background: #e1e1e0;
+    border-color: #d6d6d6;
+  }
+}
+
+.el-button--danger {
+  @include button(#770000, #e04c50, #f3b9bb, #f76065);
+
+  &.is-disabled,
+  &.is-disabled:hover {
+    color: #fff;
+    background: #e1e1e0;
+    border-color: #d6d6d6;
+  }
+}
+
+.el-button--success {
+  @include button(#0e680c, #4bdc50, #b4f5b8, #4de353);
+
+  &.is-disabled,
+  &.is-disabled:hover {
+    color: #fff;
+    background: #e1e1e0;
+    border-color: #d6d6d6;
+  }
+}
+
+
+.el-input__inner {
+  border-color: #5897bf;
+  background: #f1f1f1;
+}
+
+.el-progress-bar__outer {
+  background-color: #f1f1f1;
+}
+
+.btn-Kline,
+.btn-Chart {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  vertical-align: top;
+  width: 18px;
+  height: 18px;
+  font-size: 0;
+  color: transparent;
+}
+
+.btn-Kline {
+  background: url('~static/images/theme_traditional/btn_kline.png');
+}
+
+.btn-Chart {
+  background: url('~static/images/theme_traditional/btn_chart.png');
+}
+
+
+
+.el-dialog__wrapper {
+  .el-table {
+    min-height: 360px;
+    background: #f1f1f1;
+  }
+}
+
+.el-dialog__header {
+  color: #fff;
+  border: 1px solid #104a84;
+  background: #295f95;
+  background: linear-gradient(to bottom, #5283b6 0%, #295f95 100%);
+
+  .el-dialog__close {
+    color: #fff;
+  }
+
+  .header-custom i {
+    color: #fff;
+  }
+}
+
+.el-dialog__body {
+  border: 1px solid #104a84;
+}
+
+.el-pagination {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: #578bc1;
+}
+
+
+//-------------- login
+.login {
+  body {
+    min-width: auto;
+    background: #131419 url('~static/images/theme_traditional/login_bg.png') center top no-repeat;
+    margin: 0 auto;
+  }
+
+  .login-wrap {
+    position: relative;
+    width: 300px;
+    margin: auto;
+
+    .login-nav {
+      position: absolute;
+      top: 15px;
+      left: -60px;
+      width: 460px;
+      line-height: 3;
+
+      a {
+        display: inline-block;
+        width: 80px;
+        text-align: center;
+        color: transparent;
+
+        +a {
+          margin-left: 46px;
+        }
+      }
+    }
+
+    .login-box {
+      position: absolute;
+      top: 178px;
+      right: -250px;
+      width: 266px;
+    }
+
+    .login__header {
+      display: none;
+    }
+
+    .el-form-item__label {
+      display: none;
+    }
+
+    .el-form-item__content {
+      margin-left: 0 !important;
+    }
+
+    .el-input__inner {
+      color: #fff;
+      height: 31px;
+      line-height: 31px;
+      background: transparent;
+      border-color: transparent;
+
+      &:focus {
+        border-color: #002148;
+      }
+    }
+
+    .el-select:hover .el-input__inner,
+    .el-select .el-input.is-focus .el-input__inner {
+      border-color: #002148;
+    }
+
+    .el-form-item {
+      margin-bottom: 13px;
+
+      .el-select__caret {
+        display: none;
+      }
+    }
+
+    .el-form {
+      .el-form-item {
+        &:nth-child(2) {
+          margin-bottom: 18px;
+        }
+
+        &:nth-child(3) {
+          margin-bottom: 0;
+        }
+
+        &:nth-child(4) {
+          .el-checkbox__label {
+            color: #fff;
+          }
+
+          .el-form-item__content {
+            line-height: 1;
+            padding-left: 5px;
+          }
+        }
+
+        &:nth-child(5) {
+          position: absolute;
+          right: 0;
+          bottom: -8px;
+
+          .el-button {
+            color: transparent;
+            background: transparent url('~static/images/theme_traditional/login_button.png');
+            border: 0;
+            width: 100px;
+            height: 31px;
+          }
+        }
+      }
+    }
+  }
+}
+
+//-- rules
+
+.rules {
+  background-color: #000;
+
+  body {
+    background-color: #000;
+  }
+
+  .rules-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .rules-header {
+    width: 100%;
+    height: 419px;
+    background: url('~static/images/theme_traditional/rules_banner.png') center no-repeat;
+  }
+
+  .rules-body {
+    background: #15161b;
+    margin-bottom: 20px;
+  }
+
+  .rules-item {
+    position: relative;
+    padding-top: 10px;
+    margin-top: 20px;
+
+    .rules-item__title {
+      position: absolute;
+      top: 2px;
+      left: 40px;
+      width: 185px;
+      height: 44px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 40px;
+      letter-spacing: 1px;
+      color: #fff;
+      background: url('~static/images/theme_traditional/rules_title.png') center no-repeat;
+    }
+
+    .rules-item__content {
+      max-width: 950px;
+      line-height: 1.8;
+      background: #efefef;
+      border: 1px solid #555658;
+      border-radius: 16px;
+      padding: 46px 20px 20px;
+      margin: 0 auto;
+    }
+
+    ul {
+      list-style: decimal;
+      font-size: 15px;
+      padding-left: 10px;
+      margin: 10px;
+    }
+  }
+}
+
+
+//-------------- scrollbar
+// scrollbar background
+body::-webkit-scrollbar-track {
+  border-radius: 0;
+  background: #104a84;
+}
