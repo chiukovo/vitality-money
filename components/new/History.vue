@@ -496,7 +496,6 @@ export default {
   },
   methods: {
     handleHistoryTabs(e) {
-      console.log(e)
 			this.historyTabShow = e
 		},
     async query() {

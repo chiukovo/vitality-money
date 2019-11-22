@@ -383,6 +383,11 @@ export default {
         _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
       }
 
+      //now mainItem
+      if (clickItemId == val.product_id) {
+        _this.commit('setNowMainItem', val)
+      }
+
       return val
     })
 

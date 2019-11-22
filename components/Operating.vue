@@ -130,6 +130,9 @@ export default {
           overall = 1
         }
       })
+
+      this.$store.dispatch('CALL_SET_CLOSE_OVER_ALL', { overall })
+      this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
     }
   },
   mounted() {
