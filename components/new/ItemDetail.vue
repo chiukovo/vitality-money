@@ -61,8 +61,9 @@
         .header__title
           |報價明細[{{ $store.state.itemName }}]
           button(@click="openModal('historyPrices', '歷史報價查詢')") 查詢
-          input(type="checkbox" id="quoteCheckbox" checked)
-          label(for="quoteCheckbox") 置底
+          label.checkbox
+            input.checkbox__input(type="checkbox" checked)
+            span.checkbox__label 置底
       .itemDetail__content
   .itemDetail-tabs.tabs-nav
     .tabs__item(@click='handleItemDetailTabs(1)' :class="{'is-active' : itemDetailTabShow == 1}") 五檔揭示

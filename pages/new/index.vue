@@ -14,7 +14,7 @@
               pane(size="42")
                 MainItem
               pane(size="42")
-                span history
+                History
               pane(size="16")
                 span order
       #footer
@@ -28,6 +28,8 @@ import websocketService from '~/plugins/service/websocketService.js'
 import UserInfo from '~/components/new/UserInfo'
 import ItemDetail from '~/components/new/ItemDetail'
 import MainItem from '~/components/new/MainItem'
+import History from '~/components/new/History'
+
 import '@/assets/scss/style.scss'
 
 export default {
@@ -36,32 +38,10 @@ export default {
     Pane,
     UserInfo,
     ItemDetail,
-    MainItem
+    MainItem,
+    History
   },
   mixins: [websocketService],
-  data () {
-    return {
-      tableData: [{
-        th1: 'th1',
-        th2: 'th2'
-      },{
-        th1: 'th1',
-        th2: 'th2'
-      },{
-        th1: 'th1',
-        th2: 'th2'
-      },{
-        th1: 'th1',
-        th2: 'th2'
-      },{
-        th1: 'th1',
-        th2: 'th2'
-      },{
-        th1: 'th1',
-        th2: 'th2'
-      }]
-    }
-  },
   mounted() {
     let _this = this
     this.checkLogin()

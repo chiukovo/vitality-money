@@ -42,7 +42,7 @@
 }
 
 .splitpanes.default-theme .splitpanes__pane {
-  background-color: $block-bg
+  background-color: var(--block-bg-color)
 }
 
 .splitpanes.default-theme .splitpanes__splitter {
