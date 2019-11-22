@@ -200,8 +200,7 @@
       .dialog__footer
         el-button(@click="deleteConfirm = false") 取消
         el-button(type='primary' @click="doDelete") 確認
-
-    template(v-if='historyTabShow == 1')
+    div(v-show='historyTabShow == 1' class="h-100")
       .history__content-header
         button(@click="deleteConfirm = true") 刪單
       .history__content-body
@@ -245,7 +244,7 @@
               template(slot-scope='scope')
                 span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
                 span(v-else) {{ scope.row.State }}
-    template(v-if='historyTabShow == 2')
+    div(v-show='historyTabShow == 2' class="h-100")
       .history__content-header
         button(@click="openMultiOrder") 多單平倉
       .history__content-body
@@ -304,7 +303,7 @@
                 span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
             vxe-table-column(field='Day', title='天數')
             vxe-table-column(field='State', title='狀態' width="150px" fixed="right")
-    template(v-if="historyTabShow == 3")
+    div(v-show="historyTabShow == 3" class="h-100")
       .history__content-header
         button 全選
         button 全不選
@@ -334,7 +333,7 @@
             vxe-table-column(field="CoverType" title='種類')
             vxe-table-column(field="Fee" title='手續費')
             vxe-table-column(field="WinMoney" title='損益')
-    template(v-if="historyTabShow == 4")
+    div(v-show="historyTabShow == 4" class="h-100")
       .history__content-header
         .row
           .col 預設額度:
@@ -382,7 +381,7 @@
               template(slot-scope='scope')
                 span.text-success(v-if="scope.row.RemainingWithholding >= 0") {{ scope.row.RemainingWithholding}}
                 span.text-danger(v-else) {{ scope.row.RemainingWithholding}}
-    template(v-if="historyTabShow == 5")
+    div(v-show="historyTabShow == 5" class="h-100")
       .history__content-header
         .row
           .col
@@ -497,6 +496,7 @@ export default {
   },
   methods: {
     handleHistoryTabs(e) {
+      console.log(e)
 			this.historyTabShow = e
 		},
     async query() {

@@ -59,10 +59,8 @@ export default {
 
       if (val.newest_price > val.yesterday_close_price) {
         val.color = 'text-success'
-        _this.borderName = 'border border-success'
       } else if (val.newest_price < val.yesterday_close_price) {
         val.color = 'text-danger'
-        _this.borderName = 'border border-danger'
       }
 
       val.gain = val.newest_price - val.yesterday_close_price
@@ -325,7 +323,7 @@ export default {
         //最高
         if (val.highest_price < nowItems[1]) {
           val.highest_price = nowItems[1]
-          val.highest_price_change = borderName
+          val.highest_price_change = val.highest_price_change == '' ? borderName : ''
         } else {
           val.highest_price_change = ''
         }
@@ -333,7 +331,7 @@ export default {
         //最低
         if (val.lowest_price > nowItems[1]) {
           val.lowest_price = nowItems[1]
-          val.lowest_price_change = borderName
+          val.lowest_price_change = val.lowest_price_change == '' ? borderName : ''
         } else {
           val.lowest_price_change = ''
         }
@@ -358,10 +356,20 @@ export default {
 
         //總量
         val.total_qty += nowItems[2]
-        val.total_qty_change = nowItems[2] == 0 ? '' : borderName
 
+        if (val.total_qty_change == '') {
+          val.total_qty_change = nowItems[2] == 0 ? '' : borderName
+        } else {
+          val.total_qty_change = ''
+        }
+        
         //成交
-        val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
+        if (val.newest_price_change == '') {
+          val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
+        } else {
+          val.newest_price_change = ''
+        }
+
         val.newest_price = nowItems[1]
 
         //寫入store 目前最新成交價錢

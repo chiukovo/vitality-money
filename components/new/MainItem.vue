@@ -77,10 +77,6 @@ export default {
   computed: mapState([
     'mainItem'
   ]),
-  watch: {
-    mainItem() {
-    }
-  },
   components: {
     Dialog,
   },
@@ -127,6 +123,14 @@ export default {
 
       if(columnIndex == 6) {
         return row.color + ' ' + row.sp_price_change
+      }
+
+      if(columnIndex == 7) {
+        if (row.gain >= 0) {
+          return 'text-danger'
+        } else {
+          return 'text-success'
+        }
       }
 
       if(columnIndex == 9) {
