@@ -12,13 +12,13 @@
       el-form-item(label="確認密碼")
         el-input(type="password" v-model="form.checkPassword")
       el-form-item
-        el-button(@click="cancel") 取消
-        el-button(type='primary' @click="submit") 確認
+        button.button__light(@click="cancel") 取消
+        button.button(@click="submit") 確認
     ul.rules-list
       li 密碼規則:
-      li 1.必須6位長度;
-      li 2.需要數字和非數字組合;
-      li 3.不能有４位或以上連續數字或字母(比如1111,aaaa,1234,abcd)
+      li 1. 必須6位長度;
+      li 2. 需要數字和非數字組合;
+      li 3. 不能有４位或以上連續數字或字母(比如1111,aaaa,1234,abcd)
 </template>
 <script>
 

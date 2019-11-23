@@ -1,5 +1,5 @@
 // @import "~element-theme-chalk/src/base.scss";
-// @import "~element-theme-chalk/src/dialog.scss";
+@import "~element-theme-chalk/src/dialog.scss";
 // @import "~element-theme-chalk/src/input.scss";
 // @import "~element-theme-chalk/src/switch.scss";
 @import "~element-theme-chalk/src/input-number.scss";
@@ -31,16 +31,61 @@
 // @import "~element-theme-chalk/src/link.scss";
 
 
+
+// form
+.el-form {
+  position: relative;
+  .el-form-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .el-form-item__label {
+    position: absolute;
+  }
+  button {
+    padding: 7px 8px;
+    + button {
+      margin-left: 6px;
+    }
+  }
+}
 .el-form.el-form--inline {
   display: flex;
+  align-items: flex-end;
+  font-size: 12px;
+  .el-form-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    + .el-form-item {
+      margin-left: 10px;
+    }
+    + button {
+      margin-left: 4px;
+    }
+    .el-form-item__label {
+      position: sticky;
+      margin-bottom: 0;
+    }
+    .el-form-item__content {
+      margin-left: 0 !important;
+    }
+  }
+}
+label {
+  margin-bottom: 0;
+}
+.el-input-number.is-controls-right .el-input__inner {
+  padding-left: 8px;
+  padding-right: 36px;
 }
 
-.el-form-item {
-  display: flex;
-  .label.el-form-item__label {
-    margin-bottom: 0;
-  }
-  .el-form-item__content {
-    margin-left: 0 !important;
-  }
+
+// dialog
+.el-dialog {
+  margin: 0 auto;
+  margin-top: 5vh !important;
 }
+
+

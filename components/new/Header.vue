@@ -39,19 +39,20 @@
         .navbar-txt 商品: {{ $store.state.itemName }}
         .navbar-txt 最後交易日: {{ targetItem.end_date }}
         .navbar-txt 禁新:
-          span.text-success {{ targetItem.new_point1 }}
+          span.text-success  {{ targetItem.new_point1 }}
           |,
-          span.text-danger {{ targetItem.new_point2 }}
+          span.text-danger  {{ targetItem.new_point2 }}
         .navbar-txt 強平:
-          span.text-success {{ targetItem.cover_point1 }}
+          span.text-success  {{ targetItem.cover_point1 }}
           |,
-          span.text-danger {{ targetItem.cover_point2 }}
+          span.text-danger  {{ targetItem.cover_point2 }}
     ul.navbar-nav.navbar-nav-right
       li.nav-item
         a.nav-link(href="#") 換膚
         //- .dropdown-menu
           a.dropdown-item(href="#") 傳統
           a.dropdown-item(href="#") 官方
+      //- 音效關閉時, 添加 class .isShutdown
       li.nav-item
         a.nav-link(href="#") 提示聲
       li.nav-item

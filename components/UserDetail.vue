@@ -1,23 +1,33 @@
 <template lang='pug'>
-  .userInfor__content
-    el-table.table(
-      :data='items'
-      style='width: 100%'
-      border)
-      el-table-column(fixed, prop="Name", label='商品名稱')
-      el-table-column(prop="PointMoney" label='每點價格')
-      el-table-column(prop="Fee" label='手續費(進/出)')
-      el-table-column(prop="SubmitMax" label='單商品每筆上限')
-      el-table-column(prop="RemaingLimit" label='單商品留倉上限')
-      el-table-column(prop="RemaingDayLimit" label='單商品留倉天數')
-      el-table-column(prop="OpenMaxPoint" label='開盤最大漲跌')
-      el-table-column(prop="SubmitMaxPoint" label='每口最大漲跌')
-      el-table-column(prop="StopPoint" label='停損利')
-      el-table-column(label='可下單時間' width="200")
-        template(slot-scope="scope") <span v-html="scope.row.TradeTime"></span>
-      el-table-column(prop="State" label='狀態')
-      el-table-column(prop="NotNewPercent" label='禁新')
-      el-table-column(prop="CoverPercent" label='強平')
+.dialog
+  .dialog__content
+    client-only
+      vxe-table(
+        :data='items'
+        max-width="100%"
+        height="500px"
+        column-min-width="74"
+        size="mini"
+        align="center"
+        border
+        auto-resize
+        highlight-current-row
+        highlight-hover-row)
+        vxe-table-column(fixed="left" prop="Name" title='商品名稱')
+        vxe-table-column(field="PointMoney" title='每點價格')
+        vxe-table-column(field="Fee" title='手續費(進/出)')
+        vxe-table-column(field="SubmitMax" title='單商品每筆上限')
+        vxe-table-column(field="RemaingLimit" title='單商品留倉上限')
+        vxe-table-column(field="RemaingDayLimit" title='單商品留倉天數')
+        vxe-table-column(field="OpenMaxPoint" title='開盤最大漲跌')
+        vxe-table-column(field="SubmitMaxPoint" title='每口最大漲跌')
+        vxe-table-column(field="StopPoint" title='停損利')
+        vxe-table-column(title='可下單時間' width="200")
+          template(slot-scope="scope")
+            span(v-html="scope.row.TradeTime")
+        vxe-table-column(field="State" title='狀態')
+        vxe-table-column(field="NotNewPercent" title='禁新')
+        vxe-table-column(field="CoverPercent" title='強平')
 </template>
 
 <script>

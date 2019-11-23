@@ -1,196 +1,170 @@
 <template lang='pug'>
 .history
-  .history__header
+  .history-header
     .history-tabs.tabs-nav
-      #tab-item1.tabs__item(@click='handleHistoryTabs(1)' :class="{'is-active' : historyTabShow == 1}") 買賣下單( {{ $store.state.buySell.length }} )
-      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ( {{ $store.state.unCoverBuySum }} , {{ $store.state.unCoverSellSum }} )
+      #tab-item1.tabs__item(@click='handleHistoryTabs(1)' :class="{'is-active' : historyTabShow == 1}") 買賣下單({{ $store.state.buySell.length }})
+      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ({{ $store.state.unCoverBuySum }},{{ $store.state.unCoverSellSum }})
       #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
       #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
-  .history__content
-    //-新倒限利點數
-    el-dialog(
-      :visible.sync='profitPointDialog'
-      :modal='false'
-      width="400px"
-      title='新倒限利點數'
-      v-dialogDrag)
-      .header-custom(slot='title') 新倒限利點數
-      template
-        .dialog__body
-          p.text-center
-            span [{{ editPoint.name }}]
-            span 報價:
-              span.text-bold {{ editPoint.nowPrice }}
-            span 類型:
-              span.text-bold {{ editPoint.buyOrSellName }}
-            span 成交:
-              span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-                span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                span(v-else class="text-success") ({{editPoint.limitPoint}})
-          p.text-center 新倒限利不得大於:
-            span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-          p.text-center 新倒限利需大於會員最低停損點數:
-            span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
-          p.text-center 新倒限利
-          p.text-center
-            el-button(type="mini" @click="editPoint.price -= 10") -10
-            el-button(type="mini" @click="editPoint.price -= 5") -5
-            el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
-            el-button(type="mini" @click="editPoint.price += 5") +5
-            el-button(type="mini" @click="editPoint.price += 10") +10
-          p.text-center 計算結果:
-            span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
-        .dialog__footer
-          el-button(@click="editPoint.price = 0") 清除設定
-          el-button(@click="profitPointDialog = false") 取消
-          el-button(type='primary' @click="doEditPoint") 送出
-    //-新獲利點數
-    el-dialog(
-      :visible.sync='winPointDialog'
-      :modal='false'
-      width="400px"
-      title='新獲利點數'
-      v-dialogDrag)
-      .header-custom(slot='title') 新獲利點數
-      template
-        .dialog__body
-          p.text-center
-            span [{{ editPoint.name }}]
-            span 報價:
-              span.text-bold {{ editPoint.nowPrice }}
-            span 類型:
-              span.text-bold {{ editPoint.buyOrSellName }}
-            span 成交:
-              span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-                span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                span(v-else class="text-success") ({{editPoint.limitPoint}})
-          p.text-center 新獲利點需大於:
-            span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-          p.text-center 新獲利點需大於會員最低停損點數:
-            span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
-          p.text-center 新獲利點
-          p.text-center
-            el-button(type="mini" @click="editPoint.price -= 10") -10
-            el-button(type="mini" @click="editPoint.price -= 5") -5
-            el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
-            el-button(type="mini" @click="editPoint.price += 5") +5
-            el-button(type="mini" @click="editPoint.price += 10") +10
-          p.text-center 計算結果:
-            span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
-        .dialog__footer
-          el-button(@click="editPoint.price = 0") 清除設定
-          el-button(@click="winPointDialog = false") 取消
-          el-button(type='primary' @click="doEditPoint") 送出
-    //-新損失點數
-    el-dialog(
-      :visible.sync='lossPointDialog'
-      :modal='false'
-      width="450px"
-      title='新損失點數'
-      v-dialogDrag)
-      .header-custom(slot='title') 新損失點數
-      template
-        .dialog__body
-          p.text-center
-            span [{{ editPoint.name }}]
-            span 報價:
-              span.text-bold {{ editPoint.nowPrice }}
-            span 類型:
-              span.text-bold {{ editPoint.buyOrSellName }}
-            span 成交:
-              span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-                span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
-                span(v-else class="text-success") ({{editPoint.limitPoint}})
-          p.text-center 新損失點需大於:
-            span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
-          p.text-center 新損失點需大於會員最低停損點數:
-            span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
-          p.text-center 新損點
-          p.text-center
-            el-button(type="mini" @click="editPoint.price -= 10") -10
-            el-button(type="mini" @click="editPoint.price -= 5") -5
-            el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
-            el-button(type="mini" @click="editPoint.price += 5") +5
-            el-button(type="mini" @click="editPoint.price += 10") +10
-          p.text-center 計算結果:
-            span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
-        .dialog__footer
-          el-button(@click="editPoint.price = 0") 清除設定
-          el-button(@click="lossPointDialog = false") 取消
-          el-button(type='primary' @click="doEditPoint") 送出
-    //-改價減量
-    el-dialog(
-      :visible.sync='editDialog'
-      :modal='false'
-      width="400px"
-      title='改價減量'
-      v-dialogDrag)
-      .header-custom(slot='title') 改價減量
-      template
-        .dialog__body
-          el-form(ref='form' size='mini' title-width='50px')
-            el-form-item(title="序號")
-              el-input(:value="edit.serial" :disabled="true")
-            el-form-item(title="商品")
-              el-input(:value="edit.itemName" :disabled="true")
-            el-form-item(title="會員")
-              el-input(:value="$store.state.userInfo.Account" :disabled="true")
-            el-form-item(title="買賣")
-              el-input(:value="edit.buyOrSellName" :disabled="true")
-            el-form-item(title="口數")
-              el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
-            el-form-item
-              el-radio(v-model='edit.buyType' title='0') 市價單
-              el-radio(v-model='edit.buyType' title='1') 限價單
-            el-form-item(title="限價" v-if="edit.buyType == '1'")
-              el-input-number(v-model="edit.nowPrice")
-        .dialog__footer
-          el-button(@click="editDialog = false") 取消
-          el-button(type='primary' @click="doEdit") 送出
-    //-多單平倉
-    el-dialog(
-      :visible.sync='multiOrderConfirm'
-      :modal='false'
-      :show-close='false'
-      width="600px"
-      title='確認平倉'
-      v-dialogDrag)
-      .header-custom(slot='title')
-        i.el-icon-info
-        |  確認平倉
-      client-only
-        vxe-table.table(
-          :data="multiOrderData"
-          height="100px"
-          borde
-        )
-          vxe-table-column(field="serial" title='序號')
-          vxe-table-column(field="name" title='目標商品')
-          vxe-table-column(field="userName" title='用戶名稱')
-          vxe-table-column(field="buy" title='買賣')
-          vxe-table-column(field="price" title='價格')
-          vxe-table-column(field="submit" title='口數')
-        .dialog__footer
-          el-button(@click="multiOrderConfirm = false") 取消
-          el-button(type='primary' @click="doMultiCovered") 確認
-    //-刪除
-    el-dialog(
-      :visible.sync='deleteConfirm'
-      :modal='false'
-      :show-close='false'
-      width="600px"
-      title='確認刪除'
-      v-dialogDrag)
-      .header-custom(slot='title')
-        i.el-icon-info
-        |  確認刪除
-      vxe-table.table(
-        :data="confirmDeleteData"
-        style="width: 100%"
+  //-新倒限利點數
+  el-dialog(
+    :visible.sync='profitPointDialog'
+    :modal='false'
+    width="400px"
+    title='新倒限利點數'
+    v-dialogDrag)
+    .header-custom(slot='title') 新倒限利點數
+    template
+      .dialog__body
+        p.text-center
+          span [{{ editPoint.name }}]
+          span 報價:
+            span.text-bold {{ editPoint.nowPrice }}
+          span 類型:
+            span.text-bold {{ editPoint.buyOrSellName }}
+          span 成交:
+            span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+              span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+              span(v-else class="text-success") ({{editPoint.limitPoint}})
+        p.text-center 新倒限利不得大於:
+          span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+        p.text-center 新倒限利需大於會員最低停損點數:
+          span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+        p.text-center 新倒限利
+        p.text-center
+          button.button(@click="editPoint.price -= 10") -10
+          button.button(@click="editPoint.price -= 5") -5
+          input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          button.button(@click="editPoint.price += 5") +5
+          button.button(@click="editPoint.price += 10") +10
+        p.text-center 計算結果:
+          span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+      .dialog__footer
+        button.button__light(@click="editPoint.price = 0") 清除設定
+        button.button__light(@click="profitPointDialog = false") 取消
+        button.button(type='primary' @click="doEditPoint") 送出
+  //-新獲利點數
+  el-dialog(
+    :visible.sync='winPointDialog'
+    :modal='false'
+    width="400px"
+    title='新獲利點數'
+    v-dialogDrag)
+    .header-custom(slot='title') 新獲利點數
+    template
+      .dialog__body
+        p.text-center
+          span [{{ editPoint.name }}]
+          span 報價:
+            span.text-bold {{ editPoint.nowPrice }}
+          span 類型:
+            span.text-bold {{ editPoint.buyOrSellName }}
+          span 成交:
+            span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+              span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+              span(v-else class="text-success") ({{editPoint.limitPoint}})
+        p.text-center 新獲利點需大於:
+          span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+        p.text-center 新獲利點需大於會員最低停損點數:
+          span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+        p.text-center 新獲利點
+        p.text-center
+          button.button(@click="editPoint.price -= 10") -10
+          button.button(@click="editPoint.price -= 5") -5
+          el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          button.button(@click="editPoint.price += 5") +5
+          button.button(@click="editPoint.price += 10") +10
+        p.text-center 計算結果:
+          span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+      .dialog__footer
+        button.button__light(@click="editPoint.price = 0") 清除設定
+        button.button__light(@click="winPointDialog = false") 取消
+        button.button(type='primary' @click="doEditPoint") 送出
+  //-新損失點數
+  el-dialog(
+    :visible.sync='lossPointDialog'
+    :modal='false'
+    width="450px"
+    title='新損失點數'
+    v-dialogDrag)
+    .header-custom(slot='title') 新損失點數
+    template
+      .dialog__body
+        p.text-center
+          span [{{ editPoint.name }}]
+          span 報價:
+            span.text-bold {{ editPoint.nowPrice }}
+          span 類型:
+            span.text-bold {{ editPoint.buyOrSellName }}
+          span 成交:
+            span.text-bold {{ editPoint.nowPrice - editPoint.limitPoint }}
+              span(v-if="editPoint.limitPoint >= 0" class="text-danger") (+{{editPoint.limitPoint}})
+              span(v-else class="text-success") ({{editPoint.limitPoint}})
+        p.text-center 新損失點需大於:
+          span.text-bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+        p.text-center 新損失點需大於會員最低停損點數:
+          span.text-bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
+        p.text-center 新損點
+        p.text-center
+          button.button(@click="editPoint.price -= 10") -10
+          button.button(@click="editPoint.price -= 5") -5
+          el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          button.button(@click="editPoint.price += 5") +5
+          button.button(@click="editPoint.price += 10") +10
+        p.text-center 計算結果:
+          span.text-bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+      .dialog__footer
+        button.button__light(@click="editPoint.price = 0") 清除設定
+        button.button__light(@click="lossPointDialog = false") 取消
+        button.button(type='primary' @click="doEditPoint") 送出
+  //-改價減量
+  el-dialog(
+    :visible.sync='editDialog'
+    :modal='false'
+    width="400px"
+    title='改價減量'
+    v-dialogDrag)
+    .header-custom(slot='title') 改價減量
+    template
+      .dialog__body
+        el-form(ref='form' title-width='50px')
+          el-form-item(title="序號")
+            el-input(:value="edit.serial" :disabled="true")
+          el-form-item(title="商品")
+            el-input(:value="edit.itemName" :disabled="true")
+          el-form-item(title="會員")
+            el-input(:value="$store.state.userInfo.Account" :disabled="true")
+          el-form-item(title="買賣")
+            el-input(:value="edit.buyOrSellName" :disabled="true")
+          el-form-item(title="口數")
+            el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
+          el-form-item
+            el-radio(v-model='edit.buyType' title='0') 市價單
+            el-radio(v-model='edit.buyType' title='1') 限價單
+          el-form-item(title="限價" v-if="edit.buyType == '1'")
+            el-input-number(v-model="edit.nowPrice")
+      .dialog__footer
+        button.button__light(@click="editDialog = false") 取消
+        button.button(type='primary' @click="doEdit") 送出
+  //-多單平倉
+  el-dialog(
+    :visible.sync='multiOrderConfirm'
+    :modal='false'
+    :show-close='false'
+    width="600px"
+    title='確認平倉'
+    v-dialogDrag)
+    .header-custom(slot='title')
+      i.el-icon-info
+      |  確認平倉
+    client-only
+      vxe-table(
+        :data="multiOrderData"
         height="100px"
-        borde
-      )
+        size="mini"
+        column-min-width="60"
+        border)
         vxe-table-column(field="serial" title='序號')
         vxe-table-column(field="name" title='目標商品')
         vxe-table-column(field="userName" title='用戶名稱')
@@ -198,217 +172,240 @@
         vxe-table-column(field="price" title='價格')
         vxe-table-column(field="submit" title='口數')
       .dialog__footer
-        el-button(@click="deleteConfirm = false") 取消
-        el-button(type='primary' @click="doDelete") 確認
-    div(v-show='historyTabShow == 1' class="h-100")
-      .history__content-header
-        button(@click="deleteConfirm = true") 刪單
-      .history__content-body
+        button.button__light(@click="multiOrderConfirm = false") 取消
+        button.button(type='primary' @click="doMultiCovered") 確認
+  //-刪除
+  el-dialog(
+    :visible.sync='deleteConfirm'
+    :modal='false'
+    :show-close='false'
+    width="600px"
+    title='確認刪除'
+    v-dialogDrag)
+    .header-custom(slot='title')
+      i.el-icon-info
+      |  確認刪除
+    vxe-table(
+      :data="confirmDeleteData"
+      max-width="100%"
+      height="100px"
+      size="mini"
+      column-min-width="60"
+      borde)
+      vxe-table-column(field="serial" title='序號')
+      vxe-table-column(field="name" title='目標商品')
+      vxe-table-column(field="userName" title='用戶名稱')
+      vxe-table-column(field="buy" title='買賣')
+      vxe-table-column(field="price" title='價格')
+      vxe-table-column(field="submit" title='口數')
+    .dialog__footer
+      button.button(@click="deleteConfirm = false") 取消
+      button.button(type='primary' @click="doDelete") 確認
+  .history-content(v-show='historyTabShow == 1')
+    .history-content__header
+      button.button(@click="deleteConfirm = true" disabled) 刪單
+      button.button 全選
+      button.button 全不選
+    .history-content__body
+      client-only
+        vxe-table(
+          :data='$store.state.buySell'
+          :cell-class-name='buySelltableCellClassName',
+          @checkbox-change="selectionChangeDelete"
+          max-width="100%"
+          height="100%"
+          size="mini"
+          column-min-width="60"
+          border
+          auto-resize
+          highlight-current-row)
+          vxe-table-column(type="checkbox" width="30" :selectable="selectCheckDelete" fixed="left" align="center")
+          vxe-table-column(title='操作' fixed="left" align="center")
+            template(slot-scope='scope')
+              button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
+              //-改單
+              button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
+              el-checkbox(v-if="scope.row.Operation[1]" v-model="$store.state.multiDelete[scope.$index].checked")
+              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+          vxe-table-column(field='Serial' title='序號' align="center")
+          vxe-table-column(field='Name' title='商品')
+          vxe-table-column(title='多空' width="40px" align="center")
+            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(field='OrderPrice' title='委託價')
+          vxe-table-column(field='Quantity' title='口數')
+          vxe-table-column(field='FinalPrice' title='成交價')
+          vxe-table-column(field='Odtype' title='型別')
+          vxe-table-column(title='損失點數')
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ parseInt(scope.row.LossPoint) }}
+          vxe-table-column(title='獲利點數')
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ parseInt(scope.row.WinPoint) }}
+          vxe-table-column(field='OrderTime' width='150' title='下單時間')
+          vxe-table-column(field='FinalTime' width='150' title='完成時間')
+          vxe-table-column(title='狀態' width='110' fixed="right")
+            template(slot-scope='scope')
+              span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
+              span(v-else) {{ scope.row.State }}
+  .history-content(v-show='historyTabShow == 2')
+    .history-content__header
+      button.button(@click="openMultiOrder") 多單平倉
+    .history-content__body
+      client-only
+        vxe-table(
+          :data='$store.state.uncovered'
+          :cell-class-name='uncoveredTableCellClassName',
+          ref="multipleTable"
+          max-width="100%"
+          height="100%"
+          size="mini"
+          column-min-width="60"
+          border
+          auto-resize
+          highlight-current-row)
+          vxe-table-column(width="30" fixed)
+            template(slot="header" slot-scope="scope")
+              title.el-checkbox
+                span.el-checkbox__input
+                  span.el-checkbox__inner
+                  input.el-checkbox__original(type="checkbox" v-model="multiOrderAll" @change="multiOrderAllClick")
+            template(slot-scope='scope')
+              title.el-checkbox
+                span.el-checkbox__input
+                  span.el-checkbox__inner
+                  input.el-checkbox__original(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
+          vxe-table-column(title='操作' fixed)
+            template(slot-scope='scope')
+              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+          vxe-table-column(field='Serial', title='序號')
+          vxe-table-column(field='Name', title='商品')
+          vxe-table-column(title='型別')
+            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(field='FinalPrice', title='成交價')
+          vxe-table-column(field='Quantity', title='口數')
+          vxe-table-column(field='Fee', title='手續費')
+          vxe-table-column(title='損失點數')
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
+          vxe-table-column(title='獲利點數')
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
+          vxe-table-column(title='倒限(利)')
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
+          vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
+            template(slot-scope='scope')
+              span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text-black") {{ scope.row['thisSerialTotalMoney'] }}
+              span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialTotalMoney'] }}
+          vxe-table-column(title='點數')
+            template(slot-scope='scope')
+              .change-icon
+                .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text-black") {{ scope.row['thisSerialPointDiff'] }}
+              span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
+          vxe-table-column(field='Day', title='天數')
+          vxe-table-column(field='State', title='狀態' width="150px" fixed="right")
+  .history-content(v-show="historyTabShow == 3")
+    .history-content__header
+    .history-content__body
+      client-only
+        vxe-table(
+          :data='$store.state.covered'
+          max-width="100%"
+          height="100%"
+          size="mini"
+          column-min-width="60"
+          border
+          auto-resize
+          highlight-current-row)
+          vxe-table-column(field="Name" title='商品')
+          vxe-table-column(field="NewSerial" title='新倉序號')
+          vxe-table-column(field="CoverSerial" title='平倉序號')
+          vxe-table-column(field="NewType" title='新倉型別')
+          vxe-table-column(field="SerialCoveredNum" title='口數')
+          vxe-table-column(title='多空')
+            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(field="NewPrice" title='成交價')
+          vxe-table-column(field="CoverPrice" title='平倉價')
+          vxe-table-column(field="NewDate" title='成交日期' width="150px")
+          vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
+          vxe-table-column(field="WinPoint" title='點數')
+          vxe-table-column(field="CoverType" title='種類')
+          vxe-table-column(field="Fee" title='手續費')
+          vxe-table-column(field="WinMoney" title='損益')
+  .history-content(v-show="historyTabShow == 4")
+    .history-content__header
+      .row
+        .col-auto 預設額度:
+          span.text-lg.text-bold {{ $store.state.userInfo.TouchPoint }}
+        .col-auto 今日損益:
+          //- colors class.text-danger | text-success
+          span(v-if="$store.state.userInfo.TodayMoney < 0").text-lg.text-bold.text-danger {{ $store.state.userInfo.TodayMoney }}
+          span(v-else).text-lg.text-bold.text-success {{ $store.state.userInfo.TodayMoney }}
+        .col-auto 留倉預扣:
+          span.text-lg.text-bold {{ $store.state.userInfo.WithholdingMoney }}
+        .col-auto 帳戶餘額:
+          span.text-lg.text-bold.text-info {{ $store.state.userInfo.Money }}
+        .col-auto
+          label.checkbox
+            input.checkbox__input(type="checkbox" checked)
+            span.checkbox__label 顯示全部
+    .history-content__body
+      client-only
+        vxe-table(
+          :data='$store.state.commodity'
+          :row-class-name="checkRowShow"
+          max-width="100%"
+          height="100%"
+          size="mini"
+          column-min-width="60"
+          border
+          auto-resize
+          highlight-current-row)
+          vxe-table-column(field="Name" title='商品名稱')
+          vxe-table-column(title='總多')
+            template(slot-scope='scope')
+              span.text-danger {{ scope.row.TotalBuySubmit　}}
+          vxe-table-column(title='總空')
+            template(slot-scope='scope')
+              span.text-success {{ scope.row.TotalSellSubmit}}
+          vxe-table-column(title='未平倉')
+            template(slot-scope='scope') {{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}
+          vxe-table-column(field="TotalSubmit" title='總口數')
+          vxe-table-column(field="TotalFee" title='手續費合計')
+          vxe-table-column(title='損益')
+            template(slot-scope='scope')
+              span.text-success(v-if="scope.row.TotalPoint >= 0") {{ scope.row.TotalPoint}}
+              span.text-danger(v-else) {{ scope.row.TotalPoint}}
+          vxe-table-column(title='留倉預扣')
+            template(slot-scope='scope')
+              span.text-success(v-if="scope.row.RemainingWithholding >= 0") {{ scope.row.RemainingWithholding}}
+              span.text-danger(v-else) {{ scope.row.RemainingWithholding}}
+  .history-content(v-show="historyTabShow == 5")
+      .history-content__header
+          el-form(ref='form' size="mini" :inline='true')
+            el-form-item(label='開始日期:')
+              el-form-item
+                el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")
+            el-form-item(label='結束日期:')
+              el-form-item
+                el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
+            button.button(@click="query") 送出
+          span.label 快速查詢
+          button.button(@click="selectDayType('today')") 今日
+          button.button(@click="selectDayType('yesterday')") 昨日
+          button.button(@click="selectDayType('thisWeek')") 本週
+          button.button(@click="selectDayType('beforeWeek')") 上週
+          button.button(@click="selectDayType('thisMonth')") 本月
+          button.button(@click="selectDayType('beforeMonth')") 上月
+      .history-content__body
         client-only
-          vxe-table.table(
-            :data='$store.state.buySell'
-            :cell-class-name='buySelltableCellClassName',
-            @checkbox-change="selectionChangeDelete"
-            max-width="100%"
-            height="100%"
-            column-min-width="74"
-            size="mini"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(type="checkbox" width="55" :selectable="selectCheckDelete")
-            vxe-table-column(title='操作' fixed)
-              template(slot-scope='scope')
-                el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
-                //-改單
-                el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-                el-checkbox(v-if="scope.row.Operation[1]" v-model="$store.state.multiDelete[scope.$index].checked")
-                el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-            vxe-table-column(field='Serial' title='序號')
-            vxe-table-column(field='Name' title='商品')
-            vxe-table-column(title='多空' width="50px")
-              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-            vxe-table-column(field='OrderPrice' title='委託價')
-            vxe-table-column(field='Quantity' title='口數')
-            vxe-table-column(field='FinalPrice' title='成交價')
-            vxe-table-column(field='Odtype' title='型別')
-            vxe-table-column(title='損失點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ parseInt(scope.row.LossPoint) }}
-            vxe-table-column(title='獲利點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ parseInt(scope.row.WinPoint) }}
-            vxe-table-column(field='OrderTime' width='150' title='下單時間')
-            vxe-table-column(field='FinalTime' width='150' title='完成時間')
-            vxe-table-column(title='狀態' width='110' fixed="right")
-              template(slot-scope='scope')
-                span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
-                span(v-else) {{ scope.row.State }}
-    div(v-show='historyTabShow == 2' class="h-100")
-      .history__content-header
-        button(@click="openMultiOrder") 多單平倉
-      .history__content-body
-        client-only
-          vxe-table.table(
-            :data='$store.state.uncovered'
-            :cell-class-name='uncoveredTableCellClassName',
-            ref="multipleTable"
-            max-width="100%"
-            height="100%"
-            column-min-width="74"
-            size="mini"
-            align="center"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(width="55px" fixed)
-              template(slot="header" slot-scope="scope")
-                title.el-checkbox
-                  span.el-checkbox__input
-                    span.el-checkbox__inner
-                    input.el-checkbox__original(type="checkbox" v-model="multiOrderAll" @change="multiOrderAllClick")
-              template(slot-scope='scope')
-                title.el-checkbox
-                  span.el-checkbox__input
-                    span.el-checkbox__inner
-                    input.el-checkbox__original(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
-            vxe-table-column(title='操作' fixed)
-              template(slot-scope='scope')
-                el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-            vxe-table-column(field='Serial', title='序號')
-            vxe-table-column(field='Name', title='商品')
-            vxe-table-column(title='型別')
-              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-            vxe-table-column(field='FinalPrice', title='成交價')
-            vxe-table-column(field='Quantity', title='口數')
-            vxe-table-column(field='Fee', title='手續費')
-            vxe-table-column(title='損失點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
-            vxe-table-column(title='獲利點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
-            vxe-table-column(title='倒限(利)')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
-            vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
-              template(slot-scope='scope')
-                span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text-black") {{ scope.row['thisSerialTotalMoney'] }}
-                span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialTotalMoney'] }}
-            vxe-table-column(title='點數')
-              template(slot-scope='scope')
-                .table-icon
-                  .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text-black") {{ scope.row['thisSerialPointDiff'] }}
-                span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
-            vxe-table-column(field='Day', title='天數')
-            vxe-table-column(field='State', title='狀態' width="150px" fixed="right")
-    div(v-show="historyTabShow == 3" class="h-100")
-      .history__content-header
-        button 全選
-        button 全不選
-      .history__content-body
-        client-only
-          vxe-table.table(
-            :data='$store.state.covered'
-            max-width="100%"
-            height="100%"
-            column-min-width="74"
-            size="mini"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(field="Name" title='商品')
-            vxe-table-column(field="NewSerial" title='新倉序號')
-            vxe-table-column(field="CoverSerial" title='平倉序號')
-            vxe-table-column(field="NewType" title='新倉型別')
-            vxe-table-column(field="SerialCoveredNum" title='口數')
-            vxe-table-column(title='多空')
-              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-            vxe-table-column(field="NewPrice" title='成交價')
-            vxe-table-column(field="CoverPrice" title='平倉價')
-            vxe-table-column(field="NewDate" title='成交日期' width="150px")
-            vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
-            vxe-table-column(field="WinPoint" title='點數')
-            vxe-table-column(field="CoverType" title='種類')
-            vxe-table-column(field="Fee" title='手續費')
-            vxe-table-column(field="WinMoney" title='損益')
-    div(v-show="historyTabShow == 4" class="h-100")
-      .history__content-header
-        .row
-          .col 預設額度:
-            span.text-lg.text-bold {{ $store.state.userInfo.TouchPoint }}
-          .col 今日損益:
-            //- colors class.text-danger | text-success
-            span(v-if="$store.state.userInfo.TodayMoney < 0").text-lg.text-bold.text-danger {{ $store.state.userInfo.TodayMoney }}
-            span(v-else).text-lg.text-bold.text-success {{ $store.state.userInfo.TodayMoney }}
-          .col 留倉預扣:
-            span.text-lg.text-bold {{ $store.state.userInfo.WithholdingMoney }}
-          .col 帳戶餘額:
-            span.text-lg.text-bold.text-infor {{ $store.state.userInfo.Money }}
-          .col
-            label.checkbox
-              input.checkbox__input(type="checkbox" checked)
-              span.checkbox__label 顯示全部
-      .history__content-body
-        client-only
-          vxe-table.table(
-            :data='$store.state.commodity'
-            :row-class-name="checkRowShow"
-            max-width="100%"
-            height="100%"
-            column-min-width="74"
-            size="mini"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(field="Name" title='商品名稱')
-            vxe-table-column(title='總多')
-              template(slot-scope='scope')
-                span.text-danger {{ scope.row.TotalBuySubmit　}}
-            vxe-table-column(title='總空')
-              template(slot-scope='scope')
-                span.text-success {{ scope.row.TotalSellSubmit}}
-            vxe-table-column(title='未平倉')
-              template(slot-scope='scope') {{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}
-            vxe-table-column(field="TotalSubmit" title='總口數')
-            vxe-table-column(field="TotalFee" title='手續費合計')
-            vxe-table-column(title='損益')
-              template(slot-scope='scope')
-                span.text-success(v-if="scope.row.TotalPoint >= 0") {{ scope.row.TotalPoint}}
-                span.text-danger(v-else) {{ scope.row.TotalPoint}}
-            vxe-table-column(title='留倉預扣')
-              template(slot-scope='scope')
-                span.text-success(v-if="scope.row.RemainingWithholding >= 0") {{ scope.row.RemainingWithholding}}
-                span.text-danger(v-else) {{ scope.row.RemainingWithholding}}
-    div(v-show="historyTabShow == 5" class="h-100")
-      .history__content-header
-        .row
-          .col
-            el-form(ref='form' size='mini' :inline='true')
-              el-form-item(title='開始日期:')
-                el-form-item
-                  el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")
-              el-form-item(title='結束日期:')
-                el-form-item
-                  el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
-              button(@click="query") 送出
-          .col
-            span.title 快速查詢
-            button(@click="selectDayType('today')") 今日
-            button(@click="selectDayType('yesterday')") 昨日
-            button(@click="selectDayType('thisWeek')") 本週
-            button(@click="selectDayType('beforeWeek')") 上週
-            button(@click="selectDayType('thisMonth')") 本月
-            button(@click="selectDayType('beforeMonth')") 上月
-      .history__content-body
-        client-only
-          vxe-table.table(
+          vxe-table(
             :data='accountMoneyList'
             max-width="100%"
             height="100%"
-            column-min-width="74"
             size="mini"
+            column-min-width="60"
             border
             auto-resize
             highlight-current-row)

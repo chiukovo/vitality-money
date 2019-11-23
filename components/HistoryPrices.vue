@@ -1,51 +1,56 @@
 <template lang='pug'>
-  .itemDetai__history
-    .itemDetailtabs__header
-      .row
-        .col
-          el-form(ref='form' size='mini' :inline='true')
-            el-form-item(label='商品: ' size='mini')
-              el-select(placeholder='請選擇' style="width: 90px;" v-model="form.itemType")
-                el-option(
-                  v-for="(data, key) in commidy"
-                  :key="key"
-                  :label="data.name"
-                  :value="data.id"
-                )
-            el-form-item(label='開始日期:')
-              el-form-item
-                el-date-picker(
-                  v-model='form.start',
-                  type='date',
-                  placeholder='開始日期',
-                  value-format="yyyy-MM-dd"
-                  style="width: 130px;",
-                )
-            el-form-item(label='開始時間: ' size='mini')
-              el-time-picker(
-                v-model='form.startDt'
-                style="width: 132px;"
-                value-format="HH:mm:ss"
-                format="HH:mm:ss"
+.dialog
+  .dialog__header
+    .row
+      .col
+        el-form(ref='form' size='mini' :inline='true')
+          el-form-item(label='商品: ' size='mini')
+            el-select(placeholder='請選擇' style="width: 90px;" v-model="form.itemType")
+              el-option(
+                v-for="(data, key) in commidy"
+                :key="key"
+                :label="data.name"
+                :value="data.id"
               )
-            el-button(size='mini' @click="query") 送出
-          el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
-    .itemDetailtabs__content
-      .row
-        el-table.table(
-          :data='items.slice((currentPage-1)*pagesize,currentPage*pagesize)'
-          min-width='100%'
-          border)
-          el-table-column(prop="time" label='市場時間' min-width='30%')
-          el-table-column(prop="submit" label='口' min-width='14%')
-          el-table-column(prop="price" label='價格' min-width='28%')
-      .row
-        el-pagination(
-          background
-          layout="prev, pager, next"
-          :total="total"
-          @current-change="currentChange"
-        )
+          el-form-item(label='開始日期:')
+            el-form-item
+              el-date-picker(
+                v-model='form.start',
+                type='date',
+                placeholder='開始日期',
+                value-format="yyyy-MM-dd"
+                style="width: 130px;",
+              )
+          el-form-item(label='開始時間: ' size='mini')
+            el-time-picker(
+              v-model='form.startDt'
+              style="width: 132px;"
+              value-format="HH:mm:ss"
+              format="HH:mm:ss")
+          button.button(@click="query") 送出
+    .row
+      .col
+        el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
+  .dialog__content
+    client-only
+      vxe-table(
+        :data="items.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+        max-width="100%"
+        height="266px"
+        size="mini"
+        align="center"
+        border
+        auto-resize
+        highlight-current-row
+        highlight-hover-row)
+        vxe-table-column(field="time" title='市場時間' min-width='30%')
+        vxe-table-column(field="submit" title='口' width='14%')
+        vxe-table-column(field="price" title='價格' width='28%')
+    el-pagination(
+      background
+      layout="prev, pager, next"
+      :total="total"
+      @current-change="currentChange")
 </template>
 <script>
 

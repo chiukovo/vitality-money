@@ -13,22 +13,23 @@
         max-width="100%"
         height="100%"
         size="mini"
-        column-min-width="74"
+        column-min-width="60"
         border
         auto-resize
-        highlight-current-row)
+        highlight-current-row
+        highlight-hover-row)
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
         //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
         vxe-table-column(title='商品' fixed="left")
           template(slot-scope='scope') {{ scope.row['product_name'] }}
-        vxe-table-column(title='倉位' fixed="left" width="50px")
+        vxe-table-column(title='倉位' fixed="left" width="40px" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
             <span class="bg-red" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
             <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
-        vxe-table-column(title='K線' width="50px")
+        vxe-table-column(title='K線' width="40px" align="center")
           template(slot-scope='scope')
             a.btn-Kline(href="#" @click='clickKline(scope.row)') k線
-        vxe-table-column(title='走勢' width="50px")
+        vxe-table-column(title='走勢' width="40px" align="center")
           template(slot-scope='scope')
             a.btn-Chart(href="#" @click='clickChart(scope.row)') 走勢
         vxe-table-column(title='成交')

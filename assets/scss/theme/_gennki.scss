@@ -1,14 +1,13 @@
-// default
-
+//- 元氣 theme
 // color
 $blue:      #007bff;
 $indigo:    #6610f2;
 $purple:    #6f42c1;
 $pink:      #e83e8c;
-$red:       #dc3545;
+$red:       #ec0202;
 $orange:    #fd7e14;
 $yellow:    #ffc107;
-$green:     #28a745;
+$green:     #007b47;
 $teal:      #20c997;
 $cyan:      #17a2b8;
 $white:     #fff;
@@ -28,12 +27,12 @@ $black:     #000;
 
 
 $primary:   $blue;
-$secondary: $gray-600;
+$secondary: $gray-500;
 $success:   $green;
-$info:      $cyan;
+$info:      #31659c;
 $warning:   $yellow;
 $danger:    $red;
-$light:     $gray-100;
+$light:     #f1f1f1;
 $dark:      $gray-800;
 
 $theme-colors: () !default;
@@ -57,22 +56,22 @@ $font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hel
 $font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 
 // table
-$table-bg-color: #fff;
+$table-bg-color: #f1f1f1;
 $table-header-bg-color: #f8f8f9;
-$table-border-color: #e8eaec;
+$table-border-color: #b7babc;
 $table-row-current-bg-color: #e6f7ff;
 $table-row-hover-bg-color: #f5f7fa;
 $table-row-height-default: 48px;
 $table-row-height-medium: 44px;
-$table-row-height-small: 40px;
-$table-row-height-mini: 36px;
-$table-cell-padding: 5px 4px;
+$table-row-height-small: 30px;
+$table-row-height-mini: 0px;
+$table-cell-padding: 2px 4px;
 $table-header-cell-padding: 4px;
 
 // button
-$button-font-color: $black;
-$button-border-color: $gray-200;
-$button-bg-color: $white;
+$button-font-color: $dark;
+$button-border-color: #40628a;
+$button-bg-color: linear-gradient(180deg,#fff,#c5daef);
 
 // theme
 $bg-color:    $white;

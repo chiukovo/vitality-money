@@ -6,9 +6,37 @@
 // button
 button {
   line-height: 1;
-  border: 1px solid #f1f1f1;
-  background: white;
-  padding: 6px;
+  color: $dark;
+  border: $gray-200;
+  background: $light;
+  padding: 6px 8px;
+  &:disabled {
+    cursor: no-drop;
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+.button {
+  color: $button-font-color;
+  border: 1px solid $button-border-color;
+  background: $button-bg-color;
+}
+@each $color, $value in $theme-colors {
+  .button__#{$color} {
+    color: #fff;
+    border: 1px solid darken($value, 3%);
+    background: $value;
+    // &:hover {
+    //   background: darken($value, 8%);
+    // }
+  }
+}
+.button__light {
+  color: $dark;
+}
+.button__lg {
+  font-size: 20px;
+  padding: 1.6rem 2rem;
 }
 
 
@@ -26,34 +54,39 @@ button {
 .text-lg {
   font-size: 1.25rem;
 }
-$fontColor: danger success secondary;
-@each $author in $fontColor {
-  .text-#{$author} {
-    color: var(--#{$author});
+@each $color, $value in $theme-colors {
+  .text-#{$color} {
+    color: $value;
   }
 }
 
 // border
-$borderColor: danger success;
-@each $author in $borderColor {
-  .text-#{$author} {
-    border-color: var(--#{$author}) !important;
+@each $color, $value in $theme-colors {
+  .border-#{$color} {
+    border-color: $value !important;
   }
 }
+
+
+// form
+.label {
+  margin-right: 2px;
+}
+
 
 // progress bar
 .progress-bar {
   height: 14px;
-  background: var(--block-bg-color);
+  background: transparent;
   .progress-bar__inner {
     height: 100%;
-    background: var(--success);
+    background: $success;
     transition: width 0.6s ease;
   }
   &.progress-bar__right {
     direction: rtl;
     .progress-bar__inner {
-      background: var(--danger);
+      background: $danger;
     }
   }
 }
@@ -82,28 +115,28 @@ $borderColor: danger success;
   .icon-arrow-up {
     top: -1px;
     border-width: 0 5px 8px 5px;
-    border-color: transparent transparent var(--danger) transparent;
+    border-color: transparent transparent $danger transparent;
   }
   .icon-arrow-down {
     top: 1px;
     border-width: 8px 5px 0 5px;
-    border-color: var(--success) transparent transparent transparent;
+    border-color: $success transparent transparent transparent;
   }
 }
 
 tr.border-tr {
   td {
-    border-top: 1px solid var(--primary) !important;
-    border-bottom: 1px solid var(--primary) !important;
+    border-top: 1px solid $primary !important;
+    border-bottom: 1px solid $primary !important;
     &:first-child {
-      border-left: 1px solid var(--primary) !important;
+      border-left: 1px solid $primary !important;
     }
     &:last-child {
-      border-right: 1px solid var(--primary) !important;
+      border-right: 1px solid $primary !important;
     }
     &:nth-child(3) {
       color: #fff;
-      background-color: var(--primary);
+      background-color: $primary;
     }
   }
 }
@@ -111,4 +144,26 @@ tr.border-tr {
 // .row
 .row {
   align-items: center;
+}
+
+// dialog
+.dialog__header {
+  .row {
+    .col-lg-auto {
+      margin-bottom: 6px;
+    }
+    + .row {
+      margin-top: 6px;
+    }
+  }
+}
+.dialog__footer {
+  text-align: center;
+  margin-top: 6px;
+  button {
+    padding: 8px 16px;
+    + button {
+      margin-left: 6px;
+    }
+  }
 }

@@ -3,12 +3,11 @@
       :visible.sync='visible'
       :fullscreen='dialogFullScreen'
       :before-close='handleClose'
-      title='$store.state.itemName'
       :close-on-click-modal='false'
       :width='diaiogSize'
       :modal='false'
-      v-dialogDrag
-    )
+      title='$store.state.itemName'
+      v-dialogDrag)
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
@@ -41,7 +40,7 @@ export default {
   data () {
     return {
       dialogFullScreen: false,
-      diaiogSize: '80%',
+      diaiogSize: '86%',
     }
   },
   components: {

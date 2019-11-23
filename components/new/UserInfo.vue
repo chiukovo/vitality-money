@@ -9,12 +9,12 @@
         :cell-class-name='tableCellClassName'
         max-width="100%"
         height="100%"
-        size="mini"
+        size="small"
         column-min-width="74"
         border
         auto-resize)
         vxe-table-column(title='標題' field='title' show-overflow)
-        vxe-table-column(title='資訊' field='infor' show-overflow)
+        vxe-table-column(title='資訊' field='info' show-overflow)
 </template>
 <script>
 
@@ -33,22 +33,22 @@ export default {
     userInfo(userInfo) {
       this.tableData = [{
           title: '客戶名稱:',
-          infor: userInfo.Name,
+          info: userInfo.Name,
         }, {
           title: '服務人員:',
-          infor: '',
+          info: '',
         }, {
           title: '服務專線:',
-          infor: '',
+          info: '',
         }, {
           title: '預設額度:',
-          infor: userInfo.TouchPoint,
+          info: userInfo.TouchPoint,
         }, {
           title: '今日餘額:',
-          infor: userInfo.Money,
+          info: userInfo.Money,
         }, {
           title: '今日損益:',
-          infor: userInfo.TodayMoney,
+          info: userInfo.TodayMoney,
         }]
     }
   },
@@ -56,12 +56,12 @@ export default {
     tableCellClassName({ row, column, columnIndex }) {
       if(row.title == '今日餘額:') {
         if(columnIndex == 1) {
-          return 'text-infor'
+          return 'text-info'
         }
       }
       if(row.title == '今日損益:') {
         if(columnIndex == 1) {
-          if(row.infor < 0) {
+          if(row.info < 0) {
             return 'text-danger'
           }
         }

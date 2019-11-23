@@ -1,23 +1,25 @@
 <template lang='pug'>
-  .itemDetai__history
-    .itemDetailtabs__header
-    .itemDetailtabs__content
-      el-table.table(
-        :data='items'
-        ref="multipleTable"
-        style='width: 100%'
-        height="500"
-        @selection-change="handleSelectionChange"
-        border)
-        el-table-column(label='選取' type="selection")
-        el-table-column(prop="name" label='商品')
-        el-table-column(prop="id" label='代碼')
-        el-table-column(label='可下單時間')
-          template(slot-scope="scope") <span v-html="scope.row.trade_time"></span>
-        el-table-column(prop="market_name" label='交易所')
-    .dialog__footer
-      el-button(@click="cancel") 取消
-      el-button(type='primary' @click="submit") 確認
+.dialog
+  .dialog__content
+    vxe-table(
+      :data='items'
+      ref="multipleTable"
+      @selection-change="handleSelectionChange"
+      max-width="100%"
+      height="500"
+      size="mini"
+      border
+      auto-resize
+      highlight-hover-row)
+      vxe-table-column(title='' type="selection" width="30" align="center")
+      vxe-table-column(field="name" title='商品')
+      vxe-table-column(field="id" title='代碼')
+      vxe-table-column(title='可下單時間')
+        template(slot-scope="scope") <span v-html="scope.row.trade_time"></span>
+      vxe-table-column(field="market_name" title='交易所')
+  .dialog__footer
+    button.button_light(@click="cancel") 取消
+    button.button(type='primary' @click="submit") 確認
 </template>
 <script>
 
