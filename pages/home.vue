@@ -34,7 +34,7 @@ import ItemDetail from '~/components/ItemDetail'
 import MainItem from '~/components/MainItem'
 import History from '~/components/History'
 import Operating from '~/components/Operating'
-import '@/assets/scss/theme1.scss'
+import '@/assets/sass/theme1.scss'
 
 export default {
   components: {

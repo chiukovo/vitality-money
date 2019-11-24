@@ -24,8 +24,8 @@
           template(slot-scope='scope') {{ scope.row['product_name'] }}
         vxe-table-column(title='倉位' fixed="left" width="40px" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
-            <span class="bg-red" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
-            <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
+            <span class="bg__danger" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
+            <span class="bg__success" v-else>{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
         vxe-table-column(title='K線' width="40px" align="center")
           template(slot-scope='scope')
             a.btn-Kline(href="#" @click='clickKline(scope.row)') k線

@@ -1,31 +1,19 @@
-// *** base ***
-@import 'base/variable';
+@import 'theme/default';
 
-// *** vendor ***
-// bootstrap
 @import 'vendor/bootstrap';
-
-// element ui
-$--font-path: '~element-theme-chalk/src/fonts';
-// @import '~element-theme-chalk/src/index.scss';
 @import 'vendor/element';
-
-// material icons
-$material-icons-font-path: '~material-icons/iconfont/';
-@import '~material-icons/iconfont/material-icons.scss';
+@import 'vendor/splitpanes';
+@import 'vendor/vxetable';
 
 // animate
+$base-duration: .3s;
+$use-fadeInDown: true;
 @import '~animate-sass/animate';
 
-
-// *** layout ***
-@import 'layout/layout';
+// layout
 @import 'layout/component';
-// @import 'layout/login';
-
-// theme
-@import 'theme/traditional';
+@import 'layout/layout';
 
 #__nuxt {
-	display: block;
+  display: block;
 }

@@ -1,44 +1,38 @@
-// *** base ***
-@import 'base/var_mobile';
+// theme
+@import 'theme/mobile';
 
-// *** vendor ***
-// bootstrap
+// vendor
 @import 'vendor/bootstrap';
-
-// element ui
-$--font-path: '~element-theme-chalk/src/fonts';
 @import 'vendor/element';
+@import 'vendor/splitpanes';
+@import 'vendor/vxetable';
 
 // material icons
 $material-icons-font-path: '~material-icons/iconfont/';
 @import '~material-icons/iconfont/material-icons.scss';
 
-// *** layout ***
+// layout
 @import 'layout/component';
 
+#__nuxt {
+  display: block;
+}
+
 //-------------- layout
-html, body {
-    height: 100%;
+.root {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
-body {
-    color: #fff;
-    background-color: $gray-900;
+.page {
+    height: calc(100% - 55px);
+    // border: 1px solid yellow;
 }
-a {
-    &:hover, &:focus {
-        color: $primary;
-        text-decoration: none;
-    }
-}
-.container-fluid {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    padding-left: 0;
-    padding-right: 0;
+.main {
+    height: calc(100% - 44px);
+    // border: 1px solid red;
 }
 
 
@@ -81,13 +75,13 @@ a {
 	width: 220px;
 	height: 100%;
 	background-color: $gray-700;
-	transform: translateX(100%);
+    transform: translateX(100%);
+    transition: transform .3s ease;
 	&.isOpen {
 		transform: translateX(0);
 	}
 	.userInfo-list {
 		list-style-type: none;
-		font-size: 15px;
 		color: $gray-100;
 		padding: 0;
 		li {
@@ -95,9 +89,12 @@ a {
 			+ li {
 				border-top: 1px solid $gray-600;
 			}
-		}
+        }
+        .label {
+            margin-right: 6px;
+        }
 		.userInfo__button {
-			.el-button {
+			button {
 				width: 100%;
 			}
 		}
@@ -106,14 +103,9 @@ a {
 
 
 //-------------- main
-.main {
-    height: calc(100% - 100px);
-    overflow: auto;
-}
-.el-link [class*="el-icon-"] + span {
-    font-size: 12px;
-}
 .area {
+    position: relative;
+    overflow: hidden;
     &.h-100 {
         display: flex;
         justify-content: center;
@@ -132,6 +124,9 @@ a {
         color: $--color-text-regular;
         background-color: $gray-600;
         padding: 5px 10px;
+        button {
+            min-width: 66px;
+        }
         .area__title {
             display: inline-block;
             font-size: 1rem;
@@ -175,7 +170,7 @@ a {
             display: flex;
             justify-content: flex-start;
             align-items: stretch;
-            background: rgba($gray-100, .5);
+            background: rgba($gray-100, .06);
             + li {
                 margin-top: 1px;
             }
@@ -188,8 +183,8 @@ a {
             width: 26%;
             min-width: 100px;
             text-align: center;
-            color: $infor;
-            background: rgba($gray-900, .3);
+            color: $info;
+            background: rgba($gray-900, .6);
             padding: 8px;
             .area-data__date {
                 position: absolute;
@@ -265,10 +260,9 @@ a {
             justify-content: center;
             background-color: rgba($gray-100, .02);
             padding: 10px;
-
         }
     }
-    + .el-table {
+    + table {
         margin-top: 1px;
     }
 }
@@ -307,114 +301,31 @@ a {
     background-color: $gray-900;
 }
 
-.el-table {
-    background-color: $gray-900;
-}
-.el-table td {
-    padding: 8px 0;
-    .el-button {
-        background-color: $gray-500;
-        padding: 7px 8px;
-    }
-    .hsbutton {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .el-button + .el-button {
-        margin-left: 7px;
-    }
-}
-.el-table td.limit {
-    padding: 2px 0;
-    .el-input-number {
-        margin-right: 40px;
-    }
-    &.limit__2 {
-        .el-input-number {
-            margin-right: 10px;
-        }
-        .el-button {
-            position: relative;
-            top: 1px;
-            padding: 7px 8px;
-        }
-    }
-}
-.table-icon {
-    vertical-align: bottom;
-    .icon-arrow {
-        top: 8px;
-        margin-right: 3px;
-    }
+.HistoryPrices {
+	.el-form {
+		.el-form-item__label {
+			text-align: left;
+		}
+		.el-form-item__content {
+			width: 100%;
+			.el-select, .el-input {
+				width: 100%;
+			}
+		}
+	}
+	.el-divider {
+		color: #fff;
+	}
 }
 
-.itemDetailTabTotal {
-    text-align: center;
-    .col {
-        height: 30px;
-        line-height: 30px;
-        font-size: 13px;
-    }
-    .row + .row {
-        border-top: 1px solid $gray-700;
-    }
-    .progress-bar {
-        .el-progress {
-            top: 8px;
-        }
-    }
-}
-
-.conditions {
-    .conditions__tab {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        height: 60px;
-        background-color: #000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        li {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            border: 5px solid #000;
-        }
-        li.current {
-            color: #fefe54;
-            background-color: #323334;
-            border-color: #48494b;
-        }
-    }
-    .conditions__content {
-        height: calc(100% - 60px);
-    }
-}
-
-.changPassword {
-    .el-button {
-        width: 100%;
-    }
-    .rules-list {
-        list-style: none;
-        color: rgba($gray-100, .5);
-        padding: 1rem;
-    }
+.vxe-header--column .vxe-cell {
+    font-weight: normal;
+    color: rgba($gray-100, .4);
 }
 
 
 //-------------- footer tabs
-.footer {
+#tabs-nav {
     position: absolute;
     left: 0;
     right: 0;
@@ -444,101 +355,6 @@ a {
     }
 }
 
-//-------------- element ui
-.el-table {
-    thead {
-        color: $--color-text-placeholder;
-    }
-    tbody {
-        font-size: 15px;
-    }
-    th {
-        background-color: $gray-600;
-    }
-    tr {
-        background-color: $gray-900;
-    }
-}
-.el-table, .el-table--border th, .el-table--border td {
-    border-color: $gray-600;
-}
-.el-table th.is-leaf, .el-table td {
-    border-bottom-color: $gray-800;
-}
-.el-table__fixed::before, .el-table__fixed-right::before,
-.el-table--group::after, .el-table--border::after, .el-table::before {
-    background-color: $gray-800;
-}
-.el-table__body tr.hover-row > td, .el-table__body tr.hover-row.current-row > td,
-.el-table__body tr.current-row > td {
-    background-color: rgba($primary, .2);
-}
-.el-table th {
-    padding: 6px 0;
-}
-.table {
-    width: 100%;
-    text-align: center;
-}
-
-
-.progress-table {
-    td {
-        padding: 0;
-        .cell {
-            padding: 0;
-        }
-        &:first-child {
-            padding-left: 10px;
-            .el-progress-bar__inner {
-                left: auto;
-                right: 0;
-            }
-        }
-        &:last-child {
-            padding-right: 10px;
-        }
-    }
-    .el-progress-bar__outer,
-    .el-progress-bar__inner {
-        border-radius: 0;
-    }
-    .el-progress-bar__outer {
-        background: transparent;
-    }
-}
-
-
-
-.el-form-item {
-    margin-bottom: 12px;
-}
-.el-input__inner, .el-input.is-disabled .el-input__inner {
-    background-color: $gray-990;
-    border-color: $gray-800;
-}
-.el-input-number__decrease {
-    background-color: $success;
-}
-.el-input-number__increase {
-    background-color: $danger;
-}
-.el-input-number__increase:hover, .el-input-number__decrease:hover {
-    color: #fff;
-}
-
-.el-select-dropdown__item {
-    color: $gray-900;
-}
-
-.el-button--success {
-    background-color: $success;
-}
-.el-button--danger {
-    background-color: $danger;
-}
-
-
 
 //-------------- login
 .login {
@@ -566,9 +382,4 @@ a {
     .el-button {
         width: 100%;
     }
-}
-
-
-#__nuxt {
-	display: block;
 }

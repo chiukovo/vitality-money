@@ -1,130 +1,92 @@
-@import "~element-theme-chalk/src/base.scss";
+// @import "~element-theme-chalk/src/base.scss";
 @import "~element-theme-chalk/src/dialog.scss";
-@import "~element-theme-chalk/src/input.scss";
+// @import "~element-theme-chalk/src/input.scss";
 @import "~element-theme-chalk/src/switch.scss";
 @import "~element-theme-chalk/src/input-number.scss";
-@import "~element-theme-chalk/src/radio.scss";
-@import "~element-theme-chalk/src/radio-group.scss";
-@import "~element-theme-chalk/src/radio-button.scss";
-@import "~element-theme-chalk/src/checkbox.scss";
-@import "~element-theme-chalk/src/checkbox-button.scss";
-@import "~element-theme-chalk/src/checkbox-group.scss";
-@import "~element-theme-chalk/src/select.scss";
-@import "~element-theme-chalk/src/pagination.scss";
-@import "~element-theme-chalk/src/button.scss";
-@import "~element-theme-chalk/src/button-group.scss";
-@import "~element-theme-chalk/src/table.scss";
-@import "~element-theme-chalk/src/table-column.scss";
+// @import "~element-theme-chalk/src/radio.scss";
+// @import "~element-theme-chalk/src/radio-group.scss";
+// @import "~element-theme-chalk/src/radio-button.scss";
+// @import "~element-theme-chalk/src/checkbox.scss";
+// @import "~element-theme-chalk/src/checkbox-button.scss";
+// @import "~element-theme-chalk/src/checkbox-group.scss";
+// @import "~element-theme-chalk/src/select.scss";
+// @import "~element-theme-chalk/src/pagination.scss";
+// @import "~element-theme-chalk/src/button.scss";
+// @import "~element-theme-chalk/src/button-group.scss";
+// @import "~element-theme-chalk/src/table.scss";
+// @import "~element-theme-chalk/src/table-column.scss";
 @import "~element-theme-chalk/src/date-picker.scss";
-@import "~element-theme-chalk/src/time-select.scss";
-@import "~element-theme-chalk/src/time-picker.scss";
+// @import "~element-theme-chalk/src/time-select.scss";
+// @import "~element-theme-chalk/src/time-picker.scss";
 @import "~element-theme-chalk/src/message-box.scss";
-@import "~element-theme-chalk/src/form.scss";
-@import "~element-theme-chalk/src/form-item.scss";
-@import "~element-theme-chalk/src/tabs.scss";
-@import "~element-theme-chalk/src/tab-pane.scss";
+// @import "~element-theme-chalk/src/form.scss";
+// @import "~element-theme-chalk/src/form-item.scss";
+// @import "~element-theme-chalk/src/tabs.scss";
+// @import "~element-theme-chalk/src/tab-pane.scss";
 @import "~element-theme-chalk/src/alert.scss";
-@import "~element-theme-chalk/src/notification.scss";
+// @import "~element-theme-chalk/src/notification.scss";
 @import "~element-theme-chalk/src/loading.scss";
-@import "~element-theme-chalk/src/progress.scss";
-@import "~element-theme-chalk/src/message.scss";
-@import "~element-theme-chalk/src/link.scss";
+// @import "~element-theme-chalk/src/progress.scss";
+// @import "~element-theme-chalk/src/message.scss";
+// @import "~element-theme-chalk/src/link.scss";
 
 
-.el-table {
-  th {
-    font-weight: normal;
-    background-color: #F5F7FA;
-  }
-  th, td {
-    padding: 0;
-  }
-  .cell {
-    line-height: 23px !important;
-    border: 1px solid transparent;
-  }
-}
 
-.el-form-item--mini.el-form-item {
-  margin-bottom: 2px;
-}
-
-.el-checkbox__label {
-  padding-left: 4px;
-}
-
-.el-button + .el-button {
-  margin-left: 4px;
-}
-
-.el-form--inline {
+// form
+.el-form {
+  position: relative;
   .el-form-item {
-    margin-right: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .el-form-item__label {
+    position: absolute;
+  }
+  button {
+    padding: 7px 8px;
+    + button {
+      margin-left: 6px;
+    }
+  }
+}
+.el-form.el-form--inline {
+  display: flex;
+  align-items: flex-end;
+  font-size: 12px;
+  .el-form-item {
+    display: flex;
+    align-items: center;
     margin-bottom: 0;
     + .el-form-item {
-      margin-left: 8px;
+      margin-left: 10px;
     }
-    + .el-button {
-      line-height: 1;
+    + button {
       margin-left: 4px;
     }
+    .el-form-item__label {
+      position: sticky;
+      margin-bottom: 0;
+    }
+    .el-form-item__content {
+      margin-left: 0 !important;
+    }
   }
-  .el-input + .el-input {
-    margin-left: 4px;
-  }
+}
+label {
+  margin-bottom: 0;
+}
+.el-input-number.is-controls-right .el-input__inner {
+  padding-left: 8px;
+  padding-right: 36px;
 }
 
 
-.el-dialog__header {
-  color: $header-font-color;
-  background: $header-bg-color;
-  padding: 10px;
-}
-.el-dialog__button-group {
-  position: absolute;
-    right: 0;
-    top: 0;
-}
-.el-dialog__headerbtn {
-  top: 8px;
-  right: 10px;
-  &.el-dialog__screen {
-    right: 66px;
-  }
-  &.el-dialog__min {
-    right: 36px;
-  }
-  &:hover i {
-    color: #409EFF;
-  }
+// dialog
+.el-dialog {
+  margin: 0 auto;
+  margin-top: 5vh !important;
 }
 .el-dialog__body {
-  max-height: 660px;
-  overflow: auto;
-  padding: 0;
-  img {
-    width: 100%;
-  }
-}
-.header-custom {
-  i {
-    color: $secondary;
-  }
-}
-
-.el-dialog__wrapper, .el-dialog {
-  pointer-events: none;
-}
-.el-dialog__header,
-.el-dialog__body {
-  pointer-events: auto
-}
-
-@include b(table) {
-  font-size: 12px;
-}
-@include b(tabs) {
-  @include e(item) {
-    font-size: 12px;
-  }
+  overflow: hidden;
 }

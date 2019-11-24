@@ -9,21 +9,24 @@
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
   .history-content(v-show='historyTabShow == 1')
     .history-content__header(id="buySellHeader")
-      button.button(@click="openMultiDelete") 刪單
-      button.button(@click="multiDeleteAllClick(true)") 全選
-      button.button(@click="multiDeleteAllClick(false)") 全不選
-      label.radio
-        input.radio__input(type="radio" v-model='seeAllOrder' value='1')
-        span.radio__label 全部單據
-      label.radio
-        input.radio__input(type="radio" v-model='seeAllOrder' value='0')
-        span.radio__label 未成交單據
-      label.checkbox(v-if="seeAllOrder == 0")
-        input.checkbox__input(v-model="showAllOrder" type="checkbox" value="1")
-        span.checkbox__label 顯示全部商品單據
-      label.checkbox
-        input.checkbox__input(v-model="autoGoButtom" type="checkbox" value="1")
-        span.checkbox__label 自動置底
+      .d-flex.justify-content-between.align-items-center(style="width: 100%; padding: 2px 0")
+        .div
+          button.button(@click="openMultiDelete") 刪單
+          button.button(@click="multiDeleteAllClick(true)") 全選
+          button.button(@click="multiDeleteAllClick(false)") 全不選
+        .div(style="margin-left: 10px;")
+          label.radio.inline
+            input.radio__input(type="radio" v-model='seeAllOrder' value='1')
+            span.radio__label 全部單據
+          label.radio.inline
+            input.radio__input(type="radio" v-model='seeAllOrder' value='0')
+            span.radio__label 未成交單據
+          label.checkbox.inline(v-if="seeAllOrder == 0")
+            input.checkbox__input(v-model="showAllOrder" type="checkbox" value="1")
+            span.checkbox__label 顯示全部商品單據
+          label.checkbox.inline
+            input.checkbox__input(v-model="autoGoButtom" type="checkbox" value="1")
+            span.checkbox__label 自動置底
     .history-content__body(:style="{height: height.buySell}")
       client-only
         vxe-table(
@@ -36,29 +39,29 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="30" fixed)
+          vxe-table-column(width="30" align="center")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[1]")
-          vxe-table-column(title='操作' fixed align="center")
+          vxe-table-column(title='操作' width="120" align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
               //-改單
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-          vxe-table-column(field='Serial' title='序號' align="center")
+          vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品')
           vxe-table-column(title='多空' width="40px" align="center")
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
           vxe-table-column(field='OrderPrice' title='委託價')
-          vxe-table-column(field='Quantity' title='口數')
+          vxe-table-column(field='Quantity' title='口數' width="40px" align="center")
           vxe-table-column(field='FinalPrice' title='成交價')
           vxe-table-column(field='Odtype' title='型別')
-          vxe-table-column(title='損失點數')
+          vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
-              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ parseInt(scope.row.LossPoint) }}
-          vxe-table-column(title='獲利點數')
+              button.button.button_border__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+          vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
-              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ parseInt(scope.row.WinPoint) }}
+              button.button.button_border__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
           vxe-table-column(field='OrderTime' width='150' title='下單時間')
           vxe-table-column(field='FinalTime' width='150' title='完成時間')
           vxe-table-column(title='狀態' width='110' fixed="right")
@@ -67,9 +70,10 @@
               span(v-else) {{ scope.row.State }}
   .history-content(v-show='historyTabShow == 2')
     .history-content__header(id="uncoveredHeader")
-      button.button(@click="openMultiOrder") 平倉
-      button.button(@click="multiOrderAllClick(true)") 全選
-      button.button(@click="multiOrderAllClick(false)") 全不選
+      div(style="padding: 2px 0")
+        button.button(@click="openMultiOrder") 平倉
+        button.button(@click="multiOrderAllClick(true)") 全選
+        button.button(@click="multiOrderAllClick(false)") 全不選
     .history-content__body(:style="{height: height.uncovered}")
       client-only
         vxe-table(
@@ -83,25 +87,25 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="30" fixed)
+          vxe-table-column(width="30")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
-          vxe-table-column(title='操作' fixed)
+          vxe-table-column(title='操作')
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-          vxe-table-column(field='Serial', title='序號')
-          vxe-table-column(field='Name', title='商品')
+          vxe-table-column(field='Serial' title='序號')
+          vxe-table-column(field='Name' title='商品')
           vxe-table-column(title='型別')
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-          vxe-table-column(field='FinalPrice', title='成交價')
-          vxe-table-column(field='Quantity', title='口數')
-          vxe-table-column(field='Fee', title='手續費')
+          vxe-table-column(field='FinalPrice' title='成交價')
+          vxe-table-column(field='Quantity' title='口數')
+          vxe-table-column(field='Fee' title='手續費')
           vxe-table-column(title='損失點數')
             template(slot-scope='scope')
-              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
+              button.button.button_border__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
           vxe-table-column(title='獲利點數')
             template(slot-scope='scope')
-              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
+              button.button.button_border__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
           vxe-table-column(title='倒限(利)')
             template(slot-scope='scope')
               button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
@@ -195,14 +199,14 @@
               span.text-danger(v-else) {{ scope.row.RemainingWithholding}}
   .history-content(v-show="historyTabShow == 5")
     .history-content__header(id="accountHeader")
-        el-form(ref='form' size="mini" :inline='true')
+        el-form(ref='form' size="mini" :inline='true' style="padding: 2px 0")
           el-form-item(label='開始日期:')
             el-form-item
               el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")
           el-form-item(label='結束日期:')
             el-form-item
               el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
-          button.button(@click="query") 送出
+          button.button(type="button" @click="query") 送出
         span.label 快速查詢
         button.button(@click="selectDayType('today')") 今日
         button.button(@click="selectDayType('yesterday')") 昨日

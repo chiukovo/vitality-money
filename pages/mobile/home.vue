@@ -47,7 +47,7 @@ import Operating from "~/components/mobile/Operating"
 import Documents from "~/components/mobile/Documents"
 import Report from "~/components/mobile/Report"
 import System from "~/components/mobile/System"
-import '@/assets/scss/mobile.scss'
+import '@/assets/sass/mobile.scss'
 
 export default {
 	head() {
