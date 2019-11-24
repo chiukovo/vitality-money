@@ -203,7 +203,7 @@
       button.button(type='primary' @click="doDelete") 確認
   .history-content(v-show='historyTabShow == 1')
     .history-content__header
-      button.button(@click="deleteConfirm = true" disabled) 刪單
+      button.button(@click="deleteConfirm = true") 刪單
       button.button 全選
       button.button 全不選
     .history-content__body
@@ -225,7 +225,6 @@
               button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
               //-改單
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-              el-checkbox(v-if="scope.row.Operation[1]" v-model="$store.state.multiDelete[scope.$rowIndex].checked")
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
           vxe-table-column(field='Serial' title='序號' align="center")
           vxe-table-column(field='Name' title='商品')

@@ -3,20 +3,31 @@
   .operating-header
     .header__title {{ $store.state.itemName }}
     .header__mode
-      el-radio(v-model='radioA' label='0') 一般
+      label.radio
+        input.radio__input(type="radio" checked)
+        span.radio__label 一般
   .operating-content
     .operating-1
       table
         tbody
           tr
             td
-            td: el-radio(v-model='buyType' label='0') 市價單
+            td
+              label.radio
+                input.radio__input(type="radio" v-model='buyType' value='0')
+                span.radio__label 市價單
           tr
-            td: el-radio(v-model='buyType' label='2') 收盤單
-            td: el-radio(v-model='buyType' label='1') 限價單
+            td
+              label.radio
+                input.radio__input(type="radio" v-model='buyType' value='2')
+                span.radio__label 收盤單
+            td
+              label.radio
+                input.radio__input(type="radio" v-model='buyType' value='1')
+                span.radio__label 限價單
     .operating-2
-      el-form(ref='form' size='mini' label-width='50px')
-        el-form-item(label='限價:' v-if="buyType == 1")
+      el-form(ref='form' size='mini' label-width='30px')
+        el-form-item(label='限價:' v-if="buyType == 1" style="width: 80px")
           el-input-number(v-model='nowPrice' controls-position='right' :min="0")
         el-form-item(label='停利:')
           el-input-number(v-model='profit' controls-position='right' :min="0")
@@ -24,17 +35,15 @@
           el-input-number(v-model='damage' controls-position='right' :min="0")
     .operating-3
       .numberbtn
-        el-form(ref='form' size='mini' label-width='50px')
-          el-button-group
-            el-button(type='primary' size='mini' v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
+        el-form(ref='form' size='mini' label-width='30px')
+          button.button(v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
-          el-form-item(label='口數:' style='margin: 2px 0 2px 0;')
+          el-form-item(label='口數:' style='margin: 2px 0;')
             el-input-number(v-model='submitNum' controls-position='right' :min="0")
       .editbtn
-        el-button-group
-          el-button(type='primary' size='mini' @click="dialogVisible = true") 編輯
-          el-button(type='primary' size='mini' @click="resetNum") 還原
+        button.button(@click="dialogVisible = true") 編輯
+        button.button(@click="resetNum") 還原
         el-dialog(
           :visible.sync='dialogVisible'
           :modal='false'
@@ -44,15 +53,15 @@
             .header-custom(slot='title') 調整數量
             template
               .dialog__body
-                  .numberBtn-box(v-for="(customSubmitNum, key) in customSubmitNums" :key="key")
-                    el-input-number(size="mini" controls-position='right' v-model="customSubmitNums[key]" :min="0")
+                .numberBtn-box(v-for="(customSubmitNum, key) in customSubmitNums" :key="key")
+                  el-input-number(size="mini" controls-position='right' v-model="customSubmitNums[key]" :min="0")
               .dialog__footer
-                el-button(@click="dialogVisible = false") 取消
-                el-button(type='primary' @click="setNum") 送出
+                button.button__light(@click="dialogVisible = false") 取消
+                button.button(@click="setNum") 送出
     .operating-4
-        el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
-        el-button(size='mini' @click="checkOrderAll()") 全平
-        el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
+        button.button__danger.button__lg(@click="checkOrder(0)") 下多單
+        button(@click="checkOrderAll()") 全平
+        button.button__success.button__lg(@click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'
@@ -62,26 +71,32 @@
           .header-custom(slot='title')
             i.el-icon-info
             |  確認下單
-          el-table.table(
-            :data="confirmData"
-            min-width='100%'
-            height="200px"
-            border
-          )
-            el-table-column(prop="name" label='目標商品')
-            el-table-column(prop="userName" label='用戶名稱')
-            el-table-column(prop="buy" label='買賣')
-            el-table-column(prop="price" label='價格')
-            el-table-column(prop="submit" label='口數')
-          .dialog__footer
-              el-button(@click="cancel") 取消
-              el-button(type='primary' @click="doOrder") 確認
-
+          client-only
+            vxe-table(
+              :data="confirmData"
+              max-width="100%"
+              height="200px"
+              size="mini"
+              border
+              auto-resize)
+              vxe-table-column(field="name" title='目標商品')
+              vxe-table-column(field="userName" title='用戶名稱')
+              vxe-table-column(field="buy" title='買賣')
+              vxe-table-column(field="price" title='價格')
+              vxe-table-column(field="submit" title='口數')
+            .dialog__footer
+                button.button__light(@click="cancel") 取消
+                button.button(@click="doOrder") 確認
     .operating-5
-      el-checkbox-group(v-model="customGroup")
-        el-checkbox(label="overall") ({{ $store.state.itemName }})全盤收平
-        el-checkbox(label='noConfirm') 下單不確認
-        el-checkbox(label='prompt') 限價成交提示
+      label.checkbox
+        input.checkbox__input(v-model="customGroup" type="checkbox" value="overall")
+        span.checkbox__label ({{ $store.state.itemName }})全盤收平
+      label.checkbox
+        input.checkbox__input(v-model="customGroup" type="checkbox" value="noConfirm")
+        span.checkbox__label 下單不確認
+      label.checkbox
+        input.checkbox__input(v-model="customGroup" type="checkbox" value="prompt")
+        span.checkbox__label 限價成交提示
 </template>
 
 <script>
@@ -130,9 +145,6 @@ export default {
           overall = 1
         }
       })
-
-      this.$store.dispatch('CALL_SET_CLOSE_OVER_ALL', { overall })
-      this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
     }
   },
   mounted() {

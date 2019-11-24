@@ -157,7 +157,9 @@ export default {
             })
           }
 
-          _this.playSuccessSound()
+          if (_this.$store.state.localStorage.customSetting.sound) {
+            _this.playSuccessSound()
+          }
 
           break
         case "j": //檢查token

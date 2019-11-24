@@ -1,11 +1,11 @@
 <template lang='pug'>
+.header
   nav.navbar
     Dialog(
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
       :title="dialog.title"
-      :size="dialog.size"
-    )
+      :size="dialog.size")
     ul.navbar-nav.navbar-nav-left
       li.nav-item
         a.nav-link(href="#") 連線
@@ -27,9 +27,9 @@
           a.dropdown-item(href="#" @click="openModal('customItem', '商品選擇')") 商品選擇
           //-a.dropdown-item(href="#") 版面選擇
           //-a.dropdown-item(href="#") 視覺下單
-          a.dropdown-item(href="#" @click="setCustomSetting('noConfirmDelete')") 刪單不確認
-          a.dropdown-item(href="#" @click="setCustomSetting('orderReport')") 下單回報
-          a.dropdown-item(href="#" @click="setCustomSetting('clapping')") 拍手動畫
+          a.dropdown-item(href="#" @click="setCustomSetting('noConfirmDelete')" :class="$store.state.localStorage.customSetting.noConfirmDelete ? 'isActive': ''") 刪單不確認
+          a.dropdown-item(href="#" @click="setCustomSetting('orderReport')" :class="$store.state.localStorage.customSetting.orderReport ? 'isActive': ''") 下單回報
+          //- a.dropdown-item(href="#" @click="setCustomSetting('clapping')") 拍手動畫
       li.nav-item
         a.nav-link(href="#") 說明
         .dropdown-menu
@@ -38,24 +38,25 @@
       li.nav-item.nav-item-text
         .navbar-txt 商品: {{ $store.state.itemName }}
         .navbar-txt 最後交易日: {{ targetItem.end_date }}
-        .navbar-txt 禁新: 
-          span.text-success {{ targetItem.new_point1 }}
-          |, 
-          span.text-danger {{ targetItem.new_point2 }}
-        .navbar-txt 強平: 
-          span.text-success {{ targetItem.cover_point1 }}
-          |, 
-          span.text-danger {{ targetItem.cover_point2 }}
+        .navbar-txt 禁新:
+          span.text-success  {{ targetItem.new_point1 }}
+          |,
+          span.text-danger  {{ targetItem.new_point2 }}
+        .navbar-txt 強平:
+          span.text-success  {{ targetItem.cover_point1 }}
+          |,
+          span.text-danger  {{ targetItem.cover_point2 }}
     ul.navbar-nav.navbar-nav-right
       li.nav-item
-        a.nav-link.material-icons(href="#") color_lens
-        .dropdown-menu
+        a.nav-link(href="#") 換膚
+        //- .dropdown-menu
           a.dropdown-item(href="#") 傳統
           a.dropdown-item(href="#") 官方
+      //- 音效關閉時, 添加 class .isShutdown
+      li.nav-item(:class="$store.state.localStorage.customSetting.sound ? '': 'isShutdown'")
+        a.nav-link(href="#" @click="setCustomSetting('sound')") 提示聲
       li.nav-item
-        a.nav-link.material-icons(href="#") notifications
-      li.nav-item
-        a.nav-link.material-icons(href="#" @click="logout") exit_to_app
+        a.nav-link(href="#" @click="logout") 登出
 </template>
 
 <script>
@@ -78,6 +79,8 @@ export default {
   components: {
     Dialog,
   },
+  mounted() {
+  },
   computed: mapState([
     'clickItemId',
   ]),
@@ -94,6 +97,7 @@ export default {
   },
   methods: {
     openModal (type, title, size) {
+      this.dialog.size = ''
       this.dialog.clickType = type
       this.dialog.title = title
       this.dialog.isOpen = true

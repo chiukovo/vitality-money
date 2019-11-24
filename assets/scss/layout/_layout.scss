@@ -188,7 +188,6 @@
   .history-content__header{
     display: flex;
     align-items: center;
-    height: var(--history-content__body);
     padding: 0 4px;
     overflow: auto;
     white-space: nowrap;
@@ -200,7 +199,7 @@
     }
   }
   .history-content__body {
-    height: calc(100% - var(--history-content__body));
+
   }
   .history-tabs {
     line-height: 30px;

@@ -59,6 +59,8 @@ export default {
       if (isOpen) {
         if (this.size != '' && typeof this.size != 'undefined') {
           this.diaiogSize = this.size
+        } else {
+          this.diaiogSize = '86%'
         }
       }
     }

@@ -1,17 +1,23 @@
 <template lang='pug'>
 .dialog
+  .dialog__header
+    el-button(size='mini' @click="allChecked(true)") 全選
+    el-button(size='mini' @click="allChecked(false)") 全不選
   .dialog__content
     vxe-table(
       :data='items'
       ref="multipleTable"
-      @selection-change="handleSelectionChange"
+      @checkbox-change="handleSelectionChange"
       max-width="100%"
       height="500"
       size="mini"
       border
       auto-resize
-      highlight-hover-row)
-      vxe-table-column(title='' type="selection" width="30" align="center")
+      highlight-hover-row
+      :checkbox-config="{checkStrictly: true}")
+      vxe-table-column(width="55px" fixed)
+        template(slot-scope='scope')
+          input(type="checkbox" v-model="multipleSelection" :value="scope.row.id")
       vxe-table-column(field="name" title='商品')
       vxe-table-column(field="id" title='代碼')
       vxe-table-column(title='可下單時間')
@@ -43,12 +49,21 @@ export default {
       _this.items.push(val)
 
       if (val.show) {
-        _this.multipleSelection.push(val)
-        _this.$refs.multipleTable.toggleRowSelection(val)
+        _this.multipleSelection.push(val.id)
       }
     })
   },
   methods: {
+    allChecked(allChecked) {
+      let _this = this
+      _this.multipleSelection = []
+
+      if (allChecked) {
+        _this.multipleSelection = _this.$store.state.customItemSetting.map(function(val) {
+          return val.id
+        })
+      }
+    },
     async submit() {
       let _this = this
       let result = []
@@ -58,7 +73,7 @@ export default {
         let show = false
         //確認選擇
         _this.multipleSelection.forEach(function(checkVal) {
-          if (val.id == checkVal.id) {
+          if (val.id == checkVal) {
             show = true
           }
         })
@@ -76,21 +91,12 @@ export default {
         UserSettingData: JSON.stringify(result),
       }))
       .then(response => {
-        //init
-        //取得自定義商品開關
-        _this.$store.dispatch('CALL_MEMBER_CUSTOM_ITEM', {
-          defaultData: mainItem,
-          marketInfo: _this.marketInfo()
-        })
-
         _this.$alert("修改成功")
+        location.reload()
       })
     },
     cancel() {
       //clear form
-      this.items = []
-      this.multipleSelection = []
-
       this.$parent.handleClose()
     },
     handleSelectionChange(val) {

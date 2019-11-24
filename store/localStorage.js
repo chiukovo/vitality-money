@@ -5,6 +5,7 @@ export const state = () => ({
   	noConfirmDelete: false, //刪單不確認
   	orderReport: false, //下單回報
   	clapping: false, //拍手動畫
+  	sound: false, //音效
   	operatingCustomGroup: [], //下單三項自訂選項
   },
 })

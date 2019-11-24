@@ -1,4 +1,5 @@
 <template lang='pug'>
+.footer
 	.row.d-flex
 		#news
 			marquee.news__list(onmouseover='this.stop()', onmouseout='this.start()')
@@ -10,7 +11,7 @@
 		#today
 			.today__date
 				span {{ dateTime }}
-				el-button(size='mini') 12-伺服器
+				button 12-伺服器
 </template>
 
 <script>

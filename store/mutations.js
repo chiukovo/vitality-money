@@ -24,6 +24,7 @@ export default {
         }
       })
     }
+
     state.customItemSetting = data
 
     //計算mainItem
@@ -79,10 +80,7 @@ export default {
       }
     })
 
-    //即時報價更新
-    _this.commit('newPriceChange')
-
-    state.mainList = result
+    state.mainItem = result
   },
   setuserAuth(state, data) {
     //set localStorage
@@ -147,13 +145,18 @@ export default {
     state.unCoverTotal = state.uncovered.length
 
     //加入多檔刪除
-    state.buySell.forEach(function(source) {
+    state.buySell = state.buySell.map(function(source) {
       const multiDeleteInfo = {
         itemId: source.ID,
         checked: false
       }
 
       state.multiDelete.push(multiDeleteInfo)
+
+      //預設顯示全部
+      source.show = true
+
+      return source
     })
 
     //商品統計 加入其他
@@ -224,17 +227,24 @@ export default {
 
     if (typeof history != 'undefined') {
       this.commit('setItemChange', history)
+    } else {
+      state.items2 = []
     }
 
     if (typeof fiveData != 'undefined') {
       this.commit('setFiveItemChange', fiveData)
+    } else {
+      state.items0 = []
     }
 
     if (typeof volumeMoney != 'undefined') {
       this.commit('setVolumeChange', volumeMoney)
+    } else {
+      state.items1 = []
     }
   },
   setMainItem(state, data) {
+    const _this = this
     const commidyArray = state.commidyArray
 
     //計算禁新 強平
@@ -512,7 +522,6 @@ export default {
       state.items0 = fiveData
       //計算total
       state.items0.forEach(function(val, key) {
-
         if (key != 5) {
           if (val[1] != '') {
             state.fiveTotal.more += parseInt(val[1])
@@ -525,7 +534,7 @@ export default {
       })
 
       //多勢 %
-      state.fiveTotal.morePercent = parseInt(100 / (state.fiveTotal.more +state.fiveTotal.nullNum) * state.fiveTotal.more)
+      state.fiveTotal.morePercent = parseInt(100 / (state.fiveTotal.more + state.fiveTotal.nullNum) * state.fiveTotal.more)
     }
   },
   setItemChange(state, history) {
