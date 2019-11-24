@@ -54,8 +54,6 @@
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}
         el-checkbox-group(v-model="customGroup")
           el-checkbox(label="overall") 全盤收平
-          el-checkbox(label='noConfirm') 下單不確認
-          el-checkbox(label='prompt') 限價成交提示
       .area__content.text-center
         el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
         el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
@@ -298,20 +296,7 @@ export default {
         submit: this.submitNum,
       }]
 
-      //看是否有勾選下單不確認
-      let noConfirm = false
-
-      this.customGroup.forEach(function(val){
-        if (val == 'noConfirm') {
-          noConfirm = true
-        }
-      })
-
-      if (noConfirm) {
-        this.doOrder()
-      } else {
-        this.orderConfirm = true
-      }
+      this.doOrder()
     },
     cancel() {
       this.orderConfirm = false

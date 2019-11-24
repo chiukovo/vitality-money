@@ -72,6 +72,11 @@ export default {
       state.nowNewPrice[val.product_id] = val.newest_price
 
       result.push(val)
+
+      if (state.clickItemId == val.product_id) {
+        //set default now data
+        _this.commit('setNowMainItem', val)
+      }
     })
 
     //即時報價更新
@@ -193,10 +198,17 @@ export default {
     state.isMobile = data
   },
   setClickItemId(state, {id, name}) {
+    const _this = this
     //取消before click id
     this._vm.$socket.send(this._vm.paramBcancelclickId(state.clickItemId))
     //註冊
     this._vm.$socket.send(this._vm.paramBclickId(id))
+    //change now mainItem
+    state.mainItem.forEach(function(val) {
+      if (val.product_id == id) {
+        _this.commit('setNowMainItem', val)
+      }
+    })
 
     state.clickItemId = id
     state.itemName = name
@@ -362,7 +374,7 @@ export default {
         } else {
           val.total_qty_change = ''
         }
-        
+
         //成交
         if (val.newest_price_change == '') {
           val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName

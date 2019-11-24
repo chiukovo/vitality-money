@@ -797,16 +797,6 @@ export default {
         }
       }
     },
-    buySelltableCellClassName({ row, column, columnIndex }) {
-      //red
-      if (columnIndex >= 3 && columnIndex <= 8) {
-        if (row.BuyOrSell == 0) {
-          return 'text-up'
-        } else {
-          return 'text-down'
-        }
-      }
-    },
     uncoveredTableCellClassName({ row, column, columnIndex }) {
       if (columnIndex >= 1 && columnIndex <= 13) {
         if (row.BuyOrSell == 0) {

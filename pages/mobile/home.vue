@@ -11,7 +11,7 @@
 		//- 單據列表
 		Documents(v-if='tabShow == 3')
 		//- 報表查詢
-		History(v-if='tabShow == 4')
+		Report(v-if='tabShow == 4')
 		//- 系統功能
 		System(v-if='tabShow == 5')
 	#footer.footer
@@ -29,7 +29,7 @@ import websocketService from '~/plugins/service/websocketService.js'
 import MainItem from "~/components/mobile/MainItem"
 import Operating from "~/components/mobile/Operating"
 import Documents from "~/components/mobile/Documents"
-import History from "~/components/mobile/History"
+import Report from "~/components/mobile/Report"
 import System from "~/components/mobile/System"
 import '@/assets/sass/mobile.scss'
 
@@ -49,7 +49,7 @@ export default {
 		MainItem,
 		Operating,
 		Documents,
-		History,
+		Report,
 		System
 	},
 	data() {
