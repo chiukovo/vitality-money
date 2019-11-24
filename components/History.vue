@@ -515,6 +515,9 @@ export default {
     window.addEventListener('resize', this.computedHeight)
   },
   watch: {
+    historyTabShow() {
+      window.setTimeout(( () => this.computedHeight() ), 100)
+    }
   },
   methods: {
     computedHeight() {
