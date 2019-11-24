@@ -199,7 +199,8 @@
               span.text-danger(v-else) {{ scope.row.RemainingWithholding}}
   .history-content(v-show="historyTabShow == 5")
     .history-content__header(id="accountHeader")
-        el-form(ref='form' size="mini" :inline='true' style="padding: 2px 0")
+        el-form(ref='form' size="mini" :inline='true' style="padding: 2px 0"
+        )
           el-form-item(label='開始日期:')
             el-form-item
               el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")

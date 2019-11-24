@@ -531,17 +531,21 @@ button {
     }
     .login-box {
       position: absolute;
-      top: 178px;
+      top: 184px;
       right: -250px;
       width: 266px;
     }
     .login__header {
       display: none;
     }
+    .el-form-item {
+      width: 100%;
+    }
     .el-form-item__label {
       display: none;
     }
     .el-form-item__content {
+      width: 100%;
       margin-left: 0 !important;
     }
     .el-input__inner {
@@ -566,11 +570,11 @@ button {
     }
     .el-form {
       .el-form-item {
-        &:nth-child(2) {
-          margin-bottom: 18px;
+        &:nth-child(1) {
+          margin-bottom: 23px;
         }
-        &:nth-child(3) {
-          margin-bottom: 0;
+        &:nth-child(2) {
+          margin-bottom: 26px;
         }
         &:nth-child(4) {
           .el-checkbox__label {
@@ -583,8 +587,9 @@ button {
         }
         &:nth-child(5) {
           position: absolute;
-          right: 0;
-          bottom: -8px;
+          right: -1px;
+          bottom: -16px;
+          width: auto;
           .el-button {
             color: transparent;
             background: transparent url('~static/images/theme_traditional/login_button.png');

@@ -14,9 +14,9 @@
 						el-option(label='10-伺服器' value='server10')
 						el-option(label='11-伺服器' value='server11')
 				el-form-item(label='帳號')
-					el-input(v-model='account' placeholder='请输入帳號')
+					el-input(v-model='account' placeholder='請输入帳號')
 				el-form-item(label='密碼')
-					el-input(v-model='password' type='password' placeholder='请输入密碼')
+					el-input(v-model='password' type='password' placeholder='請输入密碼')
 				el-form-item
 					el-checkbox 記住我
 				el-form-item
@@ -28,7 +28,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
-import '@/assets/sass/style.scss'
+import '@/assets/sass/theme1.scss'
 
 export default {
 	head() {
