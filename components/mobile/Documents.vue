@@ -39,7 +39,7 @@
                   highlight-current-row
                   :checkbox-config="{checkStrictly: true}")
                   vxe-table-column(type="checkbox" width="30" :selectable="selectCheckDelete" align="center")
-                  vxe-table-column(title='操作' width="150" align="center")
+                  vxe-table-column(title='操作' width="166" align="center")
                     template(slot-scope='scope')
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                       button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
@@ -105,10 +105,10 @@
                   vxe-table-column(field='Fee', title='手續費')
                   vxe-table-column(title='損失點數')
                     template(slot-scope='scope')
-                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
+                      button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
                   vxe-table-column(title='獲利點數')
                     template(slot-scope='scope')
-                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
+                      button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
                   vxe-table-column(title='倒限(利)')
                     template(slot-scope='scope')
                       button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}

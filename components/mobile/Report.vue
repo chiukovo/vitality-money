@@ -1,14 +1,16 @@
 <template lang='pug'>
 .page
+  client-only
+    include mixins.pug
   .header
     .header__title 報表查詢
   .main
     ul.nav-list
-      li(@click='handleQuote(1)') 對帳表
-      li(@click='handleQuote(2)') 歷史損益
-      li(@click='handleQuote(3)') 儲值記錄
-      li(@click='handleQuote(4)') 動作日誌
-      li(@click='handleQuote(5)') 歷史報價
+      +nav-list-item('handleQuote', '1', '對帳表')
+      +nav-list-item('handleQuote', '2', '歷史損益')
+      +nav-list-item('handleQuote', '3', '儲值記錄')
+      +nav-list-item('handleQuote', '4', '動作日誌')
+      +nav-list-item('handleQuote', '5', '歷史報價')
     //- 對帳表
     Accounting(v-if='quoteShow == 1')
     //- 歷史損益

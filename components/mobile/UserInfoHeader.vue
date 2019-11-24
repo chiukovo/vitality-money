@@ -1,15 +1,27 @@
 <template lang='pug'>
   ul.userInfo-list
-    li.text-center 狀態: 正常收單
-    li.text-center 帳戶: {{ userInfo.Account }}
-    li 客戶名稱: {{ userInfo.Name }}
-    li 服務人員:
-    li 服務專線:
-    li 預設額度: {{ userInfo.TouchPoint }}
-    li 帳戶餘額:
-      span.text__danger  {{ userInfo.Money }}
-    li 今日損益:
-      span.text__danger  {{ userInfo.TodayMoney }}
+    li.text-center
+      span.label 狀態:
+      |正常收單
+    li.text-center
+      span.label 帳戶:
+      span {{ userInfo.Account }}
+    li
+      span.label 客戶名稱:
+      span {{ userInfo.Name }}
+    li
+      span.label 服務人員:
+    li
+      span.label 服務專線:
+    li
+      span.label 預設額度:
+      span {{ userInfo.TouchPoint }}
+    li
+      span.label 帳戶餘額:
+      span.text-info {{ userInfo.Money }}
+    li
+      span.label 今日損益:
+      span(:class="userInfo.TodayMoney > 0 ? 'text-succuss' : 'text-danger'")  {{ userInfo.TodayMoney }}
     li.userInfo__button
       button.button__danger.logout 登出帳號
 </template>

@@ -9,11 +9,12 @@
 
 // button
 button {
+  min-width: $button-min-width;
   line-height: 1;
   color: $dark;
   border: $gray-200;
   background: $light;
-  padding: 6px 8px;
+  padding: $button-padding;
   &:disabled {
     cursor: no-drop;
     opacity: .5;
@@ -60,6 +61,15 @@ button {
 // text
 .text-lg {
   font-size: 1.25rem;
+}
+.text-bold {
+  font-weight: bold;
+}
+$align: center right left;
+@each $author in $align {
+  .text-#{$author} {
+    text-align: #{$author};
+  }
 }
 @each $color, $value in $theme-colors {
   .text-#{$color} {
