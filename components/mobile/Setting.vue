@@ -2,7 +2,7 @@
 .modals.changPassword
   .header
     .header__left
-      el-link(icon='el-icon-arrow-left' :underline='false') 返回
+      el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回
     .header__title 系統設置
   .main
     .area
@@ -12,29 +12,72 @@
           .area-switch__content
             .area-switch__label 音效開關
             .area-switch__button
-              el-switch(v-model="value1")
+              el-switch(v-model="sound")
         li
           .area-switch__title 提示
           .area-switch__content
             .area-switch__label 限價單成交提示
             .area-switch__button
-              el-switch(v-model="value2")
+              el-switch(v-model="prompt" @change="changeValue('prompt')")
         li
           .area-switch__title 下單提示
           .area-switch__content
             .area-switch__label 下單不確認
             .area-switch__button
-              el-switch(v-model="value3")
+              el-switch(v-model="noConfirm" @change="changeValue('noConfirm')")
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       systemShow: 8,
-      value1: true,
-      value2: true,
-      value3: false
+      sound: true,
+      prompt: false,
+      noConfirm: false
+    }
+  },
+  mounted() {
+    const _this = this
+    let customGroup = this.$cookies.get('customGroup')
+    this.value1 = this.$store.state.localStorage.customSetting.sound
+
+    if (typeof customGroup == 'undefined') {
+      customGroup = []
+    }
+
+    customGroup.forEach(function(val) {
+      if (val == 'noConfirm') {
+        _this.noConfirm = true
+      }
+      if (val == 'prompt') {
+        _this.prompt = true
+      }
+    })
+  },
+  methods: {
+    changeValue(type) {
+      let result = []
+      let customGroup = this.$cookies.get('customGroup')
+      let newType = type == 'prompt' ? this.prompt : this.noConfirm
+
+      if (newType) {
+        customGroup.push(type)
+        this.$cookies.set('customGroup', customGroup)
+      } else {
+        customGroup.forEach(function(val) {
+          if (val != type) {
+            result.push(val)
+          }
+        })
+
+        this.$cookies.set('customGroup', result)
+      }
+    }
+  },
+  watch: {
+    sound() {
+      this.$store.commit('setCustomSetting', 'sound')
     }
   }
 }

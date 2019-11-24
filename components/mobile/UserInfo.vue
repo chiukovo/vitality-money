@@ -5,7 +5,7 @@
     include mixins.pug
   .header
     .header__left
-      el-link(icon='el-icon-arrow-left' :underline='false') 返回
+      el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回
     .header__title 帳戶訊息
   .main
     .area

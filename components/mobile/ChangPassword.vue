@@ -2,7 +2,7 @@
 .modals.changPassword
   .header
     .header__left
-      el-link(icon='el-icon-arrow-left' :underline='false') 取消
+      el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 取消
     .header__title 修改密碼
   .main
     .area
@@ -51,8 +51,6 @@ export default {
         newPassword: '',
         checkPassword: '',
       }
-
-      this.$parent.handleClose()
     },
     async submit() {
       let _this = this
@@ -85,7 +83,6 @@ export default {
           return
         } else {
           _this.$alert("密碼更改成功")
-          _this.$parent.handleClose()
         }
       })
     }

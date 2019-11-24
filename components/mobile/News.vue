@@ -2,7 +2,7 @@
 .modals.documents
   .header
     .header__left
-      el-link(icon='el-icon-arrow-left' :underline='false') 返回
+      el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回
     .header__title 系統公告
   .main
     .area
