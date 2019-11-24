@@ -1,10 +1,10 @@
 /*font-family*/
 $vxe-font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
-$vxe-font-color: #606266;
-$vxe-font-size: 14px;
-$vxe-font-size-medium: 14px;
-$vxe-font-size-small: 13px;
-$vxe-font-size-mini: 12px;
+$vxe-font-color: $table-font-color;
+$vxe-font-size: $table-font-size;
+$vxe-font-size-medium: $table-font-size-medium;
+$vxe-font-size-small: $table-font-size-small;
+$vxe-font-size-mini: $table-font-size-mini;
 
 /*primary color*/
 $vxe-primary-color: #409eff;
@@ -29,7 +29,7 @@ $vxe-table-row-height-default: $table-row-height-default;
 $vxe-table-row-height-medium: $table-row-height-medium;
 $vxe-table-row-height-small: $table-row-height-small;
 $vxe-table-row-height-mini: $table-row-height-mini;
-$vxe-table-row-line-height: 1.4;
+$vxe-table-row-line-height: $table-row-line-height;
 $vxe-table-row-striped-background-color: #fafafa;
 $vxe-table-row-hover-background-color: $table-row-hover-bg-color;
 $vxe-table-row-current-background-color: $table-row-current-bg-color;

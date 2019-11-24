@@ -10,20 +10,15 @@
       li(@click='handleQuote(4)') 動作日誌
       li(@click='handleQuote(5)') 歷史報價
     //- 對帳表
-    template(v-if='quoteShow == 1')
-      Accounting
+    Accounting(v-if='quoteShow == 1')
     //- 歷史損益
-    template(v-if='quoteShow == 2')
-      HistoryWinLoss
+    HistoryWinLoss(v-if='quoteShow == 2')
     //- 儲值紀錄
-    template(v-if='quoteShow == 3')
-      StoredRecords
+    StoredRecords(v-if='quoteShow == 3')
     //- 動作日誌
-    template(v-if='quoteShow == 4')
-      ActionLog
+    ActionLog(v-if='quoteShow == 4')
     //- 歷史報價
-    template(v-if='quoteShow == 5')
-      HistoryPrices
+    HistoryPrices(v-if='quoteShow == 5')
 </template>
 
 <script>

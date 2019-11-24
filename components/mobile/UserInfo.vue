@@ -1,6 +1,6 @@
 <template lang='pug'>
 //- 顏色未調整
-.modals.documents
+.modals.UserInfo
   client-only
     include mixins.pug
   .header

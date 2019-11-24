@@ -1,5 +1,4 @@
 <template lang='pug'>
-.header-userInfo
   ul.userInfo-list
     li.text-center 狀態: 正常收單
     li.text-center 帳戶: {{ userInfo.Account }}
@@ -8,11 +7,11 @@
     li 服務專線:
     li 預設額度: {{ userInfo.TouchPoint }}
     li 帳戶餘額:
-      span.text-up  {{ userInfo.Money }}
+      span.text__danger  {{ userInfo.Money }}
     li 今日損益:
-      span.text-up  {{ userInfo.TodayMoney }}
+      span.text__danger  {{ userInfo.TodayMoney }}
     li.userInfo__button
-      el-button(type='danger').logout 登出帳號
+      button.button__danger.logout 登出帳號
 </template>
 
 <script>

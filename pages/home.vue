@@ -1,25 +1,25 @@
 <template lang='pug'>
-    .root
-      #header
-        Header
-      #main
-        splitpanes(class="default-theme")
-          pane(size="18")
-            splitpanes(horizontal)
-              pane(size="33")
-                UserInfo
-              pane(size="67")
-                ItemDetail
-          pane(size="82")
-            splitpanes(horizontal)
-              pane(size="42")
-                MainItem
-              pane(size="44")
-                History
-              pane(size="14")
-                Operating
-      #footer
-        Footer
+.root
+  #header
+    Header
+  #main
+    splitpanes(class="default-theme")
+      pane(size="18")
+        splitpanes(horizontal)
+          pane(size="33")
+            UserInfo
+          pane(size="67")
+            ItemDetail
+      pane(size="82")
+        splitpanes(horizontal)
+          pane(size="42")
+            MainItem
+          pane(size="44")
+            History
+          pane(size="14")
+            Operating
+  #footer
+    Footer
 </template>
 
 <script>

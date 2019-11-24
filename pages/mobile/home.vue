@@ -1,27 +1,43 @@
 <template lang='pug'>
-.container-fluid
-	client-only
-		include mixins.pug
-	#header
-	#main
-		//- 商品報價
-		MainItem(v-if='tabShow == 1')
-		//- 商品下單
-		Operating(v-if='tabShow == 2')
-		//- 單據列表
-		Documents(v-if='tabShow == 3')
-		//- 報表查詢
-		Report(v-if='tabShow == 4')
-		//- 系統功能
-		System(v-if='tabShow == 5')
-	#footer.footer
-		.nav-tab
+.root
+	//- 商品報價
+	MainItem(v-if='tabShow == 1')
+	//- 商品下單
+	Operating(v-if='tabShow == 2')
+	//- 單據列表
+	Documents(v-if='tabShow == 3')
+	//- 報表查詢
+	Report(v-if='tabShow == 4')
+	//- 系統功能
+	System(v-if='tabShow == 5')
+	#tabs-nav
+		.tabs-nav-wrap
 			.tabs-list
-				+tab-list__item('tab', 'handleTab', '1', '主頁', 'el-icon-s-home')
-				+tab-list__item('tab', 'handleTab', '2', '下單', 'el-icon-s-claim')
-				+tab-list__item('tab', 'handleTab', '3', '單據', 'el-icon-s-order')
-				+tab-list__item('tab', 'handleTab', '4', '報表', 'el-icon-s-marketing')
-				+tab-list__item('tab', 'handleTab', '5', '系統', 'el-icon-s-tools')
+				.tab-list__item(
+					@click='handleTab(1)'
+					:class="{'current': tabShow == 1}")
+					i.item__icon.el-icon-s-home
+					.item__name 主頁
+				.tab-list__item(
+					@click='handleTab(2)'
+					:class="{'current': tabShow == 2}")
+					i.item__icon.el-icon-s-claim
+					.item__name 下單
+				.tab-list__item(
+					@click='handleTab(3)'
+					:class="{'current': tabShow == 3}")
+					i.item__icon.el-icon-s-order
+					.item__name 單據
+				.tab-list__item(
+					@click='handleTab(4)'
+					:class="{'current': tabShow == 4}")
+					i.item__icon.el-icon-s-marketing
+					.item__name 報表
+				.tab-list__item(
+					@click='handleTab(5)'
+					:class="{'current': tabShow == 5}")
+					i.item__icon.el-icon-s-tools
+					.item__name 系統
 </template>
 <script>
 
@@ -31,7 +47,7 @@ import Operating from "~/components/mobile/Operating"
 import Documents from "~/components/mobile/Documents"
 import Report from "~/components/mobile/Report"
 import System from "~/components/mobile/System"
-import '@/assets/sass/mobile.scss'
+import '@/assets/scss/mobile.scss'
 
 export default {
 	head() {
@@ -55,7 +71,7 @@ export default {
 	data() {
 		return {
 			loading: true,
-			tabShow: 1,
+			tabShow: 4,
 			allHeight: {
 				mainItem: 0,
 			}
@@ -63,7 +79,7 @@ export default {
 	},
 	beforeMount () {
 	  //算好所有手機板高度
-	  this.mobileAllHeight()
+	  // this.mobileAllHeight()
   },
   mounted () {
   	this.checkLogin()

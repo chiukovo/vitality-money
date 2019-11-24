@@ -188,13 +188,13 @@ Vue.mixin({
 
       return [year, month, day].join('-')
     },
-    mobileAllHeight() {
-      const windowHeight = window.innerHeight
-      const headH = this.$el.querySelector('#header').offsetHeight
-      const footH = this.$el.querySelector('#footer').offsetHeight
+    // mobileAllHeight() {
+    //   const windowHeight = window.innerHeight
+    //   const headH = this.$el.querySelector('#header').offsetHeight
+    //   const footH = this.$el.querySelector('#footer').offsetHeight
 
-      this.allHeight.mainItem = windowHeight - (headH + footH)
-    },
+    //   this.allHeight.mainItem = windowHeight - (headH + footH)
+    // },
     resizeHeight () {
       document.body.addEventListener('touchmove', function (e) {
         e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)

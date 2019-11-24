@@ -28,7 +28,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
-import '@/assets/sass/mobile.scss'
+import '@/assets/scss/mobile.scss'
 
 export default {
 	head() {

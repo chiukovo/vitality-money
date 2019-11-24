@@ -1,69 +1,66 @@
 <template lang="pug">
 .page
-  template(v-if='UserInfoHeaderShow')
-    .header-userInfo-wrap(:class="UserInfoHeaderShow ? 'isOpen' : ''")
-      UserInfoHeader
+  .header-userInfo(:class="UserInfoHeaderShow ? 'isOpen' : ''")
+    UserInfoHeader
   .header
     .header__left
-      el-button(size='mini') 自選商品
+      button.button(size='mini') 自選商品
     .header__title 商品報價
     .header__right
-      el-button( size='mini' icon='el-icon-user-solid')
+      button.button(@click="UserInfoHeaderShow = !UserInfoHeaderShow")
+        i.el-icon-user-solid
   .main
-    #mainItem.mainItem
-      .mainItem-content
-        Dialog(
-          :click-type="dialog.clickType",
-          :visible.sync="dialog.isOpen"
-        )
-        client-only
-          vxe-table.table(
-          :data='mainItem',
-          :cell-class-name='tableCellClassName',
-          @current-change="clickItem"
-          max-width="100%"
-          height="100%"
-          size="mini"
-          column-min-width="74"
-          border
-          auto-resize
-          highlight-current-row)
-            vxe-table-column(title='商品' width='86' fixed)
-              template(slot-scope='scope') {{ scope.row['product_name'] }}
-            vxe-table-column(title='倉位' width='50' fixed)
-            //- vxe-table-column(title='K線')
-              template(slot-scope='scope')
-                a(href="#" @click='clickKline(scope.row)') k線
-            //- vxe-table-column(title='走勢')
-              template(slot-scope='scope')
-                a(href="#" @click='clickChart(scope.row)') 走勢
-            vxe-table-column(title='成交')
-              template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
-            vxe-table-column(title='買進')
-              template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
-            vxe-table-column(title='賣出')
-              template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
-            vxe-table-column(title='漲跌')
-              template(slot-scope='scope')
-                .table-icon
-                  .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span {{ scope.row['gain'] }}
-            vxe-table-column(title='漲跌幅')
-              template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
-            vxe-table-column(title='總量')
-              template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
-            vxe-table-column(title='開盤')
-              template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
-            vxe-table-column(title='最高')
-              template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
-            vxe-table-column(title='最低')
-              template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
-            vxe-table-column(title='昨收盤')
-              template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
-            vxe-table-column(title='昨結算')
-              template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
-            vxe-table-column(title='狀態')
-              template(slot-scope='scope') {{ scope.row['state_name'] }}
+    Dialog(
+      :click-type="dialog.clickType",
+      :visible.sync="dialog.isOpen")
+    client-only
+      vxe-table.table(
+      :data='mainItem',
+      :cell-class-name='tableCellClassName',
+      @current-change="clickItem"
+      max-width="100%"
+      height="100%"
+      column-min-width="90"
+      size="mini"
+      border
+      auto-resize
+      highlight-current-row)
+        vxe-table-column(title='商品' width='86' fixed="left")
+          template(slot-scope='scope') {{ scope.row['product_name'] }}
+        vxe-table-column(title='倉位' width='60' fixed="left" align="center")
+        vxe-table-column(title='K線' width='54' align="center")
+          template(slot-scope='scope')
+            a(href="#" @click='clickKline(scope.row)') k線
+        vxe-table-column(title='走勢' width='54' align="center")
+          template(slot-scope='scope')
+            a(href="#" @click='clickChart(scope.row)') 走勢
+        vxe-table-column(title='成交')
+          template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+        vxe-table-column(title='買進')
+          template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
+        vxe-table-column(title='賣出')
+          template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
+        vxe-table-column(title='漲跌')
+          template(slot-scope='scope')
+            .table-icon
+              .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+            span {{ scope.row['gain'] }}
+        vxe-table-column(title='漲跌幅')
+          template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
+        vxe-table-column(title='總量')
+          template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+        vxe-table-column(title='開盤')
+          template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
+        vxe-table-column(title='最高')
+          template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
+        vxe-table-column(title='最低')
+          template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
+        vxe-table-column(title='昨收盤')
+          template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
+        vxe-table-column(title='昨結算')
+          template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
+        vxe-table-column(title='狀態')
+          template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>
 
 <script>
@@ -76,7 +73,7 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 	  return {
-      UserInfoHeaderShow: true,
+      UserInfoHeaderShow: false,
       dialog: {
         clickType: '',
         isOpen: false,

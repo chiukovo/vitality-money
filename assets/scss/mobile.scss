@@ -1,0 +1,585 @@
+// *** base ***
+// @import 'base/var_mobile';
+@import 'theme/mobile';
+
+@import 'vendor/bootstrap';
+@import 'vendor/element';
+@import 'vendor/splitpanes';
+@import 'vendor/vxetable';
+
+// animate
+// $base-duration: .3s;
+// $use-fadeInDown: true;
+// @import '~animate-sass/animate';
+
+// layout
+@import 'layout/component';
+
+#__nuxt {
+  display: block;
+}
+
+$gray-990: #0b0b0c !default;
+
+//-------------- layout
+.root {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.page {
+    height: calc(100% - 55px);
+    border: 1px solid yellow;
+}
+.main {
+    height: calc(100% - 44px);
+    border: 1px solid red;
+}
+
+
+//-------------- header
+.header {
+    position: relative;
+    background-color: $gray-990;
+    .header__title, .header__left, .header__right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header__title {
+        width: 100%;
+        height: 44px;
+    }
+    .header__left,
+    .header__right {
+        position: absolute;
+        top: 0;
+        width: 90px;
+        height: 100%;
+    }
+    .header__left {
+        left: 10px;
+        justify-content: flex-start;
+    }
+    .header__right {
+        right: 10px;
+        justify-content: flex-end;
+    }
+}
+
+.header-userInfo {
+	position: absolute;
+	top: 44px;
+	right: 0;
+	bottom: 55px;
+	z-index: 9;
+	width: 220px;
+	height: 100%;
+	background-color: $gray-700;
+    transform: translateX(100%);
+    transition: transform .3s ease;
+	&.isOpen {
+		transform: translateX(0);
+	}
+	.userInfo-list {
+		list-style-type: none;
+		font-size: 15px;
+		color: $gray-100;
+		padding: 0;
+		li {
+			padding: 6px 16px;
+			+ li {
+				border-top: 1px solid $gray-600;
+			}
+		}
+		.userInfo__button {
+			button {
+				width: 100%;
+			}
+		}
+	}
+}
+
+
+//-------------- main
+// .container {
+//     height: calc(100% - 100px);
+//     overflow: auto;
+// }
+// .el-link [class*="el-icon-"] + span {
+//     font-size: 12px;
+// }
+.area {
+    position: relative;
+    overflow: hidden;
+    &.h-100 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        .area__content {
+            width: 80%;
+            .el-form-item__label {
+                width: 80px;
+            }
+        }
+    }
+    .area__header {
+        text-align: center;
+        color: $--color-text-regular;
+        background-color: $gray-600;
+        padding: 5px 10px;
+        .area__title {
+            display: inline-block;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+        .el-checkbox {
+            margin-bottom: 0;
+        }
+        .small {
+            font-size: 13px;
+        }
+    }
+    .area__content {
+        padding: 12px 10px;
+    }
+    .area-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li, a {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #fff;
+            border-bottom: 1px solid rgba($white, .04);
+            padding: 8px 6px 8px 16px;
+            .el-icon-arrow-right {
+                margin: 0 8px 0 auto;
+            }
+            &:hover, &:focus {
+                background-color: rgba($primary, .1);
+            }
+        }
+    }
+    .area-data-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            background: rgba($gray-100, .06);
+            + li {
+                margin-top: 1px;
+            }
+        }
+        .area-data__title {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 26%;
+            min-width: 100px;
+            text-align: center;
+            color: $info;
+            background: rgba($gray-900, .6);
+            padding: 8px;
+            .area-data__date {
+                position: absolute;
+                top: 50%;
+                transform: translateY(58%);
+                text-align: center;
+                font-size: 12px;
+                color: rgba($white, .3);
+            }
+            &.hasDate {
+                position: relative;
+                padding-bottom: 10px;
+            }
+        }
+        .area-data__infor {
+            padding: 22px 10px;
+            .area-data__date {
+                position: absolute;
+                right: 2px;
+                bottom: 2px;
+                font-size: 12px;
+                color: rgba($white, .3);
+            }
+        }
+    }
+    .area-infor__header {
+        width: 50%;
+        text-align: center;
+        background: darken($primary, 36%);
+        border-radius: 5px;
+        padding: 10px;
+        margin: 1rem auto;
+    }
+    .area-infor-list {
+        list-style-type: none;
+        width: 80%;
+        padding: 0;
+        margin: 0 auto;
+        li {
+            display: flex;
+            align-items: center;
+            color: $primary;
+            background-color: rgba($gray-100, .02);
+            padding: 10px 0 10px 10px;
+            margin: 10px;
+            i {
+                color: rgba($gray-100, .1);
+                margin: 0 8px 0 0;
+            }
+            .area-infor__title {
+                width: 80px;
+                color: #fff;
+            }
+        }
+    }
+    .area-switch-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        li {
+            font-size: 15px;
+            color: #fff;
+            padding: 12px;
+        }
+        .area-switch__title {
+            padding: 0 0 6px 12px;
+        }
+        .area-switch__label {
+            margin: 0 auto 0 0;
+        }
+        .area-switch__content {
+            display: flex;
+            justify-content: center;
+            background-color: rgba($gray-100, .02);
+            padding: 10px;
+        }
+    }
+    + table {
+        margin-top: 1px;
+    }
+}
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    li, a {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        background-color: rgba($gray-100, .02);
+        padding: 10px 0 10px 10px;
+        margin: 10px;
+        .el-icon-arrow-right {
+            margin: 0 8px 0 auto;
+        }
+        &:hover, &:focus {
+            background-color: rgba($primary, .1);
+        }
+    }
+}
+.nav-button {
+    text-align: center;
+    margin: 2rem;
+    .logout {
+        width: 80%;
+    }
+}
+.modals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $gray-900;
+}
+
+.HistoryPrices {
+	.el-form {
+		.el-form-item__label {
+			text-align: left;
+		}
+		.el-form-item__content {
+			width: 100%;
+			.el-select, .el-input {
+				width: 100%;
+			}
+		}
+	}
+	.el-divider {
+		color: #fff;
+	}
+}
+// .el-table {
+//     background-color: $gray-900;
+// }
+// .el-table td {
+//     padding: 8px 0;
+//     .el-button {
+//         background-color: $gray-500;
+//         padding: 7px 8px;
+//     }
+//     .hsbutton {
+//         position: absolute;
+//         width: 100%;
+//         height: 100%;
+//         top: 0;
+//         left: 0;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//     }
+//     .el-button + .el-button {
+//         margin-left: 7px;
+//     }
+// }
+// .el-table td.limit {
+//     padding: 2px 0;
+//     .el-input-number {
+//         margin-right: 40px;
+//     }
+//     &.limit__2 {
+//         .el-input-number {
+//             margin-right: 10px;
+//         }
+//         .el-button {
+//             position: relative;
+//             top: 1px;
+//             padding: 7px 8px;
+//         }
+//     }
+// }
+// .table-icon {
+//     vertical-align: bottom;
+//     .icon-arrow {
+//         top: 8px;
+//         margin-right: 3px;
+//     }
+// }
+
+// .itemDetailTabTotal {
+//     text-align: center;
+//     .col {
+//         height: 30px;
+//         line-height: 30px;
+//         font-size: 13px;
+//     }
+//     .row + .row {
+//         border-top: 1px solid $gray-700;
+//     }
+//     .progress-bar {
+//         .el-progress {
+//             top: 8px;
+//         }
+//     }
+// }
+
+// .conditions {
+//     .conditions__tab {
+//         display: flex;
+//         justify-content: space-around;
+//         align-items: center;
+//         height: 60px;
+//         background-color: #000;
+//         list-style: none;
+//         padding: 0;
+//         margin: 0;
+//         li {
+//             flex: 1;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             width: 100%;
+//             height: 100%;
+//             border: 5px solid #000;
+//         }
+//         li.current {
+//             color: #fefe54;
+//             background-color: #323334;
+//             border-color: #48494b;
+//         }
+//     }
+//     .conditions__content {
+//         height: calc(100% - 60px);
+//     }
+// }
+
+// .changPassword {
+//     .el-button {
+//         width: 100%;
+//     }
+//     .rules-list {
+//         list-style: none;
+//         color: rgba($gray-100, .5);
+//         padding: 1rem;
+//     }
+// }
+
+$gray-990: #0b0b0c !default;
+
+//-------------- footer tabs
+#tabs-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background-color: $gray-990;
+}
+.tabs-list {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    height: 55px;
+    .tab-list__item {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        width: 20%;
+        font-size: 12px;
+        color: $--color-text-placeholder;
+        .item__icon {
+            font-size: 1.25rem;
+        }
+        &.current {
+            color: $primary;
+        }
+    }
+}
+
+// //-------------- element ui
+// .el-table {
+//     thead {
+//         color: $--color-text-placeholder;
+//     }
+//     tbody {
+//         font-size: 15px;
+//     }
+//     th {
+//         background-color: $gray-600;
+//     }
+//     tr {
+//         background-color: $gray-900;
+//     }
+// }
+// .el-table, .el-table--border th, .el-table--border td {
+//     border-color: $gray-600;
+// }
+// .el-table th.is-leaf, .el-table td {
+//     border-bottom-color: $gray-800;
+// }
+// .el-table__fixed::before, .el-table__fixed-right::before,
+// .el-table--group::after, .el-table--border::after, .el-table::before {
+//     background-color: $gray-800;
+// }
+// .el-table__body tr.hover-row > td, .el-table__body tr.hover-row.current-row > td,
+// .el-table__body tr.current-row > td {
+//     background-color: rgba($primary, .2);
+// }
+// .el-table th {
+//     padding: 6px 0;
+// }
+// .table {
+//     width: 100%;
+//     text-align: center;
+// }
+
+
+// .progress-table {
+//     td {
+//         padding: 0;
+//         .cell {
+//             padding: 0;
+//         }
+//         &:first-child {
+//             padding-left: 10px;
+//             .el-progress-bar__inner {
+//                 left: auto;
+//                 right: 0;
+//             }
+//         }
+//         &:last-child {
+//             padding-right: 10px;
+//         }
+//     }
+//     .el-progress-bar__outer,
+//     .el-progress-bar__inner {
+//         border-radius: 0;
+//     }
+//     .el-progress-bar__outer {
+//         background: transparent;
+//     }
+// }
+
+
+
+// .el-form-item {
+//     margin-bottom: 12px;
+// }
+// .el-input__inner, .el-input.is-disabled .el-input__inner {
+//     background-color: $gray-990;
+//     border-color: $gray-800;
+// }
+// .el-input-number__decrease {
+//     background-color: $success;
+// }
+// .el-input-number__increase {
+//     background-color: $danger;
+// }
+// .el-input-number__increase:hover, .el-input-number__decrease:hover {
+//     color: #fff;
+// }
+
+// .el-select-dropdown__item {
+//     color: $gray-900;
+// }
+
+// .el-button--success {
+//     background-color: $success;
+// }
+// .el-button--danger {
+//     background-color: $danger;
+// }
+
+
+
+//-------------- login
+.login {
+    .login-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 2rem;
+    }
+    .login-box {
+        width: 100%;
+        max-width: 300px;
+    }
+    .el-form-item__label {
+        display: none;
+    }
+    .el-form-item__content {
+        margin-left: 0 !important;
+    }
+    .el-button {
+        width: 100%;
+    }
+}

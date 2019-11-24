@@ -1,176 +1,177 @@
 <template lang='pug'>
 .page
+  client-only
+    include mixins.pug
   .header
     .header__title 單據列表
   .main
     ul.nav-list
-      li(@click='handleDocument(1)') 買賣單據
-      li(@click='handleDocument(2)') 未平倉單
-      li(@click='handleDocument(3)') 已平倉單
-      li(@click='handleDocument(4)') 商品統計
+      +nav-list-item('handleDocument', '1', '買賣單據')
+      +nav-list-item('handleDocument', '2', '未平倉單')
+      +nav-list-item('handleDocument', '3', '已平倉單')
+      +nav-list-item('handleDocument', '4', '商品統計')
     template(v-if='documentShow == 1')
       .modals.documents
-        #header
+        .page
           .header
             .header__left
               el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
             .header__title 買賣單據
-        #main.main
-          .area
-            .area__header
-              el-button(size='mini' @click="$refs.xTableBuySell.setSelection($store.state.buySell, true)") 全選
-              el-button(size='mini' @click="$refs.xTableBuySell.clearSelection()") 全不選
-              el-button(size='mini' @click="deleteConfirm = true") 刪除
-            client-only
-              vxe-table.table(
-                :data='$store.state.buySell'
-                :cell-class-name='buySelltableCellClassName',
-                @checkbox-change="selectionChangeDelete"
-                max-width="100%"
-                height="100%"
-                column-min-width="74"
-                size="mini"
-                border
-                auto-resize
-                highlight-current-row
-                :checkbox-config="{checkStrictly: true}")
-                vxe-table-column(type="checkbox" width="55" :selectable="selectCheckDelete")
-                vxe-table-column(title='操作' fixed)
-                  template(slot-scope='scope')
-                    el-button(size='mini' v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
-                    //-改單
-                    el-button(size='mini' v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-                    el-checkbox(v-if="scope.row.Operation[1]" v-model="$store.state.multiDelete[scope.$rowIndex].checked")
-                    el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-                vxe-table-column(field='Serial' title='序號')
-                vxe-table-column(field='Name' title='商品')
-                vxe-table-column(title='多空' width="50px")
-                  template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-                vxe-table-column(field='OrderPrice' title='委託價')
-                vxe-table-column(field='Quantity' title='口數')
-                vxe-table-column(field='FinalPrice' title='成交價')
-                vxe-table-column(field='Odtype' title='型別')
-                vxe-table-column(title='損失點數')
-                  template(slot-scope='scope')
-                    el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ parseInt(scope.row.LossPoint) }}
-                vxe-table-column(title='獲利點數')
-                  template(slot-scope='scope')
-                    el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ parseInt(scope.row.WinPoint) }}
-                vxe-table-column(field='OrderTime' width='150' title='下單時間')
-                vxe-table-column(field='FinalTime' width='150' title='完成時間')
-                vxe-table-column(title='狀態' width='110' fixed="right")
-                  template(slot-scope='scope')
-                    span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
-                    span(v-else) {{ scope.row.State }}
+          .main
+            .area
+              .area__header
+                button.button(@click="$refs.xTableBuySell.setSelection($store.state.buySell, true)") 全選
+                button.button(@click="$refs.xTableBuySell.clearSelection()") 全不選
+                button.button(@click="deleteConfirm = true") 刪除
+            .area(style="height: calc(100% - 40px); overflow-y: scroll;")
+              client-only
+                vxe-table(
+                  :data='$store.state.buySell'
+                  :cell-class-name='buySelltableCellClassName'
+                  @checkbox-change="selectionChangeDelete"
+                  ref="xTableBuySell"
+                  max-width="100%"
+                  height="100%"
+                  column-min-width="90"
+                  size="mini"
+                  border
+                  auto-resize
+                  highlight-current-row
+                  :checkbox-config="{checkStrictly: true}")
+                  vxe-table-column(type="checkbox" width="30" :selectable="selectCheckDelete" align="center")
+                  vxe-table-column(title='操作' width="150" align="center")
+                    template(slot-scope='scope')
+                      button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
+                      button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
+                      button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+                  vxe-table-column(field='Serial' title='序號')
+                  vxe-table-column(field='Name' title='商品')
+                  vxe-table-column(title='多空' width="60px"  align="center")
+                    template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+                  vxe-table-column(field='OrderPrice' title='委託價')
+                  vxe-table-column(field='Quantity' title='口數' align="center")
+                  vxe-table-column(field='FinalPrice' title='成交價')
+                  vxe-table-column(field='Odtype' title='型別')
+                  vxe-table-column(title='損失點數' align="center")
+                    template(slot-scope='scope')
+                      button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+                  vxe-table-column(title='獲利點數' align="center")
+                    template(slot-scope='scope')
+                      button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
+                  vxe-table-column(field='OrderTime' width='150' title='下單時間')
+                  vxe-table-column(field='FinalTime' width='150' title='完成時間')
+                  vxe-table-column(title='狀態' width='110')
+                    template(slot-scope='scope')
+                      span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
+                      span(v-else) {{ scope.row.State }}
     template(v-if='documentShow == 2')
       .modals.documents
-        #header
+        .page
           .header
             .header__left
               el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
             .header__title 未平倉單
-        #main.main
-          .area
-            .area__header
-              el-button(size='mini' @click="multiOrderAllClick(true)") 全選
-              el-button(size='mini' @click="multiOrderAllClick(false)") 全不選
-              el-button(size='mini' @click="openMultiOrder") 平倉
-          vxe-table.table(
-            :data='$store.state.uncovered'
-            :cell-class-name='uncoveredTableCellClassName',
-            ref="multipleTable"
-            max-width="100%"
-            height="100%"
-            column-min-width="74"
-            size="mini"
-            align="center"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(width="55px" fixed)
-              template(slot-scope='scope')
-                input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
-            vxe-table-column(title='操作' fixed)
-              template(slot-scope='scope')
-                el-button(size='mini' v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-            vxe-table-column(field='Serial', title='序號')
-            vxe-table-column(field='Name', title='商品')
-            vxe-table-column(title='型別')
-              template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-            vxe-table-column(field='FinalPrice', title='成交價')
-            vxe-table-column(field='Quantity', title='口數')
-            vxe-table-column(field='Fee', title='手續費')
-            vxe-table-column(title='損失點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
-            vxe-table-column(title='獲利點數')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
-            vxe-table-column(title='倒限(利)')
-              template(slot-scope='scope')
-                el-button(size='mini' :disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
-            vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
-              template(slot-scope='scope')
-                span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text-black") {{ scope.row['thisSerialTotalMoney'] }}
-                span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialTotalMoney'] }}
-            vxe-table-column(title='點數')
-              template(slot-scope='scope')
-                .table-icon
-                  .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text-black") {{ scope.row['thisSerialPointDiff'] }}
-                span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
-            vxe-table-column(field='Day', title='天數')
-            vxe-table-column(field='State', title='狀態' width="150px" fixed="right")
+          .main
+            .area
+              .area__header
+                button.button(@click="multiOrderAllClick(true)") 全選
+                button.button(@click="multiOrderAllClick(false)") 全不選
+                button.button(@click="openMultiOrder") 平倉
+            .area(style="height: calc(100% - 40px); overflow-y: scroll;")
+              client-only
+                vxe-table(
+                  :data='$store.state.uncovered'
+                  :cell-class-name='uncoveredTableCellClassName',
+                  ref="multipleTable"
+                  max-width="100%"
+                  height="auto"
+                  column-min-width="90"
+                  size="mini"
+                  border
+                  auto-resize
+                  highlight-current-row)
+                  vxe-table-column(width="30" align="center")
+                    template(slot-scope='scope')
+                      input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
+                  vxe-table-column(title='操作' align="center")
+                    template(slot-scope='scope')
+                      button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+                  vxe-table-column(field='Serial', title='序號')
+                  vxe-table-column(field='Name', title='商品')
+                  vxe-table-column(title='型別')
+                    template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+                  vxe-table-column(field='FinalPrice', title='成交價')
+                  vxe-table-column(field='Quantity', title='口數')
+                  vxe-table-column(field='Fee', title='手續費')
+                  vxe-table-column(title='損失點數')
+                    template(slot-scope='scope')
+                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)" type="success") {{ scope.row.LossPoint }}
+                  vxe-table-column(title='獲利點數')
+                    template(slot-scope='scope')
+                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)" type="danger") {{ scope.row.WinPoint }}
+                  vxe-table-column(title='倒限(利)')
+                    template(slot-scope='scope')
+                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
+                  vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
+                    template(slot-scope='scope')
+                      span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text-black") {{ scope.row['thisSerialTotalMoney'] }}
+                      span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialTotalMoney'] }}
+                  vxe-table-column(title='點數')
+                    template(slot-scope='scope')
+                      .table-icon
+                        .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+                      span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text-black") {{ scope.row['thisSerialPointDiff'] }}
+                      span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text-up' : 'text-down'") {{ scope.row['thisSerialPointDiff'] }}
+                  vxe-table-column(field='Day', title='天數')
+                  vxe-table-column(field='State', title='狀態' width="150px")
     template(v-if='documentShow == 3')
       .modals.documents
-        #header
+        .page
           .header
             .header__left
               el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
             .header__title 已平倉單
-        #main.main
-          .area
-          client-only
-            vxe-table.table(
-              :data='$store.state.covered'
-              max-width="100%"
-              height="100%"
-              column-min-width="74"
-              size="mini"
-              border
-              auto-resize
-              highlight-current-row)
-              vxe-table-column(field="Name" title='商品')
-              vxe-table-column(field="NewSerial" title='新倉序號')
-              vxe-table-column(field="CoverSerial" title='平倉序號')
-              vxe-table-column(field="NewType" title='新倉型別')
-              vxe-table-column(field="SerialCoveredNum" title='口數')
-              vxe-table-column(title='多空')
-                template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-              vxe-table-column(field="NewPrice" title='成交價')
-              vxe-table-column(field="CoverPrice" title='平倉價')
-              vxe-table-column(field="NewDate" title='成交日期' width="150px")
-              vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
-              vxe-table-column(field="WinPoint" title='點數')
-              vxe-table-column(field="CoverType" title='種類')
-              vxe-table-column(field="Fee" title='手續費')
-              vxe-table-column(field="WinMoney" title='損益')
+          .main
+            client-only
+              vxe-table.table(
+                :data='$store.state.covered'
+                max-width="100%"
+                height="100%"
+                column-min-width="90"
+                size="mini"
+                border
+                auto-resize
+                highlight-current-row)
+                vxe-table-column(field="Name" title='商品' fixed="left")
+                vxe-table-column(field="NewSerial" title='新倉序號')
+                vxe-table-column(field="CoverSerial" title='平倉序號')
+                vxe-table-column(field="NewType" title='新倉型別')
+                vxe-table-column(field="SerialCoveredNum" title='口數')
+                vxe-table-column(title='多空')
+                  template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+                vxe-table-column(field="NewPrice" title='成交價')
+                vxe-table-column(field="CoverPrice" title='平倉價')
+                vxe-table-column(field="NewDate" title='成交日期' width="150px")
+                vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
+                vxe-table-column(field="WinPoint" title='點數')
+                vxe-table-column(field="CoverType" title='種類')
+                vxe-table-column(field="Fee" title='手續費')
+                vxe-table-column(field="WinMoney" title='損益')
     template(v-if='documentShow == 4')
       .modals.documents
-        #header
+        .page
           .header
             .header__left
               el-link(@click='handleDocument(0)' icon='el-icon-arrow-left' :underline='false') 返回
             .header__title 商品統計
-        #main.main
-          .area
+        .main
           client-only
             vxe-table.table(
               :data='$store.state.commodity'
               :row-class-name="checkRowShow"
               max-width="100%"
               height="100%"
-              column-min-width="74"
+              column-min-width="90"
               size="mini"
               border
               auto-resize

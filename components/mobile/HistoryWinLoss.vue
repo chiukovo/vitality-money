@@ -1,5 +1,6 @@
 <template lang='pug'>
-  .modals.quote
+.modals.HistoryWinLoss
+  .page
     .header
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
@@ -9,38 +10,37 @@
     .main
       .area
         .area__header
-          el-button(@click="selectDayType('thisWeek')") 本週
-          el-button(@click="selectDayType('beforeWeek')") 上週
-          el-button(@click="selectDayType('thisMonth')") 本月
-          el-button(@click="selectDayType('beforeMonth')") 上月
+          button.button(@click="selectDayType('thisWeek')") 本週
+          button.button(@click="selectDayType('beforeWeek')") 上週
+          button.button(@click="selectDayType('thisMonth')") 本月
+          button.button(@click="selectDayType('beforeMonth')") 上月
+      .area(style="height: calc(100% - 40px); overflow-y: scroll;")
         ul.area-list
           li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數:{{ items[name].TotalSubmit }} 手續費:{{ items[name].TotalFee }} 損益:{{ items[name].TotalPoint }}
             i.el-icon-arrow-right
         template(v-if='showDetail')
-          .modals.quote__detail
-            #header
+          .modals.HistoryWinLoss__detail
+            .page
               .header
                 .header__left
                   el-link(@click='showDetail = false' icon='el-icon-arrow-left' :underline='false') 返回
                 .header__title [{{ targetName }}] 歷史損益:{{ totalLossWinPoint }}
-            #main.main
-              .area
-                .area__header
-              client-only
-                vxe-table.table(
-                  :data='detail'
-                  max-width="100%"
-                  height="100%"
-                  column-min-width="74"
-                  size="mini"
-                  border
-                  auto-resize
-                  highlight-current-row)
-                  vxe-table-column(field="NewSerial" title='序號')
-                  vxe-table-column(field='Name' title='商品' align='center' fixed)
-                  vxe-table-column(field='SerialCoveredNum' title='口' align='center' )
-                  vxe-table-column(field='TotalFee' title='手續費' align='center')
-                  vxe-table-column(field='Point' title='損益' align='center')
+              .main
+                client-only
+                  vxe-table.table(
+                    :data='detail'
+                    max-width="100%"
+                    height="100%"
+                    column-min-width="90"
+                    size="mini"
+                    border
+                    auto-resize
+                    highlight-current-row)
+                    vxe-table-column(field="NewSerial" title='序號' fixed="left")
+                    vxe-table-column(field='Name' title='商品' align='center' fixed="left")
+                    vxe-table-column(field='SerialCoveredNum' title='口' align='center' )
+                    vxe-table-column(field='TotalFee' title='手續費' align='center')
+                    vxe-table-column(field='Point' title='損益' align='center')
 </template>
 <script>
 

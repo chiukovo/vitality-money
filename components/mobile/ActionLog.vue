@@ -1,5 +1,6 @@
 <template lang='pug'>
-  .modals.quote
+.modals.ActionLog
+  .page
     .header
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
@@ -7,10 +8,11 @@
     .main
       .area
         .area__header
-          el-button(@click="selectDayType('thisWeek')") 本週
-          el-button(@click="selectDayType('beforeWeek')") 上週
-          el-button(@click="selectDayType('thisMonth')") 本月
-          el-button(@click="selectDayType('beforeMonth')") 上月
+          button.button(@click="selectDayType('thisWeek')") 本週
+          button.button(@click="selectDayType('beforeWeek')") 上週
+          button.button(@click="selectDayType('thisMonth')") 本月
+          button.button(@click="selectDayType('beforeMonth')") 上月
+      .area(style="height: calc(100% - 40px); overflow-y: scroll;")
         ul.area-data-list(v-loading="loading")
           li(v-for="item in items")
             .area-data__title {{ item.ActionType }}

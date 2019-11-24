@@ -1,30 +1,31 @@
 <template lang='pug'>
-.modals.changPassword
-  .header
-    .header__left
-      el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回
-    .header__title 系統設置
-  .main
-    .area
-      .area-switch-list
-        li
-          .area-switch__title 聲音
-          .area-switch__content
-            .area-switch__label 音效開關
-            .area-switch__button
-              el-switch(v-model="sound")
-        li
-          .area-switch__title 提示
-          .area-switch__content
-            .area-switch__label 限價單成交提示
-            .area-switch__button
-              el-switch(v-model="prompt" @change="changeValue('prompt')")
-        li
-          .area-switch__title 下單提示
-          .area-switch__content
-            .area-switch__label 下單不確認
-            .area-switch__button
-              el-switch(v-model="noConfirm" @change="changeValue('noConfirm')")
+.modals.Setting
+  .page
+    .header
+      .header__left
+        el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回
+      .header__title 系統設置
+    .main
+      .area
+        .area-switch-list
+          li
+            .area-switch__title 聲音
+            .area-switch__content
+              .area-switch__label 音效開關
+              .area-switch__button
+                el-switch(v-model="sound")
+          li
+            .area-switch__title 提示
+            .area-switch__content
+              .area-switch__label 限價單成交提示
+              .area-switch__button
+                el-switch(v-model="prompt" @change="changeValue('prompt')")
+          li
+            .area-switch__title 下單提示
+            .area-switch__content
+              .area-switch__label 下單不確認
+              .area-switch__button
+                el-switch(v-model="noConfirm" @change="changeValue('noConfirm')")
 </template>
 
 <script>

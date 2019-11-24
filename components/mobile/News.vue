@@ -1,5 +1,5 @@
 <template lang='pug'>
-.modals.documents
+.modals.News
   .header
     .header__left
       el-link(@click='$parent.systemShow = 0' icon='el-icon-arrow-left' :underline='false') 返回

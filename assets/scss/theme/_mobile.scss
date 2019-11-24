@@ -15,15 +15,17 @@ $white:     #fff;
 $gray:      #6c757d;
 $gray-dark: #343a40;
 
-$gray-100:  #f8f8f9;
-$gray-200:  #e9ecef;
-$gray-300:  #dee2e6;
-$gray-400:  #ced4da;
-$gray-500:  #adb5bd;
-$gray-600:  #6c757d;
-$gray-700:  #495057;
-$gray-800:  #343a40;
-$gray-900:  #212529;
+
+$gray-100:  #CED3DB;
+$gray-200:  #586170;
+$gray-300:  #3C424E;
+$gray-400:  #3C424E;
+$gray-500:  #2F343B;
+$gray-600:  #24282E;
+$gray-700:  #1E2126;
+$gray-800:  #191B1D;
+$gray-900:  #121315;
+$gray-990:  #0b0b0c;
 $black:     #000;
 
 
@@ -57,30 +59,32 @@ $font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hel
 $font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 
 // table
-$table-font-color: #000;
-$table-font-size: 14px;
+$table-font-color: #fff;
+$table-font-size: 16px;
 $table-font-size-medium: 14px;
 $table-font-size-small: 13px;
-$table-font-size-mini: 12px;
-$table-bg-color: #fff;
-$table-header-bg-color: #f8f8f9;
-$table-border-color: #e8eaec;
-$table-row-current-bg-color: #e6f7ff;
-$table-row-hover-bg-color: #f5f7fa;
+$table-font-size-mini: 16px;
+$table-bg-color: $gray-900;
+$table-header-bg-color: $gray-700;
+$table-border-color: $gray-800;
+$table-row-current-bg-color: rgba($primary, .1);
+$table-row-hover-bg-color: rgba($primary, .1);
 $table-row-height-default: 48px;
 $table-row-height-medium: 44px;
 $table-row-height-small: 40px;
 $table-row-height-mini: 36px;
-$table-row-line-height: 1.4;
-$table-cell-padding: 5px 4px;
-$table-header-cell-padding: 4px;
+$table-row-line-height: 23px;
+$table-cell-padding: 0 10px;
+$table-header-cell-padding: 0 10px;
+
 
 // button
-$button-font-color: $black;
-$button-border-color: $gray-200;
-$button-bg-color: $white;
+$button-font-color: $white;
+$button-border-color: $gray-800;
+$button-bg-color: $gray-800;
 
 // theme
-$bg-color:    $white;
+$body-bg: $gray-900;
+$body-color: $white;
 $block-bg-color: $gray-100;
 $border-color: $gray-100;

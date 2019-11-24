@@ -1,5 +1,6 @@
 <template lang='pug'>
-  .modals.quote
+.modals.HistoryPrices
+  .page
     .header
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
@@ -7,9 +8,9 @@
     .main
       .area
         .area__header
-          el-form(ref='form' size='mini' :inline='true')
-            el-form-item(label='商品: ' size='mini')
-              el-select(placeholder='請選擇' style="width: 90px;" v-model="form.itemType")
+          el-form(ref='form' label-width="80px")
+            el-form-item(label='商品: ')
+              el-select(placeholder='請選擇' v-model="form.itemType")
                 el-option(
                   v-for="(data, key) in commidy"
                   :key="key"
@@ -17,30 +18,35 @@
                   :value="data.id"
                 )
             el-form-item(label='開始日期:')
-              el-form-item
-                el-date-picker(
-                  v-model='form.start',
-                  type='date',
-                  placeholder='開始日期',
-                  value-format="yyyy-MM-dd"
-                  style="width: 130px;",
-                )
-            el-form-item(label='開始時間: ' size='mini')
+              el-date-picker(
+                v-model='form.start',
+                type='date',
+                placeholder='開始日期',
+                value-format="yyyy-MM-dd"
+              )
+            el-form-item(label='開始時間: ')
               el-time-picker(
                 v-model='form.startDt'
-                style="width: 132px;"
                 value-format="HH:mm:ss"
                 format="HH:mm:ss"
               )
-            el-button(size='mini' @click="query") 送出
-          el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
-          el-table.table(
+            el-form-item
+              button.button(type="button" @click="query" style="width: 100%") 送出
+          el-divider(content-position='left') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
+      .area(style="height: calc(100% - 234px); overflow-y: scroll;")
+        client-only
+          vxe-table(
             :data='items'
-            min-width='100%'
-            border)
-            el-table-column(prop="time" label='市場時間' min-width='30%')
-            el-table-column(prop="submit" label='口' min-width='14%')
-            el-table-column(prop="price" label='價格' min-width='28%')
+            max-width="100%"
+            height="100%"
+            column-min-width="90"
+            size="mini"
+            border
+            auto-resize
+            highlight-current-row)
+            vxe-table-column(field="time" title='市場時間' min-width='50%')
+            vxe-table-column(field="submit" title='口' min-width='15%')
+            vxe-table-column(field="price" title='價格' min-width='35%')
 </template>
 <script>
 

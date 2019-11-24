@@ -1,6 +1,0 @@
-<template lang='pug'>
-mixin tab-list__item(group, handle, id, name, icon)
-	.tab-list__item(@click=`${handle}(${id})` :class=`{'current': ${group}Show == ${id}}`)
-		i.item__icon(class=icon)
-		.item__name=name
-</template>
