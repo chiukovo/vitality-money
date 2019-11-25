@@ -139,16 +139,8 @@ export default {
       this.dialog.isOpen = true
     },
     tableCellClassName({ row, column, columnIndex }) {
-      //判斷個別顏色
-      if(columnIndex == 4) {
-        return row.color
-      }
-
-      if(columnIndex == 5) {
-        return row.color
-      }
-
-      if(columnIndex == 6) {
+      //判斷整行顏色
+      if(columnIndex >= 4 && columnIndex != 7 && columnIndex != 9 && columnIndex != 15) {
         return row.color
       }
 
@@ -158,23 +150,6 @@ export default {
         } else {
           return 'text-success'
         }
-      }
-
-      if(columnIndex == 9) {
-        return row.total_qty_change
-      }
-
-      if(columnIndex == 11) {
-        return row.color
-      }
-
-      if(columnIndex == 12) {
-        return row.color
-      }
-
-      //判斷整行顏色
-      if(columnIndex >= 4 && columnIndex != 9 && columnIndex != 15) {
-        return row.color
       }
 
       //判斷狀態
