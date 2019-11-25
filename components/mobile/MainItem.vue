@@ -28,14 +28,15 @@
         vxe-table-column(title='商品' width='86' fixed="left")
           template(slot-scope='scope') {{ scope.row['product_name'] }}
         vxe-table-column(title='倉位' width='60' fixed="left" align="center")
-        vxe-table-column(title='K線' width='54' align="center")
+        //- vxe-table-column(title='K線' width='54' align="center")
           template(slot-scope='scope')
             a(href="#" @click='clickKline(scope.row)') k線
-        vxe-table-column(title='走勢' width='54' align="center")
+        //- vxe-table-column(title='走勢' width='54' align="center")
           template(slot-scope='scope')
             a(href="#" @click='clickChart(scope.row)') 走勢
         vxe-table-column(title='成交')
-          template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+          template(slot-scope='scope')
+            span(:class="scope.row['newest_price_change']") {{ scope.row['newest_price'] | currency }}
         vxe-table-column(title='買進')
           template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
         vxe-table-column(title='賣出')
@@ -48,7 +49,8 @@
         vxe-table-column(title='漲跌幅')
           template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
         vxe-table-column(title='總量')
-          template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+          template(slot-scope='scope')
+            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] | currency }}
         vxe-table-column(title='開盤')
           template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
         vxe-table-column(title='最高')
@@ -87,6 +89,26 @@ export default {
   computed: mapState([
     'mainItem'
   ]),
+  watch: {
+    mainItem() {
+      const _this = this
+
+      setTimeout(function(){
+        const success = document.querySelectorAll("#mainItemTable .vxe-cell .border__success")
+        const danger = document.querySelectorAll("#mainItemTable .vxe-cell .border__danger")
+
+        success.forEach(function(el) {
+          el.classList.remove("border")
+          el.classList.remove("border__success")
+        })
+
+        danger.forEach(function(el) {
+          el.classList.remove("border")
+          el.classList.remove("border__danger")
+        })
+      }, 400)
+    }
+  },
   methods: {
     clickItem({ row }) {
       this.$store.commit('setClickItemId', {
@@ -129,31 +151,6 @@ export default {
       _this.$store.commit('doUpdateChartData', items)
     },
     tableCellClassName({ row, column, columnIndex }) {
-      //判斷個別顏色
-      if(columnIndex == 2) {
-        return row.color + ' ' + row.newest_price_change
-      }
-
-      if(columnIndex == 3) {
-        return row.color + ' ' + row.bp_price_change
-      }
-
-      if(columnIndex == 4) {
-        return row.color + ' ' + row.sp_price_change
-      }
-
-      if(columnIndex == 7) {
-        return row.total_qty_change
-      }
-
-      if(columnIndex == 9) {
-        return row.color + ' ' + row.highest_price_change
-      }
-
-      if(columnIndex == 10) {
-        return row.color + ' ' + row.lowest_price_change
-      }
-
       //判斷整行顏色
       if(columnIndex >= 2 && columnIndex != 7 && columnIndex != 13) {
         return row.color

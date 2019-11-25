@@ -41,7 +41,7 @@
             span(:class="scope.row['bp_price_change']") {{ scope.row['bp_price'] | currency }}
         vxe-table-column(title='賣出')
           template(slot-scope='scope')
-            span(:class="scope.row['sp_price_change']") {{ scope.row['sp_price'] | currency}}
+            span(:class="scope.row['sp_price_change']") {{ scope.row['sp_price'] | currency }}
         vxe-table-column(title='漲跌')
           template(slot-scope='scope')
             .change-icon
@@ -51,7 +51,7 @@
           template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
         vxe-table-column(title='總量')
           template(slot-scope='scope')
-            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] | currency}}
+            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] | currency }}
         vxe-table-column(title='開盤')
           template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
         vxe-table-column(title='最高')
