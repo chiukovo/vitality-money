@@ -19,7 +19,7 @@
         highlight-current-row
         highlight-hover-row)
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
-        //- 閃爍效果 td .cell add class: '.border.border-up || .border-down'
+        //- 閃爍效果 td .cell add class: '.border.border__danger || .border__success'
         vxe-table-column(title='商品' fixed="left")
           template(slot-scope='scope') {{ scope.row['product_name'] }}
         vxe-table-column(title='倉位' fixed="left" width="40px" align="center")

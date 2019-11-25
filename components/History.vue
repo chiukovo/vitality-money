@@ -87,10 +87,10 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="30")
+          vxe-table-column(width="30" align="center")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
-          vxe-table-column(title='操作')
+          vxe-table-column(title='操作' align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
           vxe-table-column(field='Serial' title='序號')
@@ -100,13 +100,13 @@
           vxe-table-column(field='FinalPrice' title='成交價')
           vxe-table-column(field='Quantity' title='口數')
           vxe-table-column(field='Fee' title='手續費')
-          vxe-table-column(title='損失點數')
+          vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
               button.button.button_border__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
-          vxe-table-column(title='獲利點數')
+          vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
               button.button.button_border__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
-          vxe-table-column(title='倒限(利)')
+          vxe-table-column(title='倒限(利)' align="center")
             template(slot-scope='scope')
               button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
           vxe-table-column(field='thisSerialTotalMoney', title='未平損益')

@@ -94,16 +94,16 @@
             align="center"
             border
             auto-resize)
-            vxe-table-column(title='市場時間' width='30%')
+            vxe-table-column(title='市場時間')
               template(slot-scope='scope') {{ scope.row['flocalTime'] }}
-            vxe-table-column(title='口' width='14%')
+            vxe-table-column(title='口')
               template(slot-scope='scope') {{ scope.row['amount'] }}
-            vxe-table-column(title='漲跌' width='28%')
+            //- vxe-table-column(title='漲跌' width='28%')
               template(slot-scope='scope')
                 .change-icon
                   .icon-arrow(:class="scope.row.change === 'up' ? 'icon-arrow-up' : 'icon-arrow-down'")
                 span
-            vxe-table-column(title='價格' width='28%')
+            vxe-table-column(title='價格')
               template(slot-scope='scope') {{ scope.row['price'] }}
   .itemDetail-tabs.tabs-nav
     .tabs__item(@click='handleItemDetailTabs(1)' :class="{'is-active' : itemDetailTabShow == 1}") 五檔揭示

@@ -12,7 +12,7 @@
       el-form-item(label="確認密碼")
         el-input(type="password" v-model="form.checkPassword")
       el-form-item
-        button.button__light(@click="cancel") 取消
+        button.button__light(type="button" @click="cancel") 取消
         button.button(@click="submit") 確認
     ul.rules-list
       li 密碼規則:

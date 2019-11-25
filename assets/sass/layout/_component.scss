@@ -50,7 +50,7 @@ button {
 
 // checkbox & radio
 .checkbox {
-  display: bock;
+  display: block;
   white-space: nowrap;
   &.inline {
     display: inline-block;
@@ -195,5 +195,29 @@ tr.border-tr {
     + button {
       margin-left: 6px;
     }
+  }
+}
+
+
+
+.blink {
+  animation: blink .8s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    color: $danger;
+  }
+
+  50% {
+    color: $danger;
+  }
+
+  50.01% {
+    color: black;
+  }
+
+  100% {
+    color: black;
   }
 }
