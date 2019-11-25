@@ -20,6 +20,7 @@
             Operating
   #footer
     Footer
+    Sound
 </template>
 
 <script>
@@ -32,6 +33,7 @@ import UserInfo from '~/components/UserInfo'
 import ItemDetail from '~/components/ItemDetail'
 import MainItem from '~/components/MainItem'
 import History from '~/components/History'
+import Sound from "~/components/Sound"
 import Operating from '~/components/Operating'
 import '@/assets/sass/theme1.scss'
 export default {
@@ -40,6 +42,7 @@ export default {
     Pane,
     Header,
     Footer,
+    Sound,
     UserInfo,
     ItemDetail,
     MainItem,
