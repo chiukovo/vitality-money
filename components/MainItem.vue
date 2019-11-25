@@ -7,6 +7,7 @@
     )
     client-only
       vxe-table(
+        id="mainItemTable"
         :data='mainItem',
         :cell-class-name='tableCellClassName',
         @current-change="clickItem"
@@ -33,11 +34,14 @@
           template(slot-scope='scope')
             a.btn-Chart(href="#" @click='clickChart(scope.row)') 走勢
         vxe-table-column(title='成交')
-          template(slot-scope='scope') {{ scope.row['newest_price'] | currency }}
+          template(slot-scope='scope')
+            span(:class="scope.row['newest_price_change']") {{ scope.row['newest_price'] | currency }}
         vxe-table-column(title='買進')
-          template(slot-scope='scope') {{ scope.row['bp_price'] | currency }}
+          template(slot-scope='scope')
+            span(:class="scope.row['bp_price_change']") {{ scope.row['bp_price'] | currency }}
         vxe-table-column(title='賣出')
-          template(slot-scope='scope') {{ scope.row['sp_price'] | currency}}
+          template(slot-scope='scope')
+            span(:class="scope.row['sp_price_change']") {{ scope.row['sp_price'] | currency}}
         vxe-table-column(title='漲跌')
           template(slot-scope='scope')
             .change-icon
@@ -46,7 +50,8 @@
         vxe-table-column(title='漲跌幅')
           template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
         vxe-table-column(title='總量')
-          template(slot-scope='scope') {{ scope.row['total_qty'] | currency}}
+          template(slot-scope='scope')
+            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] | currency}}
         vxe-table-column(title='開盤')
           template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
         vxe-table-column(title='最高')
@@ -82,6 +87,27 @@ export default {
     Dialog,
   },
   mounted() {
+    const _this = this
+
+    setInterval(function(){
+      const success = document.querySelectorAll("#mainItemTable .border-success")
+      const danger = document.querySelectorAll("#mainItemTable .border-danger")
+
+      success.forEach(function(el) {
+        //el.classList.remove("border")
+        //el.classList.remove("border-success")
+      })
+
+      danger.forEach(function(el) {
+        //el.classList.remove("border")
+        //el.classList.remove("border-danger")
+      })
+    }, 1000)
+  },
+  watch: {
+    mainItem() {
+
+    }
   },
   methods: {
     clickItem({ row }) {
@@ -113,17 +139,9 @@ export default {
       this.dialog.isOpen = true
     },
     tableCellClassName({ row, column, columnIndex }) {
-      //判斷個別顏色
-      if(columnIndex == 4) {
-        return row.color + ' ' + row.newest_price_change
-      }
-
-      if(columnIndex == 5) {
-        return row.color + ' ' + row.bp_price_change
-      }
-
-      if(columnIndex == 6) {
-        return row.color + ' ' + row.sp_price_change
+      //判斷整行顏色
+      if(columnIndex >= 4 && columnIndex != 7 && columnIndex != 9 && columnIndex != 15) {
+        return row.color
       }
 
       if(columnIndex == 7) {
@@ -132,23 +150,6 @@ export default {
         } else {
           return 'text-success'
         }
-      }
-
-      if(columnIndex == 9) {
-        return row.total_qty_change
-      }
-
-      if(columnIndex == 11) {
-        return row.color + ' ' + row.highest_price_change
-      }
-
-      if(columnIndex == 12) {
-        return row.color + ' ' + row.lowest_price_change
-      }
-
-      //判斷整行顏色
-      if(columnIndex >= 4 && columnIndex != 9 && columnIndex != 15) {
-        return row.color
       }
 
       //判斷狀態
