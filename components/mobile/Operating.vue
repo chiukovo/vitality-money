@@ -3,104 +3,98 @@
   .header
     .header__title 商品下單
     .header__right
-      select(v-model='selectItemId' size='mini')
-        option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
-  .main
+      .select.header-select
+        select(v-model='selectItemId')
+          option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
+  .main(style="overflow: auto;")
     .area
       .area__header
-        el-button(v-model='radioA' label='0' size='mini') 一般下單
-      .area__content
-        el-radio(v-model='buyType' label='0') 市價單
-        el-radio(v-model='buyType' label='2') 收盤單
-        el-radio(v-model='buyType' label='1') 限價單
+        button.button(v-model='radioA' label='0') 一般下單
+      .area__content.d-flex.justify-content-around
+        label.radio.inline
+          input.radio__input(type="radio" v-model='buyType' value='0')
+          span.radio__label 市價單
+        label.radio.inline
+          input.radio__input(type="radio" v-model='buyType' value='2')
+          span.radio__label 收盤單
+        label.radio.inline
+          input.radio__input(type="radio" v-model='buyType' value='1')
+          span.radio__label 限價單
     .area
-      table.el-table
+      table.table
         thead
           tr
-            th: .cell.text-center 商品
-            th: .cell.text-center 倉位
-            th: .cell.text-center 成交
-            th: .cell.text-center 漲跌
-            th: .cell.text-center 狀態
+            th: .cell.text__center 商品
+            th: .cell.text__center 倉位
+            th: .cell.text__center 成交
+            th: .cell.text__center 漲跌
+            th: .cell.text__center 狀態
         tbody
           tr
-            td: .cell.text-center.text-down {{ nowMainItem.product_name }}
-            td: .cell.text-center
+            td: .cell.text__center.text__down {{ nowMainItem.product_name }}
+            td: .cell.text__center
               template(v-if="typeof $store.state.uncoveredCountDetail[nowMainItem.product_id] != 'undefined'")
                 <span class="bg-red" v-if="$store.state.uncoveredCountDetail[nowMainItem.product_id] > 0">{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
                 <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
-            td: .cell.text-center.text-down {{ nowMainItem.newest_price }}
-            td: .cell.text-center.text-down
+            td: .cell.text__center.text__down {{ nowMainItem.newest_price }}
+            td: .cell.text__center.text__down
               template
                 .table-icon
                   .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                 span {{ nowMainItem.gain }}
-            td: .cell.text-center {{ nowMainItem.state_name }}
+            td: .cell.text__center {{ nowMainItem.state_name }}
           tr
-            td.limit.limit__1(colspan='4'): .cell.text-center 口數：
+            td.limit.limit__1(colspan='5'): .cell.text__center 口數：
               el-input-number(v-model='submitNum' :min="0")
           tr(v-if="buyType == 1")
-            td.limit.limit__2(colspan='4'): .cell.text-center 限價：
+            td.limit.limit__2(colspan='5'): .cell.text__center 限價：
               el-input-number(v-model='nowPrice' :min="0")
-              el-button 現
+              button.button 現
           tr
-            td.limit.limit__3(colspan='4'): .cell.text-center 停利：
+            td.limit.limit__3(colspan='5'): .cell.text__center 停利：
               el-input-number(v-model='profit' :min="0")
           tr
-            td.limit.limit__4(colspan='4'): .cell.text-center 停損：
+            td.limit.limit__4(colspan='5'): .cell.text__center 停損：
               el-input-number(v-model='damage' :min="0")
     .area
       .area__header
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}
-        el-checkbox-group(v-model="customGroup")
-          el-checkbox(label="overall") 全盤收平
-      .area__content.text-center
-        el-button.btn-lg(type="danger" @click="checkOrder(0)") 下多單
-        el-button.btn-lg(type="success" @click="checkOrder(1)") 下空單
+        label.checkbox.inline(style="margin-left: 5px;")
+          input.checkbox__input(type="checkbox" v-model='customGroup' value='overall')
+          span.checkbox__label 全盤收平
+      .area__content.text__center
+        button.button__danger.button__lg(@click="checkOrder(0)") 下多單
+        button.button__success.button__lg(@click="checkOrder(1)") 下空單
     .area
-      table.el-table.progress-table
+      table.table.progress-table
         thead
           tr
-            th(colspan='2'): .cell.text-right 委買
-            th(colspan='2'): .cell.text-center 價格
-            th(colspan='2'): .cell.text-left 委賣
+            th(colspan='2'): .cell.text__right 委買
+            th(colspan='2'): .cell.text__center 價格
+            th(colspan='2'): .cell.text__left 委賣
         tbody(v-loading="$store.state.items0.length == 0")
           tr(v-for="(val, key) in $store.state.items0" v-if="key <= 4")
             td(style='width:20%'): .cell
-              .progress-bar
-                el-progress(
-                  :text-inside='true'
-                  :stroke-width='14'
-                  :percentage='$store.state.items0[key + 6][0]'
-                  :show-text='false'
-                  status="exception")
-            td: .cell.text-center {{ $store.state.items0[key + 6][1] }}
-            td: .cell.text-center.text-up {{ $store.state.items0[key + 6][2] }}
-            td: .cell.text-center.text-down {{ val[2] }}
-            td: .cell.text-center {{ val[3] }}
+              .progress-bar.progress-bar__right
+                .progress-bar__inner(:style="'width: ' + $store.state.items0[key + 6][0] + '%'")
+            td: .cell.text__center {{ $store.state.items0[key + 6][1] }}
+            td: .cell.text__center.text__up {{ $store.state.items0[key + 6][2] }}
+            td: .cell.text__center.text__down {{ val[2] }}
+            td: .cell.text__center {{ val[3] }}
             td(style='width:20%'): .cell
               .progress-bar
-                el-progress(
-                  :text-inside='true'
-                  :stroke-width='14'
-                  :percentage='val[4]'
-                  :show-text='false'
-                    status="success")
-      .tabTotal
+                .progress-bar__inner(:style="'width: ' + val[4] + '%'")
+      .itemDetail__Total.text__center
         .row
-          .col.text-up {{ $store.state.fiveTotal.more }}
+          .col {{ $store.state.fiveTotal.more }}
           .col 總計
-          .col.text-down {{ $store.state.fiveTotal.nullNum }}
+          .col {{ $store.state.fiveTotal.nullNum }}
         .row
-          .col.text-up 多勢
-          .col.progress-bar
-            el-progress(
-              :text-inside='true'
-              :stroke-width='10'
-              :show-text='false'
-              :percentage='$store.state.fiveTotal.morePercent'
-              status='exception')
-          .col.text-down 空勢
+          .col.text__danger 多勢
+          .col
+            .progress-bar.progress-bar__total
+              .progress-bar__inner(:style="'width: ' + $store.state.fiveTotal.morePercent + '%'")
+          .col.text__success 空勢
 </template>
 
 <script>

@@ -56,7 +56,7 @@ export default {
 	       class: this.$store.state.customStyle.htmlClass + 'mobile'
 			},
 			meta: [
-				{ name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=no' }
+				{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' }
 			]
 	  }
 	},
@@ -71,7 +71,7 @@ export default {
 	data() {
 		return {
 			loading: true,
-			tabShow: 1,
+			tabShow: 5,
 			allHeight: {
 				mainItem: 0,
 			}

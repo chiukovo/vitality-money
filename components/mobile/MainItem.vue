@@ -4,12 +4,12 @@
     UserInfoHeader
   .header
     .header__left
-      button.button(size='mini') 自選商品
+      button.button.header-button 自選商品
     .header__title 商品報價
     .header__right
-      button.button(@click="UserInfoHeaderShow = !UserInfoHeaderShow")
+      button.button.header-button(@click="UserInfoHeaderShow = !UserInfoHeaderShow")
         i.el-icon-user-solid
-  .main
+  .main.mainItem
     Dialog(
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen")

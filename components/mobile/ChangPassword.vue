@@ -8,15 +8,14 @@
     .area
       .area__content
         el-form(label-width="80px")
-          //- el-form-item(label="帳號")
-          //-   el-input(:value="$store.state.userInfo.Account" :disabled="true")
           el-form-item(label="舊密碼")
             el-input(type="password" v-model="form.oldPassword" placeholder='請輸入舊密碼')
           el-form-item(label="新密碼")
             el-input(type="password" v-model="form.newPassword" placeholder='請輸入新密碼')
           el-form-item(label="確認密碼")
             el-input(type="password" v-model="form.checkPassword" placeholder='請再次新入舊密碼')
-        el-button(type='primary' @click="submit") 確定更改密碼
+          el-form-item
+            button.button__primary(type="button" @click="submit") 確定更改密碼
     ul.rules-list
       li 密碼規則:
       li 1.必須6位長度;

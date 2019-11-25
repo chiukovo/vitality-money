@@ -44,7 +44,7 @@
             .col
               .progress-bar.progress-bar__total
                 .progress-bar__inner(:style="'width: ' + $store.state.fiveTotal.morePercent + '%'")
-            .col.text-success 空勢
+            .col.text__success 空勢
     div(v-show='itemDetailTabShow == 2' class="h-100")
       .itemDetail-header
         .header__title 量價分佈[{{ $store.state.itemName }}]

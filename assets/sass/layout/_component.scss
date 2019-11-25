@@ -15,6 +15,7 @@ button {
   border: $gray-200;
   background: $light;
   padding: $button-padding;
+  white-space: nowrap;
   &:disabled {
     cursor: no-drop;
     pointer-events: none;
@@ -56,6 +57,7 @@ button {
   }
   .checkbox__label {
     margin-left: 4px;
+    white-space: nowrap;
   }
 }
 .radio {
@@ -66,6 +68,7 @@ button {
   }
   .radio__label {
     margin-left: 4px;
+    white-space: nowrap;
   }
 }
 
@@ -86,6 +89,7 @@ $align: center right left;
 @each $color, $value in $theme-colors {
   .text__#{$color} {
     color: $value;
+    white-space: nowrap;
   }
 }
 
@@ -93,6 +97,13 @@ $align: center right left;
 @each $color, $value in $theme-colors {
   .border__#{$color} {
     border-color: $value !important;
+  }
+}
+
+// bg
+@each $color, $value in $theme-colors {
+  .bg__#{$color} {
+    background: $value;
   }
 }
 
