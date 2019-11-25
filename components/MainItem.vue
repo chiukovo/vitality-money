@@ -90,19 +90,19 @@ export default {
     const _this = this
 
     setInterval(function(){
-      const success = document.querySelectorAll("#mainItemTable .border-success")
-      const danger = document.querySelectorAll("#mainItemTable .border-danger")
+      const success = document.querySelectorAll("#mainItemTable .vxe-cell .border__success")
+      const danger = document.querySelectorAll("#mainItemTable .vxe-cell .border__danger")
 
       success.forEach(function(el) {
-        //el.classList.remove("border")
-        //el.classList.remove("border-success")
+        el.classList.remove("border")
+        el.classList.remove("border__success")
       })
 
       danger.forEach(function(el) {
-        //el.classList.remove("border")
-        //el.classList.remove("border-danger")
+        el.classList.remove("border")
+        el.classList.remove("border__danger")
       })
-    }, 1000)
+    }, 1500)
   },
   watch: {
     mainItem() {
