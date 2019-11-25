@@ -36,9 +36,6 @@ button {
     color: #fff;
     border: 1px solid darken($value, 3%);
     background: $value;
-    // &:hover {
-    //   background: darken($value, 8%);
-    // }
   }
 }
 .button__light {
@@ -74,27 +71,27 @@ button {
 
 
 // text
-.text-lg {
+.text__lg {
   font-size: 1.25rem;
 }
-.text-bold {
+.text__bold {
   font-weight: bold;
 }
 $align: center right left;
 @each $author in $align {
-  .text-#{$author} {
+  .text__#{$author} {
     text-align: #{$author};
   }
 }
 @each $color, $value in $theme-colors {
-  .text-#{$color} {
+  .text__#{$color} {
     color: $value;
   }
 }
 
 // border
 @each $color, $value in $theme-colors {
-  .border-#{$color} {
+  .border__#{$color} {
     border-color: $value !important;
   }
 }

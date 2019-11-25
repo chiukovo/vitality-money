@@ -39,13 +39,13 @@
         .navbar-txt 商品: {{ $store.state.itemName }}
         .navbar-txt 最後交易日: {{ targetItem.end_date }}
         .navbar-txt 禁新:
-          span.text-success  {{ targetItem.new_point1 }}
+          span.text__success  {{ targetItem.new_point1 }}
           |,
-          span.text-danger  {{ targetItem.new_point2 }}
+          span.text__danger  {{ targetItem.new_point2 }}
         .navbar-txt 強平:
-          span.text-success  {{ targetItem.cover_point1 }}
+          span.text__success  {{ targetItem.cover_point1 }}
           |,
-          span.text-danger  {{ targetItem.cover_point2 }}
+          span.text__danger  {{ targetItem.cover_point2 }}
     ul.navbar-nav.navbar-nav-right
       li.nav-item
         a.nav-link(href="#") 換膚

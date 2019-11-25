@@ -28,8 +28,8 @@
             vxe-table-column(field="RemainingMoney" title='帳戶餘額')
             vxe-table-column(title='今日損益')
               template(slot-scope='scope')
-                span.text-success(v-if="scope.row.TodayMoney >= 0") {{ scope.row.TodayMoney}}
-                span.text-danger(v-else) {{ scope.row.TodayMoney}}
+                span.text__success(v-if="scope.row.TodayMoney >= 0") {{ scope.row.TodayMoney}}
+                span.text__danger(v-else) {{ scope.row.TodayMoney}}
             vxe-table-column(field="TotalSubmit" title='口數')
             vxe-table-column(field="Withholding" title='留倉預扣')
             vxe-table-column(field="Limitpoint" title='對匯額度')

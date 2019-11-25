@@ -1,9 +1,9 @@
 <template lang='pug'>
   ul.userInfo-list
-    li.text-center
+    li.text__center
       span.label 狀態:
       |正常收單
-    li.text-center
+    li.text__center
       span.label 帳戶:
       span {{ userInfo.Account }}
     li
@@ -18,10 +18,10 @@
       span {{ userInfo.TouchPoint }}
     li
       span.label 帳戶餘額:
-      span.text-info {{ userInfo.Money }}
+      span.text__info {{ userInfo.Money }}
     li
       span.label 今日損益:
-      span(:class="userInfo.TodayMoney > 0 ? 'text-succuss' : 'text-danger'")  {{ userInfo.TodayMoney }}
+      span(:class="userInfo.TodayMoney > 0 ? 'text__succuss' : 'text__danger'")  {{ userInfo.TodayMoney }}
     li.userInfo__button
       button.button__danger.logout 登出帳號
 </template>

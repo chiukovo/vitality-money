@@ -40,11 +40,11 @@
             .col 總計
             .col {{ $store.state.fiveTotal.nullNum }}
           .row
-            .col.text-danger 多勢
+            .col.text__danger 多勢
             .col
               .progress-bar.progress-bar__total
                 .progress-bar__inner(:style="'width: ' + $store.state.fiveTotal.morePercent + '%'")
-            .col.text-success 空勢
+            .col.text__success 空勢
 
     template(v-if='itemDetailTabShow == 2')
       .itemDetail-header
@@ -68,7 +68,7 @@
                 .progress-bar(v-if="scope.row[3] == ''")
                 .progress-bar(v-else)
                   el-progress(
-                    :text-inside='true'
+                    :text__inside='true'
                     :stroke-width='14'
                     :percentage='scope.row[3]'
                     :show-text='false'
@@ -144,9 +144,9 @@ export default {
     tableCellClassName({ row, column, columnIndex }) {
       if(columnIndex >= 2) {
         if(row.change == 'up') {
-          return 'text-up';
+          return 'text__up';
         } else {
-          return 'text-down';
+          return 'text__down';
         }
       }
     },

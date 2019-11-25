@@ -99,7 +99,7 @@ export default {
       })
 
       danger.forEach(function(el) {
-        el.classList.remove("border")
+        // el.classList.remove("border")
         el.classList.remove("border__danger")
       })
     }, 1500)
@@ -146,16 +146,16 @@ export default {
 
       if(columnIndex == 7) {
         if (row.gain >= 0) {
-          return 'text-danger'
+          return 'text__danger'
         } else {
-          return 'text-success'
+          return 'text__success'
         }
       }
 
       //判斷狀態
       if(columnIndex == 15) {
         if (row.state != 2) {
-          return 'text-secondary'
+          return 'text__secondary'
         }
       }
     },

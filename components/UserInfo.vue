@@ -54,13 +54,13 @@ export default {
     tableCellClassName({ row, column, columnIndex }) {
       if(row.title == '今日餘額:') {
         if(columnIndex == 1) {
-          return 'text-info'
+          return 'text__info'
         }
       }
       if(row.title == '今日損益:') {
         if(columnIndex == 1) {
           if(row.info < 0) {
-            return 'text-danger'
+            return 'text__danger'
           }
         }
       }

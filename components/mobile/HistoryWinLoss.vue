@@ -5,7 +5,7 @@
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
       .header__title 歷史損益
-        span (<span :class="totalLossWinPoint >= 0 ? 'text-success' : 'text-danger'">{{ totalLossWinPoint }}</span>)
+        span (<span :class="totalLossWinPoint >= 0 ? 'text__success' : 'text__danger'">{{ totalLossWinPoint }}</span>)
       .header__right
     .main
       .area
