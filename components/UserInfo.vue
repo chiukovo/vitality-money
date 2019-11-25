@@ -17,9 +17,7 @@
         vxe-table-column(title='資訊' field='info' show-overflow)
 </template>
 <script>
-
-import { mapState } from 'vuex'
-
+import { mapState } from 'vuex';
 export default {
   data () {
     return {

@@ -17,8 +17,10 @@ button {
   padding: $button-padding;
   &:disabled {
     cursor: no-drop;
-    opacity: .5;
     pointer-events: none;
+    color: #b3b3b3;
+    background: #d8d8d8;
+    border-color: #d8d8d8;
   }
   + button {
     margin-left: 4px;

@@ -200,7 +200,7 @@
       el-dialog(
         :visible.sync='profitPointDialog'
         :modal='false'
-        width="90%"
+        width="96%"
         title='新倒限利點數'
         v-dialogDrag)
         .header-custom(slot='title') 新倒限利點數
@@ -237,7 +237,7 @@
       el-dialog(
         :visible.sync='winPointDialog'
         :modal='false'
-        width="90%"
+        width="96%"
         title='新獲利點數'
         v-dialogDrag)
         .header-custom(slot='title') 新獲利點數
@@ -274,7 +274,7 @@
       el-dialog(
         :visible.sync='lossPointDialog'
         :modal='false'
-        width="450px"
+        width="96%"
         title='新損失點數'
         v-dialogDrag)
         .header-custom(slot='title') 新損失點數
@@ -311,7 +311,7 @@
       el-dialog(
         :visible.sync='editDialog'
         :modal='false'
-        width="90%"
+        width="96%"
         title='改價減量'
         v-dialogDrag)
         .header-custom(slot='title') 改價減量
@@ -341,7 +341,7 @@
         :visible.sync='multiOrderConfirm'
         :modal='false'
         :show-close='false'
-        width="90%"
+        width="96%"
         title='確認平倉'
         v-dialogDrag)
         .header-custom(slot='title')
@@ -367,7 +367,7 @@
         :visible.sync='deleteConfirm'
         :modal='false'
         :show-close='false'
-        width="90%"
+        width="96%"
         title='確認刪除'
         v-dialogDrag)
         .header-custom(slot='title')

@@ -267,7 +267,7 @@
         p.text-center
           button.button(@click="editPoint.price -= 10") -10
           button.button(@click="editPoint.price -= 5") -5
-          el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          el-input-number.changeNumButton(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text-center 計算結果:
@@ -304,7 +304,7 @@
         p.text-center
           button.button(@click="editPoint.price -= 10") -10
           button.button(@click="editPoint.price -= 5") -5
-          el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          el-input-number.changeNumButton(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text-center 計算結果:
@@ -341,7 +341,7 @@
         p.text-center
           button.button(@click="editPoint.price -= 10") -10
           button.button(@click="editPoint.price -= 5") -5
-          el-input-number(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
+          el-input-number.changeNumButton(v-model="editPoint.price" size="mini" style='margin: 0 4px; width: 100px')
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text-center 計算結果:

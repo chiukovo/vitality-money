@@ -9,10 +9,10 @@
 				el-form-item
 					el-input(v-model='password' type='password' placeholder='密碼')
 				el-form-item
-					el-row
-						el-col(:span='12')
+					.row
+						.col
 							el-checkbox(label='記住我')
-						el-col(:span='12')
+						.col
 							el-select(placeholder='12-伺服器' v-model='server' style='width: 100%;')
 								el-option(label='10-伺服器' value='server10')
 								el-option(label='11-伺服器' value='server11')

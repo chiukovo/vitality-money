@@ -400,6 +400,11 @@ button {
     background: linear-gradient(180deg,#6793c7,#30588b);
   }
 }
+[class*="el-input-number"] {
+  color: $button-font-color;
+  // border: 1px solid $button-border-color;
+  background: $button-bg-color;
+}
 .button__danger {
   color: #700;
   border-color: #e04c50;
@@ -426,6 +431,15 @@ button {
   color: #0e680c;
   background: linear-gradient(180deg,#b4f5b8,#4de353);
 }
+
+.changeNumButton {
+  .el-input-number__decrease {
+  }
+  .el-input {
+    margin-left: 0;
+  }
+}
+
 .btn-Kline,
 .btn-Chart {
   display: inline-block;
@@ -482,15 +496,11 @@ button {
   border: 1px solid #104a84;
   background: #295f95;
   background: linear-gradient(to bottom, #5283b6 0%, #295f95 100%);
-  padding: 10px;
   .el-dialog__close {
     color: #fff;
   }
   .header-custom i {
     color: #fff;
-  }
-  .el-dialog__headerbtn {
-    top: 12px;
   }
 }
 .el-dialog__body {
@@ -506,9 +516,6 @@ button {
   background-color: #578bc1;
 }
 
-.el-input {
-  margin-left: 2px;
-}
 .el-input__inner {
   border: 1px solid #b7babc;
   border-radius: 0;

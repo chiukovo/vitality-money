@@ -90,3 +90,9 @@ label {
 .el-dialog__body {
   overflow: hidden;
 }
+.el-dialog__header {
+  padding: 10px;
+  .el-dialog__headerbtn {
+    top: 12px;
+  }
+}
