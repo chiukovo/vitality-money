@@ -87,26 +87,25 @@ export default {
     Dialog,
   },
   mounted() {
-    const _this = this
-
-    setInterval(function(){
-      const success = document.querySelectorAll("#mainItemTable .vxe-cell .border__success")
-      const danger = document.querySelectorAll("#mainItemTable .vxe-cell .border__danger")
-
-      success.forEach(function(el) {
-        el.classList.remove("border")
-        el.classList.remove("border__success")
-      })
-
-      danger.forEach(function(el) {
-        // el.classList.remove("border")
-        el.classList.remove("border__danger")
-      })
-    }, 1500)
   },
   watch: {
     mainItem() {
+      const _this = this
 
+      setTimeout(function(){
+        const success = document.querySelectorAll("#mainItemTable .vxe-cell .border__success")
+        const danger = document.querySelectorAll("#mainItemTable .vxe-cell .border__danger")
+
+        success.forEach(function(el) {
+          el.classList.remove("border")
+          el.classList.remove("border__success")
+        })
+
+        danger.forEach(function(el) {
+          el.classList.remove("border")
+          el.classList.remove("border__danger")
+        })
+      }, 400)
     }
   },
   methods: {

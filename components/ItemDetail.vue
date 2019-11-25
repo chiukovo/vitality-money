@@ -1,7 +1,7 @@
 <template lang='pug'>
 .itemDetail
   .itemDetail-wrap
-    template(v-if='itemDetailTabShow == 1')
+    div(v-show='itemDetailTabShow == 1' class="h-100")
       .itemDetail-header
         .header__title 五檔揭示[{{ $store.state.itemName }}]
       .itemDetail-content
@@ -44,9 +44,8 @@
             .col
               .progress-bar.progress-bar__total
                 .progress-bar__inner(:style="'width: ' + $store.state.fiveTotal.morePercent + '%'")
-            .col.text__success 空勢
-
-    template(v-if='itemDetailTabShow == 2')
+            .col.text-success 空勢
+    div(v-show='itemDetailTabShow == 2' class="h-100")
       .itemDetail-header
         .header__title 量價分佈[{{ $store.state.itemName }}]
       .itemDetail-content
@@ -59,23 +58,17 @@
             align="center"
             border
             auto-resize)
-            vxe-table-column(title='價格' width='30%')
-              template(slot-scope='scope') {{ scope.row[1] }}
-            vxe-table-column(title='' width='20%')
-              template(slot-scope='scope' v-if="scope.row[2]") 現價
+            vxe-table-column(field="price" title='價格' width='30%')
+            vxe-table-column(width='20%')
+              template(slot-scope='scope' v-if="scope.row['isNow']") 現價
             vxe-table-column(title='比例' width='28%')
               template(slot-scope='scope')
-                .progress-bar(v-if="scope.row[3] == ''")
-                .progress-bar(v-else)
-                  el-progress(
-                    :text__inside='true'
-                    :stroke-width='14'
-                    :percentage='scope.row[3]'
-                    :show-text='false'
-                    status="success")
-            vxe-table-column(title='口' width='22%')
-              template(slot-scope='scope') {{ scope.row[0] }}
-    template(v-if='itemDetailTabShow == 3')
+                template(v-if="scope.row['percent'] == ''")
+                template(v-else)
+                  .progress-bar
+                    .progress-bar__inner(:style="'width: ' + scope.row['percent'] + '%'")
+            vxe-table-column(field="amount" title='口' width='22%')
+    div(v-show='itemDetailTabShow == 3' class="h-100")
       .itemDetail-header
         .header__title
           |報價明細[{{ $store.state.itemName }}]
@@ -94,17 +87,14 @@
             align="center"
             border
             auto-resize)
-            vxe-table-column(title='市場時間')
-              template(slot-scope='scope') {{ scope.row['flocalTime'] }}
-            vxe-table-column(title='口')
-              template(slot-scope='scope') {{ scope.row['amount'] }}
-            //- vxe-table-column(title='漲跌' width='28%')
+            vxe-table-column(field="flocalTime" title='市場時間' width='30%')
+            vxe-table-column(field="amount" title='口' width='14%')
+            vxe-table-column(title='漲跌' width='28%')
               template(slot-scope='scope')
                 .change-icon
-                  .icon-arrow(:class="scope.row.change === 'up' ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span
-            vxe-table-column(title='價格')
-              template(slot-scope='scope') {{ scope.row['price'] }}
+                  .icon-arrow(:class="scope.row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+                span {{ scope.row['gain'] }}
+            vxe-table-column(field="price" title='價格' width='28%')
   .itemDetail-tabs.tabs-nav
     .tabs__item(@click='handleItemDetailTabs(1)' :class="{'is-active' : itemDetailTabShow == 1}") 五檔揭示
     .tabs__item(@click='handleItemDetailTabs(2)' :class="{'is-active' : itemDetailTabShow == 2}") 量價分佈

@@ -59,9 +59,9 @@ export default {
       val.lowest_price_change = ''
 
       if (val.newest_price > val.yesterday_close_price) {
-        val.color = 'text-success'
+        val.color = 'text__success'
       } else if (val.newest_price < val.yesterday_close_price) {
-        val.color = 'text-danger'
+        val.color = 'text__danger'
       }
 
       val.gain = val.newest_price - val.yesterday_close_price
@@ -333,6 +333,7 @@ export default {
       if (itemId == val.product_id) {
         //計算
         let dindex = 0;
+        let gain = 0;
         let prices = []
         let localTime = (nowItems[0] < 10000000) ? "0" + nowItems[0] / 100 : "" + nowItems[0] / 100
         let flocalTime = _this._vm.formatTime(localTime)
@@ -340,7 +341,7 @@ export default {
         let nowDate = new Date();
         let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
 
-        borderName = val.color == 'text-success' ? 'border border__success' : 'border border__danger'
+        borderName = val.color == 'text__success' ? 'border border__success' : 'border border__danger'
 
         //最高
         if (val.highest_price < nowItems[1]) {
@@ -374,7 +375,12 @@ export default {
 
         //總量
         val.total_qty += nowItems[2]
-        val.total_qty_change = nowItems[2] == 0 ? '' : borderName
+
+        if (val.total_qty_change == '') {
+          val.total_qty_change = nowItems[2] == 0 ? '' : borderName
+        } else {
+          val.total_qty_change = ''
+        }
 
         //成交
         val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
@@ -386,10 +392,11 @@ export default {
 
         //漲跌
         val.gain = val.newest_price - val.yesterday_close_price
+        gain = val.gain
         //(成交價-昨日收盤)/昨日收盤*100%
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
 
-        _this.commit('setHistoryPrice', {itemId, prices, flocalTime})
+        _this.commit('setHistoryPrice', {itemId, prices, gain, flocalTime})
       }
 
       //now mainItem
@@ -756,7 +763,7 @@ export default {
       }
     }
   },
-  setHistoryPrice(state, {itemId, prices, flocalTime}) {
+  setHistoryPrice(state, {itemId, prices, gain, flocalTime}) {
     const data = {
       price: 0,
       amount: 0,
@@ -777,6 +784,7 @@ export default {
       //0 量 1 價格
       data.amount = val[0]
       data.price = val[1]
+      data.gain = gain
 
       state.historyPrice[itemId].unshift(data)
     })
