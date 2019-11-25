@@ -340,22 +340,18 @@ export default {
         let nowDate = new Date();
         let fullTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowItems[0] / 1000000, nowItems[0] / 10000 % 100, nowItems[0] / 100 % 100 ).getTime()
 
-        borderName = val.color == 'text-success' ? 'border border-success' : 'border border-danger'
+        borderName = val.color == 'text-success' ? 'border border__success' : 'border border__danger'
 
         //最高
         if (val.highest_price < nowItems[1]) {
           val.highest_price = nowItems[1]
           val.highest_price_change = val.highest_price_change == '' ? borderName : ''
-        } else {
-          val.highest_price_change = ''
         }
 
         //最低
         if (val.lowest_price > nowItems[1]) {
           val.lowest_price = nowItems[1]
           val.lowest_price_change = val.lowest_price_change == '' ? borderName : ''
-        } else {
-          val.lowest_price_change = ''
         }
 
         while(dindex < nowItems.length) {
@@ -378,19 +374,10 @@ export default {
 
         //總量
         val.total_qty += nowItems[2]
-
-        if (val.total_qty_change == '') {
-          val.total_qty_change = nowItems[2] == 0 ? '' : borderName
-        } else {
-          val.total_qty_change = ''
-        }
+        val.total_qty_change = nowItems[2] == 0 ? '' : borderName
 
         //成交
-        if (val.newest_price_change == '') {
-          val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
-        } else {
-          val.newest_price_change = ''
-        }
+        val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
 
         val.newest_price = nowItems[1]
 
@@ -415,20 +402,6 @@ export default {
 
     //即時報價更新
     _this.commit('newPriceChange')
-  },
-  rmMainItemBorder(state, data) {
-    let result = []
-
-    state.mainItem.forEach(function (val) {
-      val.highest_price_change = ''
-      val.lowest_price_change = ''
-      val.total_qty_change = ''
-      val.newest_price_change = ''
-
-      result.push(val)
-    })
-
-    state.mainItem = result
   },
   newPriceChange(state) {
     const itemId = state.clickItemId
@@ -823,44 +796,44 @@ export default {
       }
 
       if (state.nowVolumeMoney[itemId].length == 0) {
-        state.nowVolumeMoney[itemId].push([
-          val.amount,
-          val.price,
-        ])
+        state.nowVolumeMoney[itemId].push({
+          amount: val.amount,
+          price: val.price,
+        })
       } else {
         let needAdd = true
 
         state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
-          if (val.price == dt[1]) {
-            dt[0] += val.amount
+          if (val.price == dt['price']) {
+            dt['amount'] += val.amount
             needAdd = false
           }
 
-          if (dt[0] > amountMax) {
-            amountMax = dt[0]
+          if (dt['amount'] > amountMax) {
+            amountMax = dt['amount']
           }
 
           return dt
         })
 
         if (needAdd) {
-          state.nowVolumeMoney[itemId].push([
-            val.amount,
-            val.price,
-          ])
+          state.nowVolumeMoney[itemId].push({
+            amount: val.amount,
+            price: val.price,
+          })
         }
       }
     })
 
     //排序
     state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].sort(function (a, b) {
-      return a[1] > b[1] ? -1 : 1
+      return a['price'] > b['price'] ? -1 : 1
     })
 
     //設定%數
     state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
-      dt[2] = dt[1] == nowPrice ? true : false
-      dt[3] = parseInt((dt[0] / amountMax) * 100)
+      dt['isNow'] = dt['price'] == nowPrice ? true : false
+      dt['percent'] = parseInt((dt['amount'] / amountMax) * 100)
 
       return dt
     })
