@@ -516,16 +516,51 @@ button {
 }
 
 //-------------- login
-.login {
-  body {
-    min-width: auto;
-    background: #131419 url('~static/images/theme_traditional/login_bg.png') center top no-repeat;
-    margin: 0 auto;
+.index {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #131419 url('~static/images/theme_traditional/index_bg.png') center top no-repeat;
+  margin: auto;
+  .backsite {
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-weight: 700;
+    color: #FFF;
+    a {
+      color: #00FFF2;
+      margin-left: 16px;
+    }
   }
-  .login-wrap {
+  .index-wrap {
     position: relative;
-    width: 300px;
-    margin: auto;
+    width: 0;
+    margin: 0 auto;
+    .button-login {
+      position: absolute;
+      top: 70px;
+      left: -410px;
+      width: 130px;
+      height: 60px;
+      opacity: 0;
+    }
+  }
+}
+.login {
+  .login-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #131419 url('~static/images/theme_traditional/login_bg.png') center top no-repeat;
+    .login-wrap_inner {
+      position: relative;
+      width: 300px;
+      margin: 0 auto;
+    }
     .login-nav {
       position: absolute;
       top: 15px;
