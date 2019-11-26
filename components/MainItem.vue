@@ -35,13 +35,13 @@
             a.btn-Chart(href="#" @click='clickChart(scope.row)') 走勢
         vxe-table-column(title='成交')
           template(slot-scope='scope')
-            span(:class="scope.row['newest_price_change']") {{ scope.row['newest_price'] | currency }}
+            span(:class="scope.row['newest_price_change']") {{ scope.row['newest_price'] }}
         vxe-table-column(title='買進')
           template(slot-scope='scope')
-            span(:class="scope.row['bp_price_change']") {{ scope.row['bp_price'] | currency }}
+            span(:class="scope.row['bp_price_change']") {{ scope.row['bp_price'] }}
         vxe-table-column(title='賣出')
           template(slot-scope='scope')
-            span(:class="scope.row['sp_price_change']") {{ scope.row['sp_price'] | currency }}
+            span(:class="scope.row['sp_price_change']") {{ scope.row['sp_price'] }}
         vxe-table-column(title='漲跌')
           template(slot-scope='scope')
             .change-icon
@@ -51,17 +51,17 @@
           template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
         vxe-table-column(title='總量')
           template(slot-scope='scope')
-            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] | currency }}
+            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] }}
         vxe-table-column(title='開盤')
-          template(slot-scope='scope') {{ scope.row['open_price'] | currency}}
+          template(slot-scope='scope') {{ scope.row['open_price']}}
         vxe-table-column(title='最高')
-          template(slot-scope='scope') {{ scope.row['highest_price'] | currency}}
+          template(slot-scope='scope') {{ scope.row['highest_price']}}
         vxe-table-column(title='最低')
-          template(slot-scope='scope') {{ scope.row['lowest_price'] | currency}}
+          template(slot-scope='scope') {{ scope.row['lowest_price']}}
         vxe-table-column(title='昨收盤')
-          template(slot-scope='scope') {{ scope.row['yesterday_last_price'] | currency }}
+          template(slot-scope='scope') {{ scope.row['yesterday_last_price'] }}
         vxe-table-column(title='昨結算')
-          template(slot-scope='scope') {{ scope.row['yesterday_close_price'] | currency }}
+          template(slot-scope='scope') {{ scope.row['yesterday_close_price'] }}
         vxe-table-column(title='狀態' fixed="right")
           template(slot-scope='scope') {{ scope.row['state_name'] }}
 </template>

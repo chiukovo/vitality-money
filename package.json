@@ -29,8 +29,6 @@
     "pl-table": "^2.4.9",
     "qs": "^6.9.0",
     "reset-css": "^5.0.1",
-    "trading-vue-js": "^0.3.12",
-    "vue-currency-filter": "^3.4.3",
     "vue-native-websocket": "^2.0.13",
     "vue-nav-tabs": "^0.5.7",
     "vxe-table": "^2.6.22",

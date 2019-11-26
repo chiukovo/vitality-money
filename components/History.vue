@@ -24,6 +24,7 @@
           label.checkbox.inline(v-if="seeAllOrder == 0")
             input.checkbox__input(v-model="showAllOrder" type="checkbox" value="1")
             span.checkbox__label 顯示全部商品單據
+          label.checkbox.inline(v-else style="width: 121px")
           label.checkbox.inline
             input.checkbox__input(v-model="autoGoButtom" type="checkbox" value="1")
             span.checkbox__label 自動置底
@@ -145,10 +146,16 @@
           vxe-table-column(field="CoverPrice" title='平倉價')
           vxe-table-column(field="NewDate" title='成交日期' width="150px")
           vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
-          vxe-table-column(field="WinPoint" title='點數')
+          vxe-table-column(title='點數')
+            template(slot-scope='scope')
+              .change-icon
+                .icon-arrow(:class="scope.row['Point'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              span(:class="scope.row['Point'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Point'] }}
           vxe-table-column(field="CoverType" title='種類')
           vxe-table-column(field="Fee" title='手續費')
-          vxe-table-column(field="WinMoney" title='損益')
+          vxe-table-column(title='損益')
+            template(slot-scope='scope')
+              span(:class="scope.row['Money'] > 0 ? 'text__success' : 'text__danger'") {{ scope.row['Money'] }}
   .history-content(v-show="historyTabShow == 4")
     .history-content__header(id="commodityHeader")
       .row
@@ -186,7 +193,9 @@
             template(slot-scope='scope')
               span.text__success {{ scope.row.TotalSellSubmit}}
           vxe-table-column(title='未平倉')
-            template(slot-scope='scope') {{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}
+            template(slot-scope='scope')
+              <span class="bg__danger" v-if="scope.row.RemainingBuyStock - scope.row.RemainingSellStock > 0">{{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}</span>
+              <span class="bg__success" v-else>{{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}</span>
           vxe-table-column(field="TotalSubmit" title='總口數')
           vxe-table-column(field="TotalFee" title='手續費合計')
           vxe-table-column(title='損益')
@@ -505,6 +514,7 @@ export default {
       lossPointDialog: false,
       winPointDialog: false,
       profitPointDialog: false,
+      orderReport: true,
       valueDateInterval: [],
       allCommodity: [],
       openEditPointRow: [],
@@ -889,24 +899,24 @@ export default {
     },
     buySelltableCellClassName({ row, column, columnIndex }) {
       //判斷是否顯示
-      if (this.seeAllOrder == 0 && row.State == '未成交') {
+      if (this.seeAllOrder == 0 && row.State != '未成交') {
         return 'hide'
       }
 
-      if (columnIndex >= 3 && columnIndex <= 8) {
+      if (columnIndex >= 3 && columnIndex <= 12) {
         if (row.BuyOrSell == 0) {
-          return 'text__up'
+          return 'text__danger'
         } else {
-          return 'text__down'
+          return 'text__success'
         }
       }
     },
     uncoveredTableCellClassName({ row, column, columnIndex }) {
       if (columnIndex >= 1 && columnIndex <= 13) {
         if (row.BuyOrSell == 0) {
-          return 'text__up'
+          return 'text__danger'
         } else {
-          return 'text__down'
+          return 'text__success'
         }
       }
     }
