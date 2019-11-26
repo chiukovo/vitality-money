@@ -372,8 +372,8 @@
           el-form-item(title="口數")
             el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
           el-form-item
-            el-radio(v-model='edit.buyType' title='0') 市價單
-            el-radio(v-model='edit.buyType' title='1') 限價單
+            el-radio(v-model='edit.buyType' label='0') 市價單
+            el-radio(v-model='edit.buyType' label='1') 限價單
           el-form-item(title="限價" v-if="edit.buyType == '1'")
             el-input-number(v-model="edit.nowPrice")
       .dialog__footer
