@@ -71,7 +71,7 @@ export default {
 	data() {
 		return {
 			loading: true,
-			tabShow: 5,
+			tabShow: 1,
 			allHeight: {
 				mainItem: 0,
 			}

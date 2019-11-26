@@ -8,4 +8,9 @@ export const state = () => ({
   	sound: false, //音效
   	operatingCustomGroup: [], //下單三項自訂選項
   },
+  remember: {
+  	me: false,
+  	account: '123',
+  	password: '123',
+  }
 })

@@ -11,11 +11,10 @@
 				el-form-item
 					.row
 						.col
-							el-checkbox(label='記住我')
+							el-checkbox(label='記住我' v-model="rememberMe")
 						.col
-							el-select(placeholder='12-伺服器' v-model='server' style='width: 100%;')
-								el-option(label='10-伺服器' value='server10')
-								el-option(label='11-伺服器' value='server11')
+							el-select(placeholder='1-伺服器' v-model='server' style='width: 100%;')
+								el-option(label='1-伺服器' value='server1')
 				el-form-item
 					el-button(type='primary' native-type="submit" @click.native.prevent="doLogin") 登入
 
@@ -46,17 +45,28 @@ export default {
       loading: true,
       account: '',
       password: '',
-	  	server: 'server10'
+      rememberMe: '',
+	  	server: 'server1'
 	  }
 	},
 	mounted() {
 		this.loading = false
+
+		//remember data
+		const remember = this.$store.state.localStorage.remember
+		this.rememberMe = remember.me
+
+		if (this.rememberMe) {
+			this.account = remember.account
+			this.password = remember.password
+		}
 	},
 	methods: {
 		nuxt: function() {
 			this.$el.querySelector('.login-wrap').style.height = '100%'
 		},
 		async doLogin() {
+			let _this = this
 
 			if (this.account == '' || this.password == '') {
 				this.$alert('帳號或密碼不得為空', '注意!')
@@ -72,12 +82,19 @@ export default {
 				const result = response.data
 
 			  if (result['Code'] <= 0) {
-			  	this.$alert(result['ErrorMsg'], '注意!')
+			  	_this.$alert(result['ErrorMsg'], '注意!')
 			  	return
 			  }
 
+			  //記住我
+			  _this.$store.commit('setRemember', {
+			  	me: _this.rememberMe,
+			  	account: _this.account,
+			  	password: _this.password,
+			  })
+
 			  //set user info
-			  this.$store.commit('setuserAuth', result);
+			  _this.$store.commit('setuserAuth', result);
 			})
 		}
 	},

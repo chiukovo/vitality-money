@@ -4,6 +4,14 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  setRemember(state, { me, account, password }) {
+    state.localStorage.remember.me = me
+
+    if (me) {
+      state.localStorage.remember.account = account
+      state.localStorage.remember.password = password
+    }
+  },
   setCustomSetting(state, type) {
     state.localStorage.customSetting[type] = !state.localStorage.customSetting[type]
   },

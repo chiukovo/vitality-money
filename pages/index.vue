@@ -11,14 +11,13 @@
 			el-form(label-width='40px')
 				el-form-item(label='線路')
 					el-select(placeholder='伺服器' v-model='server' style='width: 100%;')
-						el-option(label='10-伺服器' value='server10')
-						el-option(label='11-伺服器' value='server11')
+						el-option(label='1-伺服器' value='server1')
 				el-form-item(label='帳號')
 					el-input(v-model='account' placeholder='請输入帳號')
 				el-form-item(label='密碼')
 					el-input(v-model='password' type='password' placeholder='請输入密碼')
 				el-form-item
-					el-checkbox 記住我
+					el-checkbox(v-model="rememberMe") 記住我
 				el-form-item
 					el-button(type='primary' native-type="submit" @click.native.prevent="doLogin") 登入
 	.loading(v-loading='loading' v-if="loading")
@@ -43,11 +42,21 @@ export default {
 			loading: true,
 			account: '',
 			password: '',
-			server: 'server10',
+			rememberMe: '',
+			server: 'server1',
 	  }
 	},
 	mounted() {
 		this.loading = false
+
+		//remember data
+		const remember = this.$store.state.localStorage.remember
+		this.rememberMe = remember.me
+
+		if (this.rememberMe) {
+			this.account = remember.account
+			this.password = remember.password
+		}
 	},
 	methods: {
 		async doLogin() {
@@ -74,8 +83,15 @@ export default {
 			  	return
 			  }
 
+			  //記住我
+			  _this.$store.commit('setRemember', {
+			  	me: _this.rememberMe,
+			  	account: _this.account,
+			  	password: _this.password,
+			  })
+
 			  //set user info
-			  this.$store.commit('setuserAuth', result)
+			  _this.$store.commit('setuserAuth', result)
 			})
 		}
 	},
