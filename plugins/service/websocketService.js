@@ -118,6 +118,24 @@ export default {
             return
           }
 
+          if (_this.$store.state.localStorage.customSetting.orderReport) {
+            let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
+
+            _this.$notify({
+              title: '下單回報',
+              type: 'success',
+              dangerouslyUseHTMLString: true,
+              position: 'bottom-right',
+              message:
+              '<p>序號: ' + sourceFormat.Serial + '</p>' +
+              '<p>種類: ' + sourceFormat.Odtype + '</p>' +
+              '<p>多空: ' + buyOrSellName + '</p>' +
+              '<p>商品: ' + sourceFormat.Name + '</p>' +
+              '<p>狀態: 觸發中' +
+              '<p>口數: ' + sourceFormat.Quantity + '</p>'
+            })
+          }
+
           //call order list
           _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
