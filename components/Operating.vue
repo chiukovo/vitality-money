@@ -59,9 +59,9 @@
                 button.button__light(@click="dialogVisible = false") 取消
                 button.button(@click="setNum") 送出
     .operating-4
-        button.button__danger.button__lg(@click="checkOrder(0)") 下多單
+        button.button__danger.button__lg.text__bold(@click="checkOrder(0)") 下多單
         button(@click="checkOrderAll()") 全平
-        button.button__success.button__lg(@click="checkOrder(1)") 下空單
+        button.button__success.button__lg.text__bold(@click="checkOrder(1)") 下空單
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'

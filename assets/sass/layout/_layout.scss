@@ -200,9 +200,6 @@
       margin-left: 6px;
     }
   }
-  .history-content__body {
-
-  }
   .history-tabs {
     line-height: 30px;
   }
@@ -249,6 +246,9 @@
     white-space: nowrap;
     button + button {
       margin-left: 2px;
+    }
+    .button__lg {
+      font-family: $font-family-sans-serif;
     }
   }
   .numberbtn {

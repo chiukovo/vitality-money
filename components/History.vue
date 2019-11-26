@@ -354,28 +354,38 @@
   el-dialog(
     :visible.sync='editDialog'
     :modal='false'
-    width="400px"
+    width="600"
     title='改價減量'
     v-dialogDrag)
     .header-custom(slot='title') 改價減量
     template
       .dialog__body
-        el-form(ref='form' title-width='50px')
-          el-form-item(title="序號")
-            el-input(:value="edit.serial" :disabled="true")
-          el-form-item(title="商品")
-            el-input(:value="edit.itemName" :disabled="true")
-          el-form-item(title="會員")
-            el-input(:value="$store.state.userInfo.Account" :disabled="true")
-          el-form-item(title="買賣")
-            el-input(:value="edit.buyOrSellName" :disabled="true")
-          el-form-item(title="口數")
-            el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
-          el-form-item
-            el-radio(v-model='edit.buyType' label='0') 市價單
-            el-radio(v-model='edit.buyType' label='1') 限價單
-          el-form-item(title="限價" v-if="edit.buyType == '1'")
-            el-input-number(v-model="edit.nowPrice")
+        .d-flex.justify-content-around
+          .form
+            .input
+              span.label 序號
+              input(:value="edit.serial" :disabled="true")
+            .input
+              span.label 商品
+              input(:value="edit.itemName" :disabled="true")
+            .input
+              span.label 會員
+              input(:value="$store.state.userInfo.Account" :disabled="true")
+            .input
+              span.label 買賣
+              input(:value="edit.buyOrSellName" :disabled="true")
+          el-form(size="mini")
+            el-form-item(lable="口數")
+              el-input-number(v-model="edit.submit" :min="1" :max="edit.submitMax")
+            el-form-item
+              label.radio.inline
+                input.radio__input(type="radio" v-model='edit.buyType' value='0')
+                span.radio__label 市價單
+              label.radio.inline
+                input.radio__input(type="radio" v-model='edit.buyType' value='1')
+                span.radio__label 限價單
+            el-form-item(title="限價" v-if="edit.buyType == '1'")
+              el-input-number(v-model="edit.nowPrice")
       .dialog__footer
         button.button__light(@click="editDialog = false") 取消
         button.button(type='primary' @click="doEdit") 送出
