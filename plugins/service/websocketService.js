@@ -118,22 +118,24 @@ export default {
             return
           }
 
-          if (_this.$store.state.localStorage.customSetting.orderReport) {
-            let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
+          if (typeof sourceFormat.EditType == 'undefined') {
+            if (_this.$store.state.localStorage.customSetting.orderReport) {
+              let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
 
-            _this.$notify({
-              title: '下單回報',
-              type: 'success',
-              dangerouslyUseHTMLString: true,
-              position: 'bottom-right',
-              message:
-              '<p>序號: ' + sourceFormat.Serial + '</p>' +
-              '<p>種類: ' + sourceFormat.Odtype + '</p>' +
-              '<p>多空: ' + buyOrSellName + '</p>' +
-              '<p>商品: ' + sourceFormat.Name + '</p>' +
-              '<p>狀態: 觸發中' +
-              '<p>口數: ' + sourceFormat.Quantity + '</p>'
-            })
+              _this.$notify({
+                title: '下單回報',
+                type: 'success',
+                dangerouslyUseHTMLString: true,
+                position: 'bottom-right',
+                message:
+                '<p>序號: ' + sourceFormat.Serial + '</p>' +
+                '<p>種類: ' + sourceFormat.Odtype + '</p>' +
+                '<p>多空: ' + buyOrSellName + '</p>' +
+                '<p>商品: ' + sourceFormat.Name + '</p>' +
+                '<p>狀態: 觸發中' +
+                '<p>口數: ' + sourceFormat.Quantity + '</p>'
+              })
+            }
           }
 
           //call order list
@@ -159,6 +161,24 @@ export default {
               prompt = true
             }
           })
+
+          if (_this.$store.state.localStorage.customSetting.orderReport) {
+            let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
+
+            _this.$notify({
+              title: '成交提示',
+              type: 'success',
+              dangerouslyUseHTMLString: true,
+              position: 'bottom-right',
+              message:
+              '<p>序號: ' + sourceFormat.Serial + '</p>' +
+              '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
+              '<p>商品: ' + sourceFormat.Name + '</p>' +
+              '<p>狀態: 成交' +
+              '<p>口數: ' + sourceFormat.Quantity + '</p>' +
+              '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
+            })
+          }
 
           if ((sourceFormat.SubmitType == '限價單' || sourceFormat.SubmitType == '倒限單') && prompt) {
             _this.$notify({

@@ -7,6 +7,7 @@
     )
     client-only
       vxe-table(
+        ref="xTable"
         id="mainItemTable"
         :data='mainItem',
         :cell-class-name='tableCellClassName',
@@ -87,6 +88,7 @@ export default {
     Dialog,
   },
   mounted() {
+
   },
   watch: {
     mainItem() {

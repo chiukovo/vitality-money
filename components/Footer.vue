@@ -2,28 +2,30 @@
 .footer
 	.row.d-flex
 		#news
-			marquee.news__list(onmouseover='this.stop()', onmouseout='this.start()')
-				a.news__item(href='#') 版面D與手機版,新增技術分析版本
-				a.news__item(href='#') 手機版與桌面版新增可自選顏色功能
-				a.news__item(href='#') 在報價明細區,新增可自選時間壓力支撐指標
-				a.news__item(href='#') 新增F G 版面,供黑馬元氣會員下單,B版供RSI DT 會員下單
-				a.news__item(href='#') 此版為測試帳號,損益不列入計算,此帳號將不定時刪除交易記錄與強平所有倉位!
+			marquee.news__list(onmouseover='this.stop()' onmouseout='this.start()')
+				a.news__item(href='#' v-for="item in items") {{ item }}
 		#today
 			.today__date
 				span {{ dateTime }}
-				button 12-伺服器
+				button 1-伺服器
 </template>
 
+
 <script>
+
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
   data() {
     return {
-      dateTime: ''
+      dateTime: '',
+      items: [],
     }
   },
   mounted() {
   	this.showDateTime()
+    this.announce()
   },
   methods: {
   	showDateTime() {
@@ -37,7 +39,25 @@ export default {
 
   		this.dateTime = y+'年'+M+'月'+d+'日'+h+'時'+m+'分'+s+'秒'
   		setTimeout(this.showDateTime, 1000) //每間隔一秒就呼叫自已一次
-  	}
+  	},
+    async announce() {
+      const _this = this
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+      const lang = this.$store.state.localStorage.lang
+
+      await axios.post("/api/query_announce?lang=" + lang, qs.stringify({
+        UserID: userId,
+        Token: token,
+      }))
+      .then(response => {
+        const result = response.data
+
+        if (result.Code > 0) {
+          _this.items = result.AnnounceList
+        }
+      })
+    }
   }
 }
 </script>
