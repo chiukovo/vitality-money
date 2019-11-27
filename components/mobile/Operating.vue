@@ -49,7 +49,7 @@
           tr(v-if="buyType == 1")
             td.limit.limit__2(colspan='5'): .cell.text__center 限價：
               el-input-number(v-model='nowPrice' :min="0")
-              button.button 現
+              button.button(@click="getNowPrice") 現
           tr
             td.limit.limit__3(colspan='5'): .cell.text__center 停利：
               el-input-number(v-model='profit' :min="0")
@@ -146,7 +146,7 @@ export default {
       this.getNowOverall()
     },
     clickItemId(itemId) {
-      this.getNowPrice(itemId)
+      this.getNowPrice()
       this.getNowOverall()
     },
     customGroup(data) {
@@ -182,6 +182,7 @@ export default {
 
     //目前選擇商品
     this.selectItemId = this.$store.state.clickItemId
+    this.getNowPrice()
   },
   methods: {
     getNowOverall() {
@@ -217,7 +218,8 @@ export default {
 
       this.customGroup = newCustomGroup
     },
-    getNowPrice(itemId) {
+    getNowPrice() {
+      const itemId = this.$store.state.clickItemId
       const nowNewPrice = this.$store.state.nowNewPrice
 
       this.nowPrice = nowNewPrice[itemId]
@@ -258,8 +260,6 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$socketOrder.send(sendText)
-        }).catch(() => {
-
         })
       }
     },
@@ -273,6 +273,7 @@ export default {
       this.sendText = 's:' + userId + ',' + type + ',' + this.submitNum + ',' + clickItem + ',' + this.profit + ',' + this.damage + ',' + nowPrice + ',' + this.buyType + ',' + token + ',' + isMobile
 
       let buyTypeName
+      let typeName = type == 1 ? '空' : '多'
 
       if (this.buyType == 0) {
         buyTypeName = '市價單'
@@ -285,12 +286,34 @@ export default {
       this.confirmData = [{
         name: this.$store.state.itemName,
         userName: this.$store.state.userInfo.Account,
-        buy: type == 1 ? '空' : '多',
+        buy: typeName,
         price: buyTypeName,
         submit: this.submitNum,
       }]
 
-      this.doOrder()
+      //看是否有勾選下單不確認
+      let noConfirm = false
+
+      this.customGroup.forEach(function(val){
+        if (val == 'noConfirm') {
+          noConfirm = true
+        }
+      })
+
+      if (noConfirm) {
+        this.doOrder()
+      } else {
+        //確認
+        this.$confirm('確認下' + typeName + ' (' + this.$store.state.itemName + ') ?', '注意! ', {
+          confirmButtonText: '確定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.doOrder()
+        }).catch(() => {
+
+        })
+      }
     },
     cancel() {
       this.orderConfirm = false

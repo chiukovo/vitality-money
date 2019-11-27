@@ -634,9 +634,9 @@ export default {
         return
       }
 
-      _this.multiDeleteSelect = _this.$store.state.buySell.map(function(val) {
+      _this.$store.state.buySell.forEach(function(val) {
         if (val.Operation[1]) {
-          return val.Serial
+          _this.multiDeleteSelect.push(val.Serial)
         }
       })
     },

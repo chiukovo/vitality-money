@@ -20,9 +20,9 @@
           .main
             .area
               .area__header
-                button.button(@click="$refs.xTableBuySell.setSelection($store.state.buySell, true)") 全選
-                button.button(@click="$refs.xTableBuySell.clearSelection()") 全不選
-                button.button(@click="deleteConfirm = true") 刪除
+                button.button(@click="multiDeleteAllClick(true)") 全選
+                button.button(@click="multiDeleteAllClick(false)") 全不選
+                button.button(@click="openMultiDelete") 刪單
             .area(style="height: calc(100% - 40px); overflow-y: scroll;")
               client-only
                 vxe-table(
@@ -38,7 +38,9 @@
                   auto-resize
                   highlight-current-row
                   :checkbox-config="{checkStrictly: true}")
-                  vxe-table-column(type="checkbox" width="30" :selectable="selectCheckDelete" align="center")
+                  vxe-table-column(width="30" align="center")
+                    template(slot-scope='scope')
+                      input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[1]")
                   vxe-table-column(title='操作' width="166" align="center")
                     template(slot-scope='scope')
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
@@ -350,7 +352,7 @@
       client-only
         vxe-table.table(
           :data="multiOrderData"
-          height="100px"
+          height="300px"
           borde
         )
           vxe-table-column(field="serial" title='序號')
@@ -374,9 +376,9 @@
         i.el-icon-info
         |  確認刪除
       vxe-table.table(
-        :data="confirmDeleteData"
+        :data="multiDeleteData"
         style="width: 100%"
-        height="100px"
+        height="300px"
         borde
       )
         vxe-table-column(field="serial" title='序號')
@@ -430,7 +432,6 @@ export default {
         buyOrSellName: '',
         needLimit: true,
       },
-      confirmDeleteData: [],
       activeName: 'tabs1',
       checked: false,
       editDialog: false,
@@ -446,6 +447,8 @@ export default {
       multiOrderData: [],
       multiOrderSelect: [],
       multiOrderAll: false,
+      multiDeleteData: [],
+      multiDeleteSelect: [],
     };
   },
   mounted() {
@@ -494,6 +497,20 @@ export default {
         }
       })
     },
+    multiDeleteAllClick(allChecked) {
+      let _this = this
+
+      if (!allChecked) {
+        _this.multiDeleteSelect = []
+        return
+      }
+
+      _this.$store.state.buySell.forEach(function(val) {
+        if (val.Operation[1]) {
+          _this.multiDeleteSelect.push(val.Serial)
+        }
+      })
+    },
     selectCheckDelete(row) {
       if (row.Operation[0]) {
         return true
@@ -501,12 +518,38 @@ export default {
 
       return false
     },
+    openMultiDelete() {
+      let _this = this
+      this.multiDeleteData = []
+
+      _this.multiDeleteSelect.forEach(function(serial) {
+        _this.$store.state.buySell.forEach(function(row) {
+          if (row.Serial == serial) {
+            _this.multiDeleteData.push({
+              name: row.Name,
+              userName: _this.$store.state.userInfo.Account,
+              buy: row.BuyOrSell == 0 ? '多' : '空',
+              price: row.Odtype,
+              submit: row.Quantity,
+              itemId: row.ID,
+              serial: row.Serial,
+            })
+          }
+        })
+      })
+
+      if (this.$store.state.localStorage.customSetting.noConfirmDelete) {
+        this.doDelete()
+      } else {
+        this.deleteConfirm = true
+      }
+    },
     selectionChangeDelete(target) {
       let _this = this
-      this.confirmDeleteData = []
+      this.multiDeleteData = []
 
       target.forEach(function(row) {
-        _this.confirmDeleteData.push({
+        _this.multiDeleteData.push({
           name: _this.$store.state.itemName,
           userName: _this.$store.state.userInfo.Account,
           buy: row.BuyOrSell == 0 ? '多' : '空',
@@ -671,7 +714,9 @@ export default {
       }
     },
     deleteOrder(row) {
-      this.confirmDeleteData = [{
+      this.multiDeleteData = []
+      
+      this.multiDeleteData.push({
         name: this.$store.state.itemName,
         userName: this.$store.state.userInfo.Account,
         buy: row.BuyOrSell == 0 ? '多' : '空',
@@ -679,20 +724,20 @@ export default {
         submit: row.Quantity,
         itemId: row.ID,
         serial: row.Serial,
-      }]
+      })
 
       this.deleteConfirm = true
     },
     doDelete() {
       let _this = this
 
-      this.confirmDeleteData.forEach(function(val) {
+      this.multiDeleteData.forEach(function(val) {
         //send
         let sendText = 'e:' + _this.userId + ',0,' + val.itemId + ',0,0,0,0,' + val.serial + ',' + _this.token + ',' + _this.isMobile
         _this.$socketOrder.send(sendText)
       })
 
-      this.confirmDeleteData = []
+      this.multiDeleteData = []
       this.deleteConfirm = false
     },
     doEdit() {
