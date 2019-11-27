@@ -40,7 +40,7 @@
                   :checkbox-config="{checkStrictly: true}")
                   vxe-table-column(width="30" align="center")
                     template(slot-scope='scope')
-                      input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[1]")
+                      input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                   vxe-table-column(title='操作' width="166" align="center")
                     template(slot-scope='scope')
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
@@ -94,7 +94,7 @@
                   highlight-current-row)
                   vxe-table-column(width="30" align="center")
                     template(slot-scope='scope')
-                      input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
+                      input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" v-if="scope.row.Operation[2]")
                   vxe-table-column(title='操作' align="center")
                     template(slot-scope='scope')
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉

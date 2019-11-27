@@ -162,7 +162,7 @@ export default {
             }
           })
 
-          if (_this.$store.state.localStorage.customSetting.orderReport) {
+          if (_this.$store.state.localStorage.customSetting.orderReport || _this.$store.state.isMobile) {
             let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
 
             _this.$notify({
