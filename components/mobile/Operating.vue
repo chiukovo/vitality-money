@@ -72,7 +72,7 @@
             th(colspan='2'): .cell.text__right 委買
             th(colspan='2'): .cell.text__center 價格
             th(colspan='2'): .cell.text__left 委賣
-        tbody(v-loading="$store.state.items0.length == 0")
+        tbody
           tr(v-for="(val, key) in $store.state.items0" v-if="key <= 4")
             td(style='width:20%'): .cell
               .progress-bar.progress-bar__right
