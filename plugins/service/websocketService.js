@@ -106,7 +106,7 @@ export default {
       let sourceFormat
 
       if (typeof source === "string") {
-        type = source.substring(0, 1);
+        type = source.substring(0, 1)
       }
 
       switch (type) {

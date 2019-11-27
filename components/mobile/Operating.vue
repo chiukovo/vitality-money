@@ -319,9 +319,8 @@ export default {
       this.orderConfirm = false
     },
     doOrder() {
-      this.orderConfirm = false
-
-      this.$socketOrder.send(this.sendText)
+      const _this = this
+      setTimeout(function(){ _this.$socketOrder.send(_this.sendText) }, 500)
     },
   }
 }
