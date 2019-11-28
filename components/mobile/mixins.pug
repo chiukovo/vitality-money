@@ -12,4 +12,9 @@ mixin area-infor-list-item(name, icon, content)
     i.material-icons= icon
     .area-infor__title= name
     .area-infor__content&attributes(attributes)= content
+
+mixin area-select-list-item(name)
+  li: label.radio
+    input.radio__input(type="radio")
+    span.radio__label=name
 </template>

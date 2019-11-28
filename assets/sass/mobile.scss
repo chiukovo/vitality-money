@@ -278,6 +278,26 @@ $material-icons-font-path: '~material-icons/iconfont/';
             padding: 10px;
         }
     }
+    .area-select-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        li {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            background: rgba($gray-100, .06);
+            + li {
+                margin-top: 1px;
+            }
+            label {
+                width: 100%;
+                text-align: center;
+                padding: 8px;
+            }
+        }
+    }
     + table {
         margin-top: 1px;
     }
@@ -313,6 +333,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 9;
     width: 100%;
     height: 100%;
     background-color: $gray-900;
@@ -489,7 +510,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 	padding: 10px;
 }
 .el-message-box {
-	width: 56%;
+	width: 60%;
 }
 
 

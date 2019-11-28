@@ -182,6 +182,7 @@
           height="100%"
           size="mini"
           column-min-width="60"
+          align="center"
           border
           auto-resize
           highlight-current-row)

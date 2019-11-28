@@ -1,6 +1,6 @@
 <template lang='pug'>
 .footer
-	.row.d-flex
+	.row.d-flex.ustify-content-between
 		#news
 			marquee.news__list(onmouseover='this.stop()' onmouseout='this.start()')
 				a.news__item(href='#' v-for="item in items") {{ item }}

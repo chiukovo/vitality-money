@@ -255,23 +255,10 @@ $use-fadeInDown: true;
   position: relative;
   border: 1px solid #6285ab;
   @include block-broder-bottom;
-  @for $i from 10 through 20 {
-    .col_#{$i} {
+  table td{
+    &:nth-child(-n+15):nth-child(n+5) {
       font-weight: bold;
     }
-  }
-  .vxe-body--column {
-    position: relative;
-  }
-  .bg__danger, .bg__success {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
   .border__danger, .border__success {
     position: absolute;

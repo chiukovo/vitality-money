@@ -22,7 +22,7 @@
         highlight-hover-row)
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
         //- 閃爍效果 td .cell add class: '.border.border__danger || .border__success'
-        vxe-table-column(title='商品' fixed="left")
+        vxe-table-column(title='商品' width="70px" fixed="left")
           template(slot-scope='scope') {{ scope.row['product_name'] }}
         vxe-table-column(title='倉位' fixed="left" width="40px" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")

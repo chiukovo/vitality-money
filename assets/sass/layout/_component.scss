@@ -167,17 +167,14 @@ $align: center right left;
     border-style: solid;
   }
   .icon-arrow-up {
-    top: -1px;
     border-width: 0 5px 8px 5px;
     border-color: transparent transparent $danger transparent;
   }
   .icon-arrow-down {
-    top: 1px;
     border-width: 8px 5px 0 5px;
     border-color: $success transparent transparent transparent;
   }
 }
-
 tr.border-tr {
   td {
     border-top: 1px solid $primary !important;
@@ -192,6 +189,19 @@ tr.border-tr {
       color: #fff;
       background-color: $primary;
     }
+  }
+}
+td {
+  position: relative;
+  .bg__danger, .bg__success {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -244,4 +254,13 @@ tr.border-tr {
   100% {
     color: black;
   }
+}
+
+.login {
+  .el-loading-mask {
+    position: fixed;
+  }
+}
+.el-loading-mask {
+  background-color: rgba(0, 0, 0, 0.8);
 }

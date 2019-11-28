@@ -84,6 +84,9 @@
   z-index: 5;
   color: #fff;
   background-color: #191B1D;
+  .row {
+    width: 100%;
+  }
   #news {
       width: calc(100% - 300px);
       marquee {
@@ -95,9 +98,8 @@
       }
   }
   #today {
-      width: 300px;
       text-align: right;
-      padding-right: 10px;
+      padding: 0 10px;
       .el-button {
           margin-left: 10px;
       }
@@ -121,6 +123,9 @@
   height: 100%;
   .mainItem-content {
     height: 100%;
+  }
+  table td {
+    font-size: 13px;
   }
 }
 

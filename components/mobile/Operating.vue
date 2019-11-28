@@ -31,15 +31,15 @@
             th: .cell.text__center 狀態
         tbody
           tr
-            td: .cell.text__center.text__down {{ nowMainItem.product_name }}
+            td: .cell.text__center.text__success {{ nowMainItem.product_name }}
             td: .cell.text__center
               template(v-if="typeof $store.state.uncoveredCountDetail[nowMainItem.product_id] != 'undefined'")
-                <span class="bg-red" v-if="$store.state.uncoveredCountDetail[nowMainItem.product_id] > 0">{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
-                <span class="bg-green" v-else>{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
-            td: .cell.text__center.text__down {{ nowMainItem.newest_price }}
-            td: .cell.text__center.text__down
+                <span class="bg__danger" v-if="$store.state.uncoveredCountDetail[nowMainItem.product_id] > 0">{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
+                <span class="bg__success" v-else>{{ $store.state.uncoveredCountDetail[nowMainItem.product_id] }}</span>
+            td: .cell.text__center.text__success {{ nowMainItem.newest_price }}
+            td: .cell.text__center.text__success
               template
-                .table-icon
+                .change-icon
                   .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                 span {{ nowMainItem.gain }}
             td: .cell.text__center {{ nowMainItem.state_name }}
@@ -78,8 +78,8 @@
               .progress-bar.progress-bar__right
                 .progress-bar__inner(:style="'width: ' + $store.state.items0[key + 6][0] + '%'")
             td: .cell.text__center {{ $store.state.items0[key + 6][1] }}
-            td: .cell.text__center.text__up {{ $store.state.items0[key + 6][2] }}
-            td: .cell.text__center.text__down {{ val[2] }}
+            td: .cell.text__center.text__danger {{ $store.state.items0[key + 6][2] }}
+            td: .cell.text__center.text__success {{ val[2] }}
             td: .cell.text__center {{ val[3] }}
             td(style='width:20%'): .cell
               .progress-bar
