@@ -38,14 +38,14 @@
                   auto-resize
                   highlight-current-row
                   :checkbox-config="{checkStrictly: true}")
-                  vxe-table-column(title='操作' width="166" align="center")
+                  vxe-table-column(title='操作' align="center" width="142")
                     template(slot-scope='scope')
                       input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                       button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
-                  vxe-table-column(field='Serial' title='序號')
-                  vxe-table-column(field='Name' title='商品')
+                  vxe-table-column(field='Serial' title='序號' fixed="left")
+                  vxe-table-column(field='Name' title='商品' fixed="left")
                   vxe-table-column(title='多空' width="60px"  align="center")
                     template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
                   vxe-table-column(field='OrderPrice' title='委託價')
@@ -711,7 +711,7 @@ export default {
     },
     deleteOrder(row) {
       this.multiDeleteData = []
-      
+
       this.multiDeleteData.push({
         name: this.$store.state.itemName,
         userName: this.$store.state.userInfo.Account,
