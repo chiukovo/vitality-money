@@ -41,7 +41,7 @@
               template
                 .change-icon
                   .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span {{ nowMainItem.gain }}
+                span(:class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
             td: .cell.text__center {{ nowMainItem.state_name }}
           tr
             td.limit.limit__1(colspan='5'): .cell.text__center 口數：
