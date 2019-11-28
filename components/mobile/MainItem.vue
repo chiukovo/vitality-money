@@ -1,36 +1,19 @@
 <template lang="pug">
 .page
-  .header-userInfo(:class="UserInfoHeaderShow ? 'isOpen' : ''")
+  .header-userInfo(:class="userInfoHeaderShow ? 'isOpen' : ''")
     UserInfoHeader
   .header
     .header__left
-      button.button.header-button 自選商品
-      .modals.mainItem
+      button.button.header-button(@click="costomShow = true") 自選商品
+      .modals.mainItem(v-if="costomShow")
         .header
           .header__left
-            el-link(icon='el-icon-arrow-left' :underline='false') 返回
+            el-link(icon='el-icon-arrow-left' :underline='false' @click="costomShow = false") 返回
           .header__title 編輯自選
-        .main
-          .area
-            .area__header
-              button.button 全選
-              button.button 全不選
-          .area(style="height: calc(100% - 100px); overflow-y: scroll;")
-            ul.area-select-list
-              - for (var x = 0; x < 12; x++)
-                li: label.checkbox
-                  input.checkbox__input(type="checkbox")
-                  span.checkbox__label 加權指
-                li: label.checkbox
-                  input.checkbox__input(type="checkbox")
-                  span.checkbox__label 臺指早
-                li: label.checkbox
-                  input.checkbox__input(type="checkbox")
-                  span.checkbox__label 台指全
-
+        CustomItem
     .header__title 商品報價
     .header__right
-      button.button.header-button(@click="UserInfoHeaderShow = !UserInfoHeaderShow")
+      button.button.header-button(@click="userInfoHeaderShow = !userInfoHeaderShow")
         i.el-icon-user-solid
   .main.mainItem
     Dialog(
@@ -88,6 +71,7 @@
 <script>
 
 import UserInfoHeader from "~/components/mobile/UserInfoHeader"
+import CustomItem from "~/components/mobile/CustomItem"
 import Dialog from "~/components/Dialog"
 
 import { mapState } from 'vuex'
@@ -95,7 +79,8 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 	  return {
-      UserInfoHeaderShow: false,
+      userInfoHeaderShow: false,
+      costomShow: false,
       dialog: {
         clickType: '',
         isOpen: false,
@@ -104,6 +89,7 @@ export default {
 	},
   components: {
     UserInfoHeader,
+    CustomItem,
     Dialog
   },
   computed: mapState([

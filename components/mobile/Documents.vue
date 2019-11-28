@@ -38,11 +38,9 @@
                   auto-resize
                   highlight-current-row
                   :checkbox-config="{checkStrictly: true}")
-                  vxe-table-column(width="30" align="center")
-                    template(slot-scope='scope')
-                      input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                   vxe-table-column(title='操作' width="166" align="center")
                     template(slot-scope='scope')
+                      input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                       button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
@@ -92,11 +90,9 @@
                   border
                   auto-resize
                   highlight-current-row)
-                  vxe-table-column(width="30" align="center")
-                    template(slot-scope='scope')
-                      input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" v-if="scope.row.Operation[2]")
                   vxe-table-column(title='操作' align="center")
                     template(slot-scope='scope')
+                      input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" v-if="scope.row.Operation[2]")
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
                   vxe-table-column(field='Serial', title='序號')
                   vxe-table-column(field='Name', title='商品')

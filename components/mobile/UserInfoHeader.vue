@@ -23,7 +23,7 @@
       span.label 今日損益:
       span(:class="userInfo.TodayMoney > 0 ? 'text__succuss' : 'text__danger'")  {{ userInfo.TodayMoney }}
     li.userInfo__button
-      button.button__danger.logout 登出帳號
+      button.button__danger.logout(@click="logout") 登出帳號
 </template>
 
 <script>
@@ -32,6 +32,14 @@ import { mapState } from 'vuex'
 export default {
   computed: mapState([
     'userInfo',
-  ])
+  ]),
+  methods: {
+    logout() {
+      //unset cookie
+      let token = this.$cookies.remove('token')
+
+      location.href = "/"
+    }
+  }
 }
 </script>
