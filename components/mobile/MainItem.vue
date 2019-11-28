@@ -46,9 +46,9 @@
           template(slot-scope='scope') {{ scope.row['sp_price'] }}
         vxe-table-column(title='漲跌')
           template(slot-scope='scope')
-            .table-icon
+            .change-icon
               .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-            span {{ scope.row['gain'] }}
+            span(:class="scope.row['gain'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['gain'] }}
         vxe-table-column(title='漲跌幅')
           template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
         vxe-table-column(title='總量')
@@ -158,7 +158,7 @@ export default {
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷整行顏色
-      if(columnIndex >= 2 && columnIndex != 7 && columnIndex != 13) {
+      if(columnIndex >= 2 && columnIndex != 5 && columnIndex != 7 && columnIndex != 13) {
         return row.color
       }
 
