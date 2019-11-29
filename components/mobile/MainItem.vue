@@ -11,6 +11,15 @@
             el-link(icon='el-icon-arrow-left' :underline='false' @click="costomShow = false") 返回
           .header__title 編輯自選
         CustomItem
+      .modals.mainItem(v-if="analysisShow")
+        .header
+          .header__left
+            el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
+          .header__title
+            .select.header-select
+              select(v-model='selectItemId')
+                option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
+        Analysis
     .header__title 商品報價
     .header__right
       button.button.header-button(@click="userInfoHeaderShow = !userInfoHeaderShow")
@@ -22,7 +31,8 @@
     client-only
       vxe-table.table(
       :data='mainItem',
-      :cell-class-name='tableCellClassName',
+      :cell-class-name='tableCellClassName'
+      @cell-click="clickChart"
       @current-change="clickItem"
       max-width="100%"
       height="100%"
@@ -72,6 +82,7 @@
 
 import UserInfoHeader from "~/components/mobile/UserInfoHeader"
 import CustomItem from "~/components/mobile/CustomItem"
+import Analysis from "~/components/mobile/Analysis"
 import Dialog from "~/components/Dialog"
 
 import { mapState } from 'vuex'
@@ -79,8 +90,10 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 	  return {
+      selectItemId: '',
       userInfoHeaderShow: false,
       costomShow: false,
+      analysisShow: false,
       dialog: {
         clickType: '',
         isOpen: false,
@@ -90,12 +103,23 @@ export default {
   components: {
     UserInfoHeader,
     CustomItem,
+    Analysis,
     Dialog
   },
   computed: mapState([
-    'mainItem'
+    'mainItem',
+    'clickItemId'
   ]),
   watch: {
+    clickItemId(id) {
+      //目前選擇商品
+      this.selectItemId = id
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': id,
+        'type': 'minone',
+        'num': 1
+      })
+    },
     mainItem() {
       const _this = this
 
@@ -113,7 +137,24 @@ export default {
           el.classList.remove("border__danger")
         })
       }, 400)
-    }
+    },
+    selectItemId(id) {
+      let name = ''
+      //找出名稱
+      this.$store.state.mainItem.forEach(function(val) {
+        if (val.product_id == id) {
+          name = val.product_name
+        }
+      })
+
+      this.$store.commit('setClickItemId', {
+        id: id,
+        name: name
+      })
+    },
+  },
+  mounted() {
+
   },
   methods: {
     clickItem({ row }) {
@@ -122,39 +163,16 @@ export default {
         name: row.product_name
       })
     },
-    clickKline(item) {
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': item.product_id,
-        'type': 'kline',
-        'num': 2
-      })
+    clickChart({ row, column, columnIndex }) {
+      if (columnIndex == 0) {
+        this.$store.dispatch('CALL_QUERY_TECH', {
+          'id': row.product_id,
+          'type': 'minone',
+          'num': 1
+        })
 
-      //dialog
-      this.dialog.clickType = 'kLine'
-      this.dialog.isOpen = true
-    },
-    clickChart(item) {
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': item.product_id,
-        'type': 'minone',
-        'num': 1
-      })
-
-      //dialog
-      this.dialog.clickType = 'chart'
-      this.dialog.isOpen = true
-    },
-    updateKlineData(items, kLineData) {
-      const _this = this
-      let clickItemId = this.$store.state.clickItemId
-
-      _this.$store.commit('doUpdateklLineData', items)
-    },
-    updateChartData(items, kLineData) {
-      const _this = this
-      let clickItemId = this.$store.state.clickItemId
-
-      _this.$store.commit('doUpdateChartData', items)
+        this.analysisShow = true
+      }
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷整行顏色

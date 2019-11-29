@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import plTable from 'pl-table'
 import 'pl-table/themes/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import {
   Dialog,
   Input,
@@ -20,6 +21,8 @@ import {
   OptionGroup,
   Button,
   ButtonGroup,
+  Carousel,
+  CarouselItem,
   Table,
   TableColumn,
   DatePicker,
@@ -55,6 +58,8 @@ Vue.use(Switch);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Link);
+Vue.use(Carousel);
+Vue.use(CarouselItem);
 Vue.use(Pagination);
 Vue.use(Divider);
 Vue.use(Row);
