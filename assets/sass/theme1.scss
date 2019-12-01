@@ -570,7 +570,7 @@ button {
     }
     .login-box {
       position: absolute;
-      top: 184px;
+      top: 180px;
       right: -250px;
       width: 266px;
     }
@@ -602,18 +602,18 @@ button {
       border-color: #002148;
     }
     .el-form-item {
-      margin-bottom: 13px;
       .el-select__caret {
         display: none;
       }
     }
     .el-form {
       .el-form-item {
+        margin-bottom: 0;
         &:nth-child(1) {
-          margin-bottom: 23px;
+          margin-bottom: 12px;
         }
         &:nth-child(2) {
-          margin-bottom: 26px;
+          margin-bottom: 21px;
         }
         &:nth-child(4) {
           .el-checkbox__label {
@@ -626,8 +626,8 @@ button {
         }
         &:nth-child(5) {
           position: absolute;
-          right: -1px;
-          bottom: -16px;
+          right: -2px;
+          bottom: -14px;
           width: auto;
           .el-button {
             color: transparent;
