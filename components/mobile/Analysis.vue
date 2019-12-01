@@ -1,11 +1,11 @@
 <template lang='pug'>
   .main
-    highcharts(v-if="items.length > 0" :options="options" style="height: 260px")
-    div(v-loading="loading" v-else)
-    .area(style="height: calc(100% - 420px); overflow-y: scroll;")
+    highcharts(v-if="items.length > 0" :options="options" style="height: 210px")
+    div(v-loading="loading" v-else style="height: 100%")
+    .area(style="height: calc(100% - 210px); overflow: scroll;")
       client-only
         div(v-swiper:myswiper='swiperOption')
-          .swiper-wrapper
+          .swiper-wrapper(style="height: calc(100% - 260px)")
             .swiper-slide
               .area
                 ul.area-analysis-list
