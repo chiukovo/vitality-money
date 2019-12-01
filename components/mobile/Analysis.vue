@@ -125,7 +125,8 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import 'swiper/dist/css/swiper.css'
-import HighchartsVue from "highcharts-vue";
+import HighchartsVue from "highcharts-vue"
+import darkUnica from "highcharts/themes/dark-unica"
 import Highcharts from "highcharts"
 import stockInit from 'highcharts/modules/stock'
 import mapInit from 'highcharts/modules/map'
@@ -137,6 +138,7 @@ if (typeof Highcharts === 'object') {
     }
   })
 
+  darkUnica(Highcharts)
   stockInit(Highcharts)
   mapInit(Highcharts)
 }

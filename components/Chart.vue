@@ -9,7 +9,7 @@
 
 import { mapState } from 'vuex';
 import Vue from 'vue'
-import HighchartsVue from "highcharts-vue";
+import HighchartsVue from "highcharts-vue"
 import Highcharts from "highcharts"
 import stockInit from 'highcharts/modules/stock'
 import mapInit from 'highcharts/modules/map'
