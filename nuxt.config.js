@@ -30,7 +30,6 @@ module.exports = {
     '~plugins/global',
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
-    {src: '~plugins/highcharts.js', ssr: false},
     {src: '~plugins/element-ui', ssr: true},
     {src: '~plugins/vue-table', ssr: false},
     '@/static/js/el-dialogdrag'

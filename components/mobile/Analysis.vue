@@ -11,16 +11,37 @@
                 ul.area-analysis-list
                   li
                     span.label 成交
-                    span.text__danger 11032
+                    span(:class="nowMainItem.color") {{ nowMainItem.newest_price }}
                   li
                     span.label 買進
-                    span.text__danger 11032
+                    span(:class="nowMainItem.color") {{ nowMainItem.bp_price }}
                   li
-                    span.label 成交
-                    span.text__danger 11032
+                    span.label 賣出
+                    span(:class="nowMainItem.color") {{ nowMainItem.sp_price }}
                   li
-                    span.label 買進
-                    span.text__danger 11032
+                    span.label 漲跌
+                    span(:class="nowMainItem.color") {{ nowMainItem.gain }}
+                  li
+                    span.label 漲幅
+                    span(:class="nowMainItem.color") {{ nowMainItem.gain_percent }}%
+                  li
+                    span.label 總量
+                    span(:class="nowMainItem.color") {{ nowMainItem.total_qty }}
+                  li
+                    span.label 開盤
+                    span(:class="nowMainItem.color") {{ nowMainItem.open_price }}
+                  li
+                    span.label 最高
+                    span(:class="nowMainItem.color") {{ nowMainItem.highest_price }}
+                  li
+                    span.label 最低
+                    span(:class="nowMainItem.color") {{ nowMainItem.lowest_price }}
+                  li
+                    span.label 昨收
+                    span(:class="nowMainItem.color") {{ nowMainItem.yesterday_last_price }}
+                  li
+                    span.label 昨結
+                    span(:class="nowMainItem.color") {{ nowMainItem.yesterday_close_price }}
             .swiper-slide
               .area
                 //- 分價揭示
@@ -104,6 +125,23 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import 'swiper/dist/css/swiper.css'
+import HighchartsVue from "highcharts-vue";
+import Highcharts from "highcharts"
+import stockInit from 'highcharts/modules/stock'
+import mapInit from 'highcharts/modules/map'
+
+if (typeof Highcharts === 'object') {
+  Highcharts.setOptions({
+    global: {
+      useUTC: false
+    }
+  })
+
+  stockInit(Highcharts)
+  mapInit(Highcharts)
+}
+
+Vue.use(HighchartsVue)
 
 if (process.browser) {
   const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
@@ -118,10 +156,10 @@ export default {
       options: {},
       loading: true,
       swiperOption: {
-          pagination: {
-            el: '.swiper-pagination'
-          },
-        }
+        pagination: {
+          el: '.swiper-pagination'
+        },
+      }
     }
   },
   methods: {
@@ -137,6 +175,7 @@ export default {
   },
   computed: mapState([
     'chartData',
+    'nowMainItem',
   ]),
   watch: {
     chartData (res) {
@@ -191,7 +230,6 @@ export default {
     }
   },
   mounted () {
-
   },
 }
 </script>

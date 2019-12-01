@@ -67,9 +67,9 @@ export default {
       val.lowest_price_change = ''
 
       if (val.newest_price > val.yesterday_close_price) {
-        val.color = 'text__success'
-      } else if (val.newest_price < val.yesterday_close_price) {
         val.color = 'text__danger'
+      } else {
+        val.color = 'text__success'
       }
 
       val.gain = val.newest_price - val.yesterday_close_price
