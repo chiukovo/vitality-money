@@ -11,15 +11,6 @@
             el-link(icon='el-icon-arrow-left' :underline='false' @click="costomShow = false") 返回
           .header__title 編輯自選
         CustomItem
-      .modals.mainItem(v-if="analysisShow")
-        .header
-          .header__left
-            el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
-          .header__title
-            .select.header-select
-              select(v-model='selectItemId')
-                option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
-        Analysis
     .header__title 商品報價
     .header__right
       button.button.header-button(@click="userInfoHeaderShow = !userInfoHeaderShow")
@@ -28,6 +19,15 @@
     Dialog(
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen")
+    .modals.mainItem(v-if="analysisShow")
+      .header
+        .header__left
+          el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
+        .header__title
+          .select.header-select
+            select(v-model='selectItemId')
+              option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
+      Analysis
     client-only
       vxe-table.table(
       :data='mainItem',

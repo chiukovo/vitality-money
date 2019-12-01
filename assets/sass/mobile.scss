@@ -298,6 +298,22 @@ $material-icons-font-path: '~material-icons/iconfont/';
             }
         }
     }
+    .area-analysis-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: wrap;
+        li {
+            flex: 1 0 33.33%;
+            text-align: center;
+            padding: 6px;
+            .label {
+                display: inline-block;
+                width: 50px;
+            }
+        }
+    }
     + table {
         margin-top: 1px;
     }
@@ -631,4 +647,20 @@ button {
 			}
 		}
 	}
+}
+
+
+
+.swiper-container {
+    height: 100%;
+}
+.swiper-pagination-bullet {
+    background: #fff;
+    &.swiper-pagination-bullet-active {
+        background: $primary;
+    }
+}
+.swiper-pagination {
+    position: fixed;
+    bottom: 4rem !important;
 }

@@ -26,8 +26,8 @@
                 input.radio__input(type="radio" v-model='buyType' value='1')
                 span.radio__label 限價單
     .operating-2
-      el-form(ref='form' size='mini' label-width='30px')
-        el-form-item(label='限價:' v-if="buyType == 1" style="width: 80px")
+      el-form(ref='form' size='mini' label-width='50px')
+        el-form-item(label='限價:' v-if="buyType == 1")
           el-input-number(v-model='nowPrice' controls-position='right' :min="0")
         el-form-item(label='停利:')
           el-input-number(v-model='profit' controls-position='right' :min="0")
