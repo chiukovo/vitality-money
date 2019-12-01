@@ -1,7 +1,7 @@
 <template lang='pug'>
   .main
-    highcharts(v-if="items.length > 0" :options="options" style="height: 360px")
-    div(v-loading="loading" v-else style="height: 260px")
+    highcharts(v-if="items.length > 0" :options="options" style="height: 260px")
+    div(v-loading="loading" v-else)
     .area(style="height: calc(100% - 420px); overflow-y: scroll;")
       client-only
         div(v-swiper:myswiper='swiperOption')
