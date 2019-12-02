@@ -507,13 +507,23 @@ button {
 }
 
 //-------------- login
+.login {
+  .index {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+  }
+  .index-wrap {
+    position: relative;
+    width: 0;
+    margin: 0 auto;
+  }
+}
 .gennki {
   .index {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #131419 url('~static/images/theme_traditional/index_bg.png') center top no-repeat;
-  margin: auto;
+    background: #131419 url('~static/images/theme_traditional/index_bg.jpg') center top no-repeat;
+  }
   .backsite {
     width: 100%;
     height: 42px;
@@ -527,9 +537,6 @@ button {
     }
   }
   .index-wrap {
-    position: relative;
-    width: 0;
-    margin: 0 auto;
     .button-login {
       position: absolute;
       top: 70px;
@@ -540,104 +547,121 @@ button {
     }
   }
 }
-  .login-wrap {
-    position: fixed;
-    top: 0;
-    left: 0;
+.login-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #131419 url('~static/images/theme_traditional/login_bg.jpg') center top no-repeat;
+  .login-wrap_inner {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+  }
+  .login-nav {
+    position: absolute;
+    top: 15px;
+    left: -60px;
+    width: 460px;
+    line-height: 3;
+    a {
+      display: inline-block;
+      width: 80px;
+      text-align: center;
+      color: transparent;
+      +a {
+        margin-left: 46px;
+      }
+    }
+  }
+  .login-box {
+    position: absolute;
+    top: 180px;
+    right: -250px;
+    width: 266px;
+  }
+  .login__header {
+    display: none;
+  }
+  .el-form-item {
     width: 100%;
-    height: 100%;
-    background: #131419 url('~static/images/theme_traditional/login_bg.png') center top no-repeat;
-    .login-wrap_inner {
-      position: relative;
-      width: 300px;
-      margin: 0 auto;
-    }
-    .login-nav {
-      position: absolute;
-      top: 15px;
-      left: -60px;
-      width: 460px;
-      line-height: 3;
-      a {
-        display: inline-block;
-        width: 80px;
-        text-align: center;
-        color: transparent;
-        +a {
-          margin-left: 46px;
-        }
-      }
-    }
-    .login-box {
-      position: absolute;
-      top: 180px;
-      right: -250px;
-      width: 266px;
-    }
-    .login__header {
-      display: none;
-    }
-    .el-form-item {
-      width: 100%;
-    }
-    .el-form-item__label {
-      display: none;
-    }
-    .el-form-item__content {
-      width: 100%;
-      margin-left: 0 !important;
-    }
-    .el-input__inner {
-      color: #fff;
-      height: 31px;
-      line-height: 31px;
-      background: transparent;
-      border-color: transparent;
-      &:focus {
-        border-color: #002148;
-      }
-    }
-    .el-select:hover .el-input__inner,
-    .el-select .el-input.is-focus .el-input__inner {
+  }
+  .el-form-item__label {
+    display: none;
+  }
+  .el-form-item__content {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+  .el-input__inner {
+    color: #fff;
+    height: 31px;
+    line-height: 31px;
+    background: transparent;
+    border-color: transparent;
+    &:focus {
       border-color: #002148;
     }
+  }
+  .el-select:hover .el-input__inner,
+  .el-select .el-input.is-focus .el-input__inner {
+    border-color: #002148;
+  }
+  .el-form-item {
+    .el-select__caret {
+      display: none;
+    }
+  }
+  .el-form {
     .el-form-item {
-      .el-select__caret {
-        display: none;
+      margin-bottom: 0;
+      &:nth-child(1) {
+        margin-bottom: 12px;
+      }
+      &:nth-child(2) {
+        margin-bottom: 21px;
+      }
+      &:nth-child(4) {
+        .el-checkbox__label {
+          color: #fff;
+        }
+        .el-form-item__content {
+          line-height: 1;
+          padding-left: 5px;
+        }
+      }
+      &:nth-child(5) {
+        position: absolute;
+        right: -2px;
+        bottom: -14px;
+        width: auto;
+        .el-button {
+          color: transparent;
+          background: transparent url('~static/images/theme_traditional/login_button.png');
+          border: 0;
+          width: 100px;
+          height: 31px;
+        }
       }
     }
-    .el-form {
-      .el-form-item {
-        margin-bottom: 0;
-        &:nth-child(1) {
-          margin-bottom: 12px;
-        }
-        &:nth-child(2) {
-          margin-bottom: 21px;
-        }
-        &:nth-child(4) {
-          .el-checkbox__label {
-            color: #fff;
-          }
-          .el-form-item__content {
-            line-height: 1;
-            padding-left: 5px;
-          }
-        }
-        &:nth-child(5) {
-          position: absolute;
-          right: -2px;
-          bottom: -14px;
-          width: auto;
-          .el-button {
-            color: transparent;
-            background: transparent url('~static/images/theme_traditional/login_button.png');
-            border: 0;
-            width: 100px;
-            height: 31px;
-          }
-        }
-      }
+  }
+}
+.DarkHorse {
+  .index {
+    background: #131419 url('~static/images/theme_DarkHorse/index_bg.jpg') center top no-repeat;
+  }
+  .backsite {
+    display: none;
+  }
+  .index-wrap {
+    .button-login {
+      position: absolute;
+      top: 334px;
+      left: 226px;
+      width: 202px;
+      height: 81px;
+      opacity: 0;
     }
   }
 }

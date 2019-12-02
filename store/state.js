@@ -26,8 +26,8 @@ export default () => ({
   loading: true,
   isMobile: 0, //0桌面 1手機
   customStyle: {
-    htmlClass: 'gennki'
-    // htmlClass: 'DarkHorse'
+    // htmlClass: 'gennki'
+    htmlClass: 'DarkHorse'
   },
   buySell: [], //下單列表
   uncovered: [], //未平倉
