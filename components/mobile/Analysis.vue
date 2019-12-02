@@ -2,10 +2,10 @@
   .main
     highcharts(v-if="items.length > 0" :options="options" style="height: 210px")
     div(v-loading="loading" v-else style="height: 100%")
-    .area(style="height: calc(100% - 210px); overflow: scroll;")
+    .area(style="height: calc(100% - 270px); overflow: scroll;")
       client-only
         div(v-swiper:myswiper='swiperOption')
-          .swiper-wrapper(style="height: calc(100% - 260px)")
+          .swiper-wrapper
             .swiper-slide
               .area
                 ul.area-analysis-list
@@ -161,6 +161,7 @@ export default {
         pagination: {
           el: '.swiper-pagination'
         },
+        autoHeight: true
       }
     }
   },

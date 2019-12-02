@@ -42,7 +42,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+    height: 100%;
 }
 .page {
 	height: calc(100% - 55px);
@@ -305,12 +305,17 @@ $material-icons-font-path: '~material-icons/iconfont/';
         display: flex;
         flex-flow: wrap;
         li {
+            display: flex;
+            justify-content: space-evenly;
             flex: 1 0 33.33%;
             text-align: center;
             padding: 6px;
+            span {
+                width: 60%;
+            }
             .label {
                 display: inline-block;
-                width: 50px;
+                width: 40%;
             }
         }
     }
@@ -473,6 +478,13 @@ $material-icons-font-path: '~material-icons/iconfont/';
 
 //-------------- login
 .login {
+    background: url('~static/images/theme_traditional/login_bg_mobile.jpg');
+    .logo {
+        width: 40%;
+        background: url('~static/images/theme_traditional/logo.png') center/contain no-repeat;
+        padding-top: 8rem;
+        margin: 2rem auto;
+    }
 	.login-wrap {
 		position: fixed;
 		top: 0;
@@ -482,7 +494,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 		height: 100%;
 		justify-content: center;
 		align-items: center;
-		padding-bottom: 2rem;
+		padding-bottom: 10rem;
 	}
 	.login-box {
 		width: 100%;
@@ -547,6 +559,8 @@ button {
 	thead {
 		background: $table-header-bg-color;
 		th .cell {
+            font-weight: normal;
+            color: rgba(206, 211, 219, 0.4);
 			padding: $table-header-cell-padding;
 		}
 	}
@@ -651,9 +665,9 @@ button {
 
 
 
-.swiper-container {
-    height: 100%;
-}
+// .swiper-container {
+//     height: 100%;
+// }
 .swiper-pagination-bullet {
     background: #fff;
     &.swiper-pagination-bullet-active {

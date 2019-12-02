@@ -1,7 +1,8 @@
 <template lang='pug'>
 .login-wrap
 	.login-box
-		//- .login__header 登入
+		.login__header
+			.logo
 		.login__form
 			el-form
 				el-form-item
