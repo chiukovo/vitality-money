@@ -26,8 +26,7 @@ export default () => ({
   loading: true,
   isMobile: 0, //0桌面 1手機
   customStyle: {
-    // htmlClass: 'gennki'
-    htmlClass: 'DarkHorse'
+    htmlClass: process.env.NUXT_ENV_WEB ? process.env.NUXT_ENV_WEB : 'gennki'
   },
   buySell: [], //下單列表
   uncovered: [], //未平倉
