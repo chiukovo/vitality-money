@@ -76,6 +76,7 @@
           template(slot-scope='scope') {{ scope.row['yesterday_close_price']  }}
         vxe-table-column(title='狀態')
           template(slot-scope='scope') {{ scope.row['state_name'] }}
+  .swiper-scrollbar(slot="scrollbar")
 </template>
 
 <script>

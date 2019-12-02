@@ -158,10 +158,11 @@ export default {
       options: {},
       loading: true,
       swiperOption: {
-        pagination: {
-          el: '.swiper-pagination'
+        scrollbar: {
+          el: '.swiper-scrollbar'
         },
-        autoHeight: true
+        autoHeight: true,
+        mousewheel: true
       }
     }
   },
