@@ -15,6 +15,7 @@ $ cp .env.example .env
 | NUXT_ENV_API_URL | api連結 |
 | NUXT_ENV_API_WEBSOCKET | websocket連結 (數據) |
 | NUXT_ENV_API_ORDER_WEBSOCKET | websocket連結 (下訂單) |
+| NUXT_ENV_WEB | 新元氣(gennki) or 新黑馬(DarkHorse) 預設為元氣 |
 
 
 ## 安裝步驟
