@@ -53,7 +53,7 @@ export default {
   head() {
     return {
       htmlAttrs: {
-         class: this.$store.state.customStyle.htmlClass + ' login'
+        class: 'gennki'
       }
     }
   },
