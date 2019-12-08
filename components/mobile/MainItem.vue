@@ -41,7 +41,7 @@
       border
       auto-resize
       highlight-current-row)
-        vxe-table-column(title='商品' width='86' fixed="left")
+        vxe-table-column(title='商品' width='94' fixed="left")
           template(slot-scope='scope') {{ scope.row['product_name'] }}
         vxe-table-column(title='倉位' width='60' fixed="left" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
@@ -184,7 +184,7 @@ export default {
       //判斷狀態
       if(columnIndex == 13) {
         if (row.state != 2) {
-          return 'text-secondary'
+          return 'text__secondary'
         }
       }
     },

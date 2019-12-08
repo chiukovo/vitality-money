@@ -6,10 +6,10 @@
     .header__title 單據列表
   .main
     ul.nav-list
-      +nav-list-item('handleDocument', '1', '買賣單據')
-      +nav-list-item('handleDocument', '2', '未平倉單')
-      +nav-list-item('handleDocument', '3', '已平倉單')
-      +nav-list-item('handleDocument', '4', '商品統計')
+      +nav-list-item('handleDocument', '1', '買賣單據', 'list_alt')
+      +nav-list-item('handleDocument', '2', '未平倉單', 'format_indent_decrease')
+      +nav-list-item('handleDocument', '3', '已平倉單', 'format_indent_increase')
+      +nav-list-item('handleDocument', '4', '商品統計', 'table_chart')
     template(v-if='documentShow == 1')
       .modals.documents
         .page
@@ -175,7 +175,7 @@
               border
               auto-resize
               highlight-current-row)
-              vxe-table-column(field="Name" title='商品名稱')
+              vxe-table-column(field="Name" title='商品名稱' width="94")
               vxe-table-column(title='總多')
                 template(slot-scope='scope')
                   span.text__danger {{ scope.row.TotalBuySubmit　}}

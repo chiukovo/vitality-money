@@ -35,7 +35,7 @@ import MainItem from '~/components/MainItem'
 import History from '~/components/History'
 import Sound from "~/components/Sound"
 import Operating from '~/components/Operating'
-import '@/assets/sass/theme1.scss'
+import '@/assets/sass/style.scss'
 export default {
   components: {
     Splitpanes,

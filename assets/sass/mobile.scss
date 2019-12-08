@@ -333,13 +333,18 @@ $material-icons-font-path: '~material-icons/iconfont/';
         color: #fff;
 				background-color: $gray-700;
 				border-radius: 3px;
-        padding: 10px 0 10px 10px;
+        padding: 10px 0 10px 42px;
         margin: 10px;
         .el-icon-arrow-right {
             margin: 0 8px 0 auto;
         }
         &:hover, &:focus {
             background-color: rgba($primary, .1);
+        }
+        .icon {
+            position: absolute;
+            left: 20px;
+            color: rgba(#fff, .8);
         }
     }
 }

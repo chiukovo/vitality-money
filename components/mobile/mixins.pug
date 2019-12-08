@@ -1,10 +1,12 @@
-<template lang='pug'>
-mixin area-list-item(click, name)
-  li(@click=`${click} = !${click}`)= name
-    i.el-icon-arrow-right
+//- <template lang='pug'>
+//- mixin area-list-item(click, name)
+//-   li(@click=`${click} = !${click}`)= name
+//-     i.material-icons list_alt
+//-     i.el-icon-arrow-right
 
-mixin nav-list-item(click, id, name)
+mixin nav-list-item(click, id, name, icon)
   li(@click=`${click}(${id})`)= name
+    i.icon.material-icons= icon
     i.el-icon-arrow-right
 
 mixin area-infor-list-item(name, icon, content)

@@ -6,11 +6,11 @@
     .header__title 系統功能
   .main
     ul.nav-list
-      +nav-list-item('handleSystem', '1', '帳戶訊息')
-      +nav-list-item('handleSystem', '2', '商品訊息')
-      +nav-list-item('handleSystem', '4', '系統公告')
-      +nav-list-item('handleSystem', '6', '系統設置')
-      +nav-list-item('handleSystem', '8', '更改密碼')
+      +nav-list-item('handleSystem', '1', '帳戶訊息', 'account_circle')
+      +nav-list-item('handleSystem', '2', '商品訊息', 'loyalty')
+      +nav-list-item('handleSystem', '4', '系統公告', 'notifications')
+      +nav-list-item('handleSystem', '6', '系統設置', 'settings_applications')
+      +nav-list-item('handleSystem', '8', '更改密碼', 'vpn_key')
     .nav-button
       button.button__danger.logout(@click="logout") 登出帳號
     UserInfo(v-if='systemShow == 1')

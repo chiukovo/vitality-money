@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import '@/assets/sass/theme1.scss'
+import '@/assets/sass/style.scss'
 
 export default {
 	head() {
