@@ -65,6 +65,10 @@ export default {
       val.total_qty_change = ''
       val.highest_price_change = ''
       val.lowest_price_change = ''
+      val.newest_time_change = ''
+      val.newest_qty_change = ''
+      val.gain_change = ''
+      val.gain_percent_change = ''
 
       if (val.newest_price > val.yesterday_close_price) {
         val.color = 'text__danger'
@@ -284,9 +288,11 @@ export default {
         color: val.color,
         cover_point1: val.cover_point1,
         cover_point2: val.cover_point2,
-        end_date: val.end_date,
+        end_date: _this._vm.formatEndDate(val.end_date),
         gain: val.gain,
+        gain_change: val.gain_change,
         gain_percent: val.gain_percent,
+        gain_percent_change: val.gain_percent_change,
         highest_price: val.highest_price,
         highest_price: val.highest_price,
         highest_price_change: val.highest_price_change,
@@ -300,7 +306,8 @@ export default {
         newest_price_change: val.newest_price_change,
         open_date_time: val.open_date_time,
         open_price: val.open_price,
-        open_price: val.open_price,
+        newest_time: _this._vm.formatTime(val.newest_time),
+        newest_time_change: val.newest_time_change,
         product_id: val.product_id,
         product_name: val.product_name,
         sp_price: val.sp_price,
@@ -308,6 +315,8 @@ export default {
         state: val.state,
         state_name: val.state_name,
         total_qty: val.total_qty,
+        newest_qty: val.newest_qty,
+        newest_qty_change: val.newest_qty_change,
         total_qty_change: val.total_qty_change,
         yesterday_close_price: val.yesterday_close_price,
         yesterday_last_price: val.yesterday_last_price,
@@ -384,6 +393,10 @@ export default {
         //總量
         val.total_qty += nowItems[2]
 
+        //單量
+        val.newest_qty_change = val.newest_qty == nowItems[2] ? '' : borderName
+        val.newest_qty = nowItems[2]
+
         if (val.total_qty_change == '') {
           val.total_qty_change = nowItems[2] == 0 ? '' : borderName
         } else {
@@ -392,17 +405,21 @@ export default {
 
         //成交
         val.newest_price_change = val.newest_price == nowItems[1] ? '' : borderName
-
         val.newest_price = nowItems[1]
 
         //寫入store 目前最新成交價錢
         state.nowNewPrice[val.product_id] = val.newest_price
 
         //漲跌
-        val.gain = val.newest_price - val.yesterday_close_price
-        gain = val.gain
+        gain = val.newest_price - val.yesterday_close_price
+        val.gain_change = val.gain == gain ? '' : borderName
+        val.gain = gain
         //(成交價-昨日收盤)/昨日收盤*100%
         val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
+        val.gain_percent_change = val.gain_change
+        //時間
+        val.newest_time_change = val.newest_time == flocalTime ? '' : borderName
+        val.newest_time = flocalTime
 
         _this.commit('setHistoryPrice', {itemId, prices, gain, flocalTime})
       }
@@ -638,8 +655,13 @@ export default {
     //陣列第[3]：第一筆買價
     //陣列第[13]：第一筆賣價
     state.mainItem = state.mainItem.map(function (val) {
+      let borderName = val.color == 'text__success' ? 'border border__success' : 'border border__danger'
+      
       if (itemId == val.product_id) {
+        val.bp_price_change = val.bp_price == five[3] ? '' : borderName
         val.bp_price = five[3]
+
+        val.sp_price_change = val.sp_price == five[13] ? '' : borderName
         val.sp_price = five[13]
       }
 
