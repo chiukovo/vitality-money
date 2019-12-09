@@ -23,11 +23,13 @@
       .header
         .header__left
           el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
+        .header__right
+          el-link(icon='el-icon-arrow-right' :underline='false' @click="more = !more") 更多
         .header__title
           .select.header-select
             select(v-model='selectItemId')
               option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
-      Analysis
+      Analysis(@close-more="more = false")
     client-only
       vxe-table.table(
       :data='mainItem',
@@ -95,6 +97,7 @@ export default {
       userInfoHeaderShow: false,
       costomShow: false,
       analysisShow: false,
+      more: false,
       dialog: {
         clickType: '',
         isOpen: false,
@@ -119,6 +122,12 @@ export default {
         'id': id,
         'type': 'minone',
         'num': 1
+      })
+
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': id,
+        'type': 'kline',
+        'num': 2
       })
     },
     mainItem() {
