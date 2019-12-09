@@ -413,6 +413,28 @@ $material-icons-font-path: '~material-icons/iconfont/';
     font-weight: normal;
     color: rgba($gray-100, .4);
 }
+.moreSelect {
+    position: fixed;
+    left: 50%;
+    bottom: 60px;
+    z-index: 990;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: $gray-400;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        text-align: center;
+        padding: 10px;
+        + li {
+            border-top: 1px solid $gray-500;
+        }
+        &.close {
+            background-color: $gray-200;
+        }
+    }
+}
 
 
 .itemDetail__Total {
@@ -622,7 +644,8 @@ button {
 }
 .header-button {
 	position: relative;
-	height: 76%;
+    height: 76%;
+    color: $gray-100;
 	background: $gray-700;
 	border-color: transparent;
 	border-radius: 5px;

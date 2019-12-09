@@ -1,13 +1,13 @@
 <template lang='pug'>
   .main
     //-更多下拉框
-    ul(v-if="$parent.more")
+    ul.moreSelect(v-if="$parent.more")
       li(@click="closeMore(1)") 走勢圖表
       li(@click="closeMore(2)") K線圖表
       li(@click="closeMore(3)") 五檔數據
       li(@click="closeMore(4)") 量價分布
       li(@click="closeMore(5)") 即時報價
-      li(@click="closeMore('')") 取消
+      li.close(@click="closeMore('')") 取消
 
     //-走勢圖表
     div(v-show="type == 1" class="h-100")

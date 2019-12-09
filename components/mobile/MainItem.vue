@@ -24,7 +24,7 @@
         .header__left
           el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
         .header__right
-          el-link(icon='el-icon-arrow-right' :underline='false' @click="more = !more") 更多
+          button.button.header-button(@click="more = !more") 更多
         .header__title
           .select.header-select
             select(v-model='selectItemId')
