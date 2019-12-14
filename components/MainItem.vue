@@ -131,7 +131,7 @@ export default {
     clickChart(item) {
       this.$store.dispatch('CALL_QUERY_TECH', {
         'id': item.product_id,
-        'type': 'minone',
+        'type': 'chart',
         'num': 1
       })
 

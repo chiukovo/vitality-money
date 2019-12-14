@@ -120,7 +120,7 @@ export default {
       this.selectItemId = id
       this.$store.dispatch('CALL_QUERY_TECH', {
         'id': id,
-        'type': 'minone',
+        'type': 'chart',
         'num': 1
       })
 
@@ -177,7 +177,7 @@ export default {
       if (columnIndex == 0) {
         this.$store.dispatch('CALL_QUERY_TECH', {
           'id': row.product_id,
-          'type': 'minone',
+          'type': 'chart',
           'num': 1
         })
 
