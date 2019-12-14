@@ -448,8 +448,11 @@ button {
 .el-input-number .el-input__inner {
   background: #e4e4e4;
 }
-.numberBtn-box {
-  display: inline-block;
+.numberBtn-wrap {
+  display: flex;
+  .el-input-number {
+    width: 100%;
+  }
 }
 
 // table
