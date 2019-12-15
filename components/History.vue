@@ -527,11 +527,12 @@ export default {
     }
   },
   mounted() {
-    this.selectDayType('today')
     this.userId = this.$store.state.localStorage.userAuth.userId
     this.token = this.$store.state.localStorage.userAuth.token
     this.lang = this.$store.state.localStorage.lang
     this.isMobile = this.$store.state.isMobile
+
+    this.selectDayType('today')
     this.computedHeight()
     window.addEventListener('resize', this.computedHeight)
   },
@@ -563,7 +564,7 @@ export default {
       let _this = this
 
       if (this.form.start != '' && this.form.end != '') {
-        await axios.post("/api/query_moneylist?lang=" + this.lang, qs.stringify({
+        await axios.post(process.env.NUXT_ENV_API_URL + "/query_moneylist?lang=" + this.lang, qs.stringify({
           UserID: this.userId,
           Token: this.token,
           StartDate: this.form.start,

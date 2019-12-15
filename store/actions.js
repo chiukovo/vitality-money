@@ -18,7 +18,7 @@ export default {
     const userId = state.localStorage.userAuth.userId
     const token = state.localStorage.userAuth.token
 
-    await axios.post("/api/query_orderlist?lang=" + lang, qs.stringify({
+    await axios.post(process.env.NUXT_ENV_API_URL + "/query_orderlist?lang=" + lang, qs.stringify({
       UserID: userId,
       Token: token,
     }))
@@ -34,7 +34,7 @@ export default {
     const userId = state.localStorage.userAuth.userId
     const token = state.localStorage.userAuth.token
 
-    await axios.post("/api/query_member_setting", qs.stringify({
+    await axios.post(process.env.NUXT_ENV_API_URL + "//query_member_setting", qs.stringify({
       UserID: userId,
       Token: token,
     }))
@@ -74,7 +74,7 @@ export default {
     const token = state.localStorage.userAuth.token
     const itemId = state.clickItemId
 
-    await axios.post("/api/set_close_cover_all?lang=" + lang, qs.stringify({
+    await axios.post(process.env.NUXT_ENV_API_URL + "//set_close_cover_all?lang=" + lang, qs.stringify({
       UserID: userId,
       Token: token,
       SetCloseCover: overall,
@@ -88,7 +88,7 @@ export default {
     const userId = state.localStorage.userAuth.userId
     const token = state.localStorage.userAuth.token
 
-    await axios.post("/api/query_member_and_commoditylist?lang=" + lang, qs.stringify({
+    await axios.post(process.env.NUXT_ENV_API_URL + "//query_member_and_commoditylist?lang=" + lang, qs.stringify({
       UserID: userId,
       Token: token,
     }))
@@ -103,7 +103,7 @@ export default {
     })
   },
 	async CALL_QUERY_TECH ({ commit, state }, params) {
-		await axios.post("/api/query_tech?lang=" + state.localStorage.lang, qs.stringify({
+		await axios.post(process.env.NUXT_ENV_API_URL + "//query_tech?lang=" + state.localStorage.lang, qs.stringify({
         userID: state.localStorage.userAuth.userId,
         Token: state.localStorage.userAuth.token,
       	Params: params.id + ',minone,' + params.num + ',' + params.type,

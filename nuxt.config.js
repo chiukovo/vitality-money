@@ -44,6 +44,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/dotenv',
+    '@nuxtjs/device',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/style-resources',
@@ -71,16 +72,8 @@ module.exports = {
     }
   },
   proxy: {
-    '/api': {
-      target: process.env.NUXT_ENV_API_URL,
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api' : ''
-        }
-      }
   },
   router: {
-    middleware: ["device"],
   },
   chainWebpack: config => {
     //close eslint

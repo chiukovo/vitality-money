@@ -1,39 +1,35 @@
-import { deviceType } from "~/plugins/deviceType"
-
 export default function(context) {
-    context.userAgent = process.server ?
-        context.req.headers["user-agent"] :
-        navigator.userAgent;
+  let isMobile = context.app.$cookies.get('isMobile')
+  let routeGroup = context.route.name.split('-')
 
-    context.deviceType = deviceType(context.userAgent)
+  const token = context.app.$cookies.get('token')
 
-    let isMobile = context.app.$cookies.get('isMobile')
-    let routeGroup = context.route.name.split('-')
-
-    //check login
-   const token = context.app.$cookies.get('token')
-
-    if (context.deviceType.type === "pc") {
-    	context.store.commit("setMobile", 0)
-    	context.app.$cookies.set('isMobile', 0)
-
-        if (typeof token == 'undefined') {
-          context.redirect(302, '/')
-        }
-
-    	if (routeGroup[0] == 'mobile') {
-    		context.redirect(302, '/')
-    	}
-    } else {
-    	context.store.commit("setMobile", 1)
-    	context.app.$cookies.set('isMobile', 1)
+  //pc
+  if (!context.isMobile) {
+  	context.store.commit("setMobile", 0)
+  	context.app.$cookies.set('isMobile', 0)
 
       if (typeof token == 'undefined') {
-        context.redirect(302, '/mobile')
+        context.redirect(302, '/')
+        return
       }
 
-      if (routeGroup[0] != 'mobile') {
-          context.redirect(302, '/mobile')
-      }
+  	if (routeGroup[0] == 'mobile') {
+  		context.redirect(302, '/')
+      return
+  	}
+  } else {
+  	context.store.commit("setMobile", 1)
+  	context.app.$cookies.set('isMobile', 1)
+
+    if (typeof token == 'undefined') {
+      context.redirect(302, '/mobile')
+      return
     }
+
+    if (routeGroup[0] != 'mobile') {
+        context.redirect(302, '/mobile')
+        return
+    }
+  }
 }

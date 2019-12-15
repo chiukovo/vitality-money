@@ -2,6 +2,27 @@ import Vue from 'vue'
 
 Vue.mixin({
   methods: {
+    checkDevice() {
+      const isMobile = this.$device.isMobile
+      const name = this.$nuxt.$route.name.split('-')
+
+      //pc
+      if (!isMobile) {
+        this.$store.commit("setMobile", 0)
+        this.$cookies.set('isMobile', 0)
+
+        if (name[0] == 'mobile') {
+          location.href = '/'
+        }
+      } else {
+        this.$store.commit("setMobile", 1)
+        this.$cookies.set('isMobile', 1)
+
+        if (name[0] != 'mobile') {
+          location.href = '/mobile'
+        }
+      }
+    },
     testGlobal() {
       return 'success'
     },

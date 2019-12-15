@@ -85,7 +85,7 @@ export default {
       const userId = this.$store.state.localStorage.userAuth.userId
       const token = this.$store.state.localStorage.userAuth.token
 
-      await axios.post("/api/set_member_setting", qs.stringify({
+      await axios.post(process.env.NUXT_ENV_API_URL + "/set_member_setting", qs.stringify({
         UserID: userId,
         Token: token,
         UserSettingData: JSON.stringify(result),

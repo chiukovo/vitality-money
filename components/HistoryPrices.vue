@@ -104,7 +104,7 @@ export default {
         const token = this.$store.state.localStorage.userAuth.token
         const lang = this.$store.state.localStorage.lang
 
-        await axios.post("/api/query_com_history_data?lang=" + lang, qs.stringify({
+        await axios.post(process.env.NUXT_ENV_API_URL + "/query_com_history_data?lang=" + lang, qs.stringify({
           UserID: userId,
           Token: token,
           queryLen: 3,

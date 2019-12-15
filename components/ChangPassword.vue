@@ -67,7 +67,7 @@ export default {
       const userId = this.$store.state.localStorage.userAuth.userId
       const token = this.$store.state.localStorage.userAuth.token
 
-      await axios.post("/api/set_password", qs.stringify({
+      await axios.post(process.env.NUXT_ENV_API_URL + "/set_password", qs.stringify({
         UserID: userId,
         Token: token,
         OldPassword: form.oldPassword,

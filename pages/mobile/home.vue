@@ -77,10 +77,9 @@ export default {
 			}
 		}
 	},
-	beforeMount () {
-	  //算好所有手機板高度
-	  // this.mobileAllHeight()
-  },
+	beforeMount() {
+		this.checkDevice()
+	},
   mounted () {
   	this.checkLogin()
 	},

@@ -54,6 +54,9 @@ export default {
 			server: 'server1',
 	  }
 	},
+	beforeMount() {
+		this.checkDevice()
+	},
 	mounted() {
 		this.loading = false
 
@@ -77,7 +80,7 @@ export default {
 
 			this.loading = true
 
-			await axios.post("/api/validation", qs.stringify({
+			await axios.post(process.env.NUXT_ENV_API_URL + "/validation", qs.stringify({
 			  LoginAccount: this.account,
 			  LoginPassword: this.password,
 			  LoginMobile: 0,

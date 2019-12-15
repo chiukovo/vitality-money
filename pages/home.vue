@@ -57,6 +57,9 @@ export default {
       }
     }
   },
+  beforeMount() {
+    this.checkDevice()
+  },
   mounted() {
     let _this = this
     this.checkLogin()
