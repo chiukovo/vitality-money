@@ -4,7 +4,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 module.exports = {
   mode: 'universal',
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.NUXT_ENV_WEB_TITLE || '',
     meta: [
       { charset: 'utf-8' }
     ],
