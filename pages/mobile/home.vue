@@ -38,6 +38,11 @@
 					:class="{'current': tabShow == 5}")
 					i.item__icon.el-icon-s-tools
 					.item__name 系統
+				.tab-list__item(
+					@click='handleTab(6)'
+					:class="{'current': tabShow == 6}")
+					i.item__icon.el-icon-s-comment
+					.item__name 客服
 </template>
 <script>
 

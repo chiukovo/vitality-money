@@ -3,7 +3,11 @@
   .history-header
     .history-tabs.tabs-nav
       #tab-item1.tabs__item(@click='handleHistoryTabs(1)' :class="{'is-active' : historyTabShow == 1}") 買賣下單({{ $store.state.buySell.length }})
-      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ({{ $store.state.unCoverBuySum }},{{ Math.abs($store.state.unCoverSellSum) }})
+      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 (
+        span.text__danger {{ $store.state.unCoverBuySum }}
+        |,
+        span.text__success {{ Math.abs($store.state.unCoverSellSum) }}
+        |)
       #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
       #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
@@ -59,10 +63,10 @@
           vxe-table-column(field='Odtype' title='型別')
           vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
-              button.button.button_border__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+              button.button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
           vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
-              button.button.button_border__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
+              button.button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
           vxe-table-column(field='OrderTime' width='150' title='下單時間')
           vxe-table-column(field='FinalTime' width='150' title='完成時間')
           vxe-table-column(title='狀態' width='110' fixed="right")
@@ -103,10 +107,10 @@
           vxe-table-column(field='Fee' title='手續費')
           vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
-              button.button.button_border__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
+              button.button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
           vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
-              button.button.button_border__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
+              button.button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
           vxe-table-column(title='倒限(利)' align="center")
             template(slot-scope='scope')
               button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
