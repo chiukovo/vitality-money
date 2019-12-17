@@ -138,12 +138,21 @@
           vxe-table-column(field="Name" title='商品')
           vxe-table-column(field="NewSerial" title='新倉序號')
           vxe-table-column(field="CoverSerial" title='平倉序號')
-          vxe-table-column(field="NewType" title='新倉型別')
-          vxe-table-column(field="SerialCoveredNum" title='口數')
+          vxe-table-column(title='新倉型別')
+            template(slot-scope='scope')
+              span(:class="scope.row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ scope.row['NewType'] }}
+          vxe-table-column(title='口數')
+            template(slot-scope='scope')
+              span(:class="scope.row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ scope.row['SerialCoveredNum'] }}
           vxe-table-column(title='多空')
-            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-          vxe-table-column(field="NewPrice" title='成交價')
-          vxe-table-column(field="CoverPrice" title='平倉價')
+            template(slot-scope='scope')
+              span(:class="scope.row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(title='成交價')
+            template(slot-scope='scope')
+              span(:class="scope.row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ scope.row['NewPrice'] }}
+          vxe-table-column(title='平倉價')
+            template(slot-scope='scope')
+              span(:class="scope.row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ scope.row['CoverPrice'] }}
           vxe-table-column(field="NewDate" title='成交日期' width="150px")
           vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
           vxe-table-column(title='點數')
