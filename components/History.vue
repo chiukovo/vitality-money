@@ -3,7 +3,7 @@
   .history-header
     .history-tabs.tabs-nav
       #tab-item1.tabs__item(@click='handleHistoryTabs(1)' :class="{'is-active' : historyTabShow == 1}") 買賣下單({{ $store.state.buySell.length }})
-      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ({{ $store.state.unCoverBuySum }},{{ $store.state.unCoverSellSum }})
+      #tab-item2.tabs__item(@click='handleHistoryTabs(2)' :class="{'is-active' : historyTabShow == 2}") 未平倉 ({{ $store.state.unCoverBuySum }},{{ Math.abs($store.state.unCoverSellSum) }})
       #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
       #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
@@ -40,7 +40,7 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="30" align="center")
+          vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[1]")
           vxe-table-column(title='操作' width="120" align="center")
@@ -88,7 +88,7 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="30" align="center")
+          vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
           vxe-table-column(title='操作' align="center")
@@ -113,13 +113,13 @@
           vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
             template(slot-scope='scope')
               span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text__black") {{ scope.row['thisSerialTotalMoney'] }}
-              span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text__up' : 'text__down'") {{ scope.row['thisSerialTotalMoney'] }}
+              span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['thisSerialTotalMoney'] }}
           vxe-table-column(title='點數')
             template(slot-scope='scope')
               .change-icon
                 .icon-arrow(v-if="scope.row['thisSerialPointDiff'] != 0" :class="scope.row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
               span(v-if="scope.row['thisSerialPointDiff'] == 0" class="text__black") {{ scope.row['thisSerialPointDiff'] }}
-              span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text__up' : 'text__down'") {{ scope.row['thisSerialPointDiff'] }}
+              span(v-else :class="scope.row['thisSerialPointDiff'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['thisSerialPointDiff'] }}
           vxe-table-column(field='Day', title='天數')
           vxe-table-column(field='State', title='狀態' width="150px" fixed="right")
   .history-content(v-show="historyTabShow == 3")
@@ -155,7 +155,7 @@
           vxe-table-column(field="Fee" title='手續費')
           vxe-table-column(title='損益')
             template(slot-scope='scope')
-              span(:class="scope.row['Money'] > 0 ? 'text__success' : 'text__danger'") {{ scope.row['Money'] }}
+              span(:class="scope.row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Money'] }}
   .history-content(v-show="historyTabShow == 4")
     .history-content__header(id="commodityHeader")
       .row
@@ -196,16 +196,16 @@
           vxe-table-column(title='未平倉')
             template(slot-scope='scope')
               <span class="bg__danger" v-if="scope.row.RemainingBuyStock - scope.row.RemainingSellStock > 0">{{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}</span>
-              <span class="bg__success" v-else>{{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}</span>
+              <span class="bg__success" v-else>{{ Math.abs(scope.row.RemainingBuyStock - scope.row.RemainingSellStock) }}</span>
           vxe-table-column(field="TotalSubmit" title='總口數')
           vxe-table-column(field="TotalFee" title='手續費合計')
           vxe-table-column(title='損益')
             template(slot-scope='scope')
-              span.text__success(v-if="scope.row.TotalPoint >= 0") {{ scope.row.TotalPoint}}
+              span.text__success(v-if="scope.row.TotalPoint < 0") {{ scope.row.TotalPoint}}
               span.text__danger(v-else) {{ scope.row.TotalPoint}}
           vxe-table-column(title='留倉預扣')
             template(slot-scope='scope')
-              span.text__success(v-if="scope.row.RemainingWithholding >= 0") {{ scope.row.RemainingWithholding}}
+              span.text__success(v-if="scope.row.RemainingWithholding < 0") {{ scope.row.RemainingWithholding}}
               span.text__danger(v-else) {{ scope.row.RemainingWithholding}}
   .history-content(v-show="historyTabShow == 5")
     .history-content__header(id="accountHeader")

@@ -24,16 +24,20 @@
             auto-resize
             highlight-current-row)
             vxe-table-column(field="Date" title='日期' width="120" fixed="left")
-            vxe-table-column(field="TouchPoint" title='預設額度')
-            vxe-table-column(field="RemainingMoney" title='帳戶餘額')
-            vxe-table-column(title='今日損益')
+            vxe-table-column(title='預設額度')
+              template(slot-scope='scope') {{ scope.row.TouchPoint | currency }}
+            vxe-table-column(title='帳戶餘額' width="120")
+              template(slot-scope='scope') {{ scope.row.RemainingMoney | currency }}
+            vxe-table-column(title='今日損益' width="120")
               template(slot-scope='scope')
-                span.text__success(v-if="scope.row.TodayMoney >= 0") {{ scope.row.TodayMoney}}
-                span.text__danger(v-else) {{ scope.row.TodayMoney}}
+                span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney | currency }}
+                span.text__danger(v-else) {{ scope.row.TodayMoney | currency }}
             vxe-table-column(field="TotalSubmit" title='口數')
             vxe-table-column(field="Withholding" title='留倉預扣')
-            vxe-table-column(field="Limitpoint" title='對匯額度')
-            vxe-table-column(field="Uppay" title='交收')
+            vxe-table-column(title='對匯額度')
+              template(slot-scope='scope') {{ scope.row.Limitpoint | currency }}
+            vxe-table-column(title='交收')
+              template(slot-scope='scope') {{ scope.row.Uppay | currency }}
 </template>
 <script>
 

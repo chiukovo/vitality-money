@@ -41,7 +41,7 @@ export default {
           title: '服務專線:',
           info: '',
         }, {
-          title: '今日餘額:',
+          title: '帳戶餘額:',
           info: _this.$options.filters.currency(userInfo.Money),
         }, {
           title: '今日損益:',
@@ -78,7 +78,7 @@ export default {
           info: userInfo.EndTime,
         }, {
           title: '報價模式:',
-          info: '',
+          info: userInfo.PriceMode == 0 ? '整數報價' : '完整報價',
         }]
     }
   },

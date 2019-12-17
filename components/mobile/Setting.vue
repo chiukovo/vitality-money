@@ -26,6 +26,12 @@
               .area-switch__label 下單不確認
               .area-switch__button
                 el-switch(v-model="noConfirm" @change="changeValue('noConfirm')")
+          li
+            .area-switch__title 下單提示
+            .area-switch__content
+              .area-switch__label 成交不回報
+              .area-switch__button
+                el-switch(v-model="orderReport" @change="setCustomSetting('orderReport')")
 </template>
 
 <script>
@@ -35,13 +41,15 @@ export default {
       systemShow: 8,
       sound: true,
       prompt: false,
-      noConfirm: false
+      noConfirm: false,
+      orderReport: false
     }
   },
   mounted() {
     const _this = this
     let customGroup = this.$cookies.get('customGroup')
     this.value1 = this.$store.state.localStorage.customSetting.sound
+    this.orderReport = ! this.$store.state.localStorage.customSetting.orderReport
 
     if (typeof customGroup == 'undefined') {
       customGroup = []
@@ -74,7 +82,10 @@ export default {
 
         this.$cookies.set('customGroup', result)
       }
-    }
+    },
+    setCustomSetting(type) {
+      this.$store.commit('setCustomSetting', type)
+    },
   },
   watch: {
     sound() {

@@ -10,7 +10,7 @@
     .header__right
       button.button__primary 正常收單
   .main
-    .area
+    .area(style="height: calc(100% - 50px); overflow: auto")
       .collapse(@click="open1 = !open1")
         .collapse__header 最後交易日
         ul.collapse__list(v-if="open1")
@@ -42,7 +42,7 @@
             span.label 單商品口數上限(每手):
             |{{ item.SubmitMax }}
           li
-            span.label 單商品留倉口數:
+            span.label 持倉上限:
             |{{ item.StoreLimit }}
       .collapse(@click="open3 = !open3")
         .collapse__header 交易相關參數
@@ -50,6 +50,15 @@
           li
             span.label 每點價格:
             |{{ item.PointMoney }}
+          li
+            span.label 開放0.1口:
+            |{{ item.DecimalSubmitEnable }}
+          li
+            span.label 小於一口手續費:
+            |{{ item.DecimalSubmitFee }}
+          li
+            span.label 60秒平倉手續費:
+            |{{ item.SixityFee }}
           li
             span.label 手續費(進/出):
             |{{ item.Fee }}
@@ -65,35 +74,6 @@
           li
             span.label 停損利:
             |{{ item.StopPoint }}
-//- .dialog
-  .dialog__content
-    client-only
-      vxe-table(
-        :data='items'
-        max-width="100%"
-        height="500px"
-        column-min-width="74"
-        size="mini"
-        align="center"
-        border
-        auto-resize
-        highlight-current-row
-        highlight-hover-row)
-        vxe-table-column(fixed="left" prop="Name" title='商品名稱')
-        vxe-table-column(field="PointMoney" title='每點價格')
-        vxe-table-column(field="Fee" title='手續費(進/出)')
-        vxe-table-column(field="SubmitMax" title='單商品每筆上限')
-        vxe-table-column(field="RemaingLimit" title='單商品留倉上限')
-        vxe-table-column(field="RemaingDayLimit" title='單商品留倉天數')
-        vxe-table-column(field="OpenMaxPoint" title='開盤最大漲跌')
-        vxe-table-column(field="SubmitMaxPoint" title='每口最大漲跌')
-        vxe-table-column(field="StopPoint" title='停損利')
-        vxe-table-column(title='可下單時間' width="200")
-          template(slot-scope="scope")
-            span(v-html="scope.row.TradeTime")
-        vxe-table-column(field="State" title='狀態')
-        vxe-table-column(field="NotNewPercent" title='禁新')
-        vxe-table-column(field="CoverPercent" title='強平')
 </template>
 
 <script>

@@ -188,11 +188,11 @@
               vxe-table-column(field="TotalFee" title='手續費合計')
               vxe-table-column(title='損益')
                 template(slot-scope='scope')
-                  span.text__success(v-if="scope.row.TotalPoint >= 0") {{ scope.row.TotalPoint}}
-                  span.text__danger(v-else) {{ scope.row.TotalPoint}}
+                  span.text__success(v-if="scope.row.TotalPoint < 0") {{ scope.row.TotalPoint }}
+                  span.text__danger(v-else) {{ scope.row.TotalPoint }}
               vxe-table-column(title='留倉預扣')
                 template(slot-scope='scope')
-                  span.text__success(v-if="scope.row.RemainingWithholding >= 0") {{ scope.row.RemainingWithholding}}
+                  span.text__success(v-if="scope.row.RemainingWithholding < 0") {{ scope.row.RemainingWithholding}}
                   span.text__danger(v-else) {{ scope.row.RemainingWithholding}}
     //-新倒限利點數
     el-dialog(

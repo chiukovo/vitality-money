@@ -27,7 +27,7 @@
               style="width: 132px;"
               value-format="HH:mm:ss"
               format="HH:mm:ss")
-          button.button(@click="query") 送出
+          button.button(type="button" @click="query") 送出
     .row
       .col
         el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
