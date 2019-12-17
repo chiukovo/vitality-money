@@ -160,15 +160,15 @@
     .history-content__header(id="commodityHeader")
       .row
         .col-auto 預設額度:
-          span.text__lg.text__bold {{ $store.state.userInfo.TouchPoint }}
+          span.text__lg.text__bold {{ $store.state.userInfo.TouchPoint | currency }}
         .col-auto 今日損益:
           //- colors class.text__danger | text__success
-          span(v-if="$store.state.userInfo.TodayMoney < 0").text__lg.text__bold.text__danger {{ $store.state.userInfo.TodayMoney }}
-          span(v-else).text__lg.text__bold.text__success {{ $store.state.userInfo.TodayMoney }}
+          span(v-if="$store.state.userInfo.TodayMoney < 0").text__lg.text__bold.text__danger {{ $store.state.userInfo.TodayMoney | currency }}
+          span(v-else).text__lg.text__bold.text__success {{ $store.state.userInfo.TodayMoney | currency }}
         .col-auto 留倉預扣:
-          span.text__lg.text__bold {{ $store.state.userInfo.WithholdingMoney }}
+          span.text__lg.text__bold {{ $store.state.userInfo.WithholdingMoney | currency }}
         .col-auto 帳戶餘額:
-          span.text__lg.text__bold.text__info {{ $store.state.userInfo.Money }}
+          span.text__lg.text__bold.text__info {{ $store.state.userInfo.Money | currency }}
         .col-auto
           label.checkbox
             input.checkbox__input(type="checkbox" checked)
@@ -237,16 +237,21 @@
           auto-resize
           highlight-current-row)
           vxe-table-column(field="Date" title='日期')
-          vxe-table-column(field="TouchPoint" title='預設額度')
-          vxe-table-column(field="RemainingMoney" title='帳戶餘額')
+          vxe-table-column(title='預設額度')
+            template(slot-scope='scope') {{ scope.row.TouchPoint | currency }}
+          vxe-table-column(title='帳戶餘額')
+            template(slot-scope='scope') {{ scope.row.RemainingMoney | currency }}
           vxe-table-column(title='今日損益')
             template(slot-scope='scope')
-              span.text__success(v-if="scope.row.TodayMoney >= 0") {{ scope.row.TodayMoney}}
-              span.text__danger(v-else) {{ scope.row.TodayMoney}}
+              span.text__success(v-if="scope.row.TodayMoney >= 0") {{ scope.row.TodayMoney | currency }}
+              span.text__danger(v-else) {{ scope.row.TodayMoney | currency }}
           vxe-table-column(field="TotalSubmit" title='口數')
-          vxe-table-column(field="Withholding" title='留倉預扣')
-          vxe-table-column(field="Limitpoint" title='對匯額度')
-          vxe-table-column(field="Uppay" title='交收')
+          vxe-table-column(title='留倉預扣')
+            template(slot-scope='scope') {{ scope.row.Withholding | currency }}
+          vxe-table-column(title='對匯額度')
+            template(slot-scope='scope') {{ scope.row.Limitpoint | currency }}
+          vxe-table-column(title='交收')
+            template(slot-scope='scope') {{ scope.row.Uppay | currency }}
     //-el-tab-pane(title='投顧訊息(0)', name='tabs6')
     //-el-tab-pane(title='自訂窗口', name='tabs7')
   //-新倒限利點數

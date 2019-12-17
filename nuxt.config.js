@@ -49,6 +49,10 @@ module.exports = {
     '@nuxtjs/proxy',
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
+    ['vue-currency-filter/nuxt', {
+      thousandsSeparator: ',',
+      symbolSpacing: false
+    }],
     ['nuxt-vuex-localstorage', {
       sessionStorage: ['sessionStorage'],
       localStorage: ['localStorage'],

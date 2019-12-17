@@ -13,8 +13,8 @@
         column-min-width="74"
         border
         auto-resize)
-        vxe-table-column(title='標題' field='title' show-overflow)
-        vxe-table-column(title='資訊' field='info' show-overflow)
+        vxe-table-column(field='title' show-overflow)
+        vxe-table-column(field='info' show-overflow)
 </template>
 <script>
 import { mapState } from 'vuex';
@@ -29,6 +29,8 @@ export default {
   ]),
   watch: {
     userInfo(userInfo) {
+      const _this = this
+
       this.tableData = [{
           title: '客戶名稱:',
           info: userInfo.Name,
@@ -39,14 +41,44 @@ export default {
           title: '服務專線:',
           info: '',
         }, {
-          title: '預設額度:',
-          info: userInfo.TouchPoint,
-        }, {
           title: '今日餘額:',
-          info: userInfo.Money,
+          info: _this.$options.filters.currency(userInfo.Money),
         }, {
           title: '今日損益:',
-          info: userInfo.TodayMoney,
+          info: _this.$options.filters.currency(userInfo.TodayMoney),
+        }, {
+          title: '信用額度:',
+          info: _this.$options.filters.currency(userInfo.TouchPoint),
+        }, {
+          title: '對匯額度:',
+          info: _this.$options.filters.currency(userInfo.ContrastPoint),
+        }, {
+          title: '極贏額度:',
+          info: _this.$options.filters.currency(userInfo.SuperPoint),
+        }, {
+          title: '全商品持倉上限:',
+          info: userInfo.AllStoreLimit,
+        }, {
+          title: '全商品每筆上限:',
+          info: userInfo.DaySubmitLimit,
+        }, {
+          title: '全商品留倉上限:',
+          info: userInfo.AllRemainingLimit,
+        }, {
+          title: '全商品留倉天數:',
+          info: userInfo.AllDayRemaingDayLimit,
+        }, {
+          title: '下單前是否確認:',
+          info: userInfo.SubmitConfirm ? '是' : '否',
+        }, {
+          title: '成交是否回報:',
+          info: userInfo.SuccessConfirm ? '是' : '否',
+        }, {
+          title: '結算時間:',
+          info: userInfo.EndTime,
+        }, {
+          title: '報價模式:',
+          info: '',
         }]
     }
   },
