@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     tableCellClassName({ row, column, columnIndex }) {
-      if(row.title == '今日餘額:') {
+      if(row.title == '帳戶餘額:' || row.title == '信用額度:' || row.title == '對匯額度:' || row.title == '極贏額度:') {
         if(columnIndex == 1) {
           return 'text__info'
         }
@@ -92,6 +92,8 @@ export default {
       if(row.title == '今日損益:') {
         if(columnIndex == 1) {
           if(row.info < 0) {
+            return 'text__success'
+          } else {
             return 'text__danger'
           }
         }
