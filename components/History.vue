@@ -11,6 +11,7 @@
       #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
       #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
+      #tab-item5.tabs__item(@click='handleHistoryTabs(6)' :class="{'is-active' : historyTabShow == 6}") 線上客服
   .history-content(v-show='historyTabShow == 1')
     .history-content__header(id="buySellHeader")
       .d-flex.justify-content-between.align-items-center(style="width: 100%; padding: 2px 0")
@@ -267,6 +268,23 @@
             template(slot-scope='scope') {{ scope.row.Uppay | currency }}
     //-el-tab-pane(title='投顧訊息(0)', name='tabs6')
     //-el-tab-pane(title='自訂窗口', name='tabs7')
+  .history-content(v-show='historyTabShow == 6')
+    .history-content__header
+      div(style="padding: 2px 0px;")
+        button.button 清除訊息
+    .history-content__body(style="height: calc(100% - 30px)")
+      .chat
+        //- .chat-area.no-service 尚未啟用線上客服，請洽管理員開通。
+        .chat-area
+          ul
+            li.from-service 客服:
+            li.from-service.chat-content 歡迎您使用線上客服，請問有什麼可以幫助您的？
+            li.from-customer 我
+              span (2019-12-18 11:20:17)
+              |:
+            li.from-customer.chat-content 測試
+        .chat-input-wrap
+          input.chat-input(placeholder="請在此輸入文字後，點擊ENTER送出")
   //-新倒限利點數
   el-dialog(
     :visible.sync='profitPointDialog'

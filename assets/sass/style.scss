@@ -330,6 +330,57 @@ $use-fadeInDown: true;
     }
   }
 }
+.chat {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  line-height: 1.64;
+  background-color: #e8e8e8;
+  border-top: 1px solid #cdcdcd;
+  .no-service {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .chat-area {
+    height: calc(100% - 33px);
+    padding: 6px;
+    overflow-y: auto;
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    span {
+      color: #9e9e9e;
+    }
+  }
+  .from-service {
+    color: brown;
+  }
+  .chat-content {
+    margin-bottom: 6px;
+  }
+  .chat-input-wrap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #cdcdcd;
+    input.chat-input {
+      width: 100%;
+      line-height: 2.6;
+      background-color: #fff;
+      padding: 0 10px;
+      border: 0;
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}
+
+
 
 //-------------- operating
 .operating {
