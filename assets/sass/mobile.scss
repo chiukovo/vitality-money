@@ -565,7 +565,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 
 //-------------- login
 .login {
-    background: url('~static/images/theme_traditional/login_bg_mobile.jpg');
+    background: url('~static/images/theme_traditional/login_bg_mobile.png');
     .logo {
         width: 40%;
         background: url('~static/images/theme_traditional/logo.png') center/contain no-repeat;
@@ -587,7 +587,6 @@ $material-icons-font-path: '~material-icons/iconfont/';
 		width: 100%;
 		max-width: 300px;
 	}
-
 	.el-form {
 		.el-form-item {
 			width: 100%;
@@ -613,6 +612,12 @@ $material-icons-font-path: '~material-icons/iconfont/';
 			margin-left: 4px;
 		}
 	}
+}
+.DarkHorse.login {
+    .logo {
+        width: 60%;
+        background: url('~static/images/theme_DarkHorse/logo.png') center/contain no-repeat;
+    }
 }
 
 
