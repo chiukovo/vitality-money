@@ -11,7 +11,7 @@
 	//- 系統功能
 	System(v-if='tabShow == 5')
 	//- 在線客服
-	Chat(v-if='tabShow == 6')
+	Message(v-if='tabShow == 6' :tabShow="tabShow")
 	#tabs-nav
 		.tabs-nav-wrap
 			.tabs-list
@@ -54,7 +54,7 @@ import Operating from "~/components/mobile/Operating"
 import Documents from "~/components/mobile/Documents"
 import Report from "~/components/mobile/Report"
 import System from "~/components/mobile/System"
-import Chat from "~/components/mobile/Chat"
+import Message from "~/components/mobile/Message"
 import '@/assets/sass/mobile.scss'
 
 export default {
@@ -75,12 +75,12 @@ export default {
 		Documents,
 		Report,
 		System,
-		Chat
+		Message
 	},
 	data() {
 		return {
 			loading: true,
-			tabShow: 6,
+			tabShow: 1,
 			allHeight: {
 				mainItem: 0,
 			}

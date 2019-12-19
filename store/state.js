@@ -44,4 +44,5 @@ export default () => ({
     morePercent: 0,
     nullNum: 0,
   },
+  serviceMessages: []
 })

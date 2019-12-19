@@ -12,6 +12,9 @@ export default {
       state.localStorage.remember.password = password
     }
   },
+  setServiceMessages(state, data) {
+    state.serviceMessages = data
+  },
   setCustomSetting(state, type) {
     state.localStorage.customSetting[type] = !state.localStorage.customSetting[type]
   },

@@ -122,4 +122,21 @@ export default {
       }
     })
 	},
+  CALL_SERVICE_MESSAGE ({ commit, state }) {
+    const lang = state.localStorage.lang
+    const userId = state.localStorage.userAuth.userId
+    const token = state.localStorage.userAuth.token
+
+    axios.post(process.env.NUXT_ENV_API_URL + "/query_service_messages?lang=" + lang, qs.stringify({
+      UserID: userId,
+      Token: token,
+    }))
+    .then(response => {
+      const result = response.data
+
+      if (result.Code == 1) {
+        commit('setServiceMessages', result.MessageArray)
+      }
+    })
+  },
 }
