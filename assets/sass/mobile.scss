@@ -632,6 +632,9 @@ $material-icons-font-path: '~material-icons/iconfont/';
 .el-message-box {
 	width: 60%;
 }
+.vxe-header--column .vxe-cell {
+	color: rgba(206, 211, 219, 0.9);
+}
 
 
 // component
@@ -652,7 +655,7 @@ button {
 		background: $table-header-bg-color;
 		th .cell {
             font-weight: normal;
-            color: rgba(206, 211, 219, 0.4);
+            color: rgba(206, 211, 219, 0.9);
 			padding: $table-header-cell-padding;
 		}
 	}

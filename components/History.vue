@@ -56,7 +56,7 @@
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
           vxe-table-column(field='Serial' title='序號')
-          vxe-table-column(field='Name' title='商品')
+          vxe-table-column(field='Name' title='商品' width="94")
           vxe-table-column(title='多空' width="40px" align="center")
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
           vxe-table-column(field='OrderPrice' title='委託價')

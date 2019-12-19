@@ -145,6 +145,10 @@ export default {
         return row.color
       }
 
+      if(columnIndex == 9) {
+        return 'text__info'
+      }
+
       if(columnIndex == 7) {
         if (row.gain >= 0) {
           return 'text__danger'
