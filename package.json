@@ -34,8 +34,8 @@
     "vue-currency-filter": "^3.4.3",
     "vue-native-websocket": "^2.0.13",
     "vue-nav-tabs": "^0.5.7",
-    "vxe-table": "^2.6.22",
-    "xe-utils": "^2.2.12"
+    "vxe-table": "^2.7.6",
+    "xe-utils": "^2.2.16"
   },
   "devDependencies": {
     "animate-sass": "^0.8.2",

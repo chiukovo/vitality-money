@@ -36,6 +36,7 @@
     .history-content__body(:style="{height: height.buySell}")
       client-only
         vxe-table(
+          ref="buySellxTable"
           :data='$store.state.buySell'
           :cell-class-name='buySelltableCellClassName',
           max-width="100%"
@@ -47,7 +48,7 @@
           highlight-current-row)
           vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
-              input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[1]")
+              input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
           vxe-table-column(title='操作' width="120" align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
@@ -563,6 +564,9 @@ export default {
   watch: {
     historyTabShow() {
       window.setTimeout(( () => this.computedHeight() ), 100)
+    },
+    seeAllOrder() {
+      this.$refs.buySellxTable.refreshColumn()
     }
   },
   methods: {
