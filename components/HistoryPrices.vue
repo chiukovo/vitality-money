@@ -113,10 +113,12 @@ export default {
         }))
         .then(response => {
           const result = response.data
+          _this.items = []
 
           if (result.Code == 1) {
             //計算
-            let history = result.ComDataArray.split(",");
+            let history = result.ComDataArray.split(",")
+
             if(history.length < 3) {
               return;
             }
@@ -137,7 +139,7 @@ export default {
               }
             }
 
-            for(let i = 0;i < history.length; i += 3) {
+            for(let i = 0; i < history.length; i += 3) {
               if(parseInt(history[i + 2]) > 0) {
                 _this.items.push({
                   time: _this.form.start + ' ' + _this.formatTime(history[i]),

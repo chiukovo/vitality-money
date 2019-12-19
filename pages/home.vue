@@ -3,21 +3,39 @@
   #header
     Header
   #main
-    splitpanes(class="default-theme")
+    //- style A
+    splitpanes(class="default-theme" v-show="mainStyle == 'A'")
       pane(size="18")
         splitpanes(horizontal)
           pane(size="33")
-            UserInfo
+            UserInfo(v-if="checkIsset('A')")
           pane(size="67")
-            ItemDetail
+            ItemDetail(v-if="checkIsset('A')")
       pane(size="82")
         splitpanes(horizontal)
           pane(size="42")
-            MainItem
+            MainItem(v-if="checkIsset('A')")
           pane(size="44")
-            History
+            History(v-if="checkIsset('A')")
           pane(size="14")
-            Operating
+            Operating(v-if="checkIsset('A')")
+
+    //- style B
+    splitpanes(class="default-theme"  v-show="mainStyle == 'B'")
+      pane(size="82")
+        splitpanes(horizontal)
+          pane(size="42")
+            MainItem(v-if="checkIsset('B')")
+          pane(size="44")
+            History(v-if="checkIsset('B')")
+          pane(size="14")
+            Operating(v-if="checkIsset('B')")
+      pane(size="18")
+        splitpanes(horizontal)
+          pane(size="33")
+            UserInfo(v-if="checkIsset('B')")
+          pane(size="67")
+            ItemDetail(v-if="checkIsset('B')")
   #footer
     Footer
     Sound
@@ -57,12 +75,20 @@ export default {
       }
     }
   },
+  computed: mapState({
+    mainStyle: state => state.localStorage.customSetting.mainStyle
+  }),
   beforeMount() {
     this.checkDevice()
   },
   mounted() {
     let _this = this
     this.checkLogin()
+  },
+  methods: {
+    checkIsset(type) {
+      return type == this.mainStyle
+    }
   }
 }
 </script>

@@ -25,8 +25,7 @@
         .dropdown-menu
           a.dropdown-item(href="#" @click="openModal('changePassword', '變更密碼', '360px')") 變更密碼
           a.dropdown-item(href="#" @click="openModal('customItem', '商品選擇')") 商品選擇
-          //-a.dropdown-item(href="#") 版面選擇
-          //-a.dropdown-item(href="#") 視覺下單
+          a.dropdown-item(href="#" @click="openModal('customMainStyle', '版面選擇', '360px')") 版面選擇
           a.dropdown-item(href="#" @click="setCustomSetting('noConfirmDelete')" :class="$store.state.localStorage.customSetting.noConfirmDelete ? 'is-active': ''") 刪單不確認
           a.dropdown-item(href="#" @click="setCustomSetting('orderReport')" :class="$store.state.localStorage.customSetting.orderReport ? 'is-active': ''") 下單回報
           //- a.dropdown-item(href="#" @click="setCustomSetting('clapping')") 拍手動畫

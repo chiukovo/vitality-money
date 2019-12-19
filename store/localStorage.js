@@ -6,6 +6,7 @@ export const state = () => ({
   	orderReport: true, //下單回報
   	clapping: false, //拍手動畫
   	sound: false, //音效
+    mainStyle: 'A',
   	operatingCustomGroup: [], //下單三項自訂選項
   },
   remember: {
