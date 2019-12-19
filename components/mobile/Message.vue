@@ -12,13 +12,13 @@
           .from-service-group(v-if="message.FromService")
             .from-service {{ message.UserName }}:
             .from-service.chat-content {{ message.Content }}
-          .from-user-group(v-if="message.FromCustomer")
+          .from-customer-group(v-if="message.FromCustomer")
             .from-customer {{ message.UserName }}:
               span ({{ message.MessageTime }})
               |:
             .from-customer.chat-content {{ message.Content }}
       .chat-input-wrap
-        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊ENTER送出" 
+        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊ENTER送出"
         @keyup.enter="send")
 </template>
 
@@ -73,7 +73,7 @@ export default {
       }).then(() => {
         _this.doClear()
       }).catch(() => {
-        //cancel         
+        //cancel
       })
     },
     doClear() {
@@ -82,7 +82,7 @@ export default {
         Token: this.userAuth.token,
       }))
       .then(response => {
-        
+
       })
     },
     send() {
