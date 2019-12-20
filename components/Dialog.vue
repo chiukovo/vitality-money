@@ -24,14 +24,16 @@
         CustomItem(v-if="clickType == 'customItem'")
         //-版面選擇
         div(v-if="clickType == 'customMainStyle'")
-          label.radio
-            input.radio__input(type="radio" v-model="clickMainStyle" value="A")
-            span.radio__label 版面A
-          label.radio
-            input.radio__input(type="radio" v-model="clickMainStyle" value="B")
-            span.radio__label 版面B
-          button.button__light(@click="handleClose") 取消
-          button.button(type='primary' @click="setMainStyle") 確認
+          .dialog__body.text__center
+            label.radio
+              input.radio__input(type="radio" v-model="clickMainStyle" value="A")
+              span.radio__label 版面A
+            label.radio
+              input.radio__input(type="radio" v-model="clickMainStyle" value="B")
+              span.radio__label 版面B
+          .dialog__footer
+            button.button__light(@click="handleClose") 取消
+            button.button(type='primary' @click="setMainStyle") 確認
 </template>
 <script>
 

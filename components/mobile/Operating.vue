@@ -45,17 +45,37 @@
             td: .cell.text__center {{ nowMainItem.state_name }}
           tr
             td.limit.limit__1(colspan='5'): .cell.text__center 口數：
-              el-input-number(v-model='submitNum' :min="0")
+              .number-input
+                input(type="text" value="1")
+                .number-button-group
+                  button.button__increase
+                  button.button__decrease
+              //- el-input-number(v-model='submitNum' :min="0")
           tr(v-if="buyType == 1")
             td.limit.limit__2(colspan='5'): .cell.text__center 限價：
-              el-input-number(v-model='nowPrice' :min="0")
+              //- el-input-number(v-model='nowPrice' :min="0")
+              .number-input
+                input(type="text" value="1")
+                .number-button-group
+                  button.button__increase
+                  button.button__decrease
               button.button(@click="getNowPrice") 現
           tr
             td.limit.limit__3(colspan='5'): .cell.text__center 停利：
-              el-input-number(v-model='profit' :min="0")
+              .number-input
+                input(type="text" value="1")
+                .number-button-group
+                  button.button__increase
+                  button.button__decrease
+              //- el-input-number(v-model='profit' :min="0")
           tr
             td.limit.limit__4(colspan='5'): .cell.text__center 停損：
-              el-input-number(v-model='damage' :min="0")
+              .number-input
+                input(type="text" value="1")
+                .number-button-group
+                  button.button__increase
+                  button.button__decrease
+              //- el-input-number(v-model='damage' :min="0")
     .area
       .area__header
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}

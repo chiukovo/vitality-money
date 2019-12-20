@@ -279,6 +279,7 @@ $use-fadeInDown: true;
   position: relative;
   border: 1px solid #6285ab;
   background-color: #f1f1f1;
+  @include block-broder-right;
   @include block-broder-bottom;
   .tabs-nav {
 		padding: 5px 10px 0;

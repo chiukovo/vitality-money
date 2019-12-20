@@ -3,6 +3,8 @@
 	.login-box
 		.login__header
 			.logo
+			.title1
+			.title2
 		.login__form
 			el-form
 				el-form-item

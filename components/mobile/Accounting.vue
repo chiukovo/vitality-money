@@ -8,7 +8,7 @@
     .main
       .area
         .area__header
-          button.button(@click="selectDayType('thisWeek')") 本週
+          button.button__primary(@click="selectDayType('thisWeek')") 本週
           button.button(@click="selectDayType('beforeWeek')") 上週
           button.button(@click="selectDayType('thisMonth')") 本月
           button.button(@click="selectDayType('beforeMonth')") 上月
@@ -26,9 +26,9 @@
             vxe-table-column(field="Date" title='日期' width="120" fixed="left")
             vxe-table-column(title='預設額度')
               template(slot-scope='scope') {{ scope.row.TouchPoint | currency }}
-            vxe-table-column(title='帳戶餘額' width="120")
+            vxe-table-column(title='帳戶餘額' width="130")
               template(slot-scope='scope') {{ scope.row.RemainingMoney | currency }}
-            vxe-table-column(title='今日損益' width="120")
+            vxe-table-column(title='今日損益' width="130")
               template(slot-scope='scope')
                 span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney | currency }}
                 span.text__danger(v-else) {{ scope.row.TodayMoney | currency }}

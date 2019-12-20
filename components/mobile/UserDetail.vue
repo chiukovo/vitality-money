@@ -8,7 +8,7 @@
         select(v-model='selectItemId')
           option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
     .header__right
-      button.button__primary 正常收單
+      button.button__danger 正常收單
   .main
     .area(style="height: calc(100% - 50px); overflow: auto")
       .collapse(@click="open1 = !open1")

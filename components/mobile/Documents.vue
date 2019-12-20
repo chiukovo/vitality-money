@@ -175,7 +175,7 @@
               border
               auto-resize
               highlight-current-row)
-              vxe-table-column(field="Name" title='商品名稱' width="94")
+              vxe-table-column(field="Name" title='商品名稱' width="130")
               vxe-table-column(title='總多')
                 template(slot-scope='scope')
                   span.text__danger {{ scope.row.TotalBuySubmit　}}
@@ -185,7 +185,7 @@
               vxe-table-column(title='未平倉')
                 template(slot-scope='scope') {{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}
               vxe-table-column(field="TotalSubmit" title='總口數')
-              vxe-table-column(field="TotalFee" title='手續費合計')
+              vxe-table-column(field="TotalFee" title='手續費合計' width="130")
               vxe-table-column(title='損益')
                 template(slot-scope='scope')
                   span.text__success(v-if="scope.row.TotalPoint < 0") {{ scope.row.TotalPoint }}

@@ -247,7 +247,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
             padding: 10px 0 10px 10px;
             margin: 10px;
             i {
-                color: rgba($gray-100, .1);
+                color: rgba($gray-100, .8);
                 margin: 0 8px 0 0;
             }
             .area-infor__title {
@@ -566,11 +566,28 @@ $material-icons-font-path: '~material-icons/iconfont/';
 //-------------- login
 .login {
     background: url('~static/images/theme_traditional/login_bg_mobile.png');
+    .login__header {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 1rem;
+    }
     .logo {
-        width: 40%;
+        width: 80%;
         background: url('~static/images/theme_traditional/logo.png') center/contain no-repeat;
         padding-top: 8rem;
-        margin: 2rem auto;
+        margin: auto;
+    }
+    .title1 {
+        width: 100%;
+        background: url('~static/images/theme_traditional/title1_mobile.png') center/contain no-repeat;
+        padding-top: 3rem;
+        margin: 1rem auto;
+    }
+    .title2 {
+        width: 40%;
+        background: url('~static/images/theme_traditional/title2_mobile.png') center/contain no-repeat;
+        padding-top: 3rem;
+        margin: auto;
     }
 	.login-wrap {
 		position: fixed;
@@ -601,8 +618,11 @@ $material-icons-font-path: '~material-icons/iconfont/';
 		}
 		.el-input__inner {
 			color: #fff;
-			background-color: $gray-800;
-			border-color: $gray-700;
+			// background-color: $gray-800;
+            // border-color: $gray-700;
+            background-color: #1a1d21;
+            border-color: #1b1d22;
+            box-shadow: inset 0 0 5px #000;
 		}
 		.el-button {
 			width: 100%;
@@ -641,6 +661,52 @@ $material-icons-font-path: '~material-icons/iconfont/';
 button {
 	border-radius: 5px;
 }
+.number-input {
+    display: inline-flex;
+    input {
+        width: 110px;
+        color: #fff;
+        background-color: $gray-800;
+        border: 0;
+        padding: 0 6px;
+    }
+    button {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        &:after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 5px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &.button__increase {
+            background: linear-gradient(180deg,#eb8e89,#e6675a);
+            border: 1px solid #e68e8a;
+            &:before {
+                content: '';
+                display: block;
+                width: 5px;
+                height: 20px;
+                background-color: #fff;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        &.button__decrease {
+            background: linear-gradient(180deg,#cff7b7,#6bc36d);
+            border: 1px solid #c1f1b1;
+        }
+    }
+}
 .table {
 	width: 100%;
 	background: $table-bg-color;
@@ -670,15 +736,16 @@ button {
 			margin-right: 46px;
     }
     &.limit__2 {
-			.el-input-number {
-				margin-right: 6px;
+            padding-left: 40px;
+			.number-button-group {
+				margin-right: 3px;
 			}
 			button {
 				position: relative;
 				top: 1px;
 				padding: 11px;
 			}
-    }
+        }
 	}
 }
 
@@ -731,8 +798,9 @@ button {
 	.collapse__header {
 		position: relative;
 		display: flex;
-    align-items: center;
-		background-color: $table-header-bg-color;
+		align-items: center;
+		color: #fbefc3;
+		background-color: $gray-500;
 		padding: 10px;
 		&:before {
 			content: "\e6df";
@@ -748,6 +816,9 @@ button {
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		.label {
+			color: #a7e2fb
+		}
 		li {
 			color: #fff;
 			background-color: rgba(206, 211, 219, 0.02);
