@@ -2,7 +2,7 @@
   ul.userInfo-list
     li.text__center
       span.label 狀態:
-      |正常收單
+      span {{ userInfo.State }}
     li.text__center
       span.label 帳戶:
       span {{ userInfo.Account }}
@@ -15,13 +15,13 @@
       span.label 服務專線:
     li
       span.label 預設額度:
-      span {{ userInfo.TouchPoint }}
+      span {{ userInfo.TouchPoint | currency }}
     li
       span.label 帳戶餘額:
-      span.text__info {{ userInfo.Money }}
+      span(:class="userInfo.Money < userInfo.TouchPoint ? 'text__danger' : 'text__success'") {{ userInfo.Money | currency}}
     li
       span.label 今日損益:
-      span(:class="userInfo.TodayMoney > 0 ? 'text__succuss' : 'text__danger'")  {{ userInfo.TodayMoney }}
+      span(:class="userInfo.TodayMoney < 0 ? 'text__success' : 'text__danger'")  {{ userInfo.TodayMoney | currency }}
     li.userInfo__button
       button.button__danger.logout(@click="logout") 登出帳號
 </template>

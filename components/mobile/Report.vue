@@ -29,7 +29,6 @@ import Accounting from "~/components/mobile/Accounting"
 import ActionLog from "~/components/mobile/ActionLog"
 import HistoryPrices from "~/components/mobile/HistoryPrices"
 import StoredRecords from "~/components/mobile/StoredRecords"
-import HistoryFilters from "~/components/mobile/HistoryFilters"
 import HistoryWinLoss from "~/components/mobile/HistoryWinLoss"
 import { mapState } from 'vuex'
 import axios from 'axios'
@@ -37,7 +36,6 @@ import qs from 'qs'
 
 export default {
   components: {
-		HistoryFilters,
     Accounting,
     ActionLog,
     HistoryPrices,

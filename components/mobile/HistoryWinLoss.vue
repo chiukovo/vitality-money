@@ -5,18 +5,20 @@
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
       .header__title 歷史損益
-        span (<span :class="totalLossWinPoint >= 0 ? 'text__success' : 'text__danger'">{{ totalLossWinPoint }}</span>)
+        span(:class="totalLossWinPoint < 0 ? 'text__success' : 'text__danger'") ({{ totalLossWinPoint | currency }})
       .header__right
     .main
       .area
         .area__header
-          button.button(@click="selectDayType('thisWeek')") 本週
-          button.button(@click="selectDayType('beforeWeek')") 上週
-          button.button(@click="selectDayType('thisMonth')") 本月
-          button.button(@click="selectDayType('beforeMonth')") 上月
+          button(@click="changeType('thisWeek')" :class="checkTypeClass('thisWeek')") 本週
+          button(@click="changeType('beforeWeek')" :class="checkTypeClass('beforeWeek')") 上週
+          button(@click="changeType('thisMonth')" :class="checkTypeClass('thisMonth')") 本月
+          button(@click="changeType('beforeMonth')" :class="checkTypeClass('beforeMonth')") 上月
       .area(style="height: calc(100% - 40px); overflow-y: scroll;")
         ul.area-list
-          li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數:{{ items[name].TotalSubmit }} 手續費:{{ items[name].TotalFee }} 損益:{{ items[name].TotalPoint }}
+          li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數: {{ items[name].TotalSubmit }} 手續費: {{ items[name].TotalFee }} 
+            span 損益: 
+            span(:class="items[name].TodayMoney > 0 ? 'text__danger' : 'text__success'") {{ items[name].TodayMoney }}
             i.el-icon-arrow-right
         template(v-if='showDetail')
           .modals.HistoryWinLoss__detail
@@ -24,7 +26,7 @@
               .header
                 .header__left
                   el-link(@click='showDetail = false' icon='el-icon-arrow-left' :underline='false') 返回
-                .header__title [{{ targetName }}] 歷史損益:{{ totalLossWinPoint }}
+                .header__title [{{ targetName }}] 歷史損益: {{ totalLossWinPoint | currency }}
               .main
                 client-only
                   vxe-table.table(
@@ -37,10 +39,11 @@
                     auto-resize
                     highlight-current-row)
                     vxe-table-column(field="NewSerial" title='序號' fixed="left")
-                    vxe-table-column(field='Name' title='商品' align='center' fixed="left")
-                    vxe-table-column(field='SerialCoveredNum' title='口' align='center' )
+                    vxe-table-column(field='Name' title='商品' align='center' fixed="left" width="130")
                     vxe-table-column(field='TotalFee' title='手續費' align='center')
-                    vxe-table-column(field='Point' title='損益' align='center')
+                    vxe-table-column(title='損益')
+                      template(slot-scope='scope')
+                        span(:class="scope.row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Money'] | currency }}
 </template>
 <script>
 
@@ -61,12 +64,20 @@ export default {
       detail: [],
       coveredArray: [],
       totalLossWinPoint: 0,
+      type: 'thisWeek',
     }
   },
   mounted () {
     this.selectDayType('thisWeek')
   },
   methods: {
+    checkTypeClass(type) {
+      return this.type == type ? 'button__primary' : 'button'
+    },
+    changeType(type) {
+      this.type = type
+      this.selectDayType(type)
+    },
     getDetailData(name) {
       let _this = this
       this.showDetail = true
@@ -101,17 +112,17 @@ export default {
           _this.allItemsName = []
 
           commodityArray.forEach(function(val) {
-            _this.totalLossWinPoint += parseInt(val.TotalPoint)
+            _this.totalLossWinPoint += parseInt(val.TodayMoney)
 
             if (typeof _this.items[val.Name] == 'undefined') {
               _this.items[val.Name] = []
               _this.items[val.Name] = val
               val.TotalFee = parseInt(val.TotalFee)
-              val.TotalPoint = parseInt(val.TotalPoint)
+              val.TodayMoney = parseInt(val.TodayMoney)
               _this.allItemsName.push(val.Name)
             } else {
               _this.items[val.Name].TotalFee += parseInt(val.TotalFee)
-              _this.items[val.Name].TotalPoint += parseInt(val.TotalPoint)
+              _this.items[val.Name].TodayMoney += parseInt(val.TodayMoney)
             }
           })
 

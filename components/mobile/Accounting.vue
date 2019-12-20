@@ -8,10 +8,10 @@
     .main
       .area
         .area__header
-          button.button__primary(@click="selectDayType('thisWeek')") 本週
-          button.button(@click="selectDayType('beforeWeek')") 上週
-          button.button(@click="selectDayType('thisMonth')") 本月
-          button.button(@click="selectDayType('beforeMonth')") 上月
+          button(@click="changeType('thisWeek')" :class="checkTypeClass('thisWeek')") 本週
+          button(@click="changeType('beforeWeek')" :class="checkTypeClass('beforeWeek')") 上週
+          button(@click="changeType('thisMonth')" :class="checkTypeClass('thisMonth')") 本月
+          button(@click="changeType('beforeMonth')" :class="checkTypeClass('beforeMonth')") 上月
       .area(style="height: calc(100% - 40px); overflow-y: scroll;")
         client-only
           vxe-table(
@@ -52,6 +52,7 @@ export default {
         start: '',
         end: '',
       },
+      type: 'thisWeek',
     }
   },
   mounted() {
@@ -64,6 +65,13 @@ export default {
     this.query()
   },
   methods: {
+    checkTypeClass(type) {
+      return this.type == type ? 'button__primary' : 'button'
+    },
+    changeType(type) {
+      this.type = type
+      this.selectDayType(type)
+    },
     async query() {
       let _this = this
 

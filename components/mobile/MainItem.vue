@@ -14,7 +14,7 @@
     .header__title 商品報價
     .header__right
       button.button.header-button(@click="userInfoHeaderShow = !userInfoHeaderShow")
-        i.el-icon-user-solid
+        i(class="el-icon-user-solid" :class="checkIconColor()")
   .main.mainItem
     Dialog(
       :click-type="dialog.clickType",
@@ -112,7 +112,8 @@ export default {
   },
   computed: mapState([
     'mainItem',
-    'clickItemId'
+    'clickItemId',
+    'userInfo',
   ]),
   watch: {
     clickItemId(id) {
@@ -167,6 +168,19 @@ export default {
 
   },
   methods: {
+    checkIconColor() {
+      if (this.userInfo.State == '正常') {
+        return 'text__success'
+      }
+
+      if (this.userInfo.State == '凍結') {
+        return 'text__info'
+      }
+
+      if (this.userInfo.State == '停用') {
+        return 'text__danger'
+      }
+    },
     clickItem({ row }) {
       this.$store.commit('setClickItemId', {
         id: row.product_id,

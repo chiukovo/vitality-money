@@ -1,57 +1,64 @@
 <template lang='pug'>
-.modals.HistoryPrices
-  .page
+div
+  .modals.conditions(v-show="conditions")
     .header
       .header__left
-        el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
-      .header__title 歷史報價(時間查詢)
+        el-link(@click='conditions = false' icon='el-icon-arrow-left' :underline='false') 取消返回
+      .header__title 報價記錄條件設定
+      .header__right
+        el-button(size='mini') 確定
     .main
       .area
         .area__header
           el-form(ref='form' label-width="80px")
-            el-form-item(label='商品: ')
-              el-select(placeholder='請選擇' v-model="form.itemType")
-                el-option(
-                  v-for="(data, key) in commidy"
-                  :key="key"
-                  :label="data.name"
-                  :value="data.id"
-                )
             el-form-item(label='開始日期:')
-              el-date-picker(
-                v-model='form.start',
-                type='date',
-                placeholder='開始日期',
-                value-format="yyyy-MM-dd"
-              )
+              input.el-input__inner(type='text' placeholder='日期' v-model="form.start")
             el-form-item(label='開始時間: ')
-              el-time-picker(
-                v-model='form.startDt'
-                value-format="HH:mm:ss"
-                format="HH:mm:ss"
-              )
+              input.el-input__inner(type='text' placeholder='開始時間' v-model="form.startDt")
+            el-form-item(label='時間間隔: ')
+              span(class='text__info') 3分鐘
             el-form-item
               button.button(type="button" @click="query" style="width: 100%") 送出
-          el-divider(content-position='left') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
-      .area(style="height: calc(100% - 234px); overflow-y: scroll;")
-        client-only
-          vxe-table(
-            :data='items'
-            max-width="100%"
-            height="100%"
-            column-min-width="90"
-            size="mini"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(field="time" title='市場時間' min-width='50%')
-            vxe-table-column(field="submit" title='口' min-width='15%')
-            vxe-table-column(field="price" title='價格' min-width='35%')
+  .modals.HistoryPrices(v-show="!conditions")
+    .page
+      .header
+        .header__left
+          el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
+        .header__title 歷史報價(時間查詢)
+        .header__right
+          el-link(@click='conditions = true' icon='el-icon-arrow-right' :underline='false') 條件
+      .main
+        .area
+          .area__header
+            el-form(ref='form' label-width="80px")
+              el-form-item(label='商品: ')
+                el-select(placeholder='請選擇' v-model="form.itemType" @change="query")
+                  el-option(
+                    v-for="(data, key) in commidy"
+                    :key="key"
+                    :label="data.name"
+                    :value="data.id"
+                  )
+        .area(style="height: calc(100% - 234px); overflow-y: scroll;")
+          client-only
+            vxe-table(
+              :data='items'
+              max-width="100%"
+              height="100%"
+              column-min-width="90"
+              size="mini"
+              border
+              auto-resize
+              highlight-current-row)
+              vxe-table-column(field="time" title='市場時間' min-width='50%')
+              vxe-table-column(field="submit" title='口' min-width='15%')
+              vxe-table-column(field="price" title='價格' min-width='35%')
 </template>
 <script>
 
 import axios from 'axios'
 import qs from 'qs'
+import HistoryFilters from "~/components/mobile/HistoryFilters"
 
 export default {
   data () {
@@ -66,7 +73,8 @@ export default {
       commidy: [],
       total: 0,
       pagesize: 10,
-      currentPage: 1
+      currentPage: 1,
+      conditions: false
     }
   },
   mounted () {
@@ -75,7 +83,13 @@ export default {
     this.form.end = this.formatDate(new Date())
     this.getItems()
   },
+  components: {
+    HistoryFilters
+  },
   methods: {
+    handleQuote(e) {
+      this.conditions = e
+    },
     currentChange(currentPage) {
       this.currentPage = currentPage;
     },
@@ -94,6 +108,7 @@ export default {
     },
     async query() {
       let _this = this
+      this.conditions = false
 
       if (this.form.start != '' && this.form.startDt != '') {
         const userId = this.$store.state.localStorage.userAuth.userId

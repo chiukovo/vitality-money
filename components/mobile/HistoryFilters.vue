@@ -2,7 +2,7 @@
 .modals.conditions
   .header
     .header__left
-      el-link(@click='handleQuoteConditions = !handleQuoteConditions' icon='el-icon-arrow-left' :underline='false') 取消返回
+      el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 取消返回
     .header__title 報價記錄條件設定
     .header__right
       el-button(size='mini') 確定

@@ -9,32 +9,32 @@
     .header__title 帳戶訊息
   .main
     .area(style="height: calc(100% - 58px); overflow-y: scroll;")
-      .area-infor__header 帳號: {{userInfo.Account}}
+      .area-infor__header(:style="checkAcctColor()") 帳號: {{ userInfo.Account }}
       ul.area-infor-list
         +area-infor-list-item('客戶名稱', 'account_circle', '{{ userInfo.Name }}')
         +area-infor-list-item('服務人員', 'headset_mic')
         +area-infor-list-item('服務專線', 'perm_phone_msg')
-        +area-infor-list-item('預設額度', 'money', '{{ userInfo.TouchPoint | currency }}').text__danger
+        +area-infor-list-item('預設額度', 'money', '{{ userInfo.TouchPoint | currency }}')
         li
           i.material-icons money
           .area-infor__title 帳戶餘額
-          .area-infor__content(:class="userInfo.Money > 0 ? 'text__danger' : 'text__success'") {{ userInfo.Money | currency }}
+          .area-infor__content(:class="userInfo.Money < userInfo.TouchPoint ? 'text__danger' : 'text__success'") {{ userInfo.Money | currency }}
         li
           i.material-icons bar_chart
           .area-infor__title 今日損益
-          .area-infor__content(:class="userInfo.TodayMoney > 0 ? 'text__danger' : 'text__success'") {{ userInfo.TodayMoney | currency }}
+          .area-infor__content(:class="userInfo.TodayMoney < 0 ? 'text__success' : 'text__danger'") {{ userInfo.TodayMoney | currency }}
         li
           i.material-icons attach_money
           .area-infor__title 信用額度
-          .area-infor__content(:class="userInfo.TouchPoint > 0 ? 'text__danger' : 'text__success'") {{ userInfo.TouchPoint | currency }}
+          .area-infor__content {{ userInfo.TouchPoint | currency }}
         li
           i.material-icons attach_money
           .area-infor__title 對匯額度
-          .area-infor__content(:class="userInfo.ContrastPoint > 0 ? 'text__danger' : 'text__success'") {{ userInfo.ContrastPoint | currency }}
+          .area-infor__content {{ userInfo.ContrastPoint | currency }}
         li
           i.material-icons attach_money
           .area-infor__title 極贏額度
-          .area-infor__content(:class="userInfo.SuperPoint > 0 ? 'text__danger' : 'text__success'") {{ userInfo.SuperPoint | currency }}
+          .area-infor__content {{ userInfo.SuperPoint | currency }}
         li
           i.material-icons trending_up
           .area-infor__title 全商品持倉上限
@@ -75,6 +75,21 @@ export default {
   },
   computed: mapState([
     'userInfo',
-  ])
+  ]),
+  methods: {
+    checkAcctColor() {
+      if (this.userInfo.State == '正常') {
+        return 'background: #28a745'
+      }
+
+      if (this.userInfo.State == '凍結') {
+        return 'background: #0062cc'
+      }
+
+      if (this.userInfo.State == '停用') {
+        return 'background: #dc3545'
+      }
+    },
+  }
 }
 </script>
