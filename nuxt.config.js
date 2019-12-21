@@ -11,6 +11,7 @@ module.exports = {
     link: [
     ],
     script: [
+      { src: '/js/charting_library/charting_library.min.js', type: 'text/javascript' },
     ]
   },
   /*

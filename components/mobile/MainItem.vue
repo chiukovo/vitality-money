@@ -125,11 +125,7 @@ export default {
         'num': 1
       })
 
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': id,
-        'type': 'kline',
-        'num': 2
-      })
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id);
     },
     mainItem() {
       const _this = this

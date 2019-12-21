@@ -1,6 +1,7 @@
 export const state = () => ({
   userAuth: [],
   lang: 'zh_TW',
+  tradingViewUserSaveData: null,
   customSetting: {
   	noConfirmDelete: false, //刪單不確認
   	orderReport: true, //下單回報

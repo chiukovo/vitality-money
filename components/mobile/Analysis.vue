@@ -130,8 +130,8 @@
                       vxe-table-column(field="amount" title='口' width='22%')
             .swiper-pagination
     //-K線圖表
-    div(v-show="type == 2" class="h-100")
-      highcharts(v-if="kChart.ohlcv.length > 0" :constructor-type="'stockChart'" :options="kChart.stockOptions")
+    div(v-show="type == 2" class="h-90")
+      Kchart
     //-五檔數據
     div(v-show="type == 3" class="h-100")
       .area
@@ -213,25 +213,7 @@
 import { mapState } from 'vuex';
 import Vue from 'vue';
 import 'swiper/dist/css/swiper.css'
-import HighchartsVue from "highcharts-vue"
-import darkUnica from "highcharts/themes/dark-unica"
-import Highcharts from "highcharts"
-import stockInit from 'highcharts/modules/stock'
-import mapInit from 'highcharts/modules/map'
-
-if (typeof Highcharts === 'object') {
-  Highcharts.setOptions({
-    global: {
-      useUTC: false
-    }
-  })
-
-  darkUnica(Highcharts)
-  stockInit(Highcharts)
-  mapInit(Highcharts)
-}
-
-Vue.use(HighchartsVue)
+import Kchart from "~/components/Kchart"
 
 if (process.browser) {
   const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
@@ -261,6 +243,9 @@ export default {
       type: 1,
     }
   },
+  components: {
+    Kchart,
+  },
   methods: {
     closeMore(type) {
       if (type != '') {
@@ -282,143 +267,8 @@ export default {
   computed: mapState([
     'chartData',
     'nowMainItem',
-    'kLineData',
   ]),
   watch: {
-    kLineData(res) {
-      let name = this.$store.state.itemName
-      let _this = this
-      let volume = []
-
-      this.kChart.ohlcv = JSON.parse(JSON.stringify(res))
-      this.kChart.ohlcv.forEach(function(val) {
-        volume.push([
-          val[0],
-          val[5]
-        ])
-      })
-
-      this.kChart.stockOptions = {
-        chart: {
-          events: {
-            load: function () {
-              //load over
-              this.loading = false
-            }
-          }
-        },
-        rangeSelector: {
-          selected: 1,
-          buttons: [
-          {
-            type: 'minute',
-            count: 20,
-            text: '分'
-          },
-          {
-            type: 'hour',
-            text: '時'
-          },
-          {
-            type: 'day',
-            text: '天'
-          },
-          {
-            type: 'week',
-            text: '周'
-          },
-          {
-              type: 'all',
-              text: '全部'
-          }],
-          inputDateFormat: '%Y-%m-%d'
-        },
-        title: {
-          text: name
-        },
-        xAxis: {
-          type: 'datetime',
-          gridLineWidth: 1,
-          dateTimeLabelFormats: {
-            millisecond: '%H:%M:%S.%L',
-            second: '%H:%M:%S',
-            minute: '%H:%M',
-            hour: '%H:%i',
-            day: '%m-%d',
-            week: '%m-%d',
-            month: '%y-%m',
-            year: '%Y'
-          }
-        },
-        tooltip: {
-          split: false,
-          shared: true,
-        },
-        yAxis: [{
-          labels: {
-            align: 'right',
-            x: -3
-          },
-          title: {
-            text: name
-          },
-          height: '65%',
-          resize: {
-            enabled: true
-          },
-          lineWidth: 2,
-          crosshair: {
-            label: {
-              enabled: true,
-              format: '{value:.2f}'
-            }
-          },
-          labels: {
-            align: 'left',
-            format: '{value:.2f}',
-            y: 6,
-            x: 2
-          }
-        }, {
-          labels: {
-            align: 'right',
-            x: -3
-          },
-          title: {
-            text: '成交量'
-          },
-          top: '65%',
-          height: '35%',
-          offset: 0,
-          lineWidth: 2
-        }],
-        series: [{
-          type: 'candlestick',
-          name: name,
-          color: 'green',
-          lineColor: 'green',
-          upColor: 'red',
-          upLineColor: 'red',
-          tooltip: {
-            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {series.name}</b><br/>' +
-                '開盤: {point.open}<br/>' +
-                '最高: {point.high}<br/>' +
-                '最低: {point.low}<br/>' +
-                '收盤: {point.close}<br/>'
-          },
-          data: this.kChart.ohlcv,
-        }, {
-          name: '成交量',
-          type: 'column',
-          data: volume,
-          tooltip: {
-            split: false,
-            shared: true,
-          },
-          yAxis: 1,
-        }]
-      }
-    },
     chartData (res) {
       const _this = this
       let name = this.$store.state.itemName

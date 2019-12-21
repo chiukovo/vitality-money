@@ -1,8 +1,19 @@
 import Vue from 'vue'
 
+let debounce = false
+
 export default {
   setApiExample(state, data) {
     state.apiExampleData = data
+  },
+  setOnRealtimeCallback(state, onRealtimeCallback) {
+    state.onRealtimeCallback = onRealtimeCallback
+  },
+  setSubResolution(state, subResolution) {
+    state.subResolution = subResolution
+  },
+  setTradingViewUserSaveData(state, tradingViewUserSaveData) {
+    state.localStorage.tradingViewUserSaveData = tradingViewUserSaveData
   },
   setRemember(state, { me, account, password }) {
     state.localStorage.remember.me = me
@@ -216,6 +227,12 @@ export default {
   },
   setMobile(state, data) {
     state.isMobile = data
+  },
+  setTradingViewChart(state, tdChart) {
+    state.tdChart = tdChart
+  },
+  setTradingViewSymbol(state, symbol) {
+    state.symbol = symbol
   },
   setClickItemId(state, {id, name}) {
     const _this = this
@@ -675,6 +692,103 @@ export default {
   },
   doUpdateklLineData(state, data) {
     let kLineData = state.kLineData
+		let resolution = state.subResolution
+
+		if (!resolution || debounce) {
+			return;
+    }
+
+    debounce = true;
+    setTimeout(() => {
+      debounce = false;
+    }, 500);
+    
+    const now_date = new Date();
+    const nowTime = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate(), data[0] / 1000000, data[0] / 10000 % 100, data[0] / 100 % 100 ).getTime();
+    let the_now_data = {
+      time: nowTime,
+      high: data[1],
+      low: data[1],
+      last: data[1],
+      volume: data[2]
+    }
+
+    let dindex = 0;
+    while(dindex < data.length) {
+      if(dindex > 0 && dindex + 3 < data.length) {
+        the_now_data.time += data[dindex];
+        the_now_data.last += data[dindex + 1];
+        the_now_data.volume += data[dindex + 2];	
+        if (the_now_data.high < the_now_data.last) {
+          the_now_data.high = the_now_data.last;
+        }
+        if (the_now_data.low > the_now_data.last) {
+          the_now_data.low = the_now_data.last;
+        }
+      }
+    }
+    
+
+		if (resolution.includes('D')) {
+			// 1 day in minutes === 1440
+			resolution = 1440
+		} else if (resolution.includes('W')) {
+			// 1 week in minutes === 10080
+			resolution = 10080
+		}
+		var coeff = resolution * 60000
+		var rounded = Math.floor((the_now_data.time + 60000) / coeff) * coeff
+		var lastBarSec = kLineData[kLineData.length - 1][0]
+
+		const lastK = kLineData[kLineData.length - 1];
+
+		if (!lastK) {
+			return;
+		}
+
+		let lastBar = {
+			time: lastK[0],
+			open: lastK[1],
+			high: lastK[2],
+			low: lastK[3],
+			close: lastK[4],
+			volume: lastK[5]
+		}
+		
+		if (rounded > lastBarSec) {
+			kLineData.push([
+				rounded,
+				the_now_data.last,
+				the_now_data.last,
+				the_now_data.last,
+				the_now_data.last,
+				0
+			]);
+		  // create a new candle, use last close as open **PERSONAL CHOICE**
+			lastBar = {
+				time: rounded,
+				open: the_now_data.last,
+				high: the_now_data.last,
+				low: the_now_data.last,
+				close: the_now_data.last,
+				volume: 0
+			}
+		} else {
+			// update lastBar candle!
+			if (lastBar.low > the_now_data.low) {
+				lastBar.low = the_now_data.low
+				lastK[3] = the_now_data.low;
+			} else if (lastBar.high < the_now_data.high) {
+				lastBar.high = the_now_data.high
+				lastK[2] = the_now_data.high;
+			}
+			
+			lastK[4] = the_now_data.last;
+			lastBar.volume = the_now_data.volume
+			lastBar.close = the_now_data.last
+		}
+		
+		state.onRealtimeCallback(lastBar);
   },
   doUpdateChartData(state, {prices, fullTime}) {
     let chartData = state.chartData
@@ -738,65 +852,8 @@ export default {
       }
     }
   },
-  setkLineData(state, response) {
-    if (typeof state.kLineData == 'undefined') {
-      Vue.set(state.kLineData, response.type, [])
-    }
-
-    state.kLineData = []
-    state.chartType = response.type
-
-    const code = response.data.Code
-    const data = response.data.Tech
-    const type = response.type
-
-    if (code == 1) {
-      let items = data.split("&")
-
-      for(let num = 0; num < items.length; num++) {
-        let historyData = items[num].split(";");
-        let historyItem, dateTime
-
-        //日期，時間，開，高，低，收，量；日期，時間，開，高，低，收，量；．．．．
-        if (historyData.length > 1) {
-          for (let i in historyData) {
-            historyItem = historyData[i].split(",");
-
-            if (historyItem.length < 6 || parseInt(historyItem[2]) <= 0 || parseInt(historyItem[3]) <= 0 || parseInt(historyItem[4]) <= 0 || parseInt(historyItem[5]) <= 0) {
-              continue
-            }
-
-            dateTime = new Date(historyItem[0] + " " + historyItem[1]).getTime()
-
-            if (state.clickItemId == "TXF" || state.clickItemId == "EXF" || state.clickItemId == "FXF" || state.clickItemId == "TSLQ") {
-              let t = historyData[1].split(":");
-              if(parseInt(t[0]) * 60 + parseInt(t[1]) > 825) {
-                //continue;
-              }
-            }
-
-            if (isNaN(dateTime)) {
-              continue
-            }
-
-            if (state.kLineData.length > 0) {
-              if (dateTime <= state.kLineData[state.kLineData.length - 1][0]) {
-                continue;
-              }
-            }
-
-            state.kLineData.push([
-              dateTime,
-              parseInt(historyItem[2]),
-              parseInt(historyItem[3]),
-              parseInt(historyItem[4]),
-              parseInt(historyItem[5]),
-              parseInt(historyItem[6])
-            ])
-          }
-        }
-      }
-    }
+  setkLineData(state, data) {
+    state.kLineData = data
   },
   setHistoryPrice(state, {itemId, prices, gain, flocalTime}) {
     const data = {

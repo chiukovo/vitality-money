@@ -118,13 +118,7 @@ export default {
       })
     },
     clickKline(item) {
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': item.product_id,
-        'type': 'kline',
-        'num': 2
-      })
-
-      //dialog
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', item.product_id);
       this.dialog.clickType = 'kLine'
       this.dialog.isOpen = true
     },
