@@ -119,7 +119,9 @@ export default {
         this.diaiogSize = '86%'
         this.openChart = true
       } else if (this.chartType == '2') {
-        window.open('/chart')
+        const name = this.$store.state.itemName
+        const id = this.$store.state.clickItemId
+        window.open('/chart?id=' + id + '&name=' + name)
         this.handleClose()
       }
     },
@@ -128,7 +130,9 @@ export default {
         this.diaiogSize = '86%'
         this.openKchart = true
       } else if (this.kchartType == '2') {
-        window.open('/kchart')
+        const name = this.$store.state.itemName
+        const id = this.$store.state.clickItemId
+        window.open('/kchart?id=' + id + '&name=' + name)
         this.handleClose()
       }
     },

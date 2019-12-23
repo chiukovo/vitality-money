@@ -13,6 +13,9 @@ export default {
   setOnRealtimeCallback(state, onRealtimeCallback) {
     state.onRealtimeCallback = onRealtimeCallback
   },
+  setHasMessage(state, data) {
+    state.hasMessage = data
+  },
   setSubResolution(state, subResolution) {
     state.subResolution = subResolution
   },
@@ -116,6 +119,10 @@ export default {
     state.mainItem = result
   },
   setuserAuth(state, data) {
+    if (data.UserId == '' || data.Token == '') {
+        state.localStorage.userAuth = []
+    }
+
     //set localStorage
     state.localStorage.userAuth = {
       userId: data.UserId,
@@ -682,7 +689,7 @@ export default {
     //陣列第[13]：第一筆賣價
     state.mainItem = state.mainItem.map(function (val) {
       let borderName = val.color == 'text__success' ? 'border border__success' : 'border border__danger'
-      
+
       if (itemId == val.product_id) {
         val.bp_price_change = val.bp_price == five[3] ? '' : borderName
         val.bp_price = five[3]
@@ -769,7 +776,7 @@ export default {
 			close: lastK[4],
 			volume: lastK[5]
 		}
-		
+
 		if (rounded > lastBarSec) {
 			kLineData.push([
 				rounded,
@@ -797,7 +804,7 @@ export default {
 				lastBar.high = the_now_data.high
 				lastK[2] = the_now_data.high
 			}
-			
+
 			lastK[4] = the_now_data.last
 			lastBar.volume = the_now_data.volume
 			lastBar.close = the_now_data.last
@@ -881,10 +888,6 @@ export default {
     state.chartId = id
   },
   setChartData(state, response) {
-    // if (typeof state.chartData == 'undefined') {
-    //   Vue.set(state.chartData, response.type, [])
-    // }
-
     state.chartData = []
     state.chartCrossData = []
     state.chartVolumeData = []
@@ -893,7 +896,7 @@ export default {
     const reference = state.nowMainItem.yesterday_close_price
     let open_date_time = new Date(state.nowMainItem.open_date_time).getTime()
     let close_date_time = new Date(state.nowMainItem.close_date_time).getTime()
-        
+
     const code = response.data.Code
     const data = response.data.Tech
     if (code == 1) {
@@ -937,7 +940,7 @@ export default {
             open_date_time = dateTime
             close_date_time = last_time
           }
-    
+
           state.chartCrossData = [
             [open_date_time, reference],
             [close_date_time, reference]

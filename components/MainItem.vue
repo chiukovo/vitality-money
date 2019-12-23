@@ -119,7 +119,7 @@ export default {
       })
     },
     clickKline(item) {
-      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', item.product_id);
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', item.product_id)
       this.dialog.clickType = 'kLine'
       this.dialog.isOpen = true
     },

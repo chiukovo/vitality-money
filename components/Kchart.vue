@@ -15,6 +15,18 @@ export default {
   mounted () {
     const this_vue = this
     const disabled_features = ['use_localstorage_for_settings', 'header_symbol_search', 'border_around_the_chart']
+    //判斷是否另開視窗
+    if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', this.$route.query.id)
+
+      setTimeout(() => {
+        this.$store.commit('setClickItemId', {
+          id: this.$route.query.id,
+          name: this.$route.query.name
+        })
+      }, 3000)
+    }
+
 	  const tdChart = window.tvWidget = new TradingView.widget({
       debug: false,
       // 是否全屏
@@ -89,7 +101,6 @@ export default {
       try {
         tdChart.chart().setSymbol(this_vue.$store.state.symbol)
       } catch (err) {
-        console.log(err)
       }
 
       tdChart.createButton({ align: "right" })
@@ -104,8 +115,8 @@ export default {
       const supportedResolutions = ["1", "2", "3", "4", "5", "6", "10", "15", "30", "60", "120", "180", "240", "W", "D", "M"]
 
       const config = {
-          supported_resolutions: supportedResolutions
-      } 
+        supported_resolutions: supportedResolutions
+      }
 
       const comTradeTime = {
         'TXF': '0845-1345',
@@ -249,9 +260,9 @@ export default {
         calculateHistoryDepth: (resolution, resolutionBack, intervalBack) => {
           return {
             resolution,
-                  resolutionBack: 'D',
-                  intervalBack: 3
-              }
+              resolutionBack: 'D',
+              intervalBack: 3
+            }
         },
         getMarks: (symbolInfo, startDate, endDate, onDataCallback, resolution) => {
         },

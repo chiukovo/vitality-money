@@ -1,6 +1,8 @@
-<template>
-  <highcharts v-if="selectChartId.length > 0" :options="options"></highcharts>
-  <div v-loading="loading" v-else class="h-100"></div>
+<template lang="pug">
+.highcharts
+  h1(style="text-align: center" v-if="name != ''") {{ name }}
+  highcharts(v-if="selectChartId.length > 0" :options="options")
+  div(v-loading="loading" v-else class="h-100")
 </template>
 
 <script>
@@ -31,6 +33,7 @@ export default {
     return {
       selectChartId: '',
       options: {},
+      name: '',
       optionCharts: {
         chart_y_label_aligin: 'right',
         chart_tickLength: 10,
@@ -106,9 +109,34 @@ export default {
         mouse_line: 'white',
       });
     }
+
+    //判斷是否另開視窗
+    if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': this.$route.query.id,
+        'type': 'chart',
+        'num': 1
+      })
+
+      setTimeout(() => {
+        this.$store.commit('setClickItemId', {
+          id: this.$route.query.id,
+          name: this.$route.query.name
+        })
+      }, 3000)
+
+      this.name = this.$route.query.name
+    } else {
+      this.startChart(this.chartId)
+    }
   },
   watch: {
-    chartId (chartId) {
+    chartId(chartId) {
+      this.startChart(chartId)
+    }
+  },
+  methods: {
+    startChart(chartId) {
       const _this = this
       this.selectChartId = chartId
       if (this.$store.state.chartData.length == 0) {
@@ -163,7 +191,7 @@ export default {
         }
 
         const chart_label2_x = chart.plotLeft + chart.plotWidth
-    
+
         s = series[0]
         const theMousePoint = s.points.find(p => p.x >= x)
         if (theMousePoint) {
@@ -189,23 +217,23 @@ export default {
 
         return ''
       }
-      
+
       this.options = {
         global: {
-					useUTC: false
-				},
+          useUTC: false
+        },
         chart: {
           backgroundColor: this.optionCharts.chart_background_color,
           style: {
-						fontFamily: "Signika, serif"
-					},
+            fontFamily: "Signika, serif"
+          },
           marginLeft: 65, // Keep all charts left aligned
           marginRight: 50,
-					spacingTop: 15,
-					spacingBottom: 7,
+          spacingTop: 15,
+          spacingBottom: 7,
           spacingRight: 10,
           spacingLeft: 0,
-					zoomType: '',
+          zoomType: '',
           events: {
             load: function () {
               _this.syncChart = this
@@ -327,183 +355,183 @@ export default {
           }
         },
         title: {
-					text: ''
-				},
+          text: ''
+        },
         xAxis: {
           tickPixelInterval: this.optionCharts.chart_tickPixelInterval,
-					type: 'datetime',
-					gridLineWidth: 1,
-					gridLineColor: this.optionCharts.chart_grid_color,
-					gridLineDashStyle: 'dash',
-					labels: {
-						style: {
-							fontSize: this.optionCharts.label_font_size,
-							fontWeight: 'normal',
-							color: this.optionCharts.chart_font_color,
-						},
+          type: 'datetime',
+          gridLineWidth: 1,
+          gridLineColor: this.optionCharts.chart_grid_color,
+          gridLineDashStyle: 'dash',
+          labels: {
+            style: {
+              fontSize: this.optionCharts.label_font_size,
+              fontWeight: 'normal',
+              color: this.optionCharts.chart_font_color,
+            },
             y: 20,
-					},
-					lineColor: this.optionCharts.chart_grid_color,
-					minorGridLineColor: this.optionCharts.chart_minor_grid_color,
-					tickColor: this.optionCharts.chart_grid_color,
+          },
+          lineColor: this.optionCharts.chart_grid_color,
+          minorGridLineColor: this.optionCharts.chart_minor_grid_color,
+          tickColor: this.optionCharts.chart_grid_color,
           tickLength: this.optionCharts.chart_tickLength,
-					title: {
-						style: {
-							color: this.optionCharts.strock_border_color
-						}
-					},
-					crosshair: {
-						width: 1,
-						color: this.optionCharts.strock_border_color
-					},
+          title: {
+            style: {
+              color: this.optionCharts.strock_border_color
+            }
+          },
+          crosshair: {
+            width: 1,
+            color: this.optionCharts.strock_border_color
+          },
         },
         yAxis: [{
-					title: {
-						text: ''
-					},
-					shadow: true,
-					gridLineColor: this.optionCharts.chart_grid_color,
-					labels: {
-						style: {
-							fontSize: this.optionCharts.label_font_size,
-							color: this.optionCharts.chart_font_color,
-							fontWeight: 'normal',
-							crop: false
-						},
+          title: {
+            text: ''
+          },
+          shadow: true,
+          gridLineColor: this.optionCharts.chart_grid_color,
+          labels: {
+            style: {
+              fontSize: this.optionCharts.label_font_size,
+              color: this.optionCharts.chart_font_color,
+              fontWeight: 'normal',
+              crop: false
+            },
             x:  this.optionCharts.chart_y_label_x,
             align:  this.optionCharts.chart_y_label_aligin
-					},
+          },
           tickLength: 0,
-					lineColor: this.optionCharts.chart_grid_color,
-					minorGridLineColor: this.optionCharts.chart_minor_grid_color,
-					tickColor: this.optionCharts.chart_grid_color,
-					tickPixelInterval: 70,
-					maxPadding: 0,
-					minPadding: 0.1,
-					startOnTick: false,
-					endOnTick: true,
-					tickWidth: 1,
+          lineColor: this.optionCharts.chart_grid_color,
+          minorGridLineColor: this.optionCharts.chart_minor_grid_color,
+          tickColor: this.optionCharts.chart_grid_color,
+          tickPixelInterval: 70,
+          maxPadding: 0,
+          minPadding: 0.1,
+          startOnTick: false,
+          endOnTick: true,
+          tickWidth: 1,
           opposite: this.optionCharts.chart_opposite
-				}, {
-					title: {
-						text: ''
-					},
-					gridLineWidth: 0,
-					tickWidth: 0,
-					opposite: !this.optionCharts.chart_opposite,
+        }, {
+          title: {
+            text: ''
+          },
+          gridLineWidth: 0,
+          tickWidth: 0,
+          opposite: !this.optionCharts.chart_opposite,
           labels: this.optionCharts.chart_label_formatter,
-					lineColor: this.optionCharts.chart_grid_color,
-					minorGridLineColor: this.optionCharts.chart_minor_grid_color
+          lineColor: this.optionCharts.chart_grid_color,
+          minorGridLineColor: this.optionCharts.chart_minor_grid_color
         }],
         legend: {
-					enabled: false
+          enabled: false
         },
         tooltip: {
-					positioner: function() {
-						return {
-							x: _this.optionCharts.chart_formater_x,
-							y: -7 // align to title
-						}
-					},
-					shared: false,
-					split: false,
-					borderWidth: 0,
-					backgroundColor: 'none',
-					shadow: false,
-					useHTML: true,
-					style: {
-						fontSize: this.optionCharts.label_font_size
-					},
-					headerFormat: '',
-					pointFormat: '<span style="color:{point.color}">\u25CF</span> <b style="color:#FFF;">{point.y}</b>',
-					formatter: chart_formatter
-				},
+          positioner: function() {
+            return {
+              x: _this.optionCharts.chart_formater_x,
+              y: -7 // align to title
+            }
+          },
+          shared: false,
+          split: false,
+          borderWidth: 0,
+          backgroundColor: 'none',
+          shadow: false,
+          useHTML: true,
+          style: {
+            fontSize: this.optionCharts.label_font_size
+          },
+          headerFormat: '',
+          pointFormat: '<span style="color:{point.color}">\u25CF</span> <b style="color:#FFF;">{point.y}</b>',
+          formatter: chart_formatter
+        },
         plotOptions: {
-					area: {
-						fillColor: {
-							linearGradient: {
-								x1: 0,
-								y1: 0,
-								x2: 0,
-								y2: 0.85
-							},
-							stops: [
-								[0, Highcharts.Color("#E61E19").setOpacity(0).get('rgba')],
-								[1, Highcharts.Color("#53AB35").setOpacity(0).get('rgba')]
-							]
-						},
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 0.85
+              },
+              stops: [
+                [0, Highcharts.Color("#E61E19").setOpacity(0).get('rgba')],
+                [1, Highcharts.Color("#53AB35").setOpacity(0).get('rgba')]
+              ]
+            },
 
-						lineWidth: 2,
-						states: {
-							hover: {
-								lineWidth: 2
-							}
-						},
-						dataLabels: {
-							enabled: false
-						},
-						color: "#E61E19",
-						negativeColor: '#53AB35',
-						threshold: this.$store.state.chartCrossData[0][1]
-					},
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 2
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            color: "#E61E19",
+            negativeColor: '#53AB35',
+            threshold: this.$store.state.chartCrossData[0][1]
+          },
 
-					series: {
-						stickyTracking: true,
+          series: {
+            stickyTracking: true,
             lineWidth: 1,
-						animation: false,
-						borderWidth: 0,
-						marker: {
-							enabled: false,
-							fillColor: '#FFFFFF',
-							lineColor: 'rgb(32, 150, 216)',
-							lineWidth: 2,
-							radius: 4
-						},
-						dataLabels: {
-							style: {
-								fontSize: this.optionCharts.label_font_size,
-								color: '#FFF',
-								fontWeight: 'normal',
-								textOutline: 'none',
-								textShadow: false
-							},
-							shadow: false,
-							borderRadius: 5,
-							//backgroundColor: 'rgb(32, 150, 216)',
-							zIndex: 9999,
-							y: 15,
-							x: -35
-						}
-					}
-				},
+            animation: false,
+            borderWidth: 0,
+            marker: {
+              enabled: false,
+              fillColor: '#FFFFFF',
+              lineColor: 'rgb(32, 150, 216)',
+              lineWidth: 2,
+              radius: 4
+            },
+            dataLabels: {
+              style: {
+                fontSize: this.optionCharts.label_font_size,
+                color: '#FFF',
+                fontWeight: 'normal',
+                textOutline: 'none',
+                textShadow: false
+              },
+              shadow: false,
+              borderRadius: 5,
+              //backgroundColor: 'rgb(32, 150, 216)',
+              zIndex: 9999,
+              y: 15,
+              x: -35
+            }
+          }
+        },
         series: [{
-					type: 'column',
-					//enableMouseTracking: false,
-					yAxis: 1,
-					name: '量',
-					data: this.$store.state.chartVolumeData
-				}, {
-					type: 'area',
-					yAxis: 0,
-					name: '價格',
-					lineWidth: 2,
-					data: this.$store.state.chartData,
-					states: {
-						hover: {
-							enabled: false
-						}
-					}
-				}, {
-					type: 'line',
-					enableMouseTracking: false,
-					lineWidth: 2,
-					yAxis: 0,
-					name: '',
-					data: this.$store.state.chartCrossData,
-					dashStyle: 'Dash'
+          type: 'column',
+          //enableMouseTracking: false,
+          yAxis: 1,
+          name: '量',
+          data: this.$store.state.chartVolumeData
+        }, {
+          type: 'area',
+          yAxis: 0,
+          name: '價格',
+          lineWidth: 2,
+          data: this.$store.state.chartData,
+          states: {
+            hover: {
+              enabled: false
+            }
+          }
+        }, {
+          type: 'line',
+          enableMouseTracking: false,
+          lineWidth: 2,
+          yAxis: 0,
+          name: '',
+          data: this.$store.state.chartCrossData,
+          dashStyle: 'Dash'
         }],
         colors: [_this.optionCharts.chart_q_background, "rgb(45, 170, 230)", "rgb(32, 150, 216)", "rgb(32, 96, 161)"],
-				symbols: ['circle', 'circle', 'circle', 'circle', 'circle']
+        symbols: ['circle', 'circle', 'circle', 'circle', 'circle']
       }
 
       const onChatUpdate = ({
@@ -513,6 +541,10 @@ export default {
         volume,
       }) => {
         const chart = _this.syncChart
+        if (typeof chart.series == 'undefined') {
+          return
+        }
+
         const series = chart.series[1]
         const series2 = chart.series[0]
 
@@ -555,7 +587,7 @@ export default {
 
         _this.chartLines.crosshairX.show()
         _this.chartLines.crosshairX.translate(0, points[points.length - 1].plotY)
-  			_this.chartLines.circleX.show()
+        _this.chartLines.circleX.show()
         _this.chartLines.circleX.translate(points[points.length - 1].plotX + chart.plotLeft - 2, points[points.length - 1].plotY + chart.plotTop - 2)
         _this.chartLines.labelY.show()
         _this.chartLines.labelY.translate(_this.chartLines.label_x, points[points.length - 1].plotY + chart.plotTop - _this.chartLines.labelY.height / 2)
@@ -577,7 +609,7 @@ export default {
       }
       _this.$store.commit('onChatUpdate', onChatUpdate)
     }
-  },
+  }
 }
 </script>
 

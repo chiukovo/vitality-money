@@ -11,7 +11,8 @@
       #tab-item3.tabs__item(@click='handleHistoryTabs(3)' :class="{'is-active' : historyTabShow == 3}") 已平倉
       #tab-item4.tabs__item(@click='handleHistoryTabs(4)' :class="{'is-active' : historyTabShow == 4}") 商品統計
       #tab-item5.tabs__item(@click='handleHistoryTabs(5)' :class="{'is-active' : historyTabShow == 5}") 對帳表
-      #tab-item5.tabs__item(@click='handleHistoryTabs(6)' :class="{'is-active' : historyTabShow == 6}") 線上客服
+      #tab-item5.tabs__item(@click='handleHistoryTabs(6)' :class="{'is-active' : historyTabShow == 6}")
+        span(:class="blink ? 'blink' : ''") 線上客服
   .history-content(v-show='historyTabShow == 1')
     .history-content__header(id="buySellHeader")
       .d-flex.justify-content-between.align-items-center(style="width: 100%; padding: 2px 0")
@@ -490,6 +491,7 @@ export default {
       showAllOrder: 1,
       seeAllOrder: 1,
       historyTabShow: 1,
+      blink: false,
       isMobile: '',
       userId: '',
       token: '',
@@ -551,6 +553,9 @@ export default {
   components: {
     Message,
   },
+  computed: mapState({
+    hasMessage: 'hasMessage',
+  }),
   mounted() {
     this.userId = this.$store.state.localStorage.userAuth.userId
     this.token = this.$store.state.localStorage.userAuth.token
@@ -567,6 +572,15 @@ export default {
     },
     seeAllOrder() {
       this.$refs.buySellxTable.refreshColumn()
+    },
+    hasMessage(type) {
+      if (this.historyTabShow != 6 && type) {
+        this.blink = true
+      } else {
+        this.blink = false
+      }
+
+      this.$store.commit('setHasMessage', this.blink)
     }
   },
   methods: {

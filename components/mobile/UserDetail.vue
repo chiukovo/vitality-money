@@ -8,11 +8,11 @@
         select(v-model='selectItemId')
           option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
     .header__right
-      button.button__danger 正常收單
+      button(:class="item.State != '正常' ? 'button__danger' : 'button__success'") {{ item.State }}
   .main
     .area(style="height: calc(100% - 50px); overflow: auto")
       .collapse(@click="open1 = !open1")
-        .collapse__header 最後交易日
+        .collapse__header 最後交易日 ({{ nowMainItem.end_date }})
         ul.collapse__list(v-if="open1")
           li
             span.label 禁止新單:
@@ -27,23 +27,17 @@
         .collapse__header 持倉與留倉參數
         ul.collapse__list(v-if="open2")
           li
-            span.label 總口數上限(全商品):
-            |{{ userInfo.DaySubmitLimit }}
+            span.label 單商品持倉上限:
+            |{{ item.StoreLimit }}
           li
-            span.label 總留倉口數(全商品):
-            |{{ userInfo.AllRemainingLimit }}
-          li
-            span.label 總留倉天數(全商品):
-            |{{ userInfo.AllDayRemaingDayLimit }}
-          li
-            span.label 單商品滿倉上限(每手):
-            |{{ item.RemaingLimit }}
-          li
-            span.label 單商品口數上限(每手):
+            span.label 單商品每筆上限:
             |{{ item.SubmitMax }}
           li
-            span.label 持倉上限:
-            |{{ item.StoreLimit }}
+            span.label 單商品留倉口數:
+            |{{ userInfo.RemaingLimit }}
+          li
+            span.label 單商品留倉天數:
+            |{{ item.RemaingDayLimit }}
       .collapse(@click="open3 = !open3")
         .collapse__header 交易相關參數
         ul.collapse__list(v-if="open3")
@@ -52,7 +46,7 @@
             |{{ item.PointMoney }}
           li
             span.label 開放0.1口:
-            |{{ item.DecimalSubmitEnable }}
+            |{{ item.DecimalSubmitEnable ? '開啟' : '關閉' }}
           li
             span.label 小於一口手續費:
             |{{ item.DecimalSubmitFee }}
@@ -62,9 +56,6 @@
           li
             span.label 手續費(進/出):
             |{{ item.Fee }}
-          li
-            span.label 單商品留倉上限:
-            |{{ item.RemaingLimit }}
           li
             span.label 開盤最大漲跌:
             |{{ item.OpenMaxPoint }}
@@ -96,6 +87,7 @@ export default {
     'commidyArray',
     'mainItem',
     'userInfo',
+    'nowMainItem',
   ]),
   watch: {
     commidyArray(sourceCommidyArray) {

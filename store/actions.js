@@ -127,6 +127,12 @@ export default {
       const result = response.data
 
       if (result['Code'] > 0) {
+        //錯誤id or token
+        if (result.UserArray.length == 0 && result.CommidyArray.length == 0) {
+          commit('setuserAuth', [])
+          location.href = "/"
+        }
+
         commit('setUserInfo', result)
       } else {
         //logout
