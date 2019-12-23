@@ -11,6 +11,10 @@
   display: none
 }
 
+* {
+  outline: 0;
+}
+
 // button
 button {
   min-width: $button-min-width;
