@@ -13,8 +13,8 @@
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
     template
       client-only
-        Kchart(v-if="clickType == 'kLine'")
-        Chart(v-if="clickType == 'chart'")
+        Kchart(v-if="clickType == 'kLine'" class="kchart")
+        Chart(v-if="clickType == 'chart'" class="chart")
         HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
         UserDetail(v-if="clickType == 'userDetail'")
         HistoryPrices(v-if="clickType == 'historyPrices'")
@@ -97,3 +97,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .kchart {
+    height: 400px;
+  }
+  .chart {
+    height: 400px;
+  }
+</style>

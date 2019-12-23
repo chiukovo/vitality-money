@@ -11,8 +11,7 @@
 
     //-走勢圖表
     div(v-show="type == 1" class="h-100")
-      highcharts(v-if="chart.items.length > 0" :options="chart.options" style="height: 210px")
-      div(v-loading="loading" v-else style="height: 100%")
+      Chart(style="height: 210px" theme="black")
       .area(style="height: calc(100% - 270px); overflow: scroll;")
         client-only
           div(v-swiper:myswiper='swiperOption')
@@ -214,6 +213,7 @@ import { mapState } from 'vuex';
 import Vue from 'vue';
 import 'swiper/dist/css/swiper.css'
 import Kchart from "~/components/Kchart"
+import Chart from "~/components/Chart"
 
 if (process.browser) {
   const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
@@ -224,15 +224,6 @@ export default {
   name: 'app',
   data() {
     return {
-      chart: {
-        items: [],
-        options: {},
-      },
-      kChart: {
-        ohlcv: [],
-        stockOptions: {},
-      },
-      loading: true,
       swiperOption: {
         scrollbar: {
           el: '.swiper-scrollbar'
@@ -245,6 +236,7 @@ export default {
   },
   components: {
     Kchart,
+    Chart,
   },
   methods: {
     closeMore(type) {
@@ -265,60 +257,9 @@ export default {
     },
   },
   computed: mapState([
-    'chartData',
     'nowMainItem',
   ]),
   watch: {
-    chartData (res) {
-      const _this = this
-      let name = this.$store.state.itemName
-      this.chart.items = JSON.parse(JSON.stringify(res))
-
-      this.chart.options = {
-        chart: {
-          marginRight: 50,
-          events: {
-            load: function () {
-              //load over
-              this.loading = false
-            }
-          }
-        },
-        title: {
-          text: null
-        },
-        plotOptions: {
-          series: {
-            shadow: false,
-            borderWidth: 0,
-            dataLabels: {
-              align:'right',
-              x:25,
-              y:10,
-            }
-          }
-        },
-        xAxis: {
-          type: 'datetime',
-          tickPixelInterval: 150
-        },
-        yAxis: {
-          title: {
-            text: null
-          }
-        },
-        chart: {
-          type: 'spline',
-          marginRight: 10,
-        },
-        series: [{
-          name: name,
-          tooltip: {
-          },
-          data: this.chart.items,
-        }]
-      }
-    }
   },
   mounted () {
   },

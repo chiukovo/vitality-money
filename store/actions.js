@@ -134,6 +134,7 @@ export default {
     })
   },
 	async CALL_QUERY_TECH ({ commit, state }, params) {
+    commit('setChartId', '')
 		await axios.post(process.env.NUXT_ENV_API_URL + "//query_tech?lang=" + state.localStorage.lang, qs.stringify({
         userID: state.localStorage.userAuth.userId,
         Token: state.localStorage.userAuth.token,
@@ -147,6 +148,7 @@ export default {
         })
       } else if (params.type == 'chart') {
         commit('setChartData', {
+          id: params.id,
           data: response.data,
           type: params.type
         })
