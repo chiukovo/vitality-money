@@ -2,8 +2,9 @@
 .mainItem
   .mainItem-content
     Dialog(
-      :click-type="dialog.clickType",
+      :click-type="dialog.clickType"
       :visible.sync="dialog.isOpen"
+      size="360px"
     )
     client-only
       vxe-table(
