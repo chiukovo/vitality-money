@@ -118,6 +118,7 @@ export default {
     const lang = state.localStorage.lang
     const userId = state.localStorage.userAuth.userId
     const token = state.localStorage.userAuth.token
+    const _this = this
 
     await axios.post(process.env.NUXT_ENV_API_URL + "//query_member_and_commoditylist?lang=" + lang, qs.stringify({
       UserID: userId,
@@ -130,7 +131,13 @@ export default {
         //錯誤id or token
         if (result.UserArray.length == 0 && result.CommidyArray.length == 0) {
           commit('setuserAuth', [])
-          location.href = "/"
+          const returnUrl = _this.$cookies.get('ReturnURL')
+
+          if (typeof returnUrl != 'undefined' && returnUrl != '') {
+            location.href = returnUrl
+          } else {
+            location.href = "/"
+          }
         }
 
         commit('setUserInfo', result)
