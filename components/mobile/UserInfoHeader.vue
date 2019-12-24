@@ -1,5 +1,5 @@
 <template lang='pug'>
-  ul.userInfo-list(style="height: calc(100% - 55px); overflow: scroll;")
+  ul.userInfo-list(style="height: calc(100% - 100px); overflow: scroll;")
     li.text__center
       span.label 狀態:
       span {{ userInfo.State }}

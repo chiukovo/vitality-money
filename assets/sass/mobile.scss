@@ -14,7 +14,9 @@ $material-icons-font-path: '~material-icons/iconfont/';
 // layout
 @import 'layout/component';
 
-
+*, *:focus {
+    outline: 0;
+}
 @mixin element-icons {
 	font-family: element-icons!important;
 	speak: none;
