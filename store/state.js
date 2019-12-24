@@ -14,6 +14,11 @@ export default () => ({
   historyPrice: [],
   kLineData: [],
   chartData: [],
+  chartCrossData: [],
+  chartVolumeData: [],
+  chatLastData: [],
+  chartId: '',
+  subResolution: null,
   clickItemId: '',
   itemName: '',
   chartType: '',
@@ -44,5 +49,6 @@ export default () => ({
     morePercent: 0,
     nullNum: 0,
   },
-  serviceMessages: []
+  serviceMessages: [],
+  hasMessage: false
 })

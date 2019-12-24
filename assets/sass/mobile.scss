@@ -845,3 +845,7 @@ button {
     position: fixed;
     bottom: 4rem !important;
 }
+
+.vxe-table .vxe-body--row.row--current {
+    background-color: $gray-800;
+}

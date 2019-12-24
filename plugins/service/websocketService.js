@@ -150,6 +150,8 @@ export default {
         case "m":
           _this.$store.dispatch('CALL_SERVICE_MESSAGE')
 
+          //閃爍
+          _this.$store.commit('setHasMessage', true)
           break
         case "i": //成交
           //call order list

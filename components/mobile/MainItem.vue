@@ -19,7 +19,7 @@
     Dialog(
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen")
-    .modals.mainItem(v-if="analysisShow")
+    .modals.mainItem(v-show="analysisShow")
       .header
         .header__left
           el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
@@ -125,11 +125,7 @@ export default {
         'num': 1
       })
 
-      this.$store.dispatch('CALL_QUERY_TECH', {
-        'id': id,
-        'type': 'kline',
-        'num': 2
-      })
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id);
     },
     mainItem() {
       const _this = this

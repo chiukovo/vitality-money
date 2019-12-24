@@ -13,8 +13,32 @@
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
     template
       client-only
-        Kchart(v-if="clickType == 'kLine'")
-        Chart(v-if="clickType == 'chart'")
+        //-k線圖 版面選擇
+        div(v-if="clickType == 'kLine' && !openKchart")
+          .dialog__body.text__center
+            label.radio
+              input.radio__input(type="radio" v-model="kchartType" value="1")
+              span.radio__label 本頁開啟
+            label.radio
+              input.radio__input(type="radio" v-model="kchartType" value="2")
+              span.radio__label 另開視窗
+          .dialog__footer
+            button.button__light(@click="handleClose") 取消
+            button.button(type='primary' @click="clickOpenKchart") 確認
+        Kchart(v-if="openKchart" class="kchart")
+        //-走勢圖 版面選擇
+        div(v-if="clickType == 'chart' && !openChart")
+          .dialog__body.text__center
+            label.radio
+              input.radio__input(type="radio" v-model="chartType" value="1")
+              span.radio__label 本頁開啟
+            label.radio
+              input.radio__input(type="radio" v-model="chartType" value="2")
+              span.radio__label 另開視窗
+          .dialog__footer
+            button.button__light(@click="handleClose") 取消
+            button.button(type='primary' @click="clickOpenChart") 確認
+        Chart(v-if="openChart" class="chart")
         HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
         UserDetail(v-if="clickType == 'userDetail'")
         HistoryPrices(v-if="clickType == 'historyPrices'")
@@ -54,7 +78,11 @@ export default {
     return {
       dialogFullScreen: false,
       diaiogSize: '86%',
-      clickMainStyle: 'A'
+      clickMainStyle: 'A',
+      kchartType: 1,
+      chartType: 1,
+      openKchart: false,
+      openChart: false,
     }
   },
   components: {
@@ -86,8 +114,35 @@ export default {
     this.clickMainStyle = this.mainStyle
   },
   methods: {
-    handleClose (done) {
+    clickOpenChart() {
+      if (this.chartType == '1') {
+        this.diaiogSize = '86%'
+        this.openChart = true
+      } else if (this.chartType == '2') {
+        const name = this.$store.state.itemName
+        const id = this.$store.state.clickItemId
+        window.open('/chart?id=' + id + '&name=' + name)
+        this.handleClose()
+      }
+    },
+    clickOpenKchart() {
+      if (this.kchartType == '1') {
+        this.diaiogSize = '86%'
+        this.openKchart = true
+      } else if (this.kchartType == '2') {
+        const name = this.$store.state.itemName
+        const id = this.$store.state.clickItemId
+        window.open('/kchart?id=' + id + '&name=' + name)
+        this.handleClose()
+      }
+    },
+    handleClose(done) {
       //clear data
+      this.kchartType = 1
+      this.chartType = 1
+      this.openKchart = false
+      this.openChart = false
+
       this.$store.commit('clearModalData')
       this.$emit('update:visible', false)
     },
@@ -97,3 +152,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .kchart {
+    height: 400px;
+  }
+  .chart {
+    height: 400px;
+  }
+</style>

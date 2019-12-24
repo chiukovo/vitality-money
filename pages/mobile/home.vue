@@ -43,11 +43,12 @@
 				.tab-list__item(
 					@click='handleTab(6)'
 					:class="{'current': tabShow == 6}")
-					i.item__icon.el-icon-s-comment
+					i.item__icon.el-icon-s-comment(:class="blink ? 'blink' : ''")
 					.item__name 客服
 </template>
 <script>
 
+import { mapState } from 'vuex'
 import websocketService from '~/plugins/service/websocketService.js'
 import MainItem from "~/components/mobile/MainItem"
 import Operating from "~/components/mobile/Operating"
@@ -69,6 +70,9 @@ export default {
 	  }
 	},
 	mixins: [websocketService],
+	computed: mapState({
+	  hasMessage: 'hasMessage',
+	}),
 	components: {
 		MainItem,
 		Operating,
@@ -81,6 +85,7 @@ export default {
 		return {
 			loading: true,
 			tabShow: 1,
+			blink: false,
 			allHeight: {
 				mainItem: 0,
 			}
@@ -89,8 +94,19 @@ export default {
 	beforeMount() {
 		this.checkDevice()
 	},
-  mounted () {
+  mounted() {
   	this.checkLogin()
+	},
+	watch: {
+		hasMessage(type) {
+			if (this.tabShow != 6 && type) {
+				this.blink = true
+			} else {
+				this.blink = false
+			}
+
+			this.$store.commit('setHasMessage', this.blink)
+		}
 	},
 	methods: {
 		handleTab(e) {
