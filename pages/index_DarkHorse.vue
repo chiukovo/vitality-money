@@ -94,6 +94,15 @@ export default {
 			  	return
 			  }
 
+			  if (result["Code"] == 2) {
+				sessionStorage.setItem("UserAccount", result["UserAccount"]);
+				sessionStorage.setItem("UserID", result["UserId"]);
+				sessionStorage.setItem("ChooseID", result["ChooseId"]);
+				sessionStorage.setItem("UserToken", result["Token"]);
+				window.location.href = "/agent/index.php"
+				return
+			  }
+
 			  //記住我
 			  _this.$store.commit('setRemember', {
 			  	me: _this.rememberMe,
