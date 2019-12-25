@@ -32,14 +32,13 @@ Vue.mixin({
       //unset cookie
       this.$cookies.remove('token')
 
+      const returnUrl = this.$store.state.localStorage.userAuth.returnURL
+
       //unset user info
       this.$store.commit('clearUserAuth')
 
-      const returnUrl = this.$cookies.get('ReturnURL')
-
-      if (typeof returnUrl != 'undefined' && returnUrl != '') {
+      if (returnUrl && returnUrl !== '') {
         location.href = returnUrl
-        this.$cookies.remove('ReturnURL')
       } else {
         location.href = "/"
       }
