@@ -107,15 +107,6 @@ export default {
     },
     setCustomSetting(type) {
       this.$store.commit('setCustomSetting', type)
-    },
-    logout() {
-      //unset cookie
-      let token = this.$cookies.remove('token')
-
-      //unset user info
-      this.$store.commit('setuserAuth', [])
-
-      location.href = "/"
     }
   }
 }

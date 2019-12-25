@@ -46,12 +46,6 @@ export default {
   methods: {
     handleSystem(e) {
       this.systemShow = e
-    },
-    logout() {
-      //unset cookie
-      let token = this.$cookies.remove('token')
-
-      location.href = "/"
     }
   }
 }

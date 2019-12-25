@@ -21,6 +21,7 @@ export default {
 				Token: this.$route.query.UserToken,
 			}
 
+			this.$store.commit("setMobile", 0)
 			//set user info
 			this.$store.commit('setuserAuth', userData)
 

@@ -24,6 +24,11 @@ export default {
 			this.$store.commit("setMobile", 1)
 			//set user info
 			this.$store.commit('setuserAuth', userData)
+
+			//如果有ReturnURL存入cookie
+			if (typeof this.$route.query.ReturnURL != 'undefined') {
+				document.cookie = `ReturnURL=${this.$route.query.ReturnURL}`
+			}
 		}
 	},
 	methods: {
