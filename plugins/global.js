@@ -30,10 +30,10 @@ Vue.mixin({
     },
     logout() {
       //unset cookie
-      let token = this.$cookies.remove('token')
+      this.$cookies.remove('token')
 
       //unset user info
-      this.$store.commit('setuserAuth', [])
+      this.$store.commit('clearUserAuth')
 
       const returnUrl = this.$cookies.get('ReturnURL')
 

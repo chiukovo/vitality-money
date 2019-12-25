@@ -118,6 +118,12 @@ export default {
 
     state.mainItem = result
   },
+  clearUserAuth(state, data) {
+    state.localStorage.userAuth = []
+
+    //set cookie
+    document.cookie = `token=`
+  },
   setuserAuth(state, data) {
     if (data.UserId == '' || data.Token == '') {
         state.localStorage.userAuth = []
