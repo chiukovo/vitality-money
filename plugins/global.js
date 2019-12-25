@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-console.log('v1.0.2')
+console.log('v1.0.3')
 
 Vue.mixin({
   methods: {
