@@ -1,7 +1,7 @@
 <template lang="pug">
-.highcharts
+.highcharts(class="h-100")
   h1(style="text-align: center" v-if="name != ''") {{ name }}
-  highcharts(v-if="selectChartId.length > 0" :options="options")
+  highcharts(v-if="selectChartId.length > 0" :options="options" class="h-100")
   div(v-loading="loading" v-else class="h-100")
 </template>
 

@@ -11,8 +11,8 @@
 
     //-走勢圖表
     div(v-show="type == 1" class="h-100")
-      Chart(theme="black")
-      .area(style="height: calc(100% - 460px); overflow: scroll;")
+      Chart(theme="black" style="height: calc(100% - 194px);")
+      .area(style="height: 144px;")
         client-only
           div(v-swiper:myswiper='swiperOption')
             .swiper-wrapper
@@ -129,7 +129,7 @@
                       vxe-table-column(field="amount" title='口' width='22%')
             .swiper-pagination
     //-K線圖表
-    div(v-show="type == 2" class="h-90")
+    div(v-show="type == 2" style="height: calc(100% - 50px)")
       Kchart
     //-五檔數據
     div(v-show="type == 3" class="h-100")

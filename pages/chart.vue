@@ -1,6 +1,6 @@
 <template lang='pug'>
 .root
-  Chart
+  Chart(style="height:calc(100% - 40px)")
 </template>
 
 <script>
