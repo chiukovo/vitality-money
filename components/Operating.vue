@@ -36,7 +36,7 @@
     .operating-3
       .numberbtn
         el-form(ref='form' size='mini' label-width='30px')
-          button.button(v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
+          button.button(type="button" v-for="(customSubmitNum, key) in customSubmitNums" :key="key" @click="submitNum = customSubmitNum") {{ customSubmitNum }}
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
           el-form-item(label='口數:' style='margin: 2px 0;')
