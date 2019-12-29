@@ -80,7 +80,7 @@
       .area__header
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}
         label.checkbox.inline(style="margin-left: 5px;")
-          input.checkbox__input(type="checkbox" v-model='customGroup' value='overall')
+          input.checkbox__input(type="checkbox" v-model='customGroup' value='overall' @click="clickOverAll()")
           span.checkbox__label 全盤收平
       .area__content.text__center
         button.button__danger.button__lg(@click="checkOrder(0)") 下多單
@@ -120,6 +120,8 @@
 <script>
 
 import { mapState } from 'vuex'
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
   data () {
@@ -171,17 +173,6 @@ export default {
     },
     customGroup(data) {
       this.$cookies.set('customGroup', this.customGroup)
-
-      //修改收盤全平
-      let overall = 0
-
-      this.customGroup.forEach(function(val){
-        if (val == 'overall') {
-          overall = 1
-        }
-      })
-
-      this.$store.dispatch('CALL_SET_CLOSE_OVER_ALL', { overall })
       this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
     }
   },
@@ -203,8 +194,39 @@ export default {
     //目前選擇商品
     this.selectItemId = this.$store.state.clickItemId
     this.getNowPrice()
+    this.getNowOverall()
   },
   methods: {
+    clickOverAll() {
+      //修改收盤全平
+      let overall = 1
+      const _this = this
+      let beforeCustomGroup = this.customGroup
+
+      this.customGroup.forEach(function(val){
+        if (val == 'overall') {
+          overall = 0
+        }
+      })
+
+      //設定收盤全平
+      const lang = this.$store.state.localStorage.lang
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+
+      axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
+        UserID: userId,
+        Token: token,
+        SetCloseCover: overall,
+        SetCloseCommodity: _this.clickItemId,
+      }))
+      .then(response => {
+        if (response.data.Code != 1) {
+          _this.$alert(response.data.ErrorMsg)
+          _this.customGroup = beforeCustomGroup
+        }
+      })
+    },
     getNowOverall() {
       //使用者設定
       const commidyArray = this.$store.state.commidyArray
