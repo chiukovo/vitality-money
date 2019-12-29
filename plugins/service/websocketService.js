@@ -220,6 +220,18 @@ export default {
           }
 
           break
+        case "q":
+          sourceFormat = JSON.parse(event.data.substring(2))
+          const table = '<p>時間: ' + sourceFormat.time + '</p>' +
+          '<p>類型: ' + sourceFormat.type + '</p>' +
+          '<p>金額: ' + sourceFormat.money + '</p>'
+
+          _this.$alert(table, '儲值', {
+            dangerouslyUseHTMLString: true,
+            confirmButtonText: '确定',
+          })
+
+          break
       }
     }
   }
