@@ -364,6 +364,7 @@ export default {
         total_qty_change: val.total_qty_change,
         yesterday_close_price: val.yesterday_close_price,
         yesterday_last_price: val.yesterday_last_price,
+        monthday: val.monthday,
       }
 
       return setData
