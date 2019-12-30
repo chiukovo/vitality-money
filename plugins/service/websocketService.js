@@ -101,7 +101,7 @@ export default {
   methods: {
     orderSendResult(event) {
       let source = event.data
-      let type = 0
+      let type = "z"
       let _this = this
       let sourceFormat
 
@@ -232,6 +232,28 @@ export default {
           })
 
           break
+        case "z":
+          console.log('get');
+          var fr = new FileReader();
+          fr.onload = function(e) {
+            var b_type = new Uint8Array(e.target.result);
+            switch (b_type[0]) {
+              case 114: //c 交易完成
+                if (process.env.NUXT_ENV_OPEN_REPEAT_LOGOUT != 'true') {
+                  _this.$alert('重複登入', '提示', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                      location.href = "/"
+                    }
+                  })
+                }
+                break;
+              default:
+                break;
+            }
+          };
+          fr.readAsArrayBuffer(event.data);
+          break;
       }
     }
   }
