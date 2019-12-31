@@ -8,6 +8,6 @@ export default ({ store }, inject) => {
   })
 
   const orderUrl = process.env.NUXT_ENV_API_ORDER_WEBSOCKET.replace('redirect', window.location.host);
-  
+
   Vue.prototype.$socketOrder = new WebSocket(orderUrl)
 }

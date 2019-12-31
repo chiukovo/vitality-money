@@ -4,19 +4,22 @@ export default {
   mounted() {
     //檢查是否token過期
     const _this = this
+    const routeName = this.$nuxt.$route.name
 
-    //檢查是否token過期
-    this.$socketOrder.onopen = function(e) {
-      const userId = _this.$store.state.localStorage.userAuth.userId
-      const token = _this.$store.state.localStorage.userAuth.token
-      const isMobile = _this.$store.state.isMobile
+    if (routeName != 'kchart' && routeName != 'chart') {
+      //檢查是否token過期
+      this.$socketOrder.onopen = function(e) {
+        const userId = _this.$store.state.localStorage.userAuth.userId
+        const token = _this.$store.state.localStorage.userAuth.token
+        const isMobile = _this.$store.state.isMobile
 
-      this.send('a:' + userId + ',' + token + ',' + isMobile)
-    }
+        this.send('a:' + userId + ',' + token + ',' + isMobile)
+      }
 
-    //order websocket
-    this.$socketOrder.onmessage = function(e) {
-      _this.orderSendResult(e)
+      //order websocket
+      this.$socketOrder.onmessage = function(e) {
+        _this.orderSendResult(e)
+      }
     }
   },
   computed: {
