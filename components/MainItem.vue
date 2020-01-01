@@ -4,7 +4,8 @@
     Dialog(
       :click-type="dialog.clickType"
       :visible.sync="dialog.isOpen"
-      size="360px"
+      :size="dialog.size"
+      :itemId="dialog.itemId"
     )
     client-only
       vxe-table(
@@ -24,7 +25,8 @@
         //- 上升/下降 td .cell add class: '.text-up || .text-down'
         //- 閃爍效果 td .cell add class: '.border.border__danger || .border__success'
         vxe-table-column(title='商品' width="80px" fixed="left")
-          template(slot-scope='scope') {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}
+          template(slot-scope='scope')
+            span(class="self-item-color" @click="clickSelfItem(scope.row)") {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}
         vxe-table-column(title='倉位' fixed="left" width="40px" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
             <span class="bg__danger" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
@@ -79,6 +81,8 @@ export default {
       dialog: {
         clickType: '',
         isOpen: false,
+        size: '360px',
+        itemId: '',
       },
 	  }
 	},
@@ -118,9 +122,16 @@ export default {
         name: row.product_name
       })
     },
+    clickSelfItem(item) {
+      this.dialog.clickType = 'userDetail'
+      this.dialog.size = '86%'
+      this.dialog.itemId = item.product_id
+      this.dialog.isOpen = true
+    },
     clickKline(item) {
       this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', item.product_id)
       this.dialog.clickType = 'kLine'
+      this.dialog.size = '360px'
       this.dialog.isOpen = true
     },
     clickChart(item) {
@@ -132,6 +143,7 @@ export default {
 
       //dialog
       this.dialog.clickType = 'chart'
+      this.dialog.size = '360px'
       this.dialog.isOpen = true
     },
     tableCellClassName({ row, column, columnIndex }) {

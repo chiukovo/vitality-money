@@ -34,8 +34,7 @@
       vxe-table.table(
       :data='mainItem',
       :cell-class-name='tableCellClassName'
-      @cell-click="clickChart"
-      @current-change="clickItem"
+      @cell-click="openItemDetail"
       max-width="100%"
       height="100%"
       column-min-width="90"
@@ -44,7 +43,8 @@
       auto-resize
       highlight-current-row)
         vxe-table-column(title='商品' width='94' fixed="left")
-          template(slot-scope='scope') {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}
+          template(slot-scope='scope')
+            span(class="self-item-color" @click.prevent.stop="clickChart(scope.row)") {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}
         vxe-table-column(title='倉位' width='60' fixed="left" align="center")
           template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
             <span class="bg__danger" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
@@ -79,6 +79,36 @@
         vxe-table-column(title='狀態')
           template(slot-scope='scope') {{ scope.row['state_name'] }}
   .swiper-scrollbar(slot="scrollbar")
+  el-dialog(
+    :visible.sync="itemDetail.isOpen"
+    :fullscreen='false'
+    :close-on-click-modal='false'
+    :modal='false'
+    :title='itemDetail.title'
+    v-dialogDrag)
+    .header-custom(slot='title')
+      i.el-icon-info
+      |  {{ itemDetail.title }}
+    div(v-if="itemDetail.data != ''")
+      div 商品名稱: {{ itemDetail.data.Name }}
+      div 每點價格: {{ itemDetail.data.PointMoney }}
+      div 持倉上限: {{ itemDetail.data.StoreLimit }}
+      div 開放0.1口: {{ itemDetail.data.DecimalSubmitEnable == 1 ? '是' : '否' }}
+      div 小於一口手續費: {{ itemDetail.data.DecimalSubmitFee }}
+      div 60秒平倉手續費: {{ itemDetail.data.SixityFee }}
+      div 手續費(進/出): {{ itemDetail.data.Fee }}
+      div 單商品每筆上限: {{ itemDetail.data.SubmitMax }}
+      div 單商品留倉上限: {{ itemDetail.data.RemaingLimit }}
+      div 單商品留倉天數: {{ itemDetail.data.RemaingDayLimit }}
+      div 開盤最大漲跌: {{ itemDetail.data.OpenMaxPoint }}
+      div 每口最大漲跌: {{ itemDetail.data.SubmitMaxPoint }}
+      div 停損利: {{ itemDetail.data.StopPoint }}
+      div 禁新時間: {{ itemDetail.data.not_new_start_time1 }} ~ {{ itemDetail.data.not_new_end_time1 }}
+      div 可下單時間:
+        span(v-html="itemDetail.data.TradeTime")
+      div 狀態: {{ itemDetail.data.State }}
+      div 禁新: {{ itemDetail.data.NotNewPercent }}
+      div 強平: {{ itemDetail.data.CoverPercent }}
 </template>
 
 <script>
@@ -98,9 +128,15 @@ export default {
       costomShow: false,
       analysisShow: false,
       more: false,
+      showItemDetail: false,
       dialog: {
         clickType: '',
         isOpen: false,
+      },
+      itemDetail: {
+        isOpen: false,
+        title: '',
+        data: ''
       },
 	  }
 	},
@@ -160,10 +196,21 @@ export default {
       })
     },
   },
-  mounted() {
-
-  },
   methods: {
+    openItemDetail({ row }) {
+      const commidyArray = this.$store.state.commidyArray
+      const _this = this
+      this.itemDetail.data = ''
+      //找出目標商品
+      commidyArray.forEach(function(val) {
+        if (val.ID == row.product_id) {
+          _this.itemDetail.data = val
+        }
+      })
+
+      this.itemDetail.isOpen = true
+      this.itemDetail.title = row.product_name + row.monthday
+    },
     checkIconColor() {
       if (this.userInfo.State == '正常') {
         return 'text__success'
@@ -177,22 +224,13 @@ export default {
         return 'text__danger'
       }
     },
-    clickItem({ row }) {
+    clickChart(row) {
       this.$store.commit('setClickItemId', {
         id: row.product_id,
         name: row.product_name
       })
-    },
-    clickChart({ row, column, columnIndex }) {
-      if (columnIndex == 0) {
-        this.$store.dispatch('CALL_QUERY_TECH', {
-          'id': row.product_id,
-          'type': 'chart',
-          'num': 1
-        })
 
-        this.analysisShow = true
-      }
+      this.analysisShow = true
     },
     tableCellClassName({ row, column, columnIndex }) {
       //判斷整行顏色

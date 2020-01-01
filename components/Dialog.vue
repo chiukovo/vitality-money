@@ -1,13 +1,13 @@
 <template lang='pug'>
   el-dialog(
-      :visible.sync='visible'
-      :fullscreen='dialogFullScreen'
-      :before-close='handleClose'
-      :close-on-click-modal='false'
-      :width='diaiogSize'
-      :modal='false'
-      title='$store.state.itemName'
-      v-dialogDrag)
+    :visible.sync='visible'
+    :fullscreen='dialogFullScreen'
+    :before-close='handleClose'
+    :close-on-click-modal='false'
+    :width='diaiogSize'
+    :modal='false'
+    title='$store.state.itemName'
+    v-dialogDrag)
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
@@ -40,7 +40,7 @@
             button.button(type='primary' @click="clickOpenChart") 確認
         Chart(v-if="openChart" class="chart")
         HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
-        UserDetail(v-if="clickType == 'userDetail'")
+        UserDetail(v-if="clickType == 'userDetail'" :itemId="itemId")
         HistoryPrices(v-if="clickType == 'historyPrices'")
         StoredRecords(v-if="clickType == 'storedRecords'")
         ActionLog(v-if="clickType == 'actionLog'")
@@ -73,7 +73,7 @@ import CustomItem from "~/components/CustomItem"
 import { mapState } from 'vuex'
 
 export default {
-  props: ['clickType', 'visible', 'title', 'size'],
+  props: ['clickType', 'visible', 'title', 'size', 'itemId'],
   data () {
     return {
       dialogFullScreen: false,

@@ -35,6 +35,10 @@ $material-icons-font-path: '~material-icons/iconfont/';
   display: block;
 }
 
+.self-item-color {
+  text-decoration: underline;
+}
+
 //-------------- layout
 * {
 	touch-action: manipulation;

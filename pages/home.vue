@@ -5,13 +5,13 @@
   #main
     //- style A
     splitpanes(class="default-theme" v-show="mainStyle == 'A'")
-      pane(size="18")
+      pane(size="22")
         splitpanes(horizontal)
           pane(size="33")
             UserInfo(v-if="checkIsset('A')")
           pane(size="67")
             ItemDetail(v-if="checkIsset('A')")
-      pane(size="82")
+      pane(size="78")
         splitpanes(horizontal)
           pane(size="42")
             MainItem(v-if="checkIsset('A')")
@@ -22,7 +22,7 @@
 
     //- style B
     splitpanes(class="default-theme"  v-show="mainStyle == 'B'")
-      pane(size="82")
+      pane(size="78")
         splitpanes(horizontal)
           pane(size="42")
             MainItem(v-if="checkIsset('B')")
@@ -30,7 +30,7 @@
             History(v-if="checkIsset('B')")
           pane(size="14")
             Operating(v-if="checkIsset('B')")
-      pane(size="18")
+      pane(size="22")
         splitpanes(horizontal)
           pane(size="33")
             UserInfo(v-if="checkIsset('B')")

@@ -217,7 +217,7 @@ export default {
             _this.$alert('重複登入', '提示', {
               confirmButtonText: '确定',
               callback: action => {
-                location.href = "/"
+                this.logout()
               }
             })
           }
@@ -236,7 +236,6 @@ export default {
 
           break
         case "z":
-          console.log('get');
           var fr = new FileReader();
           fr.onload = function(e) {
             var b_type = new Uint8Array(e.target.result);
@@ -246,7 +245,7 @@ export default {
                   _this.$alert('重複登入', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
-                      location.href = "/"
+                      this.logout()
                     }
                   })
                 }

@@ -4,6 +4,7 @@
     client-only
       vxe-table(
         :data='items'
+        :cell-class-name='tableCellClassName',
         max-width="100%"
         height="500px"
         column-min-width="74"
@@ -16,7 +17,8 @@
         vxe-table-column(fixed="left" prop="Name" title='商品名稱')
         vxe-table-column(field="PointMoney" title='每點價格')
         vxe-table-column(field="StoreLimit" title='持倉上限')
-        vxe-table-column(field="DecimalSubmitEnable" title='開放0.1口')
+        vxe-table-column(title='開放0.1口')
+          template(slot-scope="scope") {{ scope.row.DecimalSubmitEnable == 1 ? '是' : '否' }}
         vxe-table-column(field="DecimalSubmitFee" title='小於一口手續費' width="100")
         vxe-table-column(field="SixityFee" title='60秒平倉手續費' width="100")
         vxe-table-column(field="Fee" title='手續費(進/出)' width="100")
@@ -44,6 +46,7 @@ export default {
       items: [],
     }
   },
+  props: ['itemId'],
   mounted() {
     const sourceCommidyArray = this.$store.state.commidyArray
     this.getUserInfo(sourceCommidyArray)
@@ -57,6 +60,13 @@ export default {
     }
   },
   methods: {
+    tableCellClassName({ row, column, columnIndex }) {
+      if (typeof this.itemId != 'undefined') {
+        if (row.ID != this.itemId) {
+          return 'hide'
+        }
+      }
+    },
     getUserInfo(sourceCommidyArray) {
       this.items = JSON.parse(JSON.stringify(sourceCommidyArray))
     }
