@@ -6,7 +6,6 @@
         :data='items'
         :cell-class-name='tableCellClassName',
         max-width="100%"
-        height="500px"
         column-min-width="74"
         size="mini"
         align="center"

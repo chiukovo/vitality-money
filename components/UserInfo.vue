@@ -14,7 +14,7 @@
         border
         auto-resize)
         vxe-table-column(field='title' show-overflow)
-        vxe-table-column(field='info' show-overflow)
+        vxe-table-column(field='info' show-overflow width="130")
 </template>
 <script>
 import { mapState } from 'vuex';

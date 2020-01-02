@@ -217,7 +217,7 @@ export default {
             _this.$alert('重複登入', '提示', {
               confirmButtonText: '确定',
               callback: action => {
-                this.logout()
+                _this.logout()
               }
             })
           }
@@ -245,7 +245,7 @@ export default {
                   _this.$alert('重複登入', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
-                      this.logout()
+                      _this.logout()
                     }
                   })
                 }
