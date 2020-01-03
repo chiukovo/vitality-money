@@ -165,9 +165,6 @@ export default {
     }
   },
   methods: {
-    decrease(value) {
-      console.log(value)
-    },
     clickOverAll() {
       //修改收盤全平
       let overall = 1

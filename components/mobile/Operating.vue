@@ -226,7 +226,7 @@ export default {
       const _this = this
       let beforeCustomGroup = this.customGroup
 
-      this.customGroup.forEach(function(val){
+      this.customGroup.forEach(function(val) {
         if (val == 'overall') {
           overall = 0
         }
