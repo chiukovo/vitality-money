@@ -57,9 +57,9 @@
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
                       button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
-                  vxe-table-column(field='OrderTime' width='150' title='下單時間')
-                  vxe-table-column(field='FinalTime' width='150' title='完成時間')
-                  vxe-table-column(title='狀態' width='110')
+                  vxe-table-column(field='OrderTime' width="180px" title='下單時間')
+                  vxe-table-column(field='FinalTime' width="180px" title='完成時間')
+                  vxe-table-column(title='狀態' width='150px')
                     template(slot-scope='scope')
                       span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
                       span(v-else) {{ scope.row.State }}
@@ -150,15 +150,15 @@
                   template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
                 vxe-table-column(field="NewPrice" title='成交價')
                 vxe-table-column(field="CoverPrice" title='平倉價')
-                vxe-table-column(field="NewDate" title='成交日期' width="150px")
-                vxe-table-column(field="CoverDate" title='平倉日期' width="150px")
+                vxe-table-column(field="NewDate" title='成交日期' width="180px")
+                vxe-table-column(field="CoverDate" title='平倉日期' width="180px")
                 vxe-table-column(title='點數')
                   template(slot-scope='scope')
                     .change-icon
                       .icon-arrow(:class="scope.row['Point'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                     span(:class="scope.row['Point'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Point'] }}
                 vxe-table-column(field="CoverType" title='種類')
-                vxe-table-column(field="Fee" title='手續費')
+                vxe-table-column(field="TotalFee" title='手續費')
                 vxe-table-column(title='損益')
                   template(slot-scope='scope')
                     span(:class="scope.row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Money'] }}
@@ -208,9 +208,9 @@
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
                       button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
-                  vxe-table-column(field='OrderTime' width='150' title='下單時間')
-                  vxe-table-column(field='FinalTime' width='150' title='完成時間')
-                  vxe-table-column(title='狀態' width='110')
+                  vxe-table-column(field='OrderTime' width="180px" title='下單時間')
+                  vxe-table-column(field='FinalTime' width="180px" title='完成時間')
+                  vxe-table-column(title='狀態' width='150px')
                     template(slot-scope='scope')
                       span.blink(v-if="scope.row.State == '未成交'") {{ scope.row.State }}
                       span(v-else) {{ scope.row.State }}
@@ -245,8 +245,8 @@
               vxe-table-column(field="TotalFee" title='手續費合計' width="130")
               vxe-table-column(title='損益')
                 template(slot-scope='scope')
-                  span.text__success(v-if="scope.row.TotalPoint < 0") {{ scope.row.TotalPoint }}
-                  span.text__danger(v-else) {{ scope.row.TotalPoint }}
+                  span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney }}
+                  span.text__danger(v-else) {{ scope.row.TodayMoney }}
               vxe-table-column(title='留倉預扣')
                 template(slot-scope='scope')
                   span.text__success(v-if="scope.row.RemainingWithholding < 0") {{ scope.row.RemainingWithholding}}

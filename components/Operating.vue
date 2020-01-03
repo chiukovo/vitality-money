@@ -40,7 +40,7 @@
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
           el-form-item(label='口數:' style='margin: 2px 0;')
-            el-input-number(v-model='submitNum' controls-position='right' :min="0")
+            el-input-number(v-model='submitNum' controls-position='right' :min="0" :step="submitStep")
       .editbtn
         button.button(@click="dialogVisible = true") 編輯
         button.button(@click="resetNum") 還原
@@ -119,9 +119,10 @@ export default {
       profit: 0,
       damage: 0,
       submitNum: 1,
+      submitStep: 1,
       checkList: ['下單不確認'],
       defaultAllSubmit: [1, 2, 3, 4, 5],
-      customSubmitNums: []
+      customSubmitNums: [1, 2, 3, 4, 5],
     };
   },
   computed: mapState([
@@ -138,15 +139,24 @@ export default {
     },
     customGroup(data) {
       this.$cookies.set('customGroup', this.customGroup)
+    },
+    submitNum(newNum, oldNum) {
+      if (newNum == 0 && oldNum == 1) {
+        this.submitNum = 0.9
+        this.submitStep = 0.1
+      }
+
+      if (newNum == 1.1 && oldNum == 1) {
+        this.submitNum = 2
+        this.submitStep = 1
+      }
     }
   },
   mounted() {
     const customSubmitNums = this.$cookies.get('customSubmitNums')
     const customGroup = this.$cookies.get('customGroup')
 
-    if (typeof customSubmitNums == 'undefined') {
-      this.customSubmitNums = this.defaultAllSubmit
-    } else {
+    if (typeof customSubmitNums != 'undefined') {
       this.customSubmitNums = customSubmitNums
     }
 
@@ -155,6 +165,9 @@ export default {
     }
   },
   methods: {
+    decrease(value) {
+      console.log(value)
+    },
     clickOverAll() {
       //修改收盤全平
       let overall = 1
@@ -231,6 +244,8 @@ export default {
     resetNum() {
       this.customSubmitNums = this.defaultAllSubmit
       this.$cookies.set('customSubmitNums', this.defaultAllSubmit)
+      this.submitNum = 1
+      this.submitStep = 1
     },
     checkOrderAll() {
       //看是否有勾選下單不確認

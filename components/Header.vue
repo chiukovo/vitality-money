@@ -11,7 +11,7 @@
         a.nav-link(href="#") 連線
         .dropdown-menu.animated.fadeInDown
           a.dropdown-item(href="#") 連線登入
-          a.dropdown-item(href="#" @click="logout()") 中斷連接
+          a.dropdown-item(href="#" @click="logout(true)") 中斷連接
       li.nav-item
         a.nav-link(href="#") 檢視
         .dropdown-menu
@@ -55,7 +55,7 @@
       li.nav-item(:class="$store.state.localStorage.customSetting.sound ? '': 'isShutdown'")
         a.nav-link(href="#" @click="setCustomSetting('sound')") 提示聲
       li.nav-item
-        a.nav-link(href="#" @click="logout()") 登出
+        a.nav-link(href="#" @click="logout(true)") 登出
 </template>
 
 <script>

@@ -16,8 +16,8 @@
           button(@click="changeType('beforeMonth')" :class="checkTypeClass('beforeMonth')") 上月
       .area(style="height: calc(100% - 40px); overflow-y: scroll;")
         ul.area-list
-          li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數: {{ items[name].TotalSubmit }} 手續費: {{ items[name].TotalFee }} 
-            span 損益: 
+          li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數: {{ items[name].TotalSubmit }} 手續費: {{ items[name].FeeAll }} 
+            span(style="padding-left: 5px") 損益: 
             span(:class="items[name].TodayMoney > 0 ? 'text__danger' : 'text__success'") {{ items[name].TodayMoney }}
             i.el-icon-arrow-right
         template(v-if='showDetail')
@@ -118,10 +118,14 @@ export default {
               _this.items[val.Name] = []
               _this.items[val.Name] = val
               val.TotalFee = parseInt(val.TotalFee)
+              val.TotalSmallFee = parseInt(val.TotalSmallFee)
+              val.FeeAll = parseInt(val.TotalFee) + parseInt(val.TotalSmallFee)
               val.TodayMoney = parseInt(val.TodayMoney)
               _this.allItemsName.push(val.Name)
             } else {
               _this.items[val.Name].TotalFee += parseInt(val.TotalFee)
+              _this.items[val.Name].TotalSmallFee += parseInt(val.TotalSmallFee)
+              _this.items[val.Name].FeeAll += _this.items[val.Name].TotalFee + _this.items[val.Name].TotalSmallFee
               _this.items[val.Name].TodayMoney += parseInt(val.TodayMoney)
             }
           })

@@ -12,7 +12,7 @@
       +nav-list-item('handleSystem', '6', '系統設置', 'settings_applications')
       +nav-list-item('handleSystem', '8', '更改密碼', 'vpn_key')
     .nav-button
-      button.button__danger.logout(@click="logout") 登出帳號
+      button.button__danger.logout(@click="logout(true)") 登出帳號
     UserInfo(v-if='systemShow == 1')
     UserDetail(v-if='systemShow == 2')
     News(v-if='systemShow == 4')

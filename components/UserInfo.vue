@@ -10,11 +10,11 @@
         max-width="100%"
         height="100%"
         size="small"
-        column-min-width="74"
+        column-min-width="80"
         border
-        auto-resize)
-        vxe-table-column(field='title' show-overflow)
-        vxe-table-column(field='info' show-overflow width="130")
+        resizable)
+        vxe-table-column(field='title' show-overflow width="130")
+        vxe-table-column(field='info' show-overflow width="110")
 </template>
 <script>
 import { mapState } from 'vuex';

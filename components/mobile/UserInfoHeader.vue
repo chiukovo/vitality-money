@@ -56,7 +56,7 @@
       span.label 報價模式:
       span  {{ userInfo.PriceMode == 0 ? '整數報價' : '完整報價' }}
     li.userInfo__button
-      button.button__danger.logout(@click="logout") 登出帳號
+      button.button__danger.logout(@click="logout(true)") 登出帳號
 </template>
 
 <script>

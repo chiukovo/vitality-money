@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-console.log('v1.0.8')
+console.log('v1.0.9')
 
 Vue.mixin({
   methods: {
@@ -28,14 +28,15 @@ Vue.mixin({
     testGlobal() {
       return 'success'
     },
-    logout() {
-      //unset cookie
-      this.$cookies.remove('token')
-
+    logout(isClick) {
       const returnUrl = this.$store.state.localStorage.userAuth.returnURL
 
-      //unset user info
-      this.$store.commit('clearUserAuth')
+      if (typeof isClick != 'undefined' && isClick) {
+        //unset cookie
+        this.$cookies.remove('token')
+        //unset user info
+        this.$store.commit('clearUserAuth')
+      }
 
       if (returnUrl && returnUrl !== '') {
         location.href = returnUrl

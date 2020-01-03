@@ -10,7 +10,7 @@
     .header__right
       button(:class="item.State != '正常' ? 'button__danger' : 'button__success'") {{ item.State }}
   .main
-    .area(style="height: calc(100% - 50px); overflow: auto")
+    .area(style="height: calc(100% - 50px); overflow: auto" v-for="item in commidyArray" v-if="selectItemId == item.ID")
       .collapse(@click="open1 = !open1")
         .collapse__header 最後交易日 ({{ nowMainItem.end_date }})
         ul.collapse__list(v-if="open1")
@@ -81,7 +81,6 @@ export default {
     }
   },
   mounted() {
-    this.getUserInfo()
   },
   computed: mapState([
     'commidyArray',
@@ -89,24 +88,5 @@ export default {
     'userInfo',
     'nowMainItem',
   ]),
-  watch: {
-    commidyArray(sourceCommidyArray) {
-      this.getUserInfo(sourceCommidyArray)
-    },
-    selectItemId() {
-      this.getUserInfo()
-    },
-  },
-  methods: {
-    getUserInfo() {
-      const commidyArray = JSON.parse(JSON.stringify(this.$store.state.commidyArray))
-      const _this = this
-      commidyArray.forEach(function(val) {
-        if (val.ID == _this.selectItemId) {
-          _this.item = val
-        }
-      })
-    }
-  }
 }
 </script>

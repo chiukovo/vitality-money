@@ -168,7 +168,7 @@
                 .icon-arrow(:class="scope.row['Point'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
               span(:class="scope.row['Point'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Point'] }}
           vxe-table-column(field="CoverType" title='種類')
-          vxe-table-column(field="Fee" title='手續費')
+          vxe-table-column(field="TotalFee" title='手續費')
           vxe-table-column(title='損益')
             template(slot-scope='scope')
               span(:class="scope.row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Money'] }}
@@ -205,10 +205,10 @@
           vxe-table-column(field="Name" title='商品名稱')
           vxe-table-column(title='總多')
             template(slot-scope='scope')
-              span.text__danger {{ scope.row.TotalBuySubmit　}}
+              span.text__danger {{ scope.row.TotalBuySubmit }}
           vxe-table-column(title='總空')
             template(slot-scope='scope')
-              span.text__success {{ scope.row.TotalSellSubmit}}
+              span.text__success {{ scope.row.TotalSellSubmit }}
           vxe-table-column(title='未平倉')
             template(slot-scope='scope')
               <span class="bg__danger" v-if="scope.row.RemainingBuyStock - scope.row.RemainingSellStock > 0">{{ scope.row.RemainingBuyStock - scope.row.RemainingSellStock }}</span>
@@ -217,8 +217,8 @@
           vxe-table-column(field="TotalFee" title='手續費合計')
           vxe-table-column(title='損益')
             template(slot-scope='scope')
-              span.text__success(v-if="scope.row.TotalPoint < 0") {{ scope.row.TotalPoint}}
-              span.text__danger(v-else) {{ scope.row.TotalPoint}}
+              span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney}}
+              span.text__danger(v-else) {{ scope.row.TodayMoney}}
           vxe-table-column(title='留倉預扣')
             template(slot-scope='scope')
               span.text__success(v-if="scope.row.RemainingWithholding < 0") {{ scope.row.RemainingWithholding}}

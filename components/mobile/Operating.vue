@@ -48,8 +48,8 @@
               .number-input
                 input(type="text" v-model="submitNum" :min="0")
                 .number-button-group
-                  button.button__increase(@click="submitNum++")
-                  button.button__decrease(@click="submitNum--")
+                  button.button__increase(@click="changeSubmitNum('+')")
+                  button.button__decrease(@click="changeSubmitNum('-')")
               //- el-input-number(v-model='submitNum' :min="0")
           tr(v-if="buyType == 1")
             td.limit.limit__2(colspan='5'): .cell.text__center 限價：
@@ -138,6 +138,7 @@ export default {
       profit: 0,
       damage: 0,
       submitNum: 1,
+      submitStep: 1,
       checkList: ['下單不確認'],
       defaultAllSubmit: [1, 2, 3, 4, 5],
       customSubmitNums: []
@@ -174,6 +175,21 @@ export default {
     customGroup(data) {
       this.$cookies.set('customGroup', this.customGroup)
       this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+    },
+    submitNum(newNum, oldNum) {
+      if (newNum == 0 && oldNum == 1) {
+        this.submitNum = 0.9
+        this.submitStep = 0.1
+      }
+
+      if (newNum == 1.1 && oldNum == 1) {
+        this.submitNum = 2
+        this.submitStep = 1
+      }
+
+      if (newNum < 0) {
+        this.submitNum = 0
+      }
     }
   },
   mounted() {
@@ -197,6 +213,13 @@ export default {
     this.getNowOverall()
   },
   methods: {
+    changeSubmitNum(type) {
+      if (type == '+') {
+        this.submitNum = parseFloat((this.submitNum + this.submitStep).toFixed(10))
+      } else {
+        this.submitNum = parseFloat((this.submitNum - this.submitStep).toFixed(10))
+      }
+    },
     clickOverAll() {
       //修改收盤全平
       let overall = 1

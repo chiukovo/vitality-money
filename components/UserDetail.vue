@@ -3,7 +3,7 @@
   .dialog__content
     client-only
       vxe-table(
-        :data='items'
+        :data='commidyArray'
         :cell-class-name='tableCellClassName',
         max-width="100%"
         column-min-width="74"
@@ -47,17 +47,10 @@ export default {
   },
   props: ['itemId'],
   mounted() {
-    const sourceCommidyArray = this.$store.state.commidyArray
-    this.getUserInfo(sourceCommidyArray)
   },
   computed: mapState([
     'commidyArray',
   ]),
-  watch: {
-    commidyArray(sourceCommidyArray) {
-      this.getUserInfo(sourceCommidyArray)
-    }
-  },
   methods: {
     tableCellClassName({ row, column, columnIndex }) {
       if (typeof this.itemId != 'undefined') {
@@ -66,9 +59,6 @@ export default {
         }
       }
     },
-    getUserInfo(sourceCommidyArray) {
-      this.items = JSON.parse(JSON.stringify(sourceCommidyArray))
-    }
   }
 }
 </script>

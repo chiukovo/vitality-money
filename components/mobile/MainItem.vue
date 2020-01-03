@@ -89,26 +89,26 @@
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ itemDetail.title }}
-    div(v-if="itemDetail.data != ''")
-      div 商品名稱: {{ itemDetail.data.Name }}
-      div 每點價格: {{ itemDetail.data.PointMoney }}
-      div 持倉上限: {{ itemDetail.data.StoreLimit }}
-      div 開放0.1口: {{ itemDetail.data.DecimalSubmitEnable == 1 ? '是' : '否' }}
-      div 小於一口手續費: {{ itemDetail.data.DecimalSubmitFee }}
-      div 60秒平倉手續費: {{ itemDetail.data.SixityFee }}
-      div 手續費(進/出): {{ itemDetail.data.Fee }}
-      div 單商品每筆上限: {{ itemDetail.data.SubmitMax }}
-      div 單商品留倉上限: {{ itemDetail.data.RemaingLimit }}
-      div 單商品留倉天數: {{ itemDetail.data.RemaingDayLimit }}
-      div 開盤最大漲跌: {{ itemDetail.data.OpenMaxPoint }}
-      div 每口最大漲跌: {{ itemDetail.data.SubmitMaxPoint }}
-      div 停損利: {{ itemDetail.data.StopPoint }}
-      div 禁新時間: {{ itemDetail.data.not_new_start_time1 }} ~ {{ itemDetail.data.not_new_end_time1 }}
+    div(v-for="item in commidyArray" v-if="item.ID == rowId")
+      div 商品名稱: {{ item.Name }}
+      div 每點價格: {{ item.PointMoney }}
+      div 持倉上限: {{ item.StoreLimit }}
+      div 開放0.1口: {{ item.DecimalSubmitEnable == 1 ? '是' : '否' }}
+      div 小於一口手續費: {{ item.DecimalSubmitFee }}
+      div 60秒平倉手續費: {{ item.SixityFee }}
+      div 手續費(進/出): {{ item.Fee }}
+      div 單商品每筆上限: {{ item.SubmitMax }}
+      div 單商品留倉上限: {{ item.RemaingLimit }}
+      div 單商品留倉天數: {{ item.RemaingDayLimit }}
+      div 開盤最大漲跌: {{ item.OpenMaxPoint }}
+      div 每口最大漲跌: {{ item.SubmitMaxPoint }}
+      div 停損利: {{ item.StopPoint }}
+      div 禁新時間: {{ item.not_new_start_time1 }} ~ {{ item.not_new_end_time1 }}
       div 可下單時間:
-        span(v-html="itemDetail.data.TradeTime")
-      div 狀態: {{ itemDetail.data.State }}
-      div 禁新: {{ itemDetail.data.NotNewPercent }}
-      div 強平: {{ itemDetail.data.CoverPercent }}
+        span(v-html="item.TradeTime")
+      div 狀態: {{ item.State }}
+      div 禁新: {{ item.NotNewPercent }}
+      div 強平: {{ item.CoverPercent }}
 </template>
 
 <script>
@@ -136,8 +136,8 @@ export default {
       itemDetail: {
         isOpen: false,
         title: '',
-        data: ''
       },
+      rowId: ''
 	  }
 	},
   components: {
@@ -150,6 +150,7 @@ export default {
     'mainItem',
     'clickItemId',
     'userInfo',
+    'commidyArray',
   ]),
   watch: {
     clickItemId(id) {
@@ -198,16 +199,7 @@ export default {
   },
   methods: {
     openItemDetail({ row }) {
-      const commidyArray = this.$store.state.commidyArray
-      const _this = this
-      this.itemDetail.data = ''
-      //找出目標商品
-      commidyArray.forEach(function(val) {
-        if (val.ID == row.product_id) {
-          _this.itemDetail.data = val
-        }
-      })
-
+      this.rowId = row.product_id
       this.itemDetail.isOpen = true
       this.itemDetail.title = row.product_name + row.monthday
     },
