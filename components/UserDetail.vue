@@ -7,6 +7,7 @@
         :cell-class-name='tableCellClassName',
         max-width="100%"
         column-min-width="74"
+        height="450"
         size="mini"
         align="center"
         border
@@ -27,7 +28,7 @@
         vxe-table-column(field="OpenMaxPoint" title='開盤最大漲跌' width="90")
         vxe-table-column(field="SubmitMaxPoint" title='每口最大漲跌' width="90")
         vxe-table-column(field="StopPoint" title='停損利')
-        vxe-table-column(title='禁新時間')
+        vxe-table-column(title='禁新時間' width="200")
           template(slot-scope="scope") {{ scope.row.not_new_start_time1}} ~ {{ scope.row.not_new_end_time1 }}
         vxe-table-column(title='可下單時間' width="200")
           template(slot-scope="scope")
