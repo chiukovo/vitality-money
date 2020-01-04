@@ -53,10 +53,10 @@
                   vxe-table-column(field='Odtype' title='型別')
                   vxe-table-column(title='損失點數' align="center")
                     template(slot-scope='scope')
-                      button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+                      button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
-                      button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
+                      button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
                   vxe-table-column(field='OrderTime' width="180px" title='下單時間')
                   vxe-table-column(field='FinalTime' width="180px" title='完成時間')
                   vxe-table-column(title='狀態' width='150px')
@@ -101,13 +101,13 @@
                     template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
                   vxe-table-column(field='FinalPrice', title='成交價')
                   vxe-table-column(field='Quantity', title='口數')
-                  vxe-table-column(field='Fee', title='手續費')
+                  vxe-table-column(field='TotalFee', title='手續費')
                   vxe-table-column(title='損失點數')
                     template(slot-scope='scope')
-                      button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
+                      button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
                   vxe-table-column(title='獲利點數')
                     template(slot-scope='scope')
-                      button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
+                      button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('winPointDialog', scope.row)") {{ scope.row.WinPoint }}
                   vxe-table-column(title='倒限(利)')
                     template(slot-scope='scope')
                       button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
@@ -513,6 +513,9 @@ export default {
   methods: {
     handleDocument(e) {
 			this.documentShow = e
+    },
+    canSetWinLoss(operation) {
+      return operation[0] == 0 && operation[1] == 0 && operation[2] == 0 && operation[4] == 0
     },
     openMultiOrder() {
       let _this = this

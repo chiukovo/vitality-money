@@ -102,12 +102,12 @@
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
           vxe-table-column(field='Serial' title='序號')
-          vxe-table-column(field='Name' title='商品')
+          vxe-table-column(field='Name' title='商品' width="94")
           vxe-table-column(title='型別')
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
           vxe-table-column(field='FinalPrice' title='成交價')
           vxe-table-column(field='Quantity' title='口數')
-          vxe-table-column(field='Fee' title='手續費')
+          vxe-table-column(field='TotalFee' title='手續費')
           vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
               button.button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('lossPointDialog', scope.row)") {{ scope.row.LossPoint }}
@@ -142,7 +142,7 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(field="Name" title='商品')
+          vxe-table-column(field="Name" title='商品' width="94")
           vxe-table-column(field="NewSerial" title='新倉序號')
           vxe-table-column(field="CoverSerial" title='平倉序號')
           vxe-table-column(title='新倉型別')
@@ -215,6 +215,8 @@
               <span class="bg__success" v-else>{{ Math.abs(scope.row.RemainingBuyStock - scope.row.RemainingSellStock) }}</span>
           vxe-table-column(field="TotalSubmit" title='總口數')
           vxe-table-column(field="TotalFee" title='手續費合計')
+            template(slot-scope='scope')
+              span 
           vxe-table-column(title='損益')
             template(slot-scope='scope')
               span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney}}
@@ -229,10 +231,10 @@
         )
           el-form-item(label='開始日期:')
             el-form-item
-              el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")
+              el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 150px;")
           el-form-item(label='結束日期:')
             el-form-item
-              el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
+              el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 150px;")
           button.button(type="button" @click="query") 送出
         span.label 快速查詢
         button.button(@click="selectDayType('today')") 今日

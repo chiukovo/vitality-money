@@ -150,10 +150,7 @@ export default {
     }
   },
   setUserInfo(state, data) {
-    if (state.commidyArray.length == 0) {
-      state.commidyArray = data.CommidyArray
-    }
-
+    state.commidyArray = data.CommidyArray
     state.userInfo = data.UserArray
   },
   setUserOrder(state, data) {

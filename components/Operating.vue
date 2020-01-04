@@ -121,7 +121,6 @@ export default {
       submitNum: 1,
       submitStep: 1,
       checkList: ['下單不確認'],
-      defaultAllSubmit: [1, 2, 3, 4, 5],
       customSubmitNums: [1, 2, 3, 4, 5],
     };
   },
@@ -239,8 +238,8 @@ export default {
       this.dialogVisible = false
     },
     resetNum() {
-      this.customSubmitNums = this.defaultAllSubmit
-      this.$cookies.set('customSubmitNums', this.defaultAllSubmit)
+      this.customSubmitNums = [1, 2, 3, 4, 5]
+      this.$cookies.set('customSubmitNums', [1, 2, 3, 4, 5])
       this.submitNum = 1
       this.submitStep = 1
     },
