@@ -18,8 +18,8 @@
               |:
             .from-customer.chat-content {{ message.Content }}
       .chat-input-wrap
-        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊ENTER送出"
-        @keyup.enter="send")
+        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊送出")
+        button.button(type="button" @click="send") 送出
 </template>
 
 <script>
