@@ -75,6 +75,7 @@ export default {
 
               //呼叫即時資料
               _this.$socket.send(_this.paramX())
+              _this.getUserInfo()
               break
             case "d":
               //商品現價通知
@@ -149,6 +150,13 @@ export default {
           _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
           break
+        //會員編輯
+        case "v":
+        //轉新單
+        case "o":
+          _this.getUserInfo()
+
+          break
         //客服
         case "m":
           _this.$store.dispatch('CALL_SERVICE_MESSAGE')
@@ -208,6 +216,8 @@ export default {
           if (_this.$store.state.localStorage.customSetting.sound) {
             _this.playSuccessSound()
           }
+
+          _this.getUserInfo()
 
           break
         case "j": //檢查token
