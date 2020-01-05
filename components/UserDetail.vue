@@ -7,7 +7,7 @@
         :cell-class-name='tableCellClassName',
         max-width="100%"
         column-min-width="74"
-        height="450"
+        :height="checkHeight()"
         size="mini"
         align="center"
         border
@@ -60,6 +60,13 @@ export default {
         }
       }
     },
+    checkHeight() {
+      if (typeof this.itemId != 'undefined') {
+        return ''
+      } else {
+        return 450
+      }
+    }
   }
 }
 </script>
