@@ -5,12 +5,16 @@
     :before-close='handleClose'
     :close-on-click-modal='false'
     :width='diaiogSize'
+    :height='diaiogHeight'
     :modal='false'
     title='$store.state.itemName'
     v-dialogDrag)
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}
+      div(class="resize-group" v-if="openKchart || openChart")
+        i(class="el-icon-circle-plus-outline" @click="reSize('+')" style="padding-right: 5px")
+        i(class="el-icon-remove-outline" @click="reSize('-')")
     template
       client-only
         //-k線圖 版面選擇
@@ -38,7 +42,7 @@
           .dialog__footer
             button.button__light(@click="handleClose") 取消
             button.button(type='primary' @click="clickOpenChart") 確認
-        Chart(v-if="openChart" class="chart")
+        Chart(v-if="openChart" class="chart" ref="chart")
         HistoryWinLoss(v-if="clickType == 'historyWinLoss'")
         UserDetail(v-if="clickType == 'userDetail'" :itemId="itemId")
         HistoryPrices(v-if="clickType == 'historyPrices'")
@@ -78,6 +82,7 @@ export default {
     return {
       dialogFullScreen: false,
       diaiogSize: '86%',
+      diaiogHeight: '100%',
       clickMainStyle: 'A',
       kchartType: 1,
       chartType: 1,
@@ -97,7 +102,8 @@ export default {
     CustomItem,
   },
   computed: mapState({
-    mainStyle: state => state.localStorage.customSetting.mainStyle
+    mainStyle: state => state.localStorage.customSetting.mainStyle,
+    chartId: 'chartId'
   }),
   watch: {
     visible(isOpen) {
@@ -114,6 +120,56 @@ export default {
     this.clickMainStyle = this.mainStyle
   },
   methods: {
+    reSize(type) {
+      let size = this.diaiogSize
+      let sizeNumber = size.split('%')[0]
+      let last = size.substr(-1, 1)
+      let nowHeight = this.$el.querySelector('.el-dialog__body')
+
+      if (type == '+') {
+        if (sizeNumber >= 100) {
+          return
+        }
+
+        if (last == '%') {
+          size = parseInt(sizeNumber) + 5
+        }
+
+        nowHeight.style.height = parseInt(nowHeight.offsetHeight) + 50 + 'px'
+      } else {
+        if (sizeNumber <= 60) {
+          return
+        }
+
+        if (last == '%') {
+          size = parseInt(sizeNumber) - 5
+        }
+
+        nowHeight.style.height = parseInt(nowHeight.offsetHeight) - 50 + 'px'
+      }
+
+      if (this.openKchart) {
+        this.$el.querySelector('.kchart').style.height = '100%'
+      }
+
+      if (this.openChart) {
+        this.$el.querySelector('.chart').style.height = '100%'
+        const el = document
+        const event = document.createEvent('HTMLEvents')
+        event.initEvent('resize', true, false)
+        el.dispatchEvent(event)
+      }
+
+      if (size > 100) {
+        size = 100
+      }
+
+      if (size < 60) {
+        size = 60
+      }
+
+      this.diaiogSize = size + '%'
+    },
     clickOpenChart() {
       if (this.chartType == '1') {
         this.diaiogSize = '86%'
@@ -145,6 +201,8 @@ export default {
 
       this.$store.commit('clearModalData')
       this.$emit('update:visible', false)
+
+      this.$el.querySelector('.el-dialog__body').style.height = '100%'
     },
     setMainStyle() {
       this.$store.commit('setMainStyle', this.clickMainStyle)
@@ -155,9 +213,6 @@ export default {
 
 <style scoped>
   .kchart {
-    height: 400px;
-  }
-  .chart {
     height: 400px;
   }
 </style>

@@ -546,6 +546,16 @@ button {
   .header-custom i {
     color: #fff;
   }
+  .resize-group {
+    position: absolute;
+    top: 7px;
+    right: 45px;
+    font-size: 18px;
+
+    i {
+      cursor: pointer;
+    }
+  }
 }
 .el-dialog__body {
   padding: 10px;

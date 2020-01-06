@@ -93,22 +93,20 @@ export default {
     'chartId',
   ]),
   mounted () {
-    if (this.theme === 'black') {
-      Object.assign(this.optionCharts, {
-        strock_border_color: 'white',
-        table_border_color: '#000000',
-        order_color: '#f4e842',
-        five_color: '#eee',
-        chart_background_color: 'rgb(28, 28, 28)',
-        chart_font_color: '#E0E0E3',
-        chart_grid_color: '#555555',
-        chart_minor_grid_color: '#505053',
-        chart_title_color: '#FFFFFF',
-        kbun_green: '#00FF00',
-        chart_q_background: 'rgb(41, 90, 138)',
-        mouse_line: 'white',
-      });
-    }
+    Object.assign(this.optionCharts, {
+      strock_border_color: 'white',
+      table_border_color: '#000000',
+      order_color: '#f4e842',
+      five_color: '#eee',
+      chart_background_color: 'rgb(28, 28, 28)',
+      chart_font_color: '#E0E0E3',
+      chart_grid_color: '#555555',
+      chart_minor_grid_color: '#505053',
+      chart_title_color: '#FFFFFF',
+      kbun_green: '#00FF00',
+      chart_q_background: 'rgb(41, 90, 138)',
+      mouse_line: 'white',
+    });
 
     //判斷是否另開視窗
     if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
@@ -149,7 +147,6 @@ export default {
           series = this.series.chart.series,
           ret = '',
           s
-
         _this.chartLines.mouseLabelX.translate(this.point.plotX + _this.optionCharts.chart_label_x, chart.plotHeight + chart.plotTop + 3)
         const time_array = [
           '<div style="text-shadow: 0 0 0 !important;text-align:center;',
