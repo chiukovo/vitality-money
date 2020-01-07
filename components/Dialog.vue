@@ -215,4 +215,7 @@ export default {
   .kchart {
     height: 400px;
   }
+  .chart {
+    height: 400px;
+  }
 </style>
