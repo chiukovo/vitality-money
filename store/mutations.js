@@ -963,19 +963,39 @@ export default {
         ])
 
         let last_time = 0
+        let pi = parseInt(items.length / 150) * 3;
+        if (pi < 3) {
+          pi = 3;
+        }
+        let localHigh = 0;
+        let localLow = 9999999;
         for (let i = 3; i < items.length - 1; i += 3) {
           const chartDateTime = dateTime + parseInt(items[i]) * 60000
           chartData += parseInt(items[i + 1])
 
           if (parseInt(items[i]) > 0) {
-            state.chartData.push([
-              chartDateTime,
-              chartData
-            ])
-            state.chartVolumeData.push([
-              chartDateTime,
-              parseInt(items[i + 2])
-            ])
+            if (i % pi == 0 || !state.isMobile) {
+              localHigh = chartData
+              localLow = chartData
+              state.chartData.push([
+                chartDateTime,
+                chartData
+              ])
+              state.chartVolumeData.push([
+                chartDateTime,
+                parseInt(items[i + 2])
+              ])
+            } else {
+              if (localHigh < chartData) {
+                localHigh = chartData
+                state.chartData[state.chartData.length - 1][1] = chartData
+              }
+              if (localLow > chartData) {
+                localLow = chartData
+                state.chartData[state.chartData.length - 1][1] = chartData
+              }
+              state.chartVolumeData[state.chartVolumeData.length - 1][1] += parseInt(items[i + 2])
+            }
             last_time = chartDateTime
           }
         }
