@@ -18,10 +18,10 @@
       span {{ userInfo.TouchPoint | currency }}
     li
       span.label 帳戶餘額:
-      span(:class="userInfo.Money < userInfo.TouchPoint ? 'text__danger' : 'text__success'") {{ userInfo.Money | currency}}
+      span(:class="nowMoney < userInfo.TouchPoint ? 'text__danger' : 'text__success'") {{ nowMoney | currency}}
     li
       span.label 今日損益:
-      span(:class="userInfo.TodayMoney < 0 ? 'text__success' : 'text__danger'")  {{ userInfo.TodayMoney | currency }}
+      span(:class="todayLoseWin < 0 ? 'text__success' : 'text__danger'")  {{ todayLoseWin | currency }}
     li
       span.label 信用額度:
       span  {{ userInfo.TouchPoint | currency }}
@@ -65,6 +65,8 @@ import { mapState } from 'vuex'
 export default {
   computed: mapState([
     'userInfo',
+    'todayLoseWin',
+    'nowMoney',
   ]),
   methods: {
   }

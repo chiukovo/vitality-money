@@ -150,8 +150,41 @@ export default {
     }
   },
   setUserInfo(state, data) {
-    state.commidyArray = data.CommidyArray
-    state.userInfo = data.UserArray
+    //排序跟mainItem 一樣即可
+    let formatCommidy = []
+    let userArray = data.UserArray
+
+    if (state.commidyArray.length == 0) {
+      state.commidyArray = data.CommidyArray
+    } else {
+      state.commidyArray.forEach(function(source) {
+        data.CommidyArray.forEach(function(commidy) {
+          if (source.ID == commidy.ID) {
+            formatCommidy.push(commidy)
+          }
+        })
+      })
+      state.commidyArray = formatCommidy
+    }
+
+    state.userInfo = userArray
+
+    //計算userInfo
+    this.commit('computedUserInfo')
+  },
+  computedUserInfo(state) {
+    let userArray = state.userInfo
+    //總未平損益
+    state.totalUncoverLossWinMoney = Number(state.totalUncoverLossWinMoney)
+    //轉number 已防加減錯誤
+    userArray.Money = Number(userArray.Money)
+    userArray.TodayMoney = Number(userArray.TodayMoney)
+    userArray.TouchPoint = Number(userArray.TouchPoint)
+
+    //帳戶餘額 UserArray.Money + 未平損益
+    state.nowMoney = userArray.Money + state.totalUncoverLossWinMoney
+    //今日損益 TodayMoney + 未平損益
+    state.todayLoseWin = userArray.TodayMoney + state.totalUncoverLossWinMoney
   },
   setUserOrder(state, data) {
     state.userOrder = data
@@ -510,7 +543,8 @@ export default {
   },
   computedUncovered(state, data) {
     let nowNewPrice = state.nowNewPrice
-    let uncoverMoney = 0
+    //總共未平損益
+    state.totalUncoverLossWinMoney = 0
     let result = []
     let needAdd = true
 
@@ -535,10 +569,10 @@ export default {
           // 此單未平點數
           val.thisSerialPointDiff = diff
           // 總共未平損益
-          uncoverMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          state.totalUncoverLossWinMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
       } else {
           val.thisSerialPointDiff = diff * -1
-          uncoverMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          state.totalUncoverLossWinMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
       }
 
       // 此單未平損益 (要算手續費)，要更新在未平單上
@@ -548,6 +582,9 @@ export default {
     })
 
     state.uncovered = result
+
+    //計算userInfo
+    this.commit('computedUserInfo')
   },
   setFiveItemChange(state, fiveData) {
     let _this = this

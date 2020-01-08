@@ -50,5 +50,11 @@ export default () => ({
     nullNum: 0,
   },
   serviceMessages: [],
-  hasMessage: false
+  hasMessage: false,
+  //帳戶餘額
+  nowMoney: 0,
+  //總共未平損益
+  totalUncoverLossWinMoney: 0,
+  //今日損益
+  todayLoseWin: 0,
 })

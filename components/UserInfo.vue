@@ -26,10 +26,24 @@ export default {
   },
   computed: mapState([
     'userInfo',
+    'nowMoney',
+    'todayLoseWin',
   ]),
   watch: {
-    userInfo(userInfo) {
+    userInfo() {
+      this.initData()
+    },
+    nowMoney() {
+      this.initData()
+    },
+    todayLoseWin() {
+      this.initData()
+    },
+  },
+  methods: {
+    initData() {
       const _this = this
+      const userInfo = this.userInfo
 
       this.tableData = [{
           title: '客戶名稱:',
@@ -42,10 +56,10 @@ export default {
           info: '',
         }, {
           title: '帳戶餘額:',
-          info: _this.$options.filters.currency(userInfo.Money),
+          info: _this.$options.filters.currency(_this.nowMoney),
         }, {
           title: '今日損益:',
-          info: _this.$options.filters.currency(userInfo.TodayMoney),
+          info: _this.$options.filters.currency(_this.todayLoseWin),
         }, {
           title: '信用額度:',
           info: _this.$options.filters.currency(userInfo.TouchPoint),
@@ -80,9 +94,7 @@ export default {
           title: '報價模式:',
           info: userInfo.PriceMode == 0 ? '整數報價' : '完整報價',
         }]
-    }
-  },
-  methods: {
+    },
     tableCellClassName({ row, column, columnIndex }) {
       if(row.title == '帳戶餘額:' || row.title == '信用額度:' || row.title == '對匯額度:' || row.title == '極贏額度:') {
         if(columnIndex == 1) {

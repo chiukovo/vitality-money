@@ -18,11 +18,11 @@
         li
           i.material-icons money
           .area-infor__title 帳戶餘額
-          .area-infor__content(:class="userInfo.Money < userInfo.TouchPoint ? 'text__danger' : 'text__success'") {{ userInfo.Money | currency }}
+          .area-infor__content(:class="getMoneyColor(nowMoney)") {{ nowMoney | currency }}
         li
           i.material-icons bar_chart
           .area-infor__title 今日損益
-          .area-infor__content(:class="userInfo.TodayMoney < 0 ? 'text__success' : 'text__danger'") {{ userInfo.TodayMoney | currency }}
+          .area-infor__content(:class="getMoneyColor(todayLoseWin)") {{ todayLoseWin | currency }}
         li
           i.material-icons attach_money
           .area-infor__title 信用額度
@@ -75,6 +75,8 @@ export default {
   },
   computed: mapState([
     'userInfo',
+    'todayLoseWin',
+    'nowMoney',
   ]),
   methods: {
     checkAcctColor() {
