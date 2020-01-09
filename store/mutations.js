@@ -192,17 +192,17 @@ export default {
     //計算未平倉數量
     data.UncoveredArray.forEach(function(val) {
       if (typeof uncoveredCountDetail[val.ID] == 'undefined') {
-        uncoveredCountDetail[val.ID] = 1
+        uncoveredCountDetail[val.ID] = val.Quantity
         if (val.BuyOrSell == 0) {
-          uncoveredCountDetail[val.ID] = 1
+          uncoveredCountDetail[val.ID] = val.Quantity
         } else {
-          uncoveredCountDetail[val.ID] = -1
+          uncoveredCountDetail[val.ID] = -1 * val.Quantity
         }
       } else {
         if (val.BuyOrSell == 0) {
-          uncoveredCountDetail[val.ID] += 1
+          uncoveredCountDetail[val.ID] += val.Quantity
         } else {
-          uncoveredCountDetail[val.ID] += -1
+          uncoveredCountDetail[val.ID] += -1 * val.Quantity
         }
       }
     })
