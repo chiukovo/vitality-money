@@ -101,6 +101,11 @@
           vxe-table-column(title='操作' align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+          vxe-table-column(title='不留倉')
+            template(slot-scope='scope')
+              label.checkbox
+                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)")
+                span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
           vxe-table-column(title='型別')
@@ -586,6 +591,21 @@ export default {
     }
   },
   methods: {
+    changeDayCover(row) {
+      const _this = this
+      const setDayCover = row.DayCover ? 0 : 1
+
+      axios.post(process.env.NUXT_ENV_API_URL + "/set_serial_daycover?lang=" + this.lang, qs.stringify({
+        UserID: this.userId,
+        Token: this.token,
+        DayCover: setDayCover,
+        DayCoverSerialId: row.Serial,
+      }))
+      .then(response => {
+        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+        _this.$store.dispatch('CALL_MEMBER_INFO')
+      })
+    },
     canSetWinLoss(operation) {
       return operation[0] == 0 && operation[1] == 0 && operation[2] == 0 && operation[4] == 0
     },

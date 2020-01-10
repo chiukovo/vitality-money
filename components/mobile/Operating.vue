@@ -80,6 +80,9 @@
       .area__header
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}
         label.checkbox.inline(style="margin-left: 5px;")
+          input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
+          span.checkbox__label 不留倉
+        label.checkbox.inline(style="margin-left: 5px;")
           input.checkbox__input(type="checkbox" v-model='customGroup' value='overall' @click="clickOverAll()")
           span.checkbox__label 全盤收平
       .area__content.text__center
@@ -134,6 +137,7 @@ export default {
       customGroup: [],
       confirmData: [],
       radioA: '0',
+      noRemaining: 0,
       buyType: '0',
       profit: 0,
       damage: 0,
@@ -213,6 +217,28 @@ export default {
     this.getNowOverall()
   },
   methods: {
+    setNoRemaining() {
+      //設定不留倉
+      const _this = this
+      const lang = this.$store.state.localStorage.lang
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+      const setNoRemaining = this.noRemaining == 0 ? 1 : 0
+
+      axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
+        UserID: userId,
+        Token: token,
+        SetNoRemaining: setNoRemaining,
+        SetCloseCommodity: _this.clickItemId,
+      }))
+      .then(response => {
+        if (response.data.Code != 1) {
+          _this.$alert(response.data.ErrorMsg)
+        }
+
+        this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+      })
+    },
     changeSubmitNum(type) {
       if (type == '+') {
         this.submitNum = parseFloat((this.submitNum + this.submitStep).toFixed(10))
@@ -248,10 +274,13 @@ export default {
           _this.$alert(response.data.ErrorMsg)
           _this.customGroup = beforeCustomGroup
         }
+
+        this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
       })
     },
     getNowOverall() {
       //使用者設定
+      const _this = this
       const commidyArray = this.$store.state.commidyArray
       const clickItem = this.$store.state.clickItemId
       let newCustomGroup = []
@@ -260,6 +289,7 @@ export default {
       commidyArray.forEach(function(val) {
         if (val.ID == clickItem) {
           dayCover = val.DayCover
+          _this.noRemaining = val.NoRemaining
         }
       })
 
