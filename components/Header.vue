@@ -48,9 +48,13 @@
     ul.navbar-nav.navbar-nav-right
       li.nav-item
         a.nav-link(href="#") 換膚
-        //- .dropdown-menu
-          a.dropdown-item(href="#") 傳統
-          a.dropdown-item(href="#") 官方
+        .dropdown-menu.dropdown-theme
+          a.dropdown-item(href="#")
+            .color.blue
+            span 藍色經典
+          a.dropdown-item.is-theme(href="#")
+            .color.black
+            span 黑色幽默
       //- 音效關閉時, 添加 class .isShutdown
       li.nav-item(:class="$store.state.localStorage.customSetting.sound ? '': 'isShutdown'")
         a.nav-link(href="#" @click="setCustomSetting('sound')") 提示聲
