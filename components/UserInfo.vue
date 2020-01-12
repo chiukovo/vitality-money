@@ -1,6 +1,6 @@
 <template lang='pug'>
 .userInfo
-  .userInfo-header {{ userInfo.Account }} (正常收單)
+  .userInfo-header {{ userInfo.Account }} ({{ userInfo.State }})
   .userInfo-content
     client-only
       vxe-table(

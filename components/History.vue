@@ -122,7 +122,7 @@
           vxe-table-column(title='倒限(利)' align="center")
             template(slot-scope='scope')
               button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ scope.row.InvertedPoint }}
-          vxe-table-column(field='thisSerialTotalMoney', title='未平損益')
+          vxe-table-column(title='未平損益')
             template(slot-scope='scope')
               span(v-if="scope.row['thisSerialTotalMoney'] == 0" class="text__black") {{ scope.row['thisSerialTotalMoney'] }}
               span(v-else :class="scope.row['thisSerialTotalMoney'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['thisSerialTotalMoney'] }}

@@ -101,6 +101,33 @@
       label.checkbox
         input.checkbox__input(v-model="customGroup" type="checkbox" value="prompt")
         span.checkbox__label 限價成交提示
+    //-全平提示
+    el-dialog(
+      :visible.sync='overAllConfirm'
+      :modal='false'
+      :show-close='false'
+      width="600px"
+      title='全部平倉'
+      v-dialogDrag)
+      .header-custom(slot='title')
+        i.el-icon-info
+        |  全部平倉
+      client-only
+        vxe-table(
+          :data="overAllList"
+          height="100px"
+          size="mini"
+          column-min-width="60"
+          border)
+          vxe-table-column(field="Serial" title='序號')
+          vxe-table-column(field="Name" title='商品')
+          vxe-table-column(field="FinalPrice" title='成交價')
+          vxe-table-column(title='多空')
+            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(field="Quantity" title='口數')
+        .dialog__footer
+          button.button__light(@click="overAllConfirm = false") 取消
+          button.button(type='primary' @click="doSendOverAll") 確認
 </template>
 
 <script>
@@ -115,6 +142,8 @@ export default {
       nowPrice: 0,
       dialogVisible: false,
       orderConfirm: false,
+      overAllConfirm: false,
+      overAllList: [],
       customGroup: [],
       confirmData: [],
       radioA: '0',
@@ -274,14 +303,10 @@ export default {
       this.submitStep = 1
     },
     checkOrderAll() {
+      const _this = this
       //看是否有勾選下單不確認
       let noConfirm = false
-      const clickItem = this.$store.state.clickItemId
-      const isMobile = this.$store.state.isMobile
-      const userId = this.$store.state.localStorage.userAuth.userId
-      const token = this.$store.state.localStorage.userAuth.token
-
-      let sendText = 't:' + userId + ',0,' + token + ',' + isMobile + ',' + clickItem
+      this.overAllList = []
 
       this.customGroup.forEach(function(val){
         if (val == 'noConfirm') {
@@ -291,19 +316,30 @@ export default {
 
       if (noConfirm) {
         //全平
-        this.$socketOrder.send(sendText)
+        this.doSendOverAll()
       } else {
         //確認
-        this.$confirm('確認要全平 (' + this.$store.state.itemName + ') ?', '注意! ', {
-          confirmButtonText: '確定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$socketOrder.send(sendText)
-        }).catch(() => {
+        const uncovered = this.$store.state.uncovered
 
+        uncovered.forEach(function(val) {
+          if (val.Operation[2]) {
+            _this.overAllList.push(val)
+          }
         })
+
+        this.overAllConfirm = true
       }
+    },
+    doSendOverAll() {
+      const clickItem = this.$store.state.clickItemId
+      const isMobile = this.$store.state.isMobile
+      const userId = this.$store.state.localStorage.userAuth.userId
+      const token = this.$store.state.localStorage.userAuth.token
+      const sendText = 't:' + userId + ',0,' + token + ',' + isMobile + ',' + clickItem
+
+      this.$socketOrder.send(sendText)
+
+      this.overAllConfirm = false
     },
     checkOrder(type) {
       const clickItem = this.$store.state.clickItemId

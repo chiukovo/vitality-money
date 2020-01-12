@@ -190,7 +190,7 @@ export default {
     state.userOrder = data
     let uncoveredCountDetail = []
     //計算未平倉數量
-    data.UncoveredArray.forEach(function(val) {
+    data.UncoveredArray = data.UncoveredArray.map(function(val) {
       if (typeof uncoveredCountDetail[val.ID] == 'undefined') {
         uncoveredCountDetail[val.ID] = val.Quantity
         if (val.BuyOrSell == 0) {
@@ -205,6 +205,12 @@ export default {
           uncoveredCountDetail[val.ID] += -1 * val.Quantity
         }
       }
+
+      //default
+      val.thisSerialPointDiff = 0
+      val.thisSerialTotalMoney = 0
+
+      return val
     })
 
     state.uncoveredCountDetail = uncoveredCountDetail
