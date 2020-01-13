@@ -56,6 +56,11 @@
               //-改單
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+          vxe-table-column(title='不留倉')
+            template(slot-scope='scope')
+              label.checkbox
+                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)")
+                span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
           vxe-table-column(title='多空' width="40px" align="center")
@@ -220,12 +225,10 @@
               <span class="bg__success" v-else>{{ Math.abs(scope.row.RemainingBuyStock - scope.row.RemainingSellStock) }}</span>
           vxe-table-column(field="TotalSubmit" title='總口數')
           vxe-table-column(field="TotalFee" title='手續費合計')
-            template(slot-scope='scope')
-              span 
           vxe-table-column(title='損益')
             template(slot-scope='scope')
-              span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney}}
-              span.text__danger(v-else) {{ scope.row.TodayMoney}}
+              span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney }}
+              span.text__danger(v-else) {{ scope.row.TodayMoney }}
           vxe-table-column(title='留倉預扣')
             template(slot-scope='scope')
               span.text__success(v-if="scope.row.RemainingWithholding < 0") {{ scope.row.RemainingWithholding}}

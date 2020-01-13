@@ -45,6 +45,11 @@
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
                       button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
+                  vxe-table-column(title='不留倉')
+                    template(slot-scope='scope')
+                      label.checkbox
+                        input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)")
+                        span.checkbox__label 不留倉
                   vxe-table-column(title='多空' width="60px"  align="center")
                     template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
                   vxe-table-column(field='OrderPrice' title='委託價')

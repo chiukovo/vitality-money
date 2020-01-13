@@ -91,7 +91,7 @@
     .operating-5
       label.checkbox
         input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
-        span.checkbox__label 不留倉
+        span.checkbox__label 該筆不留倉
       label.checkbox
         input.checkbox__input(v-model="customGroup" type="checkbox" value="overall" @click="clickOverAll()")
         span.checkbox__label ({{ $store.state.itemName }})收盤全平
@@ -322,7 +322,7 @@ export default {
         const uncovered = this.$store.state.uncovered
 
         uncovered.forEach(function(val) {
-          if (val.Operation[2]) {
+          if (val.Operation[2] && val.ID == _this.$store.state.clickItemId) {
             _this.overAllList.push(val)
           }
         })

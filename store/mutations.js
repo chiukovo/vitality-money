@@ -271,6 +271,7 @@ export default {
             RemainingBuyStock: target.RemainingBuyStock,
             RemainingSellStock: target.RemainingSellStock,
             TotalSubmit: target.TotalSubmit,
+            TodayMoney: target.TodayMoney,
             TotalFee: target.TotalFee,
             TotalPoint: target.TotalPoint,
             RemainingWithholding: target.RemainingWithholding,
