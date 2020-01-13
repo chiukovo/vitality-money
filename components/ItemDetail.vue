@@ -74,12 +74,13 @@
           |報價明細[{{ $store.state.itemName }}]
           button.button(@click="openModal('historyPrices', '歷史報價查詢')") 查詢
           label.checkbox
-            input.checkbox__input(type="checkbox" checked)
+            input.checkbox__input(type="checkbox" v-model="autoScroll")
             span.checkbox__label 置底
       .itemDetail-content
         client-only
           vxe-table(
-            :data="$store.state.items2"
+            ref="xTable"
+            :data="items2"
             :cell-class-name="tableCellClassName"
             max-width="100%"
             height="100%"
@@ -105,6 +106,8 @@
     :title="dialog.title")
 </template>
 <script>
+
+import { mapState } from 'vuex'
 import Dialog from "~/components/Dialog"
 
 export default {
@@ -114,6 +117,7 @@ export default {
   data() {
     return {
       itemDetailTabShow: 3,
+      autoScroll: true,
       dialog: {
         clickType: '',
         isOpen: false,
@@ -121,7 +125,25 @@ export default {
       }
     }
   },
+  computed: mapState([
+    'items2',
+    'clickItemId',
+  ]),
+  watch: {
+    clickItemId() {
+      this.setAutoScroll()
+    },
+    items2(items) {
+      this.setAutoScroll()
+    }
+  },
   methods: {
+    setAutoScroll() {
+      if (this.autoScroll) {
+        //自動置底
+        this.$refs.xTable.scrollTo(0, 99999)
+      }
+    },
     handleItemDetailTabs(e) {
 			this.itemDetailTabShow = e
     },

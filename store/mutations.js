@@ -1111,6 +1111,11 @@ export default {
       return dt
     })
 
+    //排序historyPrice
+    state.historyPrice[itemId] = state.historyPrice[itemId].sort(function (a, b) {
+      return a['flocalTime'] < b['flocalTime'] ? -1 : 1
+    })
+
     this.commit('setItemChange', state.historyPrice[itemId])
   },
   SOCKET_ONOPEN (state, event)  {
