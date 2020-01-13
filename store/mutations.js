@@ -191,6 +191,8 @@ export default {
     let uncoveredCountDetail = []
     //計算未平倉數量
     data.UncoveredArray = data.UncoveredArray.map(function(val) {
+      val.Quantity = Number(val.Quantity)
+
       if (typeof uncoveredCountDetail[val.ID] == 'undefined') {
         uncoveredCountDetail[val.ID] = val.Quantity
         if (val.BuyOrSell == 0) {
