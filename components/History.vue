@@ -71,10 +71,10 @@
           vxe-table-column(field='Odtype' title='型別')
           vxe-table-column(title='損失點數' align="center")
             template(slot-scope='scope')
-              button.button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('lossPointDialog', scope.row)") {{ parseInt(scope.row.LossPoint) }}
+              button.button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('lossPointDialog', scope.row)") {{ Number(scope.row.LossPoint) }}
           vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
-              button.button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('winPointDialog', scope.row)") {{ parseInt(scope.row.WinPoint) }}
+              button.button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('winPointDialog', scope.row)") {{ Number(scope.row.WinPoint) }}
           vxe-table-column(field='OrderTime' width='150' title='下單時間')
           vxe-table-column(field='FinalTime' width='150' title='完成時間')
           vxe-table-column(title='狀態' width='110' fixed="right")
@@ -879,7 +879,7 @@ export default {
         serial: row.Serial,
         itemName: row.Name,
         submit: row.Quantity,
-        submitMax: parseInt(row.Quantity),
+        submitMax: Number(row.Quantity),
         buyType: buyType,
         sourceBuyType: buyType,
         buyOrSellName: row.BuyOrSell == 0 ? '多' : '空',
