@@ -36,6 +36,9 @@ export default {
   setCustomSetting(state, type) {
     state.localStorage.customSetting[type] = !state.localStorage.customSetting[type]
   },
+  setTheme(state, type) {
+    state.localStorage.customSetting.theme = type
+  },
   setMainStyle(state, type) {
     state.localStorage.customSetting.mainStyle = type
   },

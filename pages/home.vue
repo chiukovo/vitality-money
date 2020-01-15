@@ -71,18 +71,34 @@ export default {
   head() {
     return {
       htmlAttrs: {
-        class: 'gennki'
+        class: 'gennki ' + this.themeStyle
       }
     }
   },
+  data() {
+    return {
+      themeStyle: 'default'
+    }
+  },
   computed: mapState({
-    mainStyle: state => state.localStorage.customSetting.mainStyle
+    mainStyle: state => state.localStorage.customSetting.mainStyle,
+    theme: state => state.localStorage.customSetting.theme,
   }),
+  watch: {
+    theme(style) {
+      this.themeStyle = style
+    },
+  },
   beforeMount() {
     this.checkDevice()
   },
   mounted() {
     let _this = this
+
+    if (typeof this.theme != 'undefined') {
+      this.themeStyle = this.theme
+    }
+
     this.checkLogin()
   },
   methods: {

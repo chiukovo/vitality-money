@@ -504,7 +504,6 @@ export default {
       winPointDialog: false,
       profitPointDialog: false,
       valueDateInterval: [],
-      allCommodity: [],
       openEditPointRow: [],
       selectToDelete: [],
       multiOrderData: [],
@@ -519,6 +518,16 @@ export default {
     this.token = this.$store.state.localStorage.userAuth.token
     this.lang = this.$store.state.localStorage.lang
     this.isMobile = this.$store.state.isMobile
+  },
+  computed: mapState({
+    mainItem: 'mainItem',
+  }),
+  watch: {
+    mainItem() {
+      if (this.lossPointDialog || this.winPointDialog || this.profitPointDialog) {
+        this.computedPointLimit()
+      }
+    },
   },
   methods: {
     changeDayCover(row) {
@@ -683,7 +692,7 @@ export default {
       //會員最低停損點數
       let memberStopPoint = 0
 
-      this.allCommodity.forEach(function(val) {
+      this.$store.state.commidyArray.forEach(function(val) {
         if (val.ID == row.ID) {
           memberStopPoint = val.StopPoint
         }
@@ -697,40 +706,59 @@ export default {
       this.editPoint.stopPoint = memberStopPoint
       this.editPoint.buyOrSellName = row.BuyOrSell == 0 ? '多' : '空'
 
+      this.computedPointLimit()
+    },
+    computedPointLimit() {
+      const row = this.openEditPointRow
+      //商品現價
+      const allNowPrices = this.$store.state.nowNewPrice
+      let nowPrice = allNowPrices[row.ID]
+
+      //買單or賣單
+      const buyOrSell = row.BuyOrSell
+      //成交價
+      let finalPrice = row.FinalPrice == '' ? row.OrderPrice : row.FinalPrice
+      //目前獲利點數
+      let nowWin = 0
+      //目前損失點數
+      let nowLoss = 0
+
       //新損
-      if (type == 'lossPointDialog') {
-        //買單的話：成交點數 - 商品現在價格
-        if (buyOrSell == 0) {
-          nowLoss = finalPrice - nowPrice
-        } else {
-          //賣單的話：商品現在價格 - 成交點數
-          nowLoss = nowPrice - finalPrice
-        }
-        //獲利點數
-        this.editPoint.limitPoint = nowLoss
-      } else if (type == 'winPointDialog') {
-        //新獲利
-        //買單的話：商品現在價格 - 成交點數
-        if (buyOrSell == 0) {
-          nowWin = nowPrice - finalPrice
-        } else {
-          //賣單的話：成交點數 - 商品現在價格
-          nowWin = finalPrice - nowPrice
-        }
-        //獲利點數
-        this.editPoint.limitPoint = nowWin
-      } else if (type == 'profitPointDialog') {
-        //新倒利
-        //買單的話：商品現在價格 - 成交點數
-        if (buyOrSell == 0) {
-          nowWin = nowPrice - finalPrice
-        } else {
-          //賣單的話：成交點數 - 商品現在價格
-          nowWin = finalPrice - nowPrice
-        }
-        //獲利點數
-        this.editPoint.limitPoint = nowWin
+      //買單的話：成交點數 - 商品現在價格
+      if (buyOrSell == 0) {
+        nowLoss = finalPrice - nowPrice
+      } else {
+        //賣單的話：商品現在價格 - 成交點數
+        nowLoss = nowPrice - finalPrice
       }
+
+      nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
+
+      this.editPoint.limitPoint = nowLoss
+      //新獲利
+      //買單的話：商品現在價格 - 成交點數
+      if (buyOrSell == 0) {
+        nowWin = nowPrice - finalPrice
+      } else {
+        //賣單的話：成交點數 - 商品現在價格
+        nowWin = finalPrice - nowPrice
+      }
+
+      nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
+
+      this.editPoint.limitPoint = nowLoss
+      //新倒利
+      //買單的話：商品現在價格 - 成交點數
+      if (buyOrSell == 0) {
+        nowWin = nowPrice - finalPrice
+      } else {
+        //賣單的話：成交點數 - 商品現在價格
+        nowWin = finalPrice - nowPrice
+      }
+
+      nowWin = nowWin > this.editPoint.stopPoint ? nowWin : this.editPoint.stopPoint
+
+      this.editPoint.limitPoint = nowWin
     },
     doEditPoint() {
       let sendText = ''

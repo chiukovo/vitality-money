@@ -49,10 +49,10 @@
       li.nav-item
         a.nav-link(href="#") 換膚
         .dropdown-menu.dropdown-theme
-          a.dropdown-item(href="#")
+          a.dropdown-item( :class="theme == 'default' ? 'is-theme' : ''" @click="changeTheme('default')")
             .color.blue
             span 藍色經典
-          a.dropdown-item.is-theme(href="#")
+          a.dropdown-item(:class="theme == 'black' ? 'is-theme' : ''" @click="changeTheme('black')")
             .color.black
             span 黑色幽默
       //- 音效關閉時, 添加 class .isShutdown
@@ -82,11 +82,10 @@ export default {
   components: {
     Dialog,
   },
-  mounted() {
-  },
-  computed: mapState([
-    'clickItemId',
-  ]),
+  computed: mapState({
+    clickItemId: 'clickItemId',
+    theme: state => state.localStorage.customSetting.theme,
+  }),
   watch: {
     clickItemId (nowItems) {
       let _this = this
@@ -111,6 +110,9 @@ export default {
     },
     setCustomSetting(type) {
       this.$store.commit('setCustomSetting', type)
+    },
+    changeTheme(type) {
+      this.$store.commit('setTheme', type)
     }
   }
 }
