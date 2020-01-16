@@ -67,11 +67,18 @@ $use-fadeInDown: true;
 
 //-------------- header
 .black {
+  .dropdown-theme {
+    .dropdown-item {
+      &.is-theme {
+        color: #ff0;
+      }
+    }
+  }
   .text__success {
-    color: #00a251;
+    color: #46d954;
   }
   .text__danger {
-    color: #ff0000;
+    color: #ef6a6d;
   }
   .button {
     color: #bbb;
@@ -99,11 +106,18 @@ $use-fadeInDown: true;
     color: #fff;
     background-color: #171717;
   }
+  .vxe-header--column {
+    color: #fff;
+    background: url('~static/images/theme_traditional/black/table_th_bg.png') #4278af;
+  }
   .vxe-table.has--height .vxe-table--empty-placeholder {
     color: #666;
   }
   .vxe-table.t--border .vxe-header--column, .vxe-table.t--border .vxe-body--column, .vxe-table.t--border .vxe-footer--column {
     border-right: 1px solid #494848;
+  }
+  .vxe-table.t--border .vxe-header--column {
+    border: 0;
   }
   .vxe-table .vxe-body--row .vxe-body--column {
     border-bottom: 1px solid #494848;
@@ -118,6 +132,10 @@ $use-fadeInDown: true;
     .userInfo-header {
     background: url('~static/images/theme_traditional/black/table_th_bg_big.png') #171717;
     }
+  }
+  .mainItem,
+  .vxe-table .vxe-table--header-wrapper .vxe-table--repair {
+    border-color: #333;
   }
   .operating {
     color: #fff;
@@ -318,7 +336,7 @@ $use-fadeInDown: true;
       position: relative;
       padding: 2px 8px 2px 20px !important;
       &.is-theme {
-        color: #ff0;
+        background: linear-gradient(180deg, #a9ceec, #3271af);
       }
     }
     .color {
