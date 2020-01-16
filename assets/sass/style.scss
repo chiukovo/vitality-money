@@ -67,6 +67,12 @@ $use-fadeInDown: true;
 
 //-------------- header
 .black {
+  .btn-Kline {
+    background: url('~static/images/theme_traditional/black/btn_kline.png');
+  }
+  .btn-Chart {
+    background: url('~static/images/theme_traditional/black/btn_chart.png');
+  }
   .dropdown-theme {
     .dropdown-item {
       &.is-theme {
@@ -79,6 +85,13 @@ $use-fadeInDown: true;
   }
   .text__danger {
     color: #ef6a6d;
+  }
+  .text__info {
+    color: #32d6e1;
+  }
+  .footer,
+  .el-dialog__header {
+    background: linear-gradient(to bottom,  #3d3d3d 0%,#131313 50%,#272727 100%);
   }
   .button {
     color: #bbb;
@@ -103,7 +116,7 @@ $use-fadeInDown: true;
   }
   .vxe-table .vxe-body--row,
   .vxe-table .vxe-table--header-wrapper, .vxe-table .vxe-table--body-wrapper, .vxe-table .vxe-table--footer-wrapper {
-    color: #fff;
+    color: #bbb;
     background-color: #171717;
   }
   .vxe-header--column {
@@ -122,20 +135,108 @@ $use-fadeInDown: true;
   .vxe-table .vxe-body--row .vxe-body--column {
     border-bottom: 1px solid #494848;
   }
+  .vxe-table .vxe-body--row.row--hover.row--current {
+    background-color: rgba(255,255,255,.2);
+  }
   .root,
-  .splitpanes.default-theme .splitpanes__splitter {
+  .chat,
+  .splitpanes.default-theme .splitpanes__splitter,
+  .splitpanes.default-theme .splitpanes__pane {
     background-color: #242424;
   }
+  .default-theme.splitpanes--horizontal > .splitpanes__splitter, .default-theme .splitpanes--horizontal > .splitpanes__splitter,
+  .default-theme.splitpanes--vertical > .splitpanes__splitter, .default-theme .splitpanes--vertical > .splitpanes__splitter,
+  .el-dialog__header,
+  .el-dialog__body,
+  .footer,
+  .userInfo,
+  .mainItem,
+  .itemDetail,
+  .history,
+  .history .tabs-nav,
+  .vxe-table .vxe-table--header-wrapper .vxe-table--repair,
+  .vxe-table:before,
+  .vxe-table:after,
+  .vxe-table .vxe-table--border-line:before,
+  .vxe-table .vxe-table--border-line:after,
+  .vxe-table:not(.b--style-none) .vxe-table--fixed-left-wrapper:before, .vxe-table:not(.b--style-none) .vxe-table--fixed-right-wrapper:before,
+  .chat,
+  .chat .chat-input-wrap {
+    border-color: #333;
+  }
+  .userInfo,
+  .itemDetail:before,
+  .itemDetail:after,
+  .history:after,
+  .history:before,
+  .userInfo:after,
+  .userInfo:before,
+  .mainItem:after,
+  .mainItem:before {
+    background-color: #333;
+  }
   .userInfo {
-    border: 1px solid #333;
-    background: #242424;
     .userInfo-header {
     background: url('~static/images/theme_traditional/black/table_th_bg_big.png') #171717;
     }
   }
-  .mainItem,
-  .vxe-table .vxe-table--header-wrapper .vxe-table--repair {
-    border-color: #333;
+  .itemDetail {
+    .itemDetail-header {
+      background-color: #232323;
+      .header__title {
+        color: #bbb;
+      }
+    }
+    .itemDetail-tabs .tabs__item {
+      color: #696969;
+      background: linear-gradient(to bottom,  #3e3e3e 0%, #161616 100%);
+      border-color: #000;
+      border-radius: 0;
+      &:hover, &.is-active {
+        color: #fff;
+        background: linear-gradient(to bottom,  #1a1a1a 0%, #0d0d0d 100%);
+        border-color:  #00384b;
+      }
+    }
+  }
+  .history {
+    color: #fff;
+    background-color: #232323;
+    .tabs-nav {
+      padding: 5px 0 0;
+      .tabs__item {
+        min-width: 95px;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(to bottom, #212121 0%,#595959 10%,#1d1d1d 50%,#1a1a1a 100%);
+        border-radius: 5px;
+        border: 1px solid #000;
+        margin: 0;
+        + .tabs__item {
+          &:after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 18px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,#ffffff 50%,rgba(255,255,255,0) 100%);
+            right: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+        &.is-active {
+          color: #00d7d7;
+          background: linear-gradient(to bottom, #212121 0%,#595959 10%,#1d1d1d 50%,#1a1a1a 100%);
+          border-color: #000 #144c60 #144c60 #144c60;
+        }
+        &:before, &:after {
+          display: none;
+        }
+      }
+    }
+  }
+  .chat .chat-input-wrap input.chat-input {
+    background-color: #191919;
   }
   .operating {
     color: #fff;
