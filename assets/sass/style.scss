@@ -73,12 +73,10 @@ $use-fadeInDown: true;
   .btn-Chart {
     background: url('~static/images/theme_traditional/black/btn_chart.png');
   }
-  .dropdown-theme {
-    .dropdown-item {
-      &.is-theme {
-        color: #ff0;
-      }
-    }
+  .header .dropdown-theme .dropdown-item.is-theme {
+    color: #ff0;
+    background: linear-gradient(to bottom,  #3d3d3d 0%,#222 50%,#272727 100%);
+    border-color: #000 #00384b #00384b #00384b;
   }
   .text__success {
     color: #46d954;
@@ -140,6 +138,7 @@ $use-fadeInDown: true;
   }
   .root,
   .chat,
+  .el-dialog__body,
   .splitpanes.default-theme .splitpanes__splitter,
   .splitpanes.default-theme .splitpanes__pane {
     background-color: #242424;
