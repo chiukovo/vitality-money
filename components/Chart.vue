@@ -16,7 +16,7 @@
         .change-icon
           .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
         div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
-    //-.linesp
+    .linesp
       label
         input(type="checkbox" v-model="crossEnable")
         span 成交價線
@@ -55,6 +55,8 @@ export default {
   data() {
     return {
       selectChartId: '',
+      crossEnable: true,
+      newestPriceLineEnable: true,
       options: {},
       name: '',
       optionCharts: {

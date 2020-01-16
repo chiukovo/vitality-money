@@ -861,3 +861,57 @@ button {
   width: 80px;
   height: 25px;
 }
+
+.badge {
+  display: inline-block;
+  padding: .3em .4em .25em .4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+}
+.badge-warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+
+.PriceBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .change-icon {
+    .icon-arrow-up {
+      border-color: transparent transparent #fff transparent;
+    }
+    .icon-arrow-down {
+      border-color: #fff transparent transparent transparent;
+    }
+  }
+}
+.fistrtitle {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    span {
+      padding: 0 2px;
+      font-size: 16px;
+      color: #000;
+      padding: 0 2px;
+    }
+    .bg__success, .bg__danger {
+      color: #fff;
+    }
+  }
+}

@@ -177,6 +177,32 @@ Vue.mixin({
     },
     getMoneyColor(target) {
       return target < 0 ? 'text__success' : 'text__danger'
+    },
+    findMainItemById(id) {
+      const mainItem = this.$store.state.mainItem
+      let target = ''
+
+      mainItem.forEach(function(val) {
+        if (id == val.product_id) {
+          target = val
+        }
+      })
+
+      return target
+    },
+    dayCoverIsDisabled(id) {
+      const mainItem = this.$store.state.mainItem
+      let disabled = false
+
+      mainItem.forEach(function(val) {
+        if (id == val.product_id) {
+          if (val.state != 2) {
+            disabled = true
+          }
+        }
+      })
+
+      return disabled
     }
   }
 })
