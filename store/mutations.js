@@ -30,6 +30,60 @@ export default {
       state.localStorage.remember.password = password
     }
   },
+  setMainItemClosedState(state, data) {
+    const itemId = data[0]
+    const mainItem = state.mainItem
+
+    mainItem = mainItem.map(function(val) {
+      if (val.product_id == itemId) {
+        if (data[1] == '3') {
+          val.state_name = '停止交易'
+        } else {
+          val.state_name = '未開盤'
+        }
+      }
+
+      return val
+    })
+  },
+  setMainItemOpenData(state, data) {
+    const itemId = data[0]
+    const mainItem = state.mainItem
+
+    mainItem = mainItem.map(function(val) {
+      if (val.product_id == itemId) {
+        val.state_name = '交易中'
+        val.yesterday_close_price = data[1]
+        val.total_qty = data[2]
+        val.open_price = data[5]
+        val.highest_price = data[6]
+        val.lowest_price = data[7]
+        val.weak = data[8]
+        val.month1 = data[9]
+        val.month3 = data[10]
+        val.month6 = data[11]
+        val.month12 = data[12]
+        val.year = data[13]
+      }
+
+      return val
+    })
+  },
+  setMainItemClosedData(state, data) {
+    const itemId = data[0]
+    const mainItem = state.mainItem
+
+    mainItem = mainItem.map(function(val) {
+      if (val.product_id == itemId) {
+        val.state_name = '未開盤'
+        val.yesterday_last_price = data[1]
+        val.open_date_time = data[2]
+        val.close_date_time = data[3]
+      }
+
+      return val
+    })
+  },
   setServiceMessages(state, data) {
     state.serviceMessages = data
   },
