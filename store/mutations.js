@@ -533,6 +533,7 @@ export default {
 
     //計算未平損益
     this.commit('computedUncovered', state.uncovered)
+
     //更新五檔
     //量價分布
     //分價揭示
@@ -588,7 +589,18 @@ export default {
       }
 
       // 此單未平損益 (要算手續費)，要更新在未平單上
-      val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity) - parseInt(val.TotalFee)
+      val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+
+
+      //也要計算買賣下單
+      state.buySell = state.buySell.map(function(buySell) {
+        if (buySell.Serial == val.Serial) {
+          buySell.thisSerialTotalMoney = val.thisSerialTotalMoney
+          buySell.thisSerialPointDiff = val.thisSerialPointDiff
+        }
+
+        return buySell
+      })
 
       result.push(val)
     })

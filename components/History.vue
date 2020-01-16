@@ -50,14 +50,14 @@
           vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
               input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
-          vxe-table-column(title='操作' width="120" align="center")
+          vxe-table-column(title='操作' width="80" align="center")
             template(slot-scope='scope')
-              button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
+              button.button(v-if="scope.row.Operation[0] || !notSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row)") 改
               //-改單
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
-              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
           vxe-table-column(title='不留倉')
-            template(slot-scope='scope')
+            template(slot-scope='scope' v-if="scope.row.Operation[2]")
               label.checkbox
                 input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)")
                 span.checkbox__label 不留倉
@@ -75,6 +75,9 @@
           vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
               button.button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEditPoint('winPointDialog', scope.row)") {{ Number(scope.row.WinPoint) }}
+          vxe-table-column(title='倒限(利)' align="center")
+            template(slot-scope='scope')
+              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('profitPointDialog', scope.row)") {{ Number(scope.row.InvertedPoint) }}
           vxe-table-column(field='OrderTime' width='150' title='下單時間')
           vxe-table-column(field='FinalTime' width='150' title='完成時間')
           vxe-table-column(title='狀態' width='110' fixed="right")
@@ -105,16 +108,17 @@
               input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
           vxe-table-column(title='操作' align="center")
             template(slot-scope='scope')
-              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平倉
+              button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
           vxe-table-column(title='不留倉')
-            template(slot-scope='scope')
+            template(slot-scope='scope' v-if="scope.row.Operation[2]")
               label.checkbox
                 input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)")
                 span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
-          vxe-table-column(title='型別')
+          vxe-table-column(title='買賣')
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
+          vxe-table-column(field='Odtype', title='型別')
           vxe-table-column(field='FinalPrice' title='成交價')
           vxe-table-column(field='Quantity' title='口數')
           vxe-table-column(field='TotalFee' title='手續費')
@@ -298,11 +302,11 @@
           span 類型:
             span.text__bold {{ editPoint.buyOrSellName }}
           span 成交:
-            span.text__bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-              span(v-if="editPoint.limitPoint >= 0" class="text__danger") (+{{editPoint.limitPoint}})
-              span(v-else class="text__success") ({{editPoint.limitPoint}})
+            span.text__bold {{ editPoint.finalPrice }}
+              span(v-if="editPoint.thisSerialPointDiff >= 0" class="text__danger") (+{{ editPoint.thisSerialPointDiff }})
+              span(v-else class="text__success") ({{ editPoint.thisSerialPointDiff }})
         p.text__center 新倒限利不得大於:
-          span.text__bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+          span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
         p.text__center 新倒限利需大於會員最低停損點數:
           span.text__bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
         p.text__center 新倒限利
@@ -313,7 +317,9 @@
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text__center 計算結果:
-          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitWinPoint + editPoint.price }}
+        p.text__center
+          input(class="point-computed" v-model="editPoint.computedPoint" @change="computedPointPrice")
       .dialog__footer
         button.button__light(@click="editPoint.price = 0") 清除設定
         button.button__light(@click="profitPointDialog = false") 取消
@@ -335,11 +341,11 @@
           span 類型:
             span.text__bold {{ editPoint.buyOrSellName }}
           span 成交:
-            span.text__bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-              span(v-if="editPoint.limitPoint >= 0" class="text__danger") (+{{editPoint.limitPoint}})
-              span(v-else class="text__success") ({{editPoint.limitPoint}})
+            span.text__bold {{ editPoint.finalPrice }}
+              span(v-if="editPoint.thisSerialPointDiff >= 0" class="text__danger") (+{{ editPoint.thisSerialPointDiff }})
+              span(v-else class="text__success") ({{ editPoint.thisSerialPointDiff }})
         p.text__center 新獲利點需大於:
-          span.text__bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+          span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
         p.text__center 新獲利點需大於會員最低停損點數:
           span.text__bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
         p.text__center 新獲利點
@@ -350,7 +356,9 @@
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text__center 計算結果:
-          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitWinPoint + editPoint.price }}
+        p.text__center
+          input(class="point-computed" v-model="editPoint.computedPoint" @change="computedPointPrice")
       .dialog__footer
         button.button__light(@click="editPoint.price = 0") 清除設定
         button.button__light(@click="winPointDialog = false") 取消
@@ -372,11 +380,11 @@
           span 類型:
             span.text__bold {{ editPoint.buyOrSellName }}
           span 成交:
-            span.text__bold {{ editPoint.nowPrice - editPoint.limitPoint }}
-              span(v-if="editPoint.limitPoint >= 0" class="text__danger") (+{{editPoint.limitPoint}})
-              span(v-else class="text__success") ({{editPoint.limitPoint}})
+            span.text__bold {{ editPoint.finalPrice }}
+              span(v-if="editPoint.thisSerialPointDiff >= 0" class="text__danger") (+{{ editPoint.thisSerialPointDiff }})
+              span(v-else class="text__success") ({{ editPoint.thisSerialPointDiff }})
         p.text__center 新損失點需大於:
-          span.text__bold.bg-colr-warring [ {{ editPoint.limitPoint }} ]
+          span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
         p.text__center 新損失點需大於會員最低停損點數:
           span.text__bold.bg-colr-warring [ {{ editPoint.stopPoint }} ]
         p.text__center 新損點
@@ -387,7 +395,9 @@
           button.button(@click="editPoint.price += 5") +5
           button.button(@click="editPoint.price += 10") +10
         p.text__center 計算結果:
-          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitPoint + editPoint.price }}
+          span.text__bold.bg-colr-danger {{ editPoint.nowPrice - editPoint.limitLossPoint + editPoint.price }}
+        p.text__center
+          input(class="point-computed" v-model="editPoint.computedPoint" @change="computedPointPrice")
       .dialog__footer
         button.button__light(@click="editPoint.price = 0") 清除設定
         button.button__light(@click="lossPointDialog = false") 取消
@@ -534,9 +544,14 @@ export default {
         itemId: '',
         serial: '',
         price: 0,
+        finalPrice: 0,
+        computedPoint: 0,
         nowPrice: 0,
-        limitPoint: 0,
+        limitWinPoint: 0,
+        limitLossPoint: 0,
         stopPoint: 0,
+        thisSerialPointDiff: 0,
+        thisSerialTotalMoney: 0,
         buyOrSellName: '',
         needLimit: true,
       },
@@ -599,6 +614,12 @@ export default {
     },
   },
   methods: {
+    notSetWinLoss(operation) {
+      return operation[0] == 0 && operation[1] == 0 && operation[2] == 0 && operation[4] == 0
+    },
+    computedPointPrice() {
+      this.editPoint.price = this.editPoint.computedPoint - this.editPoint.finalPrice
+    },
     changeDayCover(row) {
       const _this = this
       const setDayCover = row.DayCover ? 0 : 1
@@ -744,7 +765,7 @@ export default {
       }
     },
     openEditPoint(type, row) {
-      this.openEditPointRow = row
+      this.openEditPointRow = Object.assign({}, row)
       this.udpateEditPointData(type, row)
       //新損
       if (type == 'lossPointDialog') {
@@ -791,6 +812,8 @@ export default {
       this.editPoint.itemId = row.ID
       this.editPoint.serial = row.Serial
       this.editPoint.nowPrice = nowPrice
+      this.editPoint.finalPrice = finalPrice
+      this.editPoint.computedPoint = finalPrice
       this.editPoint.stopPoint = memberStopPoint
       this.editPoint.buyOrSellName = row.BuyOrSell == 0 ? '多' : '空'
 
@@ -798,9 +821,14 @@ export default {
     },
     computedPointLimit() {
       const row = this.openEditPointRow
+
       //商品現價
       const allNowPrices = this.$store.state.nowNewPrice
       let nowPrice = allNowPrices[row.ID]
+
+      this.editPoint.nowPrice = nowPrice
+      this.editPoint.thisSerialPointDiff = row.thisSerialPointDiff
+      this.editPoint.thisSerialTotalMoney = row.thisSerialTotalMoney
 
       //買單or賣單
       const buyOrSell = row.BuyOrSell
@@ -822,7 +850,7 @@ export default {
 
       nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
 
-      this.editPoint.limitPoint = nowLoss
+      this.editPoint.limitLossPoint = nowLoss
       //新獲利
       //買單的話：商品現在價格 - 成交點數
       if (buyOrSell == 0) {
@@ -834,7 +862,7 @@ export default {
 
       nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
 
-      this.editPoint.limitPoint = nowLoss
+      this.editPoint.limitLossPoint = nowLoss
       //新倒利
       //買單的話：商品現在價格 - 成交點數
       if (buyOrSell == 0) {
@@ -846,7 +874,7 @@ export default {
 
       nowWin = nowWin > this.editPoint.stopPoint ? nowWin : this.editPoint.stopPoint
 
-      this.editPoint.limitPoint = nowWin
+      this.editPoint.limitWinPoint = nowWin
     },
     doEditPoint() {
       let sendText = ''
@@ -855,14 +883,24 @@ export default {
       if (this.editPoint.price != 0) {
         if (this.editPoint.type == 'profitPointDialog') {
           //倒利限
-          if (this.editPoint.price >= this.editPoint.limitPoint && this.editPoint.needLimit) {
-            this.$alert('不得大於: ' + this.editPoint.limitPoint + '點', '警告!')
+          if (this.editPoint.price >= this.editPoint.limitWinPoint && this.editPoint.needLimit) {
+            this.$alert('不得大於: ' + this.editPoint.limitWinPoint + '點', '警告!')
             return
           }
-          //損+利
-        } else {
-          if (this.editPoint.price <= this.editPoint.limitPoint && this.editPoint.needLimit) {
-            this.$alert('必須大於: ' + this.editPoint.limitPoint + '點', '警告!')
+        }
+
+        if (this.editPoint.type == 'lossPointDialog') {
+          //損
+          if (this.editPoint.price < this.editPoint.limitLossPoint && this.editPoint.needLimit) {
+            this.$alert('不得小於: ' + this.editPoint.limitLossPoint + '點', '警告!')
+            return
+          }
+        }
+
+        if (this.editPoint.type == 'winPointDialog') {
+          //利
+          if (this.editPoint.price < this.editPoint.limitWinPoint && this.editPoint.needLimit) {
+            this.$alert('不得小於: ' + this.editPoint.limitWinPoint + '點', '警告!')
             return
           }
         }

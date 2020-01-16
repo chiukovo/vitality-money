@@ -1,7 +1,30 @@
 <template lang="pug">
 .highcharts(class="h-100")
+  .linesp-wrap
+    .linesp 昨收
+      span.number {{ nowMainItem.yesterday_close_price }}
+    .linesp 開
+      span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
+    .linesp 高
+      span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
+    .linesp 低
+      span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
+    .linesp 成交
+      span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
+    .linesp 漲跌
+      span
+        .change-icon
+          .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+        div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
+    //-.linesp
+      label
+        input(type="checkbox" v-model="crossEnable")
+        span 成交價線
+      label
+        input(type="checkbox" v-model="newestPriceLineEnable")
+        span 十字線
   h1(style="text-align: center" v-if="name != ''") {{ name }}
-  highcharts(v-if="selectChartId.length > 0" :options="options" class="h-100")
+  highcharts(v-if="selectChartId.length > 0" :options="options" style="height: calc(100% - 30px);")
   div(v-loading="loading" v-else class="h-100")
 </template>
 
@@ -89,9 +112,10 @@ export default {
       chart.tooltip.refresh(points[points.length -1])
     },
   },
-  computed: mapState([
-    'chartId',
-  ]),
+  computed: mapState({
+    chartId: 'chartId',
+    nowMainItem: 'nowMainItem',
+  }),
   mounted () {
     Object.assign(this.optionCharts, {
       strock_border_color: 'white',
@@ -134,6 +158,13 @@ export default {
     }
   },
   methods: {
+    checkNumberColor(target) {
+      if (this.nowMainItem.yesterday_close_price == target) {
+        return 'number'
+      }
+
+      return this.nowMainItem.yesterday_close_price < target ? 'text__success' : 'text__danger'
+    },
     startChart(chartId) {
       const _this = this
       this.selectChartId = chartId

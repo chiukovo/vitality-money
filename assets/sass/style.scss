@@ -775,6 +775,31 @@ button {
   background: url('~static/images/theme_traditional/btn_chart.png');
 }
 
+.linesp-wrap {
+  display: flex;
+  align-items: center;
+  &.statistics {
+    .linesp {
+      color: #828282;
+    }
+  }
+}
+.linesp {
+  font-size: 18px;
+  color: #000;
+  margin-left: 10px;
+  .number {
+    color: #333;
+  }
+  span {
+    margin-left: 5px;
+  }
+  input[type=checkbox] {
+    height: 16px;
+    margin-left: 10px;
+  }
+}
+
 // form
 .label {
   font-size: 12px;
@@ -1073,6 +1098,11 @@ button {
   }
 }
 
+//input
+.point-computed {
+  width: 80px;
+  height: 25px;
+}
 
 //-------------- scrollbar
 // scrollbar background
