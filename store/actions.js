@@ -155,12 +155,7 @@ export default {
       	Params: params.id + ',minone,' + params.num + ',' + params.type,
     }))
     .then(response => {
-      if (params.type == 'kline') {
-        commit('setkLineData', {
-          data: response.data,
-          type: params.type
-        })
-      } else if (params.type == 'chart') {
+      if (params.type == 'chart') {
         commit('setChartData', {
           id: params.id,
           data: response.data,

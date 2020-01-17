@@ -927,11 +927,23 @@ export default {
     }
 
     if (state.onChatUpdate) {
+      let highest
+      let lowest
+      if (the_now_data.last > state.nowMainItem.highest_price) {
+        highest = the_now_data.last
+        lowest = state.nowMainItem.lowest_price
+      } else if (the_now_data.last < state.nowMainItem.lowest_price) {
+        highest = state.nowMainItem.highest_price
+        lowest = the_now_data.last
+      }
+
       state.onChatUpdate({
         isNewPoint,
         time: the_now_data.time,
         price: the_now_data.last,
         volume: lastVolumeData[1],
+        highest,
+        lowest,
       })
     }
   },
@@ -946,11 +958,17 @@ export default {
     state.chartId = id
   },
   setChartData(state, response) {
+    const _this = this;
+    if (!state.nowMainItem.open_date_time) {
+      setTimeout(() => {
+        _this.commit('setChartData', response);
+      }, 2000);
+      return;
+    }
     state.chartData = []
     state.chartCrossData = []
     state.chartVolumeData = []
-    this.commit('setChartId', response.id)
-
+    
     const reference = state.nowMainItem.yesterday_close_price
     let open_date_time = new Date(state.nowMainItem.open_date_time).getTime()
     let close_date_time = new Date(state.nowMainItem.close_date_time).getTime()
@@ -1013,7 +1031,6 @@ export default {
         }
 
         if (state.chartData.length > 0) {
-
           if(last_time > 0 && open_date_time > last_time) {
             open_date_time = dateTime
             close_date_time = last_time
@@ -1025,10 +1042,11 @@ export default {
           ]
         } else {
           state.chartCrossData = [
-            [0, 0]
           ]
         }
       }
+
+      this.commit('setChartId', response.id)
     }
   },
   setkLineData(state, data) {
