@@ -42,7 +42,7 @@
                   vxe-table-column(title='操作' align="center" width="142")
                     template(slot-scope='scope')
                       input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
-                      button.button(v-if="scope.row.Operation[0] || !notSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'edit')") 改
+                      button.button(v-if="scope.row.Operation[0] || !cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'edit')") 改
                       button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
                   vxe-table-column(title='不留倉')
@@ -58,10 +58,10 @@
                   vxe-table-column(field='Odtype' title='型別')
                   vxe-table-column(title='損失點數' align="center")
                     template(slot-scope='scope')
-                      button.button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'loss')") {{ Number(scope.row.LossPoint) }}
+                      button.button.button__success(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'loss')") {{ Number(scope.row.LossPoint) }}
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
-                      button.button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
+                      button.button.button__danger(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
                   vxe-table-column(title='倒限(利)' align="center")
                     template(slot-scope='scope')
                       button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEdit(scope.row, 'inverted')") {{ Number(scope.row.InvertedPoint) }}
@@ -84,6 +84,13 @@
                 button.button(@click="multiOrderAllClick(true)") 全選
                 button.button(@click="multiOrderAllClick(false)") 全不選
                 button.button(@click="openMultiOrder") 平倉
+                div(style="margin: 10px") 損益設定
+                  label.radio.inline
+                    input.radio__input(type="radio" v-model='pointInputType' value='1')
+                    span.radio__label 點數輸入
+                  label.radio.inline
+                    input.radio__input(type="radio" v-model='pointInputType' value='2')
+                    span.radio__label 行情輸入
             .area(style="height: calc(100% - 40px); overflow-y: scroll;")
               client-only
                 vxe-table(
@@ -117,10 +124,10 @@
                   vxe-table-column(field='TotalFee', title='手續費')
                   vxe-table-column(title='損失點數' align="center")
                     template(slot-scope='scope')
-                      button.button.button__success(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'loss')") {{ Number(scope.row.LossPoint) }}
+                      button.button.button__success(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'loss')") {{ Number(scope.row.LossPoint) }}
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
-                      button.button.button__danger(:disabled="canSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
+                      button.button.button__danger(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
                   vxe-table-column(title='倒限(利)' align="center")
                     template(slot-scope='scope')
                       button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEdit(scope.row, 'inverted')") {{ Number(scope.row.InvertedPoint) }}
@@ -217,10 +224,10 @@
                   vxe-table-column(field='Odtype' title='型別')
                   vxe-table-column(title='損失點數' align="center")
                     template(slot-scope='scope')
-                      button.button__success(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('lossPointDialog', scope.row)") {{ Number(scope.row.LossPoint) }}
+                      button.button.button__success(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'loss')") {{ Number(scope.row.LossPoint) }}
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
-                      button.button__danger(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEditPoint('winPointDialog', scope.row)") {{ Number(scope.row.WinPoint) }}
+                      button.button.button__danger(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
                   vxe-table-column(field='OrderTime' width="180px" title='下單時間')
                   vxe-table-column(field='FinalTime' width="180px" title='完成時間')
                   vxe-table-column(title='狀態' width='150px')
@@ -314,21 +321,40 @@
                   span.radio__label 限價單
               el-form-item(label="限價" v-if="edit.buyType == '1'")
                 el-input-number(v-model="edit.nowPrice")
-            .win-point(v-if="editType == 'win' || editType == 'edit'")
-              p.pl-15 新獲利點需大於:
-                span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
-              el-form-item(label="獲利點")
-                el-input-number(v-model="edit.winPoint")
-            .loss-point(v-if="editType == 'loss' || editType == 'edit'")
-              p.pl-15 新損失點需大於:
-                span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
-              el-form-item(label="損失點")
-                el-input-number(v-model="edit.lossPoint")
-            .inverted-point(v-if="editType == 'inverted' || editType == 'edit'")
-              p.pl-15 新倒限利不得大於:
-                span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
-              el-form-item(label="倒限點")
-                el-input-number(v-model="edit.invertedPoint")
+            //-點數輸入
+            .point-input(v-show="pointInputType == 1")
+              .win-point(v-if="editType == 'win' || editType == 'edit'")
+                p.pl-15 新獲利點需大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
+                el-form-item(label="獲利點")
+                  el-input-number(v-model="edit.winPoint")
+              .loss-point(v-if="editType == 'loss' || editType == 'edit'")
+                p.pl-15 新損失點需大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
+                el-form-item(label="損失點")
+                  el-input-number(v-model="edit.lossPoint")
+              .inverted-point(v-if="editType == 'inverted' || editType == 'edit'")
+                p.pl-15 新倒限利不得大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
+                el-form-item(label="倒限點")
+                  el-input-number(v-model="edit.invertedPoint")
+            //-行情輸入
+            .money-input(v-show="pointInputType == 2")
+              .win-point(v-if="editType == 'win' || editType == 'edit'")
+                p.pl-15 新獲利點需大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
+                el-form-item(label="獲利點")
+                  el-input-number(v-model="changeWinPrice")
+              .loss-point(v-if="editType == 'loss' || editType == 'edit'")
+                p.pl-15 新損失點需大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPrice }} ]
+                el-form-item(label="損失點")
+                  el-input-number(v-model="changeLossPrice")
+              .inverted-point(v-if="editType == 'inverted' || editType == 'edit'")
+                p.pl-15 新倒限利不得大於:
+                  span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
+                el-form-item(label="倒限點")
+                  el-input-number(v-model="changeInvertedPrice")
           .badge.badge-warning 口數只能減少或不變， 損失點/ 獲利點 為
             span.badge-rr 點數
             | 設定
@@ -398,6 +424,8 @@ import "@/plugins/betListPoint.js"
 export default {
   data () {
     return {
+      //點數1 行情2
+      pointInputType: 1,
       documentShow: 0,
       checked: false,
       isMobile: '',
@@ -409,16 +437,6 @@ export default {
         end: '',
       },
       activeName: 'tabs1',
-      checked: false,
-      editDialog: false,
-      deleteConfirm: false,
-      multiOrderConfirm: false,
-      selectToDelete: [],
-      multiOrderData: [],
-      multiOrderSelect: [],
-      multiOrderAll: false,
-      multiDeleteData: [],
-      multiDeleteSelect: [],
     };
   },
   mounted() {
@@ -432,208 +450,92 @@ export default {
   }),
   watch: {
     mainItem() {
-      if (this.lossPointDialog || this.winPointDialog || this.profitPointDialog) {
+      if (this.editDialog) {
         this.computedPointLimit()
       }
     },
+    changeWinPrice(newData, oldData) {
+      const limitPoint = this.editPoint.limitWinPoint
+      const limitPrice = this.editPoint.limitWinPrice
+
+      //0案增加
+      if (oldData == 0 && newData == 1) {
+        //強制加到大於數值
+        this.edit.winPoint = limitPoint
+        this.changeWinPrice = limitPrice
+      } else if (oldData == limitPrice && newData == limitPrice - 1) {
+        this.edit.winPoint = 0
+        this.changeWinPrice = 0
+      } else if (Math.abs(newData - oldData) == 1) {
+        this.edit.winPoint += newData - oldData
+      }
+    },
+    'edit.winPoint': {
+      handler(newData, oldData) {
+        const limit = this.editPoint.limitWinPoint
+
+        //0案增加
+        if (oldData == 0 && newData == 1) {
+          //強制加到大於數值
+          this.edit.winPoint = limit
+        }
+
+        if (oldData == limit && newData == limit - 1) {
+          this.edit.winPoint = 0
+        }
+      },
+      immediate: true,
+    },
+    changeLossPrice(newData, oldData) {
+      const limitPoint = this.editPoint.limitLossPoint
+      const limitPrice = this.editPoint.limitLossPrice
+
+      //0案增加
+      if (oldData == 0 && newData == 1) {
+        //強制加到大於數值
+        this.edit.lossPoint = limitPoint
+        this.changeLossPrice = limitPrice
+      } else if (oldData == limitPrice && newData == limitPrice - 1) {
+        this.edit.lossPoint = 0
+        this.changeLossPrice = 0
+      } else if (Math.abs(newData - oldData) == 1) {
+        this.edit.lossPoint += newData - oldData
+      }
+    },
+    'edit.lossPoint': {
+      handler(newData, oldData) {
+        const limit = this.editPoint.limitLossPoint
+
+        //0案增加
+        if (oldData == 0 && newData == 1) {
+          //強制加到大於數值
+          this.edit.lossPoint = limit
+        }
+
+        if (oldData == limit && newData == limit - 1) {
+          //強制加到大於數值
+          this.edit.lossPoint = 0
+        }
+      },
+      immediate: true,
+    },
+    changeInvertedPrice(newData, oldData) {
+      this.edit.invertedPoint += newData - oldData
+    },
   },
   methods: {
-    notSetWinLoss(operation) {
-      return operation[0] == 0 && operation[1] == 0 && operation[2] == 0 && operation[4] == 0
-    },
-    computedPointPrice() {
-      this.editPoint.price = this.editPoint.computedPoint - this.editPoint.finalPrice
-    },
-    changeDayCover(row) {
-      const _this = this
-      const setDayCover = row.DayCover ? 0 : 1
-
-      axios.post(process.env.NUXT_ENV_API_URL + "/set_serial_daycover?lang=" + this.lang, qs.stringify({
-        UserID: this.userId,
-        Token: this.token,
-        DayCover: setDayCover,
-        DayCoverSerialId: row.Serial,
-      }))
-      .then(response => {
-        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
-        _this.$store.dispatch('CALL_MEMBER_INFO')
-      })
-    },
     handleDocument(e) {
 			this.documentShow = e
     },
-    canSetWinLoss(operation) {
+    cantSetWinLoss(operation) {
       return operation[0] == 0 && operation[1] == 0 && operation[2] == 0 && operation[4] == 0
-    },
-    openMultiOrder() {
-      let _this = this
-      this.multiOrderData = []
-
-      _this.multiOrderSelect.forEach(function(serial) {
-        _this.$store.state.uncovered.forEach(function(row) {
-          if (row.Serial == serial) {
-            _this.multiOrderData.push({
-              name: _this.$store.state.itemName,
-              userName: _this.$store.state.userInfo.Account,
-              buy: row.BuyOrSell == 0 ? '多' : '空',
-              price: row.Odtype,
-              submit: row.Quantity,
-              itemId: row.ID,
-              serial: row.Serial,
-            })
-          }
-        })
-      })
-
-      this.multiOrderConfirm = true
-    },
-    multiOrderAllClick(allChecked) {
-      let _this = this
-
-      if (!allChecked) {
-        _this.multiOrderSelect = []
-        return
-      }
-
-      _this.multiOrderSelect = _this.$store.state.uncovered.map(function(val) {
-        if (val.Operation[2]) {
-          return val.Serial
-        }
-      })
-    },
-    multiDeleteAllClick(allChecked) {
-      let _this = this
-
-      if (!allChecked) {
-        _this.multiDeleteSelect = []
-        return
-      }
-
-      _this.$store.state.buySell.forEach(function(val) {
-        if (val.Operation[1]) {
-          _this.multiDeleteSelect.push(val.Serial)
-        }
-      })
-    },
-    selectCheckDelete(row) {
-      if (row.Operation[0]) {
-        return true
-      }
-
-      return false
-    },
-    openMultiDelete() {
-      let _this = this
-      this.multiDeleteData = []
-
-      _this.multiDeleteSelect.forEach(function(serial) {
-        _this.$store.state.buySell.forEach(function(row) {
-          if (row.Serial == serial) {
-            _this.multiDeleteData.push({
-              name: row.Name,
-              userName: _this.$store.state.userInfo.Account,
-              buy: row.BuyOrSell == 0 ? '多' : '空',
-              price: row.Odtype,
-              submit: row.Quantity,
-              itemId: row.ID,
-              serial: row.Serial,
-            })
-          }
-        })
-      })
-
-      if (this.$store.state.localStorage.customSetting.noConfirmDelete) {
-        this.doDelete()
-      } else {
-        this.deleteConfirm = true
-      }
-    },
-    selectionChangeDelete(target) {
-      let _this = this
-      this.multiDeleteData = []
-
-      target.forEach(function(row) {
-        _this.multiDeleteData.push({
-          name: _this.$store.state.itemName,
-          userName: _this.$store.state.userInfo.Account,
-          buy: row.BuyOrSell == 0 ? '多' : '空',
-          price: row.Odtype,
-          submit: row.Quantity,
-          itemId: row.ID,
-          serial: row.Serial,
-        })
-      })
     },
     checkRowShow({row, index}) {
       if (!row.show && !this.checked) {
         //return 'hide'
       }
     },
-    deleteOrder(row) {
-      this.multiDeleteData = []
-
-      this.multiDeleteData.push({
-        name: this.$store.state.itemName,
-        userName: this.$store.state.userInfo.Account,
-        buy: row.BuyOrSell == 0 ? '多' : '空',
-        price: row.Odtype,
-        submit: row.Quantity,
-        itemId: row.ID,
-        serial: row.Serial,
-      })
-
-      this.deleteConfirm = true
-    },
-    doDelete() {
-      let _this = this
-
-      this.multiDeleteData.forEach(function(val) {
-        //send
-        let sendText = 'e:' + _this.userId + ',0,' + val.itemId + ',0,0,0,0,' + val.serial + ',' + _this.token + ',' + _this.isMobile
-        _this.$socketOrder.send(sendText)
-      })
-
-      this.multiDeleteData = []
-      this.deleteConfirm = false
-    },
     handleClick() {},
-    doMultiCovered() {
-      if (this.multiOrderData.length > 0) {
-        let itemIdStr = ''
-        let serialStr = ''
-        const count = this.multiOrderData.length
-        let sendText
-
-        this.multiOrderData.forEach(function(val, key) {
-          if (count == key + 1) {
-            itemIdStr += val.itemId
-            serialStr += val.serial
-          } else {
-            itemIdStr += val.itemId + ';'
-            serialStr += val.serial + ';'
-          }
-        })
-
-        sendText = 't:' + this.userId + ',' + serialStr + ',' + this.token + ',' + this.isMobile + ',' + itemIdStr
-        this.$socketOrder.send(sendText)
-      }
-
-      this.multiOrderConfirm = false
-    },
-    doCovered(row, count) {
-      const isMobile = this.isMobile
-      const userId = this.userId
-      const token = this.token
-      let _this = this
-      let sendText
-
-      switch (count) {
-        case 1:
-          sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
-          _this.$socketOrder.send(sendText)
-          break
-      }
-    },
     buySelltableCellClassName({ row, column, columnIndex }) {
       //red
       if (columnIndex >= 0 && columnIndex <= 12) {
