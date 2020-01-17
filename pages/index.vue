@@ -4,6 +4,7 @@
 		a(href="#") http://xxx.xxx.cc
 		a(href="#") 加入最愛
 	.index-wrap
+		button.nav-login(@click="loginShow = !loginShow") 網頁版登入
 		button.button-login(@click="loginShow = !loginShow") 網頁版登入
 	.login-wrap(v-if="loginShow == true")
 		.login-wrap_inner
