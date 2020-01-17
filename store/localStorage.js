@@ -13,7 +13,7 @@ export const state = () => ({
   },
   remember: {
   	me: false,
-  	account: '123',
-  	password: '123',
+  	account: '',
+  	password: '',
   }
 })

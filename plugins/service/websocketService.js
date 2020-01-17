@@ -55,6 +55,8 @@ export default {
           let type = val.substring(0, 1)
           let res
           let result
+          let closeItems
+          let openItems
 
           if (val.length > 1) {
             res = val.substring(2).split(",")
@@ -96,6 +98,29 @@ export default {
               break
             case "c": //下單
               result = val.substring(2).split(",")
+              break
+            case "i": //收盤
+              closeItems = val.substring(2).split(",")
+
+              _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+              _this.$store.dispatch('CALL_MEMBER_INFO')
+
+              //更新收盤
+              _this.$store.commit('setMainItemClosedState', closeItems)
+              break
+            case "x": //商品close 通知， res[0] = 商品代碼 1=時間 2=開盤價
+              //若與現在再看得走勢圖相同，則重啟走勢圖
+              closeItems = val.substring(2).split(",")
+
+              //更新收盤資料
+              _this.$store.commit('setMainItemClosedData', closeItems)
+              break
+            case "a": //商品開盤通知， res[0] = 商品代碼 1=時間 2=開盤價
+              //若與現在再看得走勢圖相同，則重啟走勢圖
+              openItems = val.substring(2).split(",")
+
+              //更新開盤資料
+              _this.$store.commit('setMainItemOpenData', openItems)
               break
           }
         })

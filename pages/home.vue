@@ -97,6 +97,8 @@ export default {
 
     if (typeof this.theme != 'undefined') {
       this.themeStyle = this.theme
+    } else {
+      this.$store.commit('setTheme', 'default')
     }
 
     this.checkLogin()

@@ -93,7 +93,7 @@
         input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
         span.checkbox__label 該筆不留倉
       label.checkbox
-        input.checkbox__input(v-model="customGroup" type="checkbox" value="overall" @click="clickOverAll()")
+        input.checkbox__input(v-model="customGroup" type="checkbox" value="overall" :disabled="dayCoverIsDisabled(clickItemId)" @click="clickOverAll()")
         span.checkbox__label ({{ $store.state.itemName }})收盤全平
       label.checkbox
         input.checkbox__input(v-model="customGroup" type="checkbox" value="noConfirm")
@@ -159,6 +159,7 @@ export default {
   },
   computed: mapState([
     'clickItemId',
+    'commidyArray',
     'commidyArray',
   ]),
   watch: {

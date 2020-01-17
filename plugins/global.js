@@ -43,70 +43,17 @@ Vue.mixin({
       }
     },
     startToken() {
-      return 'a:test,test'
+      const userAuth = this.$store.state.localStorage.userAuth
+
+      if (typeof userAuth.token != 'undefined' && typeof userAuth.userId != 'undefined') {
+        return 'a:' + userAuth.userId + ',' + userAuth.token
+      }
+
+      return
     },
     playSuccessSound() {
       let audio = document.getElementById('successSound')
       audio.play()
-    },
-    dragMousemove(e) {
-      this.dragY = e.pageY
-      this.dragX = e.pageX
-    },
-    leftTopDragbarMove(e) {
-      const windowHeight = window.innerHeight
-      const headHeight = this.$el.querySelector('#header').offsetHeight
-      const footHeight = this.$el.querySelector('#footer').offsetHeight
-      const main = windowHeight - headHeight - footHeight - 20
-      let leftTopDragbar = document.getElementById('leftTopDragbar')
-
-      let userInfo = document.getElementById('userInfo')
-      let itemDetail = document.getElementById('itemDetail')
-
-      //限制最小高度
-      let resultUserInfo = e.pageY - headHeight - leftTopDragbar.offsetHeight
-      let source = windowHeight - headHeight - footHeight - 80
-      resultUserInfo = resultUserInfo < 194 ? 194 : resultUserInfo
-      let resultItemDetail = source - resultUserInfo
-
-      if (this.windowHeight > 750) {
-        resultUserInfo = resultUserInfo > 362 ? 362 : resultUserInfo
-        resultItemDetail = source - resultUserInfo
-      }
-
-      resultItemDetail = resultItemDetail > 601 ? 601 : resultItemDetail
-
-      this.$el.querySelector('#userInfo .userInfo').style.height = resultUserInfo + 'px'
-      this.$el.querySelector('#itemDetail .el-tabs').style.height = resultItemDetail + 'px'
-      this.$el.querySelector('#itemDetail').style.height = resultItemDetail + 40 + 'px'
-
-      if (this.windowHeight <= 755) {
-        this.$el.querySelector('#itemDetail .itemDetailTab1table').style.height = resultItemDetail - 105 + 'px'
-      }
-    },
-    leftDragbarMove(e) {
-      const windowWidth = window.innerWidth
-      let left = document.getElementById('mainLeft')
-      let right = document.getElementById('mainRight')
-
-      right.style.width = right.offsetWidth - this.sumX + 'px'
-      left.style.width = left.offsetWidth + this.sumX + 'px'
-    },
-    midDragbarMove(e) {
-      document.selection
-              ? document.selection.empty()
-              : window.getSelection().removeAllRanges()
-      const windowHeight = window.innerHeight
-      let midDragbar = document.getElementById('midDragbar')
-      let mainTable = document.getElementById('mainTable')
-      let historyScroll = document.getElementById('historyScroll')
-      let footer = document.getElementById('footer')
-      let operating = document.getElementById('operating')
-
-      mainTable.style.height = mainTable.offsetHeight + this.sumY + 'px'
-      historyScroll.style.height = historyScroll.offsetHeight - this.sumY + 'px'
-
-      this.historyTableMaxH = windowHeight - (operating.offsetHeight + footer.offsetHeight + e.pageY + 20) - 40
     },
     marketInfo () {
       return {
@@ -231,60 +178,31 @@ Vue.mixin({
     getMoneyColor(target) {
       return target < 0 ? 'text__success' : 'text__danger'
     },
-    resizeHeight () {
-      document.body.addEventListener('touchmove', function (e) {
-        e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
-      }, {passive: false});
+    findMainItemById(id) {
+      const mainItem = this.$store.state.mainItem
+      let target = ''
 
-      this.windowHeight = window.innerHeight
-      this.headHeight = this.$el.querySelector('#header').offsetHeight
-      this.footHeight = this.$el.querySelector('#footer').offsetHeight
-      // console.log(`windowHeight: ${this.windowHeight}`)
-      // console.log(`headHeight: ${this.headHeight}`)
-      // console.log(`footHeight: ${this.footHeight}`)
+      mainItem.forEach(function(val) {
+        if (id == val.product_id) {
+          target = val
+        }
+      })
 
-      //- *** main height ***
-      this.main = this.windowHeight - this.headHeight - this.footHeight - 20
-      this.$set(this.mainStyles, 'height', this.main + 'px')
-      // console.log(`mainHeight height: ${this.main}`)
+      return target
+    },
+    dayCoverIsDisabled(id) {
+      const mainItem = this.$store.state.mainItem
+      let disabled = false
 
-      //- *** UserInfo ***
-      this.userInfo = this.$el.querySelector('#userInfo').offsetHeight
-      // console.log(`UserInfo height: ${this.userInfo}`)
+      mainItem.forEach(function(val) {
+        if (id == val.product_id) {
+          if (val.state != 2) {
+            disabled = true
+          }
+        }
+      })
 
-      //- *** itemDetail ***
-      this.itemDetail = this.main - this.userInfo - 18
-      this.$set(this.itemDetailStyles, 'height', this.itemDetail + 'px')
-
-      //- for itemDetail table height
-      this.itemDetailHeader = this.$el.querySelector('#itemDetailHeader').offsetHeight
-      this.itemDetailTabs = this.$el.querySelector('#itemDetail .el-tabs__header').offsetHeight
-      this.itemDetailTable = this.itemDetail - this.itemDetailHeader - this.itemDetailTabs
-
-      if (this.windowHeight <= 755) {
-        this.itemDetailTableFive = this.itemDetail - 143
-      } else {
-        this.itemDetailTableFive = 314
-      }
-
-      this.itemDetailRow = this.itemDetail - this.itemDetailHeader
-      this.$el.querySelector('#itemDetail .el-tabs').style.height = this.itemDetailRow + 'px'
-
-      //- *** mainItem ***
-      //this.operating = this.$el.querySelector('#operating').offsetHeight
-      //this.history = this.$el.querySelector('#history').offsetHeight - this.operating
-      // console.log(`operating height: ${this.operating}`)
-      // console.log(`history height: ${this.history}`)
-
-      //this.mainItemTable = this.main - this.operating - this.history - this.operating
-      const sourceMainTable = this.$el.querySelector('#mainTable').offsetHeight
-      const operatingH = this.$el.querySelector('#operating').offsetHeight
-
-      this.mainItemTable = (this.main - operatingH) * 0.4 + 'px'
-      const historyH = (this.main - operatingH) * 0.6
-
-      this.$el.querySelector('#history .history').style.height =  historyH - 30 + 'px'
-      this.historyTableMaxH = historyH - 99 + 'px'
+      return disabled
     }
   }
 })

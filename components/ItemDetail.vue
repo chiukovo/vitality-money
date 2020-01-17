@@ -156,9 +156,9 @@ export default {
     tableCellClassName({ row, column, columnIndex }) {
       if(columnIndex >= 2) {
         if(row.change == 'up') {
-          return 'text__up';
+          return 'text__success';
         } else {
-          return 'text__down';
+          return 'text__danger';
         }
       }
     },

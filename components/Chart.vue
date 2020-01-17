@@ -1,5 +1,28 @@
 <template lang="pug">
 div(class="h-100")
+  .linesp-wrap
+    .linesp 昨收
+      span.number {{ nowMainItem.yesterday_close_price }}
+    .linesp 開
+      span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
+    .linesp 高
+      span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
+    .linesp 低
+      span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
+    .linesp 成交
+      span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
+    .linesp 漲跌
+      span
+        .change-icon
+          .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+        div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
+    .linesp
+      label
+        input(type="checkbox" v-model="crossEnable")
+        span 成交價線
+      label
+        input(type="checkbox" v-model="newestPriceLineEnable")
+        span 十字線
   div(id="self-highcharts" class="h-100" :class="{ crossSet: crossEnable }")
   div(v-loading="chartHide" v-show="!chartHide || chartId == ''" class="h-100")
 </template>
@@ -35,6 +58,8 @@ export default {
       lazyChanged: false,
       chartHide: false,
       selectChartId: '',
+      crossEnable: true,
+      newestPriceLineEnable: true,
       options: {},
       name: '',
       optionCharts: {
@@ -372,13 +397,19 @@ export default {
         chart_q_background: '#d1e9f3',
       });
     },
-    startChart(chartId, changeTheme) {
+    checkNumberColor(target) {
+      if (this.nowMainItem.yesterday_close_price == target) {
+        return 'number'
+      }
+
+      return this.nowMainItem.yesterday_close_price < target ? 'text__success' : 'text__danger'
+    },
+    startChart(chartId) {
       if (this.selectChartId == chartId && !changeTheme) {
         return;
       }
-
+  
       const _this = this
-
       this.selectChartId = chartId
       if (this.$store.state.chartData.length == 0) {
         return
