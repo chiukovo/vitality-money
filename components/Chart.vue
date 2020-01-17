@@ -18,10 +18,10 @@ div(class="h-100")
         div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
     .linesp
       label
-        input(type="checkbox" v-model="crossEnable")
+        input(type="checkbox" v-model="newestPriceLineEnable")
         span 成交價線
       label
-        input(type="checkbox" v-model="newestPriceLineEnable")
+        input(type="checkbox" v-model="crossEnable")
         span 十字線
   div(id="self-highcharts" class="h-100" :class="{ crossSet: crossEnable }")
   div(v-loading="chartHide" v-show="!chartHide || chartId == ''" class="h-100")
