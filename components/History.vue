@@ -300,7 +300,7 @@
     title='改價減量'
     v-dialogDrag)
     .header-custom(slot='title') 改價減量
-      .badge.badge-warning (點數)
+      .badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
     template
       .dialog__body
         .d-flex.justify-content-around.mb-3
@@ -376,7 +376,7 @@
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
               el-form-item(label="倒限點")
                 el-input-number(v-model="changeInvertedPrice")
-        .badge.badge-warning 口數只能減少或不變， 損失點/ 獲利點 為
+        .badge.badge-warning(v-show="editType == 'edit'") 口數只能減少或不變，損失點/獲利點/倒限點 為
           span.badge-rr 點數
           | 設定
       .dialog__footer
@@ -605,6 +605,11 @@ export default {
     },
     handleHistoryTabs(e) {
 			this.historyTabShow = e
+      
+      if (this.historyTabShow != 2) {
+        //reset
+        this.pointInputType = 1
+      }
 		},
     async query() {
       let _this = this

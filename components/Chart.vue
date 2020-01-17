@@ -43,16 +43,6 @@ if (typeof Highcharts === 'object') {
 
 export default {
   name: 'app',
-  props: {
-    crossEnable: {
-      type: Boolean,
-      default: true,
-    },
-    newestPriceLineEnable: {
-      type: Boolean,
-      default: true,
-    },
-  },
   data() {
     return {
       lazyChanged: false,
@@ -405,7 +395,7 @@ export default {
       return this.nowMainItem.yesterday_close_price < target ? 'text__success' : 'text__danger'
     },
     startChart(chartId) {
-      if (this.selectChartId == chartId && !changeTheme) {
+      if (this.selectChartId == chartId) {
         return;
       }
   
@@ -492,7 +482,6 @@ export default {
         return ''
       }
 
-console.log(this.$store.state.chartCrossData);
       Highcharts.chart('self-highcharts',
       {
         global: {
