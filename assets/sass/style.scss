@@ -910,6 +910,9 @@ button {
     }
   }
   .index-wrap {
+    .nav-login {
+      display: none;
+    }
     .button-login {
       position: absolute;
       top: 70px;
@@ -1036,6 +1039,14 @@ button {
       left: 226px;
       width: 202px;
       height: 81px;
+      opacity: 0;
+    }
+    .nav-login {
+      position: absolute;
+      top: 150px;
+      left: -455px;
+      width: 145px;
+      height: 60px;
       opacity: 0;
     }
   }
