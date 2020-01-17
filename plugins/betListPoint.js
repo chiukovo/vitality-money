@@ -1,9 +1,14 @@
 import Vue from 'vue'
+import axios from 'axios'
+import qs from 'qs'
 
 Vue.mixin({
   data() {
     return {
       editType: '',
+      changeLossPrice: 0,
+      changeWinPrice: 0,
+      changeInvertedPrice: 0,
       edit: {
         itemId: '',
         serial: '',
@@ -28,7 +33,9 @@ Vue.mixin({
         computedPoint: 0,
         nowPrice: 0,
         limitWinPoint: 0,
+        limitWinPrice: 0,
         limitLossPoint: 0,
+        limitLossPrice: 0,
         stopPoint: 0,
         thisSerialPointDiff: 0,
         thisSerialTotalMoney: 0,
@@ -36,14 +43,210 @@ Vue.mixin({
         needLimit: true,
       },
       editDialog: false,
+      editDialog: false,
+      deleteConfirm: false,
+      multiOrderConfirm: false,
       sourceEditData: [],
+      selectToDelete: [],
+      multiOrderData: [],
+      multiOrderSelect: [],
+      multiDeleteData: [],
+      multiDeleteSelect: [],
     }
   },
   methods: {
+    doMultiCovered() {
+      if (this.multiOrderData.length > 0) {
+        let itemIdStr = ''
+        let serialStr = ''
+        const count = this.multiOrderData.length
+        let sendText
+
+        this.multiOrderData.forEach(function(val, key) {
+          if (count == key + 1) {
+            itemIdStr += val.itemId
+            serialStr += val.serial
+          } else {
+            itemIdStr += val.itemId + ';'
+            serialStr += val.serial + ';'
+          }
+        })
+
+        sendText = 't:' + this.userId + ',' + serialStr + ',' + this.token + ',' + this.isMobile + ',' + itemIdStr
+        this.$socketOrder.send(sendText)
+      }
+
+      this.multiOrderConfirm = false
+    },
+    doCovered(row, count) {
+      const isMobile = this.isMobile
+      const userId = this.userId
+      const token = this.token
+      let _this = this
+      let sendText
+
+      this.$confirm('確認平倉' + row.Name + ' 序號: ' + row.Serial + '?', '注意! ', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        switch (count) {
+          case 1:
+            sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
+            _this.$socketOrder.send(sendText)
+            break
+        }
+      }).catch(() => {
+      })
+    },
+    deleteOrder(row) {
+      this.multiDeleteData = [{
+        name: this.$store.state.itemName,
+        userName: this.$store.state.userInfo.Account,
+        buy: row.BuyOrSell == 0 ? '多' : '空',
+        price: row.Odtype,
+        submit: row.Quantity,
+        itemId: row.ID,
+        serial: row.Serial,
+      }]
+
+      //如果勾選刪單不確認
+      if (this.$store.state.localStorage.customSetting.noConfirmDelete) {
+        this.doDelete()
+      } else {
+        this.deleteConfirm = true
+      }
+    },
+    doDelete() {
+      let _this = this
+
+      this.multiDeleteData.forEach(function(val) {
+        //send
+        let sendText = 'e:' + _this.userId + ',0,' + val.itemId + ',0,0,0,0,' + val.serial + ',' + _this.token + ',' + _this.isMobile
+        _this.$socketOrder.send(sendText)
+      })
+
+      this.multiDeleteData = []
+      this.deleteConfirm = false
+    },
+    openMultiDelete() {
+      let _this = this
+      this.multiDeleteData = []
+
+      _this.multiDeleteSelect.forEach(function(serial) {
+        _this.$store.state.buySell.forEach(function(row) {
+          if (row.Serial == serial) {
+            _this.multiDeleteData.push({
+              name: row.Name,
+              userName: _this.$store.state.userInfo.Account,
+              buy: row.BuyOrSell == 0 ? '多' : '空',
+              price: row.Odtype,
+              submit: row.Quantity,
+              itemId: row.ID,
+              serial: row.Serial,
+            })
+          }
+        })
+      })
+
+      if (this.$store.state.localStorage.customSetting.noConfirmDelete) {
+        this.doDelete()
+      } else {
+        this.deleteConfirm = true
+      }
+    },
+    openMultiOrder() {
+      let _this = this
+      this.multiOrderData = []
+
+      _this.multiOrderSelect.forEach(function(serial) {
+        _this.$store.state.uncovered.forEach(function(row) {
+          if (row.Serial == serial) {
+            _this.multiOrderData.push({
+              name: row.Name,
+              userName: _this.$store.state.userInfo.Account,
+              buy: row.BuyOrSell == 0 ? '多' : '空',
+              price: row.Odtype,
+              submit: row.Quantity,
+              itemId: row.ID,
+              serial: row.Serial,
+            })
+          }
+        })
+      })
+
+      this.multiOrderConfirm = true
+    },
+    multiDeleteAllClick(allChecked) {
+      let _this = this
+
+      if (!allChecked) {
+        _this.multiDeleteSelect = []
+        return
+      }
+
+      _this.$store.state.buySell.forEach(function(val) {
+        if (val.Operation[1]) {
+          _this.multiDeleteSelect.push(val.Serial)
+        }
+      })
+    },
+    multiOrderAllClick(allChecked) {
+      let _this = this
+
+      if (!allChecked) {
+        _this.multiOrderSelect = []
+        return
+      }
+
+      _this.multiOrderSelect = _this.$store.state.uncovered.map(function(val) {
+        if (val.Operation[2]) {
+          return val.Serial
+        }
+      })
+    },
+    changeDayCover(row) {
+      const _this = this
+      const setDayCover = row.DayCover ? 0 : 1
+
+      axios.post(process.env.NUXT_ENV_API_URL + "/set_serial_daycover?lang=" + this.lang, qs.stringify({
+        UserID: this.userId,
+        Token: this.token,
+        DayCover: setDayCover,
+        DayCoverSerialId: row.Serial,
+      }))
+      .then(response => {
+        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+        _this.$store.dispatch('CALL_MEMBER_INFO')
+      })
+    },
+    selectionChangeDelete(target) {
+      let _this = this
+      this.multiDeleteData = []
+
+      target.forEach(function(row) {
+        _this.multiDeleteData.push({
+          name: _this.$store.state.itemName,
+          userName: _this.$store.state.userInfo.Account,
+          buy: row.BuyOrSell == 0 ? '多' : '空',
+          price: row.Odtype,
+          submit: row.Quantity,
+          itemId: row.ID,
+          serial: row.Serial,
+        })
+      })
+    },
+    computedPointPrice() {
+      // 輸入新成交價 計算點數
+      this.editPoint.price = this.editPoint.computedPoint - this.editPoint.finalPrice
+    },
     openEdit(row, type) {
       this.editType = type
       this.editDialog = true
       let buyType = '0'
+      //成交價
+      let finalPrice = row.FinalPrice == '' ? row.OrderPrice : row.FinalPrice
+      finalPrice = Number(finalPrice)
 
       if (row.Odtype == '限價單' || row.Inverted == '1') {
         buyType = '1'
@@ -68,6 +271,19 @@ Vue.mixin({
         invertedPoint: Number(row.InvertedPoint),
       }
 
+      //行情
+      if (this.edit.winPoint != 0) {
+        this.changeWinPrice = this.edit.winPoint + finalPrice
+      }
+
+      if (this.edit.lossPoint != 0) {
+        this.changeLossPrice = this.edit.lossPoint + finalPrice
+      }
+      
+      if (this.edit.invertedPoint != 0) {
+        this.changeInvertedPrice = this.edit.invertedPoint + finalPrice
+      }
+      
       this.updateEditPointData(this.sourceEditData)
     },
     doEdit() {
@@ -187,9 +403,14 @@ Vue.mixin({
         nowLoss = nowPrice - finalPrice
       }
 
+      finalPrice = Number(finalPrice)
+
       nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
+      nowLoss = Number(nowLoss)
 
       this.editPoint.limitLossPoint = nowLoss
+      this.editPoint.limitLossPrice = nowLoss + finalPrice
+
       //新獲利
       //買單的話：商品現在價格 - 成交點數
       if (buyOrSell == 0) {
@@ -199,21 +420,11 @@ Vue.mixin({
         nowWin = finalPrice - nowPrice
       }
 
-      nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
-
-      this.editPoint.limitLossPoint = nowLoss
-      //新倒利
-      //買單的話：商品現在價格 - 成交點數
-      if (buyOrSell == 0) {
-        nowWin = nowPrice - finalPrice
-      } else {
-        //賣單的話：成交點數 - 商品現在價格
-        nowWin = finalPrice - nowPrice
-      }
-
       nowWin = nowWin > this.editPoint.stopPoint ? nowWin : this.editPoint.stopPoint
+      nowWin = Number(nowWin)
 
       this.editPoint.limitWinPoint = nowWin
+      this.editPoint.limitWinPrice = nowWin + finalPrice
     },
     updateEditPointData(row) {
       //商品現價

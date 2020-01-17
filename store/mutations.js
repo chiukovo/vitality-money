@@ -32,7 +32,7 @@ export default {
   },
   setMainItemClosedState(state, data) {
     const itemId = data[0]
-    const mainItem = state.mainItem
+    let mainItem = state.mainItem
 
     mainItem = mainItem.map(function(val) {
       if (val.product_id == itemId) {
@@ -48,22 +48,16 @@ export default {
   },
   setMainItemOpenData(state, data) {
     const itemId = data[0]
-    const mainItem = state.mainItem
+    let mainItem = state.mainItem
 
     mainItem = mainItem.map(function(val) {
       if (val.product_id == itemId) {
         val.state_name = '交易中'
-        val.yesterday_close_price = data[1]
-        val.total_qty = data[2]
-        val.open_price = data[5]
-        val.highest_price = data[6]
-        val.lowest_price = data[7]
-        val.weak = data[8]
-        val.month1 = data[9]
-        val.month3 = data[10]
-        val.month6 = data[11]
-        val.month12 = data[12]
-        val.year = data[13]
+        val.yesterday_close_price = Number(data[1])
+        val.total_qty = Number(data[2])
+        val.open_price = Number(data[5])
+        val.highest_price = Number(data[6])
+        val.lowest_price = Number(data[7])
       }
 
       return val
@@ -71,12 +65,12 @@ export default {
   },
   setMainItemClosedData(state, data) {
     const itemId = data[0]
-    const mainItem = state.mainItem
+    let mainItem = state.mainItem
 
     mainItem = mainItem.map(function(val) {
       if (val.product_id == itemId) {
         val.state_name = '未開盤'
-        val.yesterday_last_price = data[1]
+        val.yesterday_last_price = Number(data[1])
         val.open_date_time = data[2]
         val.close_date_time = data[3]
       }
@@ -121,7 +115,7 @@ export default {
   },
   computedMainItem(state, setting) {
     const _this = this
-    const mainItem = state.mainItem
+    let mainItem = state.mainItem
 
     let result = []
 
