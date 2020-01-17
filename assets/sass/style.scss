@@ -91,6 +91,9 @@ $use-fadeInDown: true;
   .el-dialog__header {
     background: linear-gradient(to bottom,  #3d3d3d 0%,#131313 50%,#272727 100%);
   }
+  button {
+    border-radius: 0;
+  }
   .button {
     color: #bbb;
     background: linear-gradient(to bottom,  #3d3d3d 0%,#131313 50%,#272727 100%);
@@ -138,7 +141,6 @@ $use-fadeInDown: true;
   }
   .root,
   .chat,
-  .el-dialog__body,
   .splitpanes.default-theme .splitpanes__splitter,
   .splitpanes.default-theme .splitpanes__pane {
     background-color: #242424;
@@ -146,7 +148,6 @@ $use-fadeInDown: true;
   .default-theme.splitpanes--horizontal > .splitpanes__splitter, .default-theme .splitpanes--horizontal > .splitpanes__splitter,
   .default-theme.splitpanes--vertical > .splitpanes__splitter, .default-theme .splitpanes--vertical > .splitpanes__splitter,
   .el-dialog__header,
-  .el-dialog__body,
   .footer,
   .userInfo,
   .mainItem,
@@ -1146,6 +1147,7 @@ button {
 
   li {
     display: flex;
+    align-items: center;
     span {
       padding: 0 2px;
       font-size: 16px;
