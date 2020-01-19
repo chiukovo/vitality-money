@@ -62,9 +62,6 @@
                   vxe-table-column(title='獲利點數' align="center")
                     template(slot-scope='scope')
                       button.button.button__danger(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
-                  vxe-table-column(title='倒限(利)' align="center")
-                    template(slot-scope='scope')
-                      button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEdit(scope.row, 'inverted')") {{ Number(scope.row.InvertedPoint) }}
                   vxe-table-column(field='OrderTime' width="180px" title='下單時間')
                   vxe-table-column(field='FinalTime' width="180px" title='完成時間')
                   vxe-table-column(title='狀態' width='150px')
@@ -278,8 +275,9 @@
       width="320px"
       title='改價減量'
       v-dialogDrag)
-      .header-custom(slot='title') 改價減量
-        .badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
+      .header-custom(slot='title')
+        span {{ editTitle }}
+        span.badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
       template
         .dialog__body
           .d-flex.justify-content-around.mb-3
@@ -314,11 +312,11 @@
                 el-input-number(v-model="edit.submit" :max="edit.submitMax" :step="0.25")
               el-form-item
                 label.radio.inline
-                  input.radio__input(type="radio" v-model='edit.buyType' value='0')
-                  span.radio__label 市價單
-                label.radio.inline
                   input.radio__input(type="radio" v-model='edit.buyType' value='1')
                   span.radio__label 限價單
+                label.radio.inline
+                  input.radio__input(type="radio" v-model='edit.buyType' value='0')
+                  span.radio__label 市價單
               el-form-item(label="限價" v-if="edit.buyType == '1'")
                 el-input-number(v-model="edit.nowPrice")
             //-點數輸入
@@ -333,7 +331,7 @@
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="edit.lossPoint")
-              .inverted-point(v-if="editType == 'inverted' || editType == 'edit'")
+              .inverted-point(v-if="editType == 'inverted'")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
                 el-form-item(label="倒限點")
@@ -350,7 +348,7 @@
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPrice }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="changeLossPrice")
-              .inverted-point(v-if="editType == 'inverted' || editType == 'edit'")
+              .inverted-point(v-if="editType == 'inverted'")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
                 el-form-item(label="倒限點")

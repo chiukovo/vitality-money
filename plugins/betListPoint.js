@@ -6,6 +6,7 @@ Vue.mixin({
   data() {
     return {
       editType: '',
+      editTitle: '',
       changeLossPrice: 0,
       changeWinPrice: 0,
       changeInvertedPrice: 0,
@@ -82,22 +83,38 @@ Vue.mixin({
       const isMobile = this.isMobile
       const userId = this.userId
       const token = this.token
+      //看是否有勾選下單不確認
+      let noConfirm = false
+      const customGroup = this.$cookies.get('customGroup')
       let _this = this
       let sendText
 
-      this.$confirm('確認平倉' + row.Name + ' 序號: ' + row.Serial + '?', '注意! ', {
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        switch (count) {
-          case 1:
-            sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
-            _this.$socketOrder.send(sendText)
-            break
+      customGroup.forEach(function(val){
+        if (val == 'noConfirm') {
+          noConfirm = true
         }
-      }).catch(() => {
       })
+
+      //如勾選下單不確認
+      if (noConfirm) {
+        sendText = 't:' + userId + ',' + row.Serial + ',' + token + ',' + isMobile + ',' + row.ID
+        _this.$socketOrder.send(sendText)
+        return
+      }
+
+      this.multiOrderData = []
+      _this.multiOrderData.push({
+        name: row.Name,
+        userName: _this.$store.state.userInfo.Account,
+        buy: row.BuyOrSell == 0 ? '多' : '空',
+        price: row.Odtype,
+        submit: row.Quantity,
+        itemId: row.ID,
+        serial: row.Serial,
+      })
+
+      this.multiOrderConfirm = true
+
     },
     deleteOrder(row) {
       this.multiDeleteData = [{
@@ -243,6 +260,17 @@ Vue.mixin({
     openEdit(row, type) {
       this.editType = type
       this.editDialog = true
+      //標題
+      if (type == 'win') {
+        this.editTitle = '獲利點數'
+      } else if (type == 'loss') {
+        this.editTitle = '損失點數'
+      } else if (type == 'inverted') {
+        this.editTitle = '倒限點'
+      } else if (type == 'edit') {
+        this.editTitle = '改價減量'
+      }
+
       let buyType = '0'
       //成交價
       let finalPrice = row.FinalPrice == '' ? row.OrderPrice : row.FinalPrice
@@ -279,11 +307,11 @@ Vue.mixin({
       if (this.edit.lossPoint != 0) {
         this.changeLossPrice = this.edit.lossPoint + finalPrice
       }
-      
+
       if (this.edit.invertedPoint != 0) {
         this.changeInvertedPrice = this.edit.invertedPoint + finalPrice
       }
-      
+
       this.updateEditPointData(this.sourceEditData)
     },
     doEdit() {

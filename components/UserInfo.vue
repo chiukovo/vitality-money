@@ -12,6 +12,7 @@
         size="small"
         column-min-width="80"
         border
+        auto-resize
         resizable)
         vxe-table-column(field='title' show-overflow width="130")
         vxe-table-column(field='info' show-overflow width="110")

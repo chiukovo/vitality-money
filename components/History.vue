@@ -47,9 +47,9 @@
           border
           auto-resize
           highlight-current-row)
-          vxe-table-column(width="50" align="center")
+          vxe-table-column(width="30" align="center")
             template(slot-scope='scope')
-              input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
+              input(class="m-0" type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
           vxe-table-column(title='操作' width="80" align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[0] || !cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'edit')") 改
@@ -75,9 +75,6 @@
           vxe-table-column(title='獲利點數' align="center")
             template(slot-scope='scope')
               button.button.button__danger(:disabled="cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'win')") {{ Number(scope.row.WinPoint) }}
-          vxe-table-column(title='倒限(利)' align="center")
-            template(slot-scope='scope')
-              button.button(:disabled="scope.row.Operation[3] == 0 ? true : false" @click="openEdit(scope.row, 'inverted')") {{ Number(scope.row.InvertedPoint) }}
           vxe-table-column(field='OrderTime' width='150' title='下單時間')
           vxe-table-column(field='FinalTime' width='150' title='完成時間')
           vxe-table-column(title='狀態' width='110' fixed="right")
@@ -112,7 +109,7 @@
           highlight-current-row)
           vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
-              input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
+              input(class="m-0" type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
           vxe-table-column(title='操作' align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
@@ -123,7 +120,7 @@
                 span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
-          vxe-table-column(title='買賣')
+          vxe-table-column(title='買賣' width="40")
             template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
           vxe-table-column(field='Odtype', title='型別')
           vxe-table-column(field='FinalPrice' title='成交價')
@@ -297,10 +294,10 @@
     :visible.sync='editDialog'
     :modal='false'
     width="320px"
-    title='改價減量'
     v-dialogDrag)
-    .header-custom(slot='title') 改價減量
-      .badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
+    .header-custom(slot='title')
+      span {{ editTitle }}
+      span.badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
     template
       .dialog__body
         .d-flex.justify-content-around.mb-3
@@ -335,11 +332,11 @@
               el-input-number(v-model="edit.submit" :max="edit.submitMax" :step="0.25")
             el-form-item
               label.radio.inline
-                input.radio__input(type="radio" v-model='edit.buyType' value='0')
-                span.radio__label 市價單
-              label.radio.inline
                 input.radio__input(type="radio" v-model='edit.buyType' value='1')
                 span.radio__label 限價單
+              label.radio.inline
+                input.radio__input(type="radio" v-model='edit.buyType' value='0')
+                span.radio__label 市價單
             el-form-item(label="限價" v-if="edit.buyType == '1'")
               el-input-number(v-model="edit.nowPrice")
           //-點數輸入
@@ -605,7 +602,7 @@ export default {
     },
     handleHistoryTabs(e) {
 			this.historyTabShow = e
-      
+
       if (this.historyTabShow != 2) {
         //reset
         this.pointInputType = 1

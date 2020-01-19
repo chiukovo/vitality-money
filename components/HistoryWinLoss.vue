@@ -10,7 +10,7 @@
           el-form-item(label='結束日期:')
             el-form-item
               el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
-          button.button(@click="query") 送出
+          button.button(type="button" @click="query") 送出
       .col-lg-auto
         span.label 快速查詢:
         button.button(@click="selectDayType('today')") 今日
