@@ -167,13 +167,13 @@ export default {
     newestPriceLineEnable(value) {
       const _this = this;
       if (value) {
-        ['crosshairX', 'labelY', 'circleX'].forEach(val => {
+        ['crosshairX', 'labelY'].forEach(val => {
           if (_this.chartLines[val]) {
             _this.chartLines[val].show();
           }
         });
       } else {
-        ['crosshairX', 'labelY', 'circleX'].forEach(val => {
+        ['crosshairX', 'labelY'].forEach(val => {
           if (_this.chartLines[val]) {
             _this.chartLines[val].hide();
           }
@@ -234,7 +234,7 @@ export default {
       }
 
       //initialize the X and Y component of the crosshairs (you can adjust the color and size of the crosshair lines here)
-      ['crosshairX', 'labelY', 'circleX',
+      ['crosshairX', 'labelY',
       'mouseLabelY', 'mouseLabelX',
       'mouseCrosshairX'].forEach(val => clearLine(val));
 
@@ -252,11 +252,11 @@ export default {
       }).add()
       .hide().toFront()
 
-      _this.chartLines.circleX = chart.renderer.circle(3, 3, 4).attr({
-        fill: '#F00',
-        stroke: 'white',
-        'stroke-width': 1
-      }).add().toFront().hide()
+      // _this.chartLines.circleX = chart.renderer.circle(3, 3, 4).attr({
+      //   fill: '#F00',
+      //   stroke: 'white',
+      //   'stroke-width': 1
+      // }).add().toFront().hide()
 
       _this.chartLines.mouseLabelY = chart.renderer.label('<div style="height:16px;line-height:16px;"></div>', -50, -50, 'callout', 520, 64, true)
         .css({
@@ -332,8 +332,8 @@ export default {
           _this.chartLines.crosshairX.show()
           _this.chartLines.crosshairX.translate(0, points[points.length - 1].plotY)
 
-          _this.chartLines.circleX.show()
-          _this.chartLines.circleX.translate(points[points.length - 1].plotX + chart.plotLeft - 2, points[points.length - 1].plotY + chart.plotTop - 2)
+          // _this.chartLines.circleX.show()
+          // _this.chartLines.circleX.translate(points[points.length - 1].plotX + chart.plotLeft - 2, points[points.length - 1].plotY + chart.plotTop - 2)
 
           _this.chartLines.labelY.show()
           _this.chartLines.labelY.translate(_this.chartLines.label_x, points[points.length - 1].plotY + chart.plotTop - _this.chartLines.labelY.height / 2)
@@ -819,8 +819,8 @@ export default {
         if (_this.newestPriceLineEnable) {
           _this.chartLines.crosshairX.show()
           _this.chartLines.crosshairX.translate(0, points[points.length - 1].plotY)
-          _this.chartLines.circleX.show()
-          _this.chartLines.circleX.translate(points[points.length - 1].plotX + chart.plotLeft - 2, points[points.length - 1].plotY + chart.plotTop - 2)
+          // _this.chartLines.circleX.show()
+          // _this.chartLines.circleX.translate(points[points.length - 1].plotX + chart.plotLeft - 2, points[points.length - 1].plotY + chart.plotTop - 2)
           _this.chartLines.labelY.show()
           _this.chartLines.labelY.translate(_this.chartLines.label_x, points[points.length - 1].plotY + chart.plotTop - _this.chartLines.labelY.height / 2)
           const tra_chart_array = [
