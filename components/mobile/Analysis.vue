@@ -11,8 +11,8 @@
 
     //-走勢圖表
     div(v-show="type == 1" class="h-100")
-      Chart(theme="black" style="height: calc(100% - 194px);")
-      .area(style="height: 144px;")
+      Chart(theme="black" style="height: calc(100% - 350px);")
+      .area(style="height: 350px;")
         client-only
           div(v-swiper:myswiper='swiperOption')
             .swiper-wrapper
