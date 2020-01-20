@@ -202,7 +202,7 @@ export default {
   methods: {
     checkChartHeight() {
       if (this.$store.state.isMobile) {
-        return 'height: calc(100% - 30px)'
+        return 'height: calc(100% - 25px)'
       }
     },
     updateExtreme(chart, nowMainItem) {
