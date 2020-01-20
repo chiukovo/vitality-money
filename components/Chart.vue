@@ -645,19 +645,19 @@ export default {
         },
         plotOptions: {
           area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 0.85
-              },
-              stops: [
-                [0, Highcharts.Color("#E61E19").setOpacity(0).get('rgba')],
-                [1, Highcharts.Color("#53AB35").setOpacity(0).get('rgba')]
-              ]
-            },
-
+            // fillColor: {
+            //   linearGradient: {
+            //     x1: 0,
+            //     y1: 0,
+            //     x2: 0,
+            //     y2: 0.85
+            //   },
+            //   stops: [
+            //     [0, Highcharts.Color("#E61E19").setOpacity(0).get('rgba')],
+            //     [1, Highcharts.Color("#53AB35").setOpacity(0).get('rgba')]
+            //   ]
+            // },
+            fillOpacity: 0.3,
             lineWidth: 2,
             states: {
               inactive: {
