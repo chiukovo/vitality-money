@@ -321,34 +321,34 @@
                 el-input-number(v-model="edit.nowPrice")
             //-點數輸入
             .point-input(v-show="pointInputType == 1")
-              .win-point(v-if="editType == 'win' || editType == 'edit'")
+              .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
                 p.pl-15 新獲利點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
                 el-form-item(label="獲利點")
                   el-input-number(v-model="edit.winPoint")
-              .loss-point(v-if="editType == 'loss' || editType == 'edit'")
+              .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
                 p.pl-15 新損失點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="edit.lossPoint")
-              .inverted-point(v-if="editType == 'inverted'")
+              .inverted-point.text__center(v-if="editType == 'inverted'")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
                 el-form-item(label="倒限點")
                   el-input-number(v-model="edit.invertedPoint")
             //-行情輸入
             .money-input(v-show="pointInputType == 2")
-              .win-point(v-if="editType == 'win' || editType == 'edit'")
+              .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
                 p.pl-15 新獲利點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
                 el-form-item(label="獲利點")
                   el-input-number(v-model="changeWinPrice")
-              .loss-point(v-if="editType == 'loss' || editType == 'edit'")
+              .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
                 p.pl-15 新損失點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPrice }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="changeLossPrice")
-              .inverted-point(v-if="editType == 'inverted'")
+              .inverted-point.text__center(v-if="editType == 'inverted'")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
                 el-form-item(label="倒限點")
