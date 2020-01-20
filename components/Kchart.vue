@@ -1,6 +1,6 @@
 <template lang='pug'>
 div(class="h-100")
-  .linesp-wrap
+  .linesp-wrap(v-show="!$store.state.isMobile")
     .linesp 昨收
       span.number {{ nowMainItem.yesterday_close_price }}
     .linesp 開

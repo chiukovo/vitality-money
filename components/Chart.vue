@@ -1,6 +1,6 @@
 <template lang="pug">
 div(class="h-100")
-  .linesp-wrap
+  .linesp-wrap(v-show="!$store.state.isMobile")
     .linesp 昨收
       span.number {{ nowMainItem.yesterday_close_price }}
     .linesp 開
@@ -23,7 +23,15 @@ div(class="h-100")
       label
         input(type="checkbox" v-model="crossEnable")
         span 十字線
-  div(id="self-highcharts" class="h-100" :class="{ crossSet: crossEnable }")
+  .linesp-wrap(v-show="$store.state.isMobile")
+    .linesp
+      label
+        input(type="checkbox" v-model="newestPriceLineEnable")
+        span 成交價線
+      label
+        input(type="checkbox" v-model="crossEnable")
+        span 十字線
+  div(id="self-highcharts" class="h-100" :style="checkChartHeight()" :class="{ crossSet: crossEnable }")
   div(v-loading="chartHide" v-show="!chartHide || chartId == ''" class="h-100")
 </template>
 
@@ -192,6 +200,11 @@ export default {
     },
   },
   methods: {
+    checkChartHeight() {
+      if (this.$store.state.isMobile) {
+        return 'height: calc(100% - 30px)'
+      }
+    },
     updateExtreme(chart, nowMainItem) {
       if (nowMainItem.yesterday_close_price) {
         let maxValue = nowMainItem.yesterday_close_price + parseInt(nowMainItem.yesterday_close_price * 0.001);
