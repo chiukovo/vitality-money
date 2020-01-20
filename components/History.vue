@@ -293,7 +293,7 @@
   el-dialog(
     :visible.sync='editDialog'
     :modal='false'
-    width="320px"
+    width="330px"
     v-dialogDrag)
     .header-custom(slot='title')
       span {{ editTitle }}
@@ -326,7 +326,7 @@
                 div(style="display: inline") {{ findMainItemById(edit.itemId).gain }}
               //-帳跌%
               span.ml-2 {{ findMainItemById(edit.itemId).gain_percent }}
-        el-form(ref='form' size='mini' label-width='70px')
+        el-form(ref='form' size='mini' label-width='94px')
           .edit-base(v-if="editType == 'edit'")
             el-form-item(label="口數")
               el-input-number(v-model="edit.submit" :max="edit.submitMax" :step="0.25")
