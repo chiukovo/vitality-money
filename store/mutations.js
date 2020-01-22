@@ -401,12 +401,12 @@ export default {
 
       commidyArray.forEach(function (commidy) {
         if (val.product_id == commidy.ID) {
-          newPoint = parseInt(commidy.NotNewPercent)
-          cover = parseInt(commidy.CoverPercent)
+          newPoint = Number(commidy.NotNewPercent)
+          cover = Number(commidy.CoverPercent)
         }
       })
 
-      val.yesterday_close_price = parseInt(val.yesterday_close_price)
+      val.yesterday_close_price = Number(val.yesterday_close_price)
 
       //參考價 +- 參考價*禁新%
       val.new_point1 = val.yesterday_close_price + val.yesterday_close_price * newPoint
@@ -469,7 +469,7 @@ export default {
     let itemId = data[0]
     let clickItemId = state.clickItemId
     let nowItems = data[1].split(",").map(function(item) {
-      return parseInt(item, 10)
+      return Number(item)
     })
 
     //k線圖資料更新判斷
@@ -624,20 +624,20 @@ export default {
       }
 
       // 取得點數現價差
-      let diff = parseInt(nowPrice) - parseInt(val.FinalPrice)
+      let diff = Number(nowPrice) - Number(val.FinalPrice)
       // 如果是買單
       if (val.BuyOrSell == 0) {
           // 此單未平點數
           val.thisSerialPointDiff = diff
           // 總共未平損益
-          state.totalUncoverLossWinMoney += diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          state.totalUncoverLossWinMoney += diff * Number(val.PointMoney) * Number(val.Quantity)
       } else {
           val.thisSerialPointDiff = diff * -1
-          state.totalUncoverLossWinMoney -= diff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+          state.totalUncoverLossWinMoney -= diff * Number(val.PointMoney) * Number(val.Quantity)
       }
 
       // 此單未平損益 (要算手續費)，要更新在未平單上
-      val.thisSerialTotalMoney = val.thisSerialPointDiff * parseInt(val.PointMoney) * parseInt(val.Quantity)
+      val.thisSerialTotalMoney = val.thisSerialPointDiff * Number(val.PointMoney) * Number(val.Quantity)
 
 
       //也要計算買賣下單
@@ -680,17 +680,17 @@ export default {
       state.items0.forEach(function(val, key) {
         if (key != 5) {
           if (val[1] != '') {
-            state.fiveTotal.more += parseInt(val[1])
+            state.fiveTotal.more += Number(val[1])
           }
 
           if (val[3] != '') {
-            state.fiveTotal.nullNum += parseInt(val[3])
+            state.fiveTotal.nullNum += Number(val[3])
           }
         }
       })
 
       //多勢 %
-      state.fiveTotal.morePercent = parseInt(100 / (state.fiveTotal.more + state.fiveTotal.nullNum) * state.fiveTotal.more)
+      state.fiveTotal.morePercent = Number(100 / (state.fiveTotal.more + state.fiveTotal.nullNum) * state.fiveTotal.more)
     }
   },
   setItemChange(state, history) {
@@ -725,7 +725,7 @@ export default {
     let formatData = []
 
     for (let i = 0; i < buyCount; i++) {
-      let buyNum = parseInt(five[i * 2 + 4])
+      let buyNum = Number(five[i * 2 + 4])
       if(fiveMax < buyNum) {
         fiveMax = buyNum
       }
@@ -733,7 +733,7 @@ export default {
     }
 
     for (let i = 0; i < sellCount; i++) {
-      let sellNum = parseInt(five[i * 2 + 4 + buyCount * 2])
+      let sellNum = Number(five[i * 2 + 4 + buyCount * 2])
       if(fiveMax < sellNum) {
         fiveMax = sellNum
       }
@@ -754,9 +754,9 @@ export default {
     //計算%
     for(let num = 0; num < fiveData.length; num++) {
       if (num <= 4) {
-        fiveData[num]['percent'] = parseInt((fiveData[num][2] / fiveMax) * 100)
+        fiveData[num]['percent'] = Number((fiveData[num][2] / fiveMax) * 100)
       } else {
-        fiveData[num]['percent'] = parseInt((fiveData[num][0] / fiveMax) * 100)
+        fiveData[num]['percent'] = Number((fiveData[num][0] / fiveMax) * 100)
       }
 
       fiveData[num]['newPrice'] = nowPrice
@@ -1040,7 +1040,7 @@ export default {
 
       if (items.length > 1) {
         const dateTime = new Date(items[0]).getTime()
-        let chartData = parseInt(items[1])
+        let chartData = Number(items[1])
 
         state.chartData.push([
           dateTime,
@@ -1053,17 +1053,17 @@ export default {
         ])
 
         let last_time = 0
-        let pi = parseInt(items.length / 150) * 3;
+        let pi = Number(items.length / 150) * 3;
         if (pi < 3) {
           pi = 3;
         }
         let localHigh = 0;
         let localLow = 9999999;
         for (let i = 3; i < items.length - 1; i += 3) {
-          const chartDateTime = dateTime + parseInt(items[i]) * 60000
-          chartData += parseInt(items[i + 1])
+          const chartDateTime = dateTime + Number(items[i]) * 60000
+          chartData += Number(items[i + 1])
 
-          if (parseInt(items[i]) > 0) {
+          if (Number(items[i]) > 0) {
             if (i % pi == 0 || !state.isMobile) {
               localHigh = chartData
               localLow = chartData
@@ -1073,7 +1073,7 @@ export default {
               ])
               state.chartVolumeData.push([
                 chartDateTime,
-                parseInt(items[i + 2])
+                Number(items[i + 2])
               ])
             } else {
               if (localHigh < chartData) {
@@ -1084,7 +1084,7 @@ export default {
                 localLow = chartData
                 state.chartData[state.chartData.length - 1][1] = chartData
               }
-              state.chartVolumeData[state.chartVolumeData.length - 1][1] += parseInt(items[i + 2])
+              state.chartVolumeData[state.chartVolumeData.length - 1][1] += Number(items[i + 2])
             }
             last_time = chartDateTime
           }
@@ -1190,7 +1190,7 @@ export default {
     //設定%數
     state.nowVolumeMoney[itemId] = state.nowVolumeMoney[itemId].map(function(dt) {
       dt['isNow'] = dt['price'] == nowPrice ? true : false
-      dt['percent'] = parseInt((dt['amount'] / amountMax) * 100)
+      dt['percent'] = Number((dt['amount'] / amountMax) * 100)
 
       return dt
     })
