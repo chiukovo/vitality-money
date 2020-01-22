@@ -32,16 +32,18 @@
       Analysis(@close-more="more = false")
     client-only
       vxe-table.table(
-      :data='mainItem',
-      :cell-class-name='tableCellClassName'
-      @cell-click="openItemDetail"
-      max-width="100%"
-      height="100%"
-      column-min-width="90"
-      size="mini"
-      border
-      auto-resize
-      highlight-current-row)
+        ref="xTable"
+        :data='mainItem',
+        :cell-class-name='tableCellClassName'
+        @cell-click="openItemDetail"
+        @scroll="vxeTableScrollEvent"
+        max-width="100%"
+        height="100%"
+        column-min-width="90"
+        size="mini"
+        border
+        auto-resize
+        highlight-current-row)
         vxe-table-column(title='商品' width='94' fixed="left")
           template(slot-scope='scope')
             span(class="self-item-color" @click.prevent.stop="clickChart(scope.row)") {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}

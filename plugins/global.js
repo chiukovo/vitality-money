@@ -1,7 +1,26 @@
 import Vue from 'vue'
 
 Vue.mixin({
+  data() {
+    return {
+      beforeScrollY: 0,
+      beforeScrollX: 0,
+    }
+  },
   methods: {
+    vxeTableScrollEvent({ scrollTop, scrollLeft, isX, isY }) {
+      if (isY) {
+        this.beforeScrollY = scrollTop
+      }
+
+      if (isX) {
+        this.beforeScrollX = scrollLeft
+      }
+
+      if (!isX && !isY) {
+        this.$refs.xTable.scrollTo(this.beforeScrollX, this.beforeScrollY)
+      }
+    },
     checkDevice() {
       const isMobile = this.$device.isMobile
       const name = this.$nuxt.$route.name.split('-')
