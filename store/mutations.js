@@ -1053,10 +1053,11 @@ export default {
         ])
 
         let last_time = 0
-        let pi = Number(items.length / 150) * 3;
+        let pi = parseInt(items.length / 150) * 3;
         if (pi < 3) {
           pi = 3;
         }
+
         let localHigh = 0;
         let localLow = 9999999;
         for (let i = 3; i < items.length - 1; i += 3) {
