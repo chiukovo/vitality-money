@@ -417,10 +417,22 @@ Vue.mixin({
       const buyOrSell = row.BuyOrSell
       //成交價
       let finalPrice = row.FinalPrice == '' ? row.OrderPrice : row.FinalPrice
+      finalPrice = Number(finalPrice)
+
       //目前獲利點數
       let nowWin = 0
       //目前損失點數
       let nowLoss = 0
+
+      //限價單
+      if (row.OrderPrice != 0 && row.FinalPrice == 0) {
+        this.editPoint.limitLossPoint = this.editPoint.stopPoint
+        this.editPoint.limitLossPrice = this.editPoint.stopPoint + row.OrderPrice
+        this.editPoint.limitWinPoint = this.editPoint.stopPoint
+        this.editPoint.limitWinPrice = this.editPoint.stopPoint + row.OrderPrice
+
+        return
+      }
 
       //新損
       //買單的話：成交點數 - 商品現在價格
@@ -430,8 +442,6 @@ Vue.mixin({
         //賣單的話：商品現在價格 - 成交點數
         nowLoss = nowPrice - finalPrice
       }
-
-      finalPrice = Number(finalPrice)
 
       nowLoss = nowLoss > this.editPoint.stopPoint ? nowLoss : this.editPoint.stopPoint
       nowLoss = Number(nowLoss)

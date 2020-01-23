@@ -1,1 +1,1 @@
-console.log('v1.2.1')
+console.log('v1.2.2')
