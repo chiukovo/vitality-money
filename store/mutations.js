@@ -7,6 +7,16 @@ let debounceKChart = false
 let debounceKChartData = []
 
 export default {
+  sendMessage (state, message) {
+    if (state.socket.isConnected) {
+      this._vm.$socket.send(message)
+    } else {
+      const _this = this;
+      setTimeout(() => {
+        _this.commit('sendMessage', message);
+      }, 500);
+    }
+  },
   setApiExample(state, data) {
     state.apiExampleData = data
   },
