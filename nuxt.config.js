@@ -2,7 +2,7 @@ require('dotenv').config()
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   head: {
     title: process.env.NUXT_ENV_WEB_TITLE || '',
     meta: [
@@ -48,7 +48,7 @@ module.exports = {
     '@nuxtjs/dotenv',
     '@nuxtjs/device',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
+    '@nuxtjs/component-cache',
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
     ['vue-currency-filter/nuxt', {
