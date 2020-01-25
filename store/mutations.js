@@ -91,45 +91,39 @@ export default {
     state.localStorage.customSetting.mainStyle = type
   },
   setCustomItemSetting(state, data) {
-    //default item 選擇第一筆
-    let first = true
-    let _this = this
-
-    if (data.length > 0) {
-      data.forEach(function(val){
-        if (val.show && first) {
-          state.clickItemId = val['id']
-          state.itemName = val['name']
-
-          _this._vm.$socket.send(_this._vm.paramBclickId(val['id']))
-
-          first = false
-        }
-      })
-    }
-
     state.customItemSetting = data
 
     //計算mainItem
-    this.commit('computedMainItem', data)
+    this.commit('computedMainItem')
   },
-  computedMainItem(state, setting) {
+  computedMainItem(state) {
     const _this = this
+    const setting = state.customItemSetting
+    let first = true
     let mainItem = state.mainItem
-
     let result = []
 
     mainItem.forEach(function(val) {
       //確認此筆是否要隱藏
-      let hide = false
+      //使用者設定
+      let userHide = false
       setting.forEach(function(custom) {
         if (custom.id == val.product_id && !custom.show) {
-          hide = true
+          userHide = true
         }
       })
 
-      if (hide) {
+      if (userHide && setting.length > 0) {
         return
+      }
+
+      if (first && state.clickItemId == '') {
+        //send 第一筆
+        _this.commit('sendMessage', 'h:' + val.product_id)
+        state.clickItemId = val.product_id
+        state.itemName = val.product_name
+
+        first = false
       }
 
       //顏色 昨收價 < 成交價 紅
@@ -216,6 +210,28 @@ export default {
         })
       })
       state.commidyArray = formatCommidy
+    }
+
+    if (state.commidyArray.length > 0) {
+      let newMainItem = []
+      state.mainItem.forEach(function(val) {
+        //確認此筆是否要隱藏
+        let sysHide = true
+        //系統設定
+        state.commidyArray.forEach(function(commidyArray) {
+          if (commidyArray.ID == val.product_id) {
+            sysHide = false
+          }
+        })
+
+        if (sysHide && state.commidyArray.length > 0) {
+          return
+        }
+
+        newMainItem.push(val)
+      })
+
+      state.mainItem = newMainItem
     }
 
     state.userInfo = userArray

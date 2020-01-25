@@ -5,7 +5,8 @@
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
       :title="dialog.title"
-      :size="dialog.size")
+      :size="dialog.size"
+      v-if="dialog.isOpen")
     ul.navbar-nav.navbar-nav-left
       li.nav-item
         a.nav-link(href="#") 連線

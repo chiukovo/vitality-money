@@ -67,7 +67,7 @@ export default {
               result = JSON.parse(val.substring(2))
               if (result['code'] > 0) {
                 _this.$store.commit('setMainItem', result['data'])
-
+                _this.getUserInfo()
                 //取得自定義商品開關
                 _this.$store.dispatch('CALL_MEMBER_CUSTOM_ITEM', {
                   defaultData: result['data'],
@@ -77,7 +77,6 @@ export default {
 
               //呼叫即時資料
               _this.$socket.send(_this.paramX())
-              _this.getUserInfo()
               break
             case "d":
               //商品現價通知
