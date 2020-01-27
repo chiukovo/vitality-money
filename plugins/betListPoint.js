@@ -13,6 +13,7 @@ Vue.mixin({
       edit: {
         itemId: '',
         serial: '',
+        operation: [],
         itemName: '',
         submit: 0,
         submitMax: 0,
@@ -287,6 +288,7 @@ Vue.mixin({
       this.edit = {
         itemId: row.ID,
         serial: row.Serial,
+        operation: row.Operation,
         itemName: row.Name,
         submit: Number(row.Quantity),
         submitMax: Number(row.Quantity),

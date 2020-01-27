@@ -23,6 +23,9 @@ export default {
   setOnRealtimeCallback(state, onRealtimeCallback) {
     state.onRealtimeCallback = onRealtimeCallback
   },
+  setErrorMsgDate(state, date) {
+    state.errorMsgDate = date
+  },
   setHasMessage(state, data) {
     state.hasMessage = data
   },

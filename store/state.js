@@ -57,4 +57,5 @@ export default () => ({
   totalUncoverLossWinMoney: 0,
   //今日損益
   todayLoseWin: 0,
+  errorMsgDate: '',
 })

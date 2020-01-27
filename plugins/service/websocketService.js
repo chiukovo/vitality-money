@@ -139,10 +139,15 @@ export default {
 
       switch (type) {
         case "c": //下單
+          const nowDate = new Date().getTime()
           sourceFormat = JSON.parse(event.data.substring(2))
 
           if (sourceFormat.Code <= 0) {
-            _this.$alert(sourceFormat.ErrorMsg)
+            if (nowDate - _this.$store.state.errorMsgDate >= 100  ) {
+              _this.$alert(sourceFormat.ErrorMsg)
+            }
+
+            _this.$store.commit('setErrorMsgDate', nowDate)
             return
           }
 

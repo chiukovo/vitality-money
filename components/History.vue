@@ -327,7 +327,7 @@
               //-帳跌%
               span.ml-2 {{ findMainItemById(edit.itemId).gain_percent }}
         el-form(ref='form' size='mini' label-width='94px')
-          .edit-base(v-if="editType == 'edit'")
+          .edit-base(v-if="editType == 'edit' && edit.operation[0]")
             el-form-item(label="口數")
               el-input-number(v-model="edit.submit" :max="edit.submitMax" :step="0.25")
             el-form-item
