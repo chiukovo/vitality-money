@@ -86,9 +86,13 @@ Vue.mixin({
       const token = this.token
       //看是否有勾選下單不確認
       let noConfirm = false
-      const customGroup = this.$cookies.get('customGroup')
+      let customGroup = this.$cookies.get('customGroup')
       let _this = this
       let sendText
+
+      if (typeof customGroup == 'undefined') {
+        customGroup = []
+      }
 
       customGroup.forEach(function(val){
         if (val == 'noConfirm') {
