@@ -13,6 +13,7 @@ $vxe-disabled-color: #B1B1B1;
 /*input/radio/checkbox color*/
 $vxe-input-border-color: #dcdfe6;
 $vxe-input-disabled-color: #f3f3f3;
+$vxe-input-disabled-background-color: #f3f3f3;
 $vxe-input-placeholder-color: #C0C4CC;
 
 /*popup*/
@@ -71,6 +72,11 @@ $vxe-table-row-hover-cheched-background-color: #ffebbc;
 $vxe-table-row-current-background-color: #e6f7ff;
 $vxe-table-row-hover-current-background-color: #d7effb;
 
+//other
+$vxe-table-range-background-color: #fff;
+$vxe-table-range-border-color: #fff;
+$vxe-modal-header-background-color: #fff;
+
 // @import '~vxe-table/styles/icon.scss';
 @import '~vxe-table/styles/table.scss';
 // @import '~vxe-table/styles/column.scss';
@@ -87,7 +93,7 @@ $vxe-table-row-hover-current-background-color: #d7effb;
 // @import '~vxe-table/styles/radio.scss';
 // @import '~vxe-table/styles/input.scss';
 // @import '~vxe-table/styles/button.scss';
-// @import '~vxe-table/styles/modal.scss';
+@import '~vxe-table/styles/modal.scss';
 @import '~vxe-table/styles/tooltip.scss';
 
 
