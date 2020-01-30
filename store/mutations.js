@@ -226,7 +226,7 @@ export default {
           }
         })
 
-        if (sysHide && state.commidyArray.length > 0) {
+        if (sysHide && state.commidyArray.length > 0 && val.product_id != 'TSLQ') {
           return
         }
 
@@ -245,7 +245,7 @@ export default {
             firstKey = false
           }
         }
-        
+
         newMainItem.push(val)
       })
 
