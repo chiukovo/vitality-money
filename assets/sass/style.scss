@@ -122,22 +122,18 @@ $use-fadeInDown: true;
   }
   .vxe-header--column {
     color: #fff;
-    background: url('~static/images/theme_traditional/black/table_th_bg.png') #4278af;
+    background-image: url('~static/images/theme_traditional/black/table_th_bg.png');
+    background-color: #171717;
   }
   .vxe-table.has--height .vxe-table--empty-placeholder {
     color: #666;
   }
-  .vxe-table.t--border .vxe-header--column, .vxe-table.t--border .vxe-body--column, .vxe-table.t--border .vxe-footer--column {
-    border-right: 1px solid #494848;
-  }
-  .vxe-table.t--border .vxe-header--column {
-    border: 0;
-  }
-  .vxe-table .vxe-body--row .vxe-body--column {
-    border-bottom: 1px solid #494848;
-  }
   .vxe-table .vxe-body--row.row--hover.row--current {
     background-color: rgba(255,255,255,.2);
+  }
+  .vxe-table.t--border:not(.b--style-none) .vxe-header--column,
+  .vxe-table.t--border:not(.b--style-none) .vxe-body--column {
+    background-image: linear-gradient(-90deg, #333, #333), linear-gradient(-180deg, #333, #333);
   }
   .root,
   .chat,
@@ -154,14 +150,14 @@ $use-fadeInDown: true;
   .itemDetail,
   .history,
   .history .tabs-nav,
-  .vxe-table .vxe-table--header-wrapper .vxe-table--repair,
+  .chat,
+  .chat .chat-input-wrap,
   .vxe-table:before,
   .vxe-table:after,
+  .vxe-table.t--border .vxe-table--fixed-left-wrapper,
   .vxe-table .vxe-table--border-line:before,
   .vxe-table .vxe-table--border-line:after,
-  .vxe-table:not(.b--style-none) .vxe-table--fixed-left-wrapper:before, .vxe-table:not(.b--style-none) .vxe-table--fixed-right-wrapper:before,
-  .chat,
-  .chat .chat-input-wrap {
+  .vxe-table .vxe-table--header-wrapper .vxe-table--repair {
     border-color: #333;
   }
   .userInfo,
@@ -822,7 +818,8 @@ button {
 }
 .vxe-header--column {
   color: #fff;
-  background: url('~static/images/theme_traditional/table_th_bg.png') #4278af;
+  background-color: #4278af;
+  background-image: url('~static/images/theme_traditional/table_th_bg.png') ;
 }
 .vxe-header--column .vxe-cell {
   height: 24px;
