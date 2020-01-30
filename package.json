@@ -28,7 +28,6 @@
     "koa": "^2.6.2",
     "nuxt": "^2.0.0",
     "nuxt-vuex-localstorage": "^1.2.6",
-    "pl-table": "^2.4.9",
     "qs": "^6.9.0",
     "reset-css": "^5.0.1",
     "vue-awesome-swiper": "^3.1.3",

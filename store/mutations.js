@@ -112,7 +112,6 @@ export default {
   computedMainItem(state) {
     const _this = this
     const setting = state.customItemSetting
-    let first = true
     let mainItem = state.mainItem
     let result = []
 
@@ -128,15 +127,6 @@ export default {
 
       if (userHide && setting.length > 0) {
         return
-      }
-
-      if (first && state.clickItemId == '') {
-        //send 第一筆
-        _this.commit('sendMessage', 'h:' + val.product_id)
-        state.clickItemId = val.product_id
-        state.itemName = val.product_name
-
-        first = false
       }
 
       //顏色 昨收價 < 成交價 紅
@@ -167,11 +157,6 @@ export default {
       state.nowNewPrice[val.product_id] = val.newest_price
 
       result.push(val)
-
-      if (state.clickItemId == val.product_id) {
-        //set default now data
-        _this.commit('setNowMainItem', val)
-      }
     })
 
     state.mainItem = result
@@ -208,12 +193,16 @@ export default {
     }
   },
   setUserInfo(state, data) {
+    const _this = this
     //排序跟mainItem 一樣即可
     let formatCommidy = []
     let userArray = data.UserArray
+    let firstIn = false
+    let firstKey = true
 
     if (state.commidyArray.length == 0) {
       state.commidyArray = data.CommidyArray
+      firstIn = true
     } else {
       state.commidyArray.forEach(function(source) {
         data.CommidyArray.forEach(function(commidy) {
@@ -241,6 +230,22 @@ export default {
           return
         }
 
+        //判斷是否首次近來
+        if (firstIn && firstKey) {
+          if (state.clickItemId == '') {
+            //send 第一筆
+            _this.commit('sendMessage', 'h:' + val.product_id)
+            state.clickItemId = val.product_id
+            state.itemName = val.product_name
+
+            //set default now data
+            _this.commit('setNowMainItem', val)
+
+            firstIn = false
+            firstKey = false
+          }
+        }
+        
         newMainItem.push(val)
       })
 
