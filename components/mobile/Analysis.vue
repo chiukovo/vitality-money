@@ -10,7 +10,7 @@
       li.close(@click="closeMore('')") 取消
 
     //-走勢圖表
-    div(v-show="type == 1" class="h-100")
+    div(v-if="type == 1" class="h-100")
       Chart(theme="black" style="height: calc(100% - 280px);")
       .area(style="height: 280px;")
         client-only
@@ -129,10 +129,10 @@
                       vxe-table-column(field="amount" title='口' width='22%')
             .swiper-pagination
     //-K線圖表
-    div(v-show="type == 2" style="height: calc(100% - 50px)")
+    div(v-if="type == 2" style="height: calc(100% - 50px)")
       Kchart
     //-五檔數據
-    div(v-show="type == 3" class="h-100")
+    div(v-if="type == 3" class="h-100")
       .area
         //- 五檔揭示
         table.table.progress-table
@@ -165,7 +165,7 @@
                 .progress-bar__inner(:style="'width: ' + $store.state.fiveTotal.morePercent + '%'")
             .col.text__success 空勢
     //-量價分布
-    div(v-show="type == 4" class="h-100")
+    div(v-if="type == 4" class="h-100")
       client-only
         vxe-table(
           :data="$store.state.items1"
@@ -186,7 +186,7 @@
                   .progress-bar__inner(:style="'width: ' + scope.row['percent'] + '%'")
           vxe-table-column(field="amount" title='口' width='22%')
     //-即時報價
-    div(v-show="type == 5" class="h-100")
+    div(v-if="type == 5" class="h-100")
       client-only
         vxe-table(
           :data="$store.state.items2"

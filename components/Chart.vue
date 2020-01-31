@@ -113,7 +113,9 @@ export default {
   mounted () {
     const _this = this;
     window.onresize = () => {
-      _this.drawLines(_this.syncChart);
+      if (_this.syncChart != null) {
+        _this.drawLines(_this.syncChart)
+      }
     }
 
     if (this.theme == 'white') {
@@ -140,7 +142,7 @@ export default {
           'type': 'chart',
           'num': 1
         })
-      }, 3000)
+      }, 1000)
 
       this.name = this.$route.query.name
     } else {
@@ -203,6 +205,8 @@ export default {
     checkChartHeight() {
       if (this.$store.state.isMobile) {
         return 'height: calc(100% - 25px)'
+      } else {
+        return 'height: calc(100% - 30px)'
       }
     },
     updateExtreme(chart, nowMainItem) {

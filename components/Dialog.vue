@@ -174,6 +174,7 @@ export default {
       if (this.chartType == '1') {
         this.diaiogSize = '86%'
         this.openChart = true
+        this.$el.querySelector('.el-dialog__body').style.height = '400px'
       } else if (this.chartType == '2') {
         const name = this.$store.state.itemName
         const id = this.$store.state.clickItemId
@@ -185,6 +186,7 @@ export default {
       if (this.kchartType == '1') {
         this.diaiogSize = '86%'
         this.openKchart = true
+        this.$el.querySelector('.el-dialog__body').style.height = '400px'
       } else if (this.kchartType == '2') {
         const name = this.$store.state.itemName
         const id = this.$store.state.clickItemId
@@ -202,7 +204,7 @@ export default {
       this.$store.commit('clearModalData')
       this.$emit('update:visible', false)
 
-      this.$el.querySelector('.el-dialog__body').style.height = '100%'
+      this.$el.querySelector('.el-dialog__body').style.height = ''
     },
     setMainStyle() {
       this.$store.commit('setMainStyle', this.clickMainStyle)
@@ -210,12 +212,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .kchart {
-    height: 400px;
-  }
-  .chart {
-    height: 400px;
-  }
-</style>

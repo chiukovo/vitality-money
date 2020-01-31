@@ -59,5 +59,6 @@ export default () => ({
   todayLoseWin: 0,
   errorMsgDate: '',
   //成功拍手
-  doClapping: false
+  doClapping: false,
+  openKchart: false
 })

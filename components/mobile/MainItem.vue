@@ -18,7 +18,8 @@
   .main.mainItem
     Dialog(
       :click-type="dialog.clickType",
-      :visible.sync="dialog.isOpen")
+      :visible.sync="dialog.isOpen"
+      v-if="dialog.isOpen")
     .modals.mainItem(v-show="analysisShow")
       .header
         .header__left

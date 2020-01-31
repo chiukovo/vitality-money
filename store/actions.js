@@ -189,7 +189,8 @@ export default {
 
     const symbol = `${comMarket[id]}:${id}`
     commit('setTradingViewSymbol', symbol)
-    if (state.tdChart) {
+
+    if (state.tdChart && state.openKchart) {
       state.tdChart.chart().setSymbol(symbol)
     }
   },
