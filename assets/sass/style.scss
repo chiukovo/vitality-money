@@ -1174,3 +1174,54 @@ body::-webkit-scrollbar-track {
   border-radius: 0;
   background: #104a84;
 }
+
+
+#claps {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  .claps {
+    position: absolute;
+    bottom: 0;
+    width: 500px;
+    height: 500px;
+    animation-duration: .26s;
+    animation-iteration-count: infinite;
+  }
+  .claps-left {
+    left: 0;
+    animation-name: clapsLeft;
+  }
+  .claps-right {
+    right: 0;
+    animation-name: clapsRight;
+  }
+}
+@keyframes clapsLeft {
+  0% {
+    background-image: url('~static/images/theme_traditional/claps-left-1.png')
+  }
+  50% {
+    background-image: url('~static/images/theme_traditional/claps-left-1.png')
+  }
+  100% {
+    background-image: url('~static/images/theme_traditional/claps-left-2.png')
+  }
+}
+@keyframes clapsRight {
+  0% {
+    background-image: url('~static/images/theme_traditional/claps-right-1.png')
+  }
+  50% {
+    background-image: url('~static/images/theme_traditional/claps-right-1.png')
+  }
+  100% {
+    background-image: url('~static/images/theme_traditional/claps-right-2.png')
+  }
+}

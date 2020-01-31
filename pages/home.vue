@@ -1,5 +1,8 @@
 <template lang='pug'>
 .root
+  #claps
+    .claps.claps-left
+    .claps.claps-right
   #header
     Header
   #main
