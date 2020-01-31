@@ -246,6 +246,10 @@ export default {
             _this.playSuccessSound()
           }
 
+          if (_this.$store.state.localStorage.customSetting.clapping) {
+            _this.$store.commit('setDoClapping', true)
+          }
+
           _this.getUserInfo()
 
           break

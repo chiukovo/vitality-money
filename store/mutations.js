@@ -20,6 +20,12 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  setDoClapping(state, data) {
+    state.doClapping = data
+  },
+  setClapping(state, type) {
+    state.localStorage.customSetting.clapping = type
+  },
   setOnRealtimeCallback(state, onRealtimeCallback) {
     state.onRealtimeCallback = onRealtimeCallback
   },

@@ -29,7 +29,7 @@
           a.dropdown-item(href="#" @click="openModal('customMainStyle', '版面選擇', '360px')") 版面選擇
           a.dropdown-item(href="#" @click="setCustomSetting('noConfirmDelete')" :class="$store.state.localStorage.customSetting.noConfirmDelete ? 'is-active': ''") 刪單不確認
           a.dropdown-item(href="#" @click="setCustomSetting('orderReport')" :class="$store.state.localStorage.customSetting.orderReport ? 'is-active': ''") 下單回報
-          //- a.dropdown-item(href="#" @click="setCustomSetting('clapping')") 拍手動畫
+          a.dropdown-item(href="#" @click="setCustomSetting('clapping')" :class="$store.state.localStorage.customSetting.clapping ? 'is-active': ''") 拍手動畫
       li.nav-item
         a.nav-link(href="#") 說明
         .dropdown-menu

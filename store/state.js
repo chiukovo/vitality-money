@@ -58,4 +58,6 @@ export default () => ({
   //今日損益
   todayLoseWin: 0,
   errorMsgDate: '',
+  //成功拍手
+  doClapping: false
 })

@@ -1,6 +1,6 @@
 <template lang='pug'>
 .root
-  #claps
+  #claps(v-if="doClapping && clapping")
     .claps.claps-left
     .claps.claps-right
   #header
@@ -80,16 +80,27 @@ export default {
   },
   data() {
     return {
-      themeStyle: 'default'
+      themeStyle: 'default',
     }
   },
   computed: mapState({
     mainStyle: state => state.localStorage.customSetting.mainStyle,
     theme: state => state.localStorage.customSetting.theme,
+    clapping: state => state.localStorage.customSetting.clapping,
+    doClapping: state => state.doClapping
   }),
   watch: {
     theme(style) {
       this.themeStyle = style
+    },
+    doClapping(type) {
+      const _this = this
+
+      if (type) {
+        setTimeout(() => {
+          _this.$store.commit('setDoClapping', false)
+        }, 2000)
+      }
     },
   },
   beforeMount() {
@@ -102,6 +113,10 @@ export default {
       this.themeStyle = this.theme
     } else {
       this.$store.commit('setTheme', 'default')
+    }
+
+    if (typeof this.clapping == 'undefined') {
+      this.$store.commit('setClapping', false)
     }
 
     this.checkLogin()
