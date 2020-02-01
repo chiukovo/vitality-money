@@ -96,6 +96,7 @@ export default {
         }))
         .then(response => {
           _this.sendMsg = ''
+          _this.$store.dispatch('CALL_SERVICE_MESSAGE')
         })
       }
     }
