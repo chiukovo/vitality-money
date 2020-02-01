@@ -77,12 +77,14 @@ export default {
       })
     },
     doClear() {
+      const _this = this
+
       axios.post(process.env.NUXT_ENV_API_URL + "/clear_service_messages?lang=" + this.lang, qs.stringify({
         UserID: this.userAuth.userId,
         Token: this.userAuth.token,
       }))
       .then(response => {
-
+        _this.$store.dispatch('CALL_SERVICE_MESSAGE')
       })
     },
     send() {
