@@ -244,11 +244,11 @@ export default {
             state.clickItemId = val.product_id
             state.itemName = val.product_name
 
-            //set default now data
-            _this.commit('setNowMainItem', val)
-
             firstIn = false
             firstKey = false
+          } else {
+            //set default now data
+            _this.commit('setNowMainItem', val)
           }
         }
 
