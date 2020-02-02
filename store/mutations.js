@@ -246,10 +246,10 @@ export default {
 
             firstIn = false
             firstKey = false
-          } else {
-            //set default now data
-            _this.commit('setNowMainItem', val)
           }
+
+          //set default now data
+          _this.commit('setNowMainItem', val)
         }
 
         newMainItem.push(val)
