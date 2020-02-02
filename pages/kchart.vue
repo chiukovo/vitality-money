@@ -1,6 +1,7 @@
 <template lang='pug'>
 .root
-  Kchart
+  .open.h-100
+    Kchart
 </template>
 
 <script>
