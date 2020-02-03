@@ -322,7 +322,8 @@ export default {
     state.unCoverBuySum = data.UnCoverBuySum
     state.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
     state.unCoverTotal = state.uncovered.length
-
+    //計算未平損益
+    this.commit('computedUncovered', state.uncovered)
     //加入多檔刪除
     state.buySell = state.buySell.map(function(source) {
       const multiDeleteInfo = {
