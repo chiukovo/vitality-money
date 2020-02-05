@@ -273,7 +273,7 @@
     el-dialog(
       :visible.sync='editDialog'
       :modal='false'
-      width="330px"
+      width="300px"
       title='改價減量'
       v-dialogDrag)
       .header-custom(slot='title')

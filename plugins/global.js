@@ -8,6 +8,9 @@ Vue.mixin({
     }
   },
   methods: {
+    numberToPrecision(num) {
+      return parseFloat(num.toPrecision(12))
+    },
     vxeTableScrollEvent({ scrollTop, scrollLeft, isX, isY }) {
       if (isY) {
         this.beforeScrollY = scrollTop
