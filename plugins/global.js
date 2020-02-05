@@ -17,7 +17,7 @@ Vue.mixin({
         this.beforeScrollX = scrollLeft
       }
 
-      if (!isX && !isY) {
+      if (!isX && !isY && scrollTop == 0 && scrollLeft == 0) {
         this.$refs.xTable.scrollTo(this.beforeScrollX, this.beforeScrollY)
       }
     },

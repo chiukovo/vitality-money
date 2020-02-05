@@ -227,19 +227,31 @@ Vue.mixin({
         }
       })
     },
-    changeDayCover(row) {
+    changeDayCover(row, e) {
       const _this = this
-      const setDayCover = row.DayCover ? 0 : 1
+      let setDayCover = row.DayCover ? 0 : 1
 
-      axios.post(process.env.NUXT_ENV_API_URL + "/set_serial_daycover?lang=" + this.lang, qs.stringify({
-        UserID: this.userId,
-        Token: this.token,
-        DayCover: setDayCover,
-        DayCoverSerialId: row.Serial,
-      }))
-      .then(response => {
-        _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
-        _this.$store.dispatch('CALL_MEMBER_INFO')
+      //確認視窗
+      const confirmText = setDayCover ? '確認勾選不留倉?' : '確認取消勾選不留倉?'
+
+      this.$confirm(confirmText, '注意! ', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.post(process.env.NUXT_ENV_API_URL + "/set_serial_daycover?lang=" + this.lang, qs.stringify({
+          UserID: this.userId,
+          Token: this.token,
+          DayCover: setDayCover,
+          DayCoverSerialId: row.Serial,
+        }))
+        .then(response => {
+          _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+          _this.$store.dispatch('CALL_MEMBER_INFO')
+        })
+      }).catch(() => {
+        setDayCover = row.DayCover
+        e.target.checked = row.DayCover
       })
     },
     selectionChangeDelete(target) {
@@ -262,6 +274,13 @@ Vue.mixin({
       // 輸入新成交價 計算點數
       this.editPoint.price = this.editPoint.computedPoint - this.editPoint.finalPrice
     },
+    checkUncoveredEdit(type) {
+      if (type == 'win' || type == 'loss') {
+        return this.editType == 'win' || this.editType == 'loss' || this.editType == 'edit' || this.editType == 'uncovered'
+      } else if (type == 'inverted') {
+        return this.editType == 'inverted' || this.editType == 'uncovered'
+      }
+    },
     openEdit(row, type) {
       this.editType = type
       this.editDialog = true
@@ -274,6 +293,8 @@ Vue.mixin({
         this.editTitle = '倒限點'
       } else if (type == 'edit') {
         this.editTitle = '改價減量'
+      } else if (type == 'uncovered') {
+        this.editTitle = '損益設定'
       }
 
       let buyType = '0'

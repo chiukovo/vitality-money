@@ -132,6 +132,7 @@ export default {
       let type = "z"
       let _this = this
       let sourceFormat
+      const isMobile = _this.$store.state.isMobile
 
       if (typeof source === "string") {
         type = source.substring(0, 1)
@@ -155,19 +156,28 @@ export default {
             if (_this.$store.state.localStorage.customSetting.orderReport) {
               let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
 
-              _this.$notify({
-                title: '下單回報',
-                type: 'success',
-                dangerouslyUseHTMLString: true,
-                position: 'bottom-right',
-                message:
-                '<p>序號: ' + sourceFormat.Serial + '</p>' +
-                '<p>種類: ' + sourceFormat.Odtype + '</p>' +
-                '<p>多空: ' + buyOrSellName + '</p>' +
-                '<p>商品: ' + sourceFormat.Name + '</p>' +
-                '<p>狀態: 觸發中' +
-                '<p>口數: ' + sourceFormat.Quantity + '</p>'
-              })
+              //電腦版
+              if (!isMobile) {
+                _this.$notify({
+                  title: '下單回報',
+                  type: 'success',
+                  dangerouslyUseHTMLString: true,
+                  position: 'bottom-right',
+                  message:
+                  '<p>序號: ' + sourceFormat.Serial + '</p>' +
+                  '<p>種類: ' + sourceFormat.Odtype + '</p>' +
+                  '<p>多空: ' + buyOrSellName + '</p>' +
+                  '<p>商品: ' + sourceFormat.Name + '</p>' +
+                  '<p>狀態: 觸發中' +
+                  '<p>口數: ' + sourceFormat.Quantity + '</p>'
+                })
+              }
+
+              //手機板
+              if (isMobile) {
+                let text = '下單完成，等待成交'
+                _this.$store.commit('setTipsContent', {text, type: 0})
+              }
             }
           }
 
@@ -176,6 +186,32 @@ export default {
 
           break
         case "d":
+          sourceFormat = JSON.parse(event.data.substring(2))
+          let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
+
+          //電腦版
+          if (!isMobile) {
+            _this.$notify({
+              title: '下單回報',
+              type: 'success',
+              dangerouslyUseHTMLString: true,
+              position: 'bottom-right',
+              message:
+              '<p>序號: ' + sourceFormat.Serial + '</p>' +
+              '<p>種類: ' + sourceFormat.Odtype + '</p>' +
+              '<p>多空: ' + buyOrSellName + '</p>' +
+              '<p>商品: ' + sourceFormat.Name + '</p>' +
+              '<p>狀態: 觸發中' +
+              '<p>口數: ' + sourceFormat.Quantity + '</p>'
+            })
+          }
+
+          //手機板
+          if (isMobile) {
+            let text = '掛單成功： ' + sourceFormat.Name + ',' + sourceFormat.OrderPrice + 'x' + sourceFormat.Quantity + '口'
+            _this.$store.commit('setTipsContent', {text, type: 1})
+          }
+
           _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
 
           break
@@ -196,8 +232,8 @@ export default {
         case "i": //成交
           //call order list
           _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
-
           sourceFormat = JSON.parse(event.data.substring(2))
+
           //看是否有成交提示
           const customGroup = this.$cookies.get('customGroup')
           //看是否有勾選限價成交提示
@@ -210,36 +246,52 @@ export default {
           })
 
           if (_this.$store.state.localStorage.customSetting.orderReport) {
-            let buyOrSellName = sourceFormat.BuyOrSell == 0 ? '多' : '空'
+            //電腦版
+            if (!isMobile) {
+              _this.$notify({
+                title: '成交提示',
+                type: 'success',
+                dangerouslyUseHTMLString: true,
+                position: 'bottom-right',
+                message:
+                '<p>序號: ' + sourceFormat.Serial + '</p>' +
+                '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
+                '<p>商品: ' + sourceFormat.Name + '</p>' +
+                '<p>狀態: 成交' +
+                '<p>口數: ' + sourceFormat.Quantity + '</p>' +
+                '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
+              })
+            }
 
-            _this.$notify({
-              title: '成交提示',
-              type: 'success',
-              dangerouslyUseHTMLString: true,
-              position: 'bottom-right',
-              message:
-              '<p>序號: ' + sourceFormat.Serial + '</p>' +
-              '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
-              '<p>商品: ' + sourceFormat.Name + '</p>' +
-              '<p>狀態: 成交' +
-              '<p>口數: ' + sourceFormat.Quantity + '</p>' +
-              '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
-            })
+            //手機板
+            if (isMobile) {
+              let text = '成交： ' + sourceFormat.Name + ',' + sourceFormat.SuccessPrice + 'x' + sourceFormat.Quantity + '口'
+              _this.$store.commit('setTipsContent', {text, type: 1})
+            }
           }
 
           if ((sourceFormat.SubmitType == '限價單' || sourceFormat.SubmitType == '倒限單') && prompt) {
-            _this.$notify({
-              title: '限價成交提示',
-              type: 'success',
-              dangerouslyUseHTMLString: true,
-              message:
-              '<p>序號: ' + sourceFormat.Serial + '</p>' +
-              '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
-              '<p>商品: ' + sourceFormat.Name + '</p>' +
-              '<p>狀態: 成交' +
-              '<p>口數: ' + sourceFormat.Quantity + '</p>' +
-              '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
-            })
+            //電腦版
+            if (!isMobile) {
+              _this.$notify({
+                title: '限價成交提示',
+                type: 'success',
+                dangerouslyUseHTMLString: true,
+                message:
+                '<p>序號: ' + sourceFormat.Serial + '</p>' +
+                '<p>類別: ' + sourceFormat.SubmitType + '</p>' +
+                '<p>商品: ' + sourceFormat.Name + '</p>' +
+                '<p>狀態: 成交' +
+                '<p>口數: ' + sourceFormat.Quantity + '</p>' +
+                '<p>價格: ' + sourceFormat.SuccessPrice + '</p>'
+              })
+            }
+
+            //手機板
+            if (isMobile) {
+              let text = '限價成交： ' + sourceFormat.Name + ',' + sourceFormat.SuccessPrice + 'x' + sourceFormat.Quantity + '口'
+              _this.$store.commit('setTipsContent', {text, type: 1})
+            }
           }
 
           if (_this.$store.state.localStorage.customSetting.sound) {

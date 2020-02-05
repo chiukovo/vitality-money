@@ -234,7 +234,7 @@ export default {
       }
 
       //判斷狀態
-      if(columnIndex == 13) {
+      if(columnIndex == 13 || columnIndex == 0) {
         if (row.state != 2) {
           return 'text__secondary'
         }

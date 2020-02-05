@@ -12,6 +12,8 @@
 	System(v-if='tabShow == 5')
 	//- 在線客服
 	Message(v-if='tabShow == 6' :tabShow="tabShow")
+	//-成交回報
+	Tips
 	#tabs-nav
 		.tabs-nav-wrap
 			.tabs-list
@@ -56,6 +58,7 @@ import Documents from "~/components/mobile/Documents"
 import Report from "~/components/mobile/Report"
 import System from "~/components/mobile/System"
 import Message from "~/components/mobile/Message"
+import Tips from "~/components/Tips"
 import '@/assets/sass/mobile.scss'
 
 export default {
@@ -79,6 +82,7 @@ export default {
 		Documents,
 		Report,
 		System,
+		Tips,
 		Message
 	},
 	data() {

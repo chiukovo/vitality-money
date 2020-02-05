@@ -39,7 +39,7 @@
                   auto-resize
                   :checkbox-config="{checkStrictly: true}")
                   vxe-table-column(field='Name' title='商品' fixed="left" width="110")
-                  vxe-table-column(title='操作' align="center" width="142")
+                  vxe-table-column(title='操作' align="center" width="145")
                     template(slot-scope='scope')
                       input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                       button.button(v-if="scope.row.Operation[0] || !cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'edit')") 改
@@ -48,7 +48,7 @@
                   vxe-table-column(title='不留倉')
                     template(slot-scope='scope' v-if="scope.row.Operation[2]")
                       label.checkbox
-                        input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)" :disabled="dayCoverIsDisabled(scope.row.ID)")
+                        input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row, $event)" :disabled="dayCoverIsDisabled(scope.row.ID)")
                         span.checkbox__label 不留倉
                   vxe-table-column(title='多空' width="60px"  align="center")
                     template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
@@ -104,13 +104,14 @@
                     template(slot-scope='scope')
                       input(type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" v-if="scope.row.Operation[2]")
                       span {{ scope.row.Name }}
-                  vxe-table-column(title='操作' align="center" width="70")
+                  vxe-table-column(title='操作' align="center" width="120")
                     template(slot-scope='scope')
+                      button.button(v-if="!cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'uncovered')") 改
                       button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
                   vxe-table-column(title='不留倉')
                     template(slot-scope='scope' v-if="scope.row.Operation[2]")
                       label.checkbox
-                        input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)" :disabled="dayCoverIsDisabled(scope.row.ID)")
+                        input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row, $event)" :disabled="dayCoverIsDisabled(scope.row.ID)")
                         span.checkbox__label 不留倉
                   vxe-table-column(field='Serial', title='序號')
                   vxe-table-column(title='買賣')
@@ -207,7 +208,7 @@
                   auto-resize
                   :checkbox-config="{checkStrictly: true}")
                   vxe-table-column(field='Name' title='商品' fixed="left" width="110")
-                  vxe-table-column(title='操作' align="center" width="142")
+                  vxe-table-column(title='操作' align="center" width="145")
                     template(slot-scope='scope')
                       input(type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
                       button.button(v-if="scope.row.Operation[0]" @click="openEdit(scope.row)") 改
@@ -321,34 +322,34 @@
                 el-input-number(v-model="edit.nowPrice")
             //-點數輸入
             .point-input(v-show="pointInputType == 1")
-              .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
+              .win-point.text__center(v-if="checkUncoveredEdit('win')")
                 p.pl-15 新獲利點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
                 el-form-item(label="獲利點")
                   el-input-number(v-model="edit.winPoint")
-              .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
+              .loss-point.text__center(v-if="checkUncoveredEdit('loss')")
                 p.pl-15 新損失點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="edit.lossPoint")
-              .inverted-point.text__center(v-if="editType == 'inverted'")
+              .inverted-point.text__center(v-if="checkUncoveredEdit('inverted')")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
                 el-form-item(label="倒限點")
                   el-input-number(v-model="edit.invertedPoint")
             //-行情輸入
             .money-input(v-show="pointInputType == 2")
-              .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
+              .win-point.text__center(v-if="checkUncoveredEdit('win')")
                 p.pl-15 新獲利點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
                 el-form-item(label="獲利點")
                   el-input-number(v-model="changeWinPrice")
-              .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
+              .loss-point.text__center(v-if="checkUncoveredEdit('loss')")
                 p.pl-15 新損失點需大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPrice }} ]
                 el-form-item(label="損失點")
                   el-input-number(v-model="changeLossPrice")
-              .inverted-point.text__center(v-if="editType == 'inverted'")
+              .inverted-point.text__center(v-if="checkUncoveredEdit('inverted')")
                 p.pl-15 新倒限利不得大於:
                   span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
                 el-form-item(label="倒限點")
@@ -390,27 +391,32 @@
       :visible.sync='deleteConfirm'
       :modal='false'
       :show-close='false'
-      width="96%"
+      width="200px"
       title='確認刪除'
       v-dialogDrag)
       .header-custom(slot='title')
-        i.el-icon-info
         |  確認刪除
-      vxe-table.table(
-        :data="multiDeleteData"
-        style="width: 100%"
-        height="300px"
-        borde
-      )
-        vxe-table-column(field="serial" title='序號')
-        vxe-table-column(field="name" title='目標商品')
-        vxe-table-column(field="userName" title='用戶名稱')
-        vxe-table-column(field="buy" title='買賣')
-        vxe-table-column(field="price" title='價格')
-        vxe-table-column(field="submit" title='口數')
+      table.popupAllSingleSelectNo.my-2(v-for="item in multiDeleteData")
+        tbody
+          tr
+            td.title 序號
+            td {{ item.serial }}
+          tr
+            td.title 商品
+            td {{ item.name }}
+          tr
+            td.title 委託
+            td {{ item.price }}
+          tr
+            td.title 多空
+            td
+              span(:class="item.buy == 0 ? 'text__danger' : 'text__success'") {{ item.buy == 0 ? '多' : '空' }}
+          tr
+            td.title 口數
+            td {{ item.submit }}
       .dialog__footer
-        el-button(@click="deleteConfirm = false") 取消
-        el-button(type='primary' @click="doDelete") 確認
+        button.button(@click="deleteConfirm = false") 取消
+        button.button(type='primary' @click="doDelete") 確認
 </template>
 
 <script>
