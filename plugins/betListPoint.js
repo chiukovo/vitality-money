@@ -292,7 +292,11 @@ Vue.mixin({
       } else if (type == 'inverted') {
         this.editTitle = '倒限點'
       } else if (type == 'edit') {
-        this.editTitle = '改價減量'
+        if (row.Operation[0]) {
+          this.editTitle = '改價減量'
+        } else {
+          this.editTitle = '損益設定'
+        }
       } else if (type == 'uncovered') {
         this.editTitle = '損益設定'
       }
