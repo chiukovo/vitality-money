@@ -46,6 +46,7 @@
           column-min-width="60"
           border
           auto-resize
+          show-overflow
           highlight-current-row)
           vxe-table-column(width="30" align="center")
             template(slot-scope='scope')
@@ -294,8 +295,7 @@
   el-dialog(
     :visible.sync='editDialog'
     :modal='false'
-    width="330px"
-    v-dialogDrag)
+    width="330px")
     .header-custom(slot='title')
       span {{ editTitle }}
       span.badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
@@ -386,8 +386,7 @@
     :modal='false'
     :show-close='false'
     width="600px"
-    title='確認平倉'
-    v-dialogDrag)
+    title='確認平倉')
     .header-custom(slot='title')
       i.el-icon-info
       |  確認平倉
@@ -413,8 +412,7 @@
     :modal='false'
     :show-close='false'
     width="600px"
-    title='確認刪除'
-    v-dialogDrag)
+    title='確認刪除')
     .header-custom(slot='title')
       i.el-icon-info
       |  確認刪除

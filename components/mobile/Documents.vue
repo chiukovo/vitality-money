@@ -274,8 +274,7 @@
       :visible.sync='editDialog'
       :modal='false'
       width="300px"
-      title='改價減量'
-      v-dialogDrag)
+      title='改價減量')
       .header-custom(slot='title')
         span {{ editTitle }}
         span.badge.badge-warning ({{ pointInputType == 1 ? '點數' : '行情' }})
@@ -366,8 +365,7 @@
       :modal='false'
       :show-close='false'
       width="200px"
-      title='確認平倉'
-      v-dialogDrag)
+      title='確認平倉')
       .header-custom(slot='title')
         i.el-icon-info
         |  確認平倉
@@ -398,8 +396,7 @@
       :modal='false'
       :show-close='false'
       width="200px"
-      title='確認刪除'
-      v-dialogDrag)
+      title='確認刪除')
       .header-custom(slot='title')
         |  確認刪除
       table.popupAllSingleSelectNo.my-2(v-for="item in multiDeleteData")

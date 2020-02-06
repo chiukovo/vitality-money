@@ -48,8 +48,7 @@
           :visible.sync='dialogVisible'
           :modal='false'
           width="400px"
-          title='調整數量'
-          v-dialogDrag)
+          title='調整數量')
             .header-custom(slot='title') 調整數量
             template
               .dialog__body
@@ -67,8 +66,7 @@
           :visible.sync='orderConfirm'
           :modal='false'
           width="400px"
-          title='確認下單'
-          v-dialogDrag)
+          title='確認下單')
           .header-custom(slot='title')
             i.el-icon-info
             |  確認下單
@@ -107,8 +105,7 @@
       :modal='false'
       :show-close='false'
       width="600px"
-      title='全部平倉'
-      v-dialogDrag)
+      title='全部平倉')
       .header-custom(slot='title')
         i.el-icon-info
         |  全部平倉

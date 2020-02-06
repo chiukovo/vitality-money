@@ -6,9 +6,7 @@
     :close-on-click-modal='false'
     :width='diaiogSize'
     :height='diaiogHeight'
-    :modal='false'
-    title='$store.state.itemName'
-    v-dialogDrag)
+    :modal='false')
     .header-custom(slot='title')
       i.el-icon-info
       |  {{ typeof title == 'undefined' ? $store.state.itemName : title }}

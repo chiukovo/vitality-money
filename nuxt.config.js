@@ -34,7 +34,6 @@ module.exports = {
     {src: '~plugins/element-ui', ssr: true},
     {src: '~plugins/vue-table', ssr: false},
     {src: '~plugins/version', ssr: false},
-    '@/static/js/el-dialogdrag'
   ],
   /*
   ** Nuxt.js dev-modules

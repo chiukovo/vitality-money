@@ -96,7 +96,19 @@ $vxe-modal-header-background-color: #fff;
 @import '~vxe-table/styles/modal.scss';
 @import '~vxe-table/styles/tooltip.scss';
 
+.vxe-table .vxe-cell {
+	padding: $table-cell-padding;
+}
+
+.vxe-header--column .vxe-cell {
+	padding: $table-header-cell-padding;
+}
+
 .vxe-table.size--mini.virtual--x .col--ellipsis .vxe-cell, .vxe-table.size--mini.virtual--y .col--ellipsis .vxe-cell,
 .vxe-table.size--mini .vxe-header--column.col--ellipsis .vxe-cell, .vxe-table.size--mini .vxe-body--column.col--ellipsis .vxe-cell, .vxe-table.size--mini .vxe-footer--column.col--ellipsis .vxe-cell {
   max-height: none !important;
+}
+
+.vxe-table .vxe-body--column.col--ellipsis {
+  height: 30px !important;
 }
