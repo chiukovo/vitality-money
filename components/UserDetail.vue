@@ -20,6 +20,7 @@
         vxe-table-column(title='開放0.1口')
           template(slot-scope="scope") {{ scope.row.DecimalSubmitEnable == 1 ? '是' : '否' }}
         vxe-table-column(field="DecimalSubmitFee" title='小於一口手續費' width="100")
+          template(slot-scope="scope") {{ scope.row.DecimalSubmitEnable == 1 ? scope.row.DecimalSubmitFee : 0 }}
         vxe-table-column(field="SixityFee" title='60秒平倉手續費' width="100")
         vxe-table-column(field="Fee" title='手續費(進/出)' width="100")
         vxe-table-column(field="SubmitMax" title='單商品每筆上限' width="100")

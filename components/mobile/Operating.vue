@@ -15,11 +15,11 @@
           input.radio__input(type="radio" v-model='buyType' value='0')
           span.radio__label 市價單
         label.radio.inline
-          input.radio__input(type="radio" v-model='buyType' value='2')
-          span.radio__label 收盤單
-        label.radio.inline
           input.radio__input(type="radio" v-model='buyType' value='1')
           span.radio__label 限價單
+        label.radio.inline
+          input.radio__input(type="radio" v-model='buyType' value='2')
+          span.radio__label 收盤單
     .area
       table.table
         thead
@@ -28,7 +28,6 @@
             th: .cell.text__center 倉位
             th: .cell.text__center 成交
             th: .cell.text__center 漲跌
-            th: .cell.text__center 狀態
         tbody
           tr
             td: .cell.text__center.text__success {{ nowMainItem.product_name }}
@@ -42,7 +41,6 @@
                 .change-icon
                   .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                 span(:class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
-            td: .cell.text__center {{ nowMainItem.state_name }}
           tr
             td.limit.limit__1(colspan='5'): .cell.text__center 口數：
               .number-input
@@ -79,12 +77,13 @@
     .area
       .area__header
         .area__title(style='color: yellow') 目前下單商品: {{ $store.state.itemName }}
-        label.checkbox.inline(style="margin-left: 5px;")
-          input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
-          span.checkbox__label 不留倉
-        label.checkbox.inline(style="margin-left: 5px;")
-          input.checkbox__input(type="checkbox" v-model='customGroup' value='overall' @click="clickOverAll()")
-          span.checkbox__label 全盤收平
+        div
+          label.checkbox.inline(style="margin-left: 5px;")
+            input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
+            span.checkbox__label 該筆不留倉
+          label.checkbox.inline(style="margin-left: 5px;")
+            input.checkbox__input(type="checkbox" :checked="dayCover == 1" @click="clickOverAll()")
+            span.checkbox__label 全盤收平
       .area__content.text__center
         button.button__danger.button__lg(@click="checkOrder(0)") 下多單
         button.button__success.button__lg(@click="checkOrder(1)") 下空單
@@ -139,6 +138,7 @@ export default {
       radioA: '0',
       noRemaining: 0,
       buyType: '0',
+      dayCover: 0,
       profit: 0,
       damage: 0,
       submitNum: 1,
@@ -248,70 +248,52 @@ export default {
     },
     clickOverAll() {
       //修改收盤全平
-      let overall = 1
       const _this = this
-      let beforeCustomGroup = this.customGroup
-
-      this.customGroup.forEach(function(val) {
-        if (val == 'overall') {
-          overall = 0
-        }
-      })
-
-      //設定收盤全平
+      _this.dayCover = _this.dayCover == 0 ? 1 : 0
       const lang = this.$store.state.localStorage.lang
       const userId = this.$store.state.localStorage.userAuth.userId
       const token = this.$store.state.localStorage.userAuth.token
 
-      axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
-        UserID: userId,
-        Token: token,
-        SetCloseCover: overall,
-        SetCloseCommodity: _this.clickItemId,
-      }))
-      .then(response => {
-        if (response.data.Code != 1) {
-          _this.$alert(response.data.ErrorMsg)
-          _this.customGroup = beforeCustomGroup
-        }
+      //確認視窗
+      const confirmText = _this.dayCover ? '確認勾選收盤全平?' : '確認取消勾選收盤全平?'
 
-        this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+      this.$confirm(confirmText, '注意! ', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
+          UserID: userId,
+          Token: token,
+          SetCloseCover: _this.dayCover,
+          SetCloseCommodity: _this.clickItemId,
+        }))
+        .then(response => {
+          if (response.data.Code != 1) {
+            _this.$alert(response.data.ErrorMsg)
+            _this.dayCover = !_this.dayCover
+          }
+
+          this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+          this.$store.dispatch('CALL_MEMBER_INFO')
+        }).catch(() => {
+        })
+      }).catch(() => {
+        _this.dayCover = !_this.dayCover
       })
     },
     getNowOverall() {
       //使用者設定
       const _this = this
-      const commidyArray = this.$store.state.commidyArray
-      const clickItem = this.$store.state.clickItemId
-      let newCustomGroup = []
-      let dayCover = ''
+      const commidyArray = this.commidyArray
+      const clickItemId = this.clickItemId
 
       commidyArray.forEach(function(val) {
-        if (val.ID == clickItem) {
-          dayCover = val.DayCover
+        if (val.ID == clickItemId) {
+          _this.dayCover = val.DayCover
           _this.noRemaining = val.NoRemaining
         }
       })
-
-      let has = false
-
-      this.customGroup.forEach(function(val) {
-        if (val == 'overall') {
-          has = true
-
-          if (dayCover == '1') {
-            newCustomGroup.push(val)
-          }
-        } else {
-          newCustomGroup.push(val)
-        }
-      })
-
-      if (!has && dayCover == '1') {
-        newCustomGroup.push('overall')
-      }
-
-      this.customGroup = newCustomGroup
     },
     getNowPrice() {
       const itemId = this.$store.state.clickItemId
@@ -355,6 +337,7 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$socketOrder.send(sendText)
+        }).catch(() => {
         })
       }
     },
@@ -406,7 +389,6 @@ export default {
         }).then(() => {
           this.doOrder()
         }).catch(() => {
-
         })
       }
     },

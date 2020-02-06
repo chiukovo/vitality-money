@@ -59,5 +59,10 @@ export default () => ({
   todayLoseWin: 0,
   errorMsgDate: '',
   //成功拍手
-  doClapping: false
+  doClapping: false,
+  openKchart: false,
+  //提示訊息
+  tipsShow: false,
+  tipsType: 0, //0 等待成交, 1 下單成功
+  tipsContent: '',
 })

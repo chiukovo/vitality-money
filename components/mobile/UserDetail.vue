@@ -7,7 +7,7 @@
       .select.header-select
         select(v-model='selectItemId')
           option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
-    .header__right
+    .header__right(v-for="item in commidyArray" v-if="selectItemId == item.ID")
       button(:class="item.State != '正常' ? 'button__danger' : 'button__success'") {{ item.State }}
   .main
     .area(style="height: calc(100% - 50px); overflow: auto" v-for="item in commidyArray" v-if="selectItemId == item.ID")
@@ -49,7 +49,7 @@
             |{{ item.DecimalSubmitEnable ? '開啟' : '關閉' }}
           li
             span.label 小於一口手續費:
-            |{{ item.DecimalSubmitFee }}
+            |{{ item.DecimalSubmitEnable == 1 ? item.DecimalSubmitFee : 0 }}
           li
             span.label 60秒平倉手續費:
             |{{ item.SixityFee }}

@@ -93,7 +93,7 @@
         input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
         span.checkbox__label 該筆不留倉
       label.checkbox
-        input.checkbox__input(v-model="customGroup" type="checkbox" value="overall" :disabled="dayCoverIsDisabled(clickItemId)" @click="clickOverAll()")
+        input.checkbox__input(type="checkbox" :disabled="dayCoverIsDisabled(clickItemId)" :checked="dayCover == 1" @click="clickOverAll()")
         span.checkbox__label ({{ $store.state.itemName }})收盤全平
       label.checkbox
         input.checkbox__input(v-model="customGroup" type="checkbox" value="noConfirm")
@@ -149,6 +149,7 @@ export default {
       radioA: '0',
       buyType: '0',
       noRemaining: 0,
+      dayCover: 0,
       profit: 0,
       damage: 0,
       submitNum: 1,
@@ -222,70 +223,52 @@ export default {
     },
     clickOverAll() {
       //修改收盤全平
-      let overall = 1
       const _this = this
-      let beforeCustomGroup = this.customGroup
-
-      this.customGroup.forEach(function(val){
-        if (val == 'overall') {
-          overall = 0
-        }
-      })
-
-      //設定收盤全平
+      _this.dayCover = _this.dayCover == 0 ? 1 : 0
       const lang = this.$store.state.localStorage.lang
       const userId = this.$store.state.localStorage.userAuth.userId
       const token = this.$store.state.localStorage.userAuth.token
 
-      axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
-        UserID: userId,
-        Token: token,
-        SetCloseCover: overall,
-        SetCloseCommodity: _this.clickItemId,
-      }))
-      .then(response => {
-        if (response.data.Code != 1) {
-          _this.$alert(response.data.ErrorMsg)
-          _this.customGroup = beforeCustomGroup
-        }
+      //確認視窗
+      const confirmText = _this.dayCover ? '確認勾選收盤全平?' : '確認取消勾選收盤全平?'
 
-        this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+      this.$confirm(confirmText, '注意! ', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.post(process.env.NUXT_ENV_API_URL + "/set_close_cover_all?lang=" + lang, qs.stringify({
+          UserID: userId,
+          Token: token,
+          SetCloseCover: _this.dayCover,
+          SetCloseCommodity: _this.clickItemId,
+        }))
+        .then(response => {
+          if (response.data.Code != 1) {
+            _this.$alert(response.data.ErrorMsg)
+            _this.dayCover = !_this.dayCover
+          }
+
+          this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
+          this.$store.dispatch('CALL_MEMBER_INFO')
+        }).catch(() => {
+        })
+      }).catch(() => {
+        _this.dayCover = !_this.dayCover
       })
     },
     getNowOverall() {
       //使用者設定
       const _this = this
-      const commidyArray = this.$store.state.commidyArray
-      const clickItem = this.$store.state.clickItemId
-      let newCustomGroup = []
-      let dayCover = ''
+      const commidyArray = this.commidyArray
+      const clickItemId = this.clickItemId
 
       commidyArray.forEach(function(val) {
-        if (val.ID == clickItem) {
-          dayCover = val.DayCover
+        if (val.ID == clickItemId) {
+          _this.dayCover = val.DayCover
           _this.noRemaining = val.NoRemaining
         }
       })
-
-      let has = false
-
-      this.customGroup.forEach(function(val) {
-        if (val == 'overall') {
-          has = true
-
-          if (dayCover == '1') {
-            newCustomGroup.push(val)
-          }
-        } else {
-          newCustomGroup.push(val)
-        }
-      })
-
-      if (!has && dayCover == '1') {
-        newCustomGroup.push('overall')
-      }
-
-      this.customGroup = newCustomGroup
     },
     getNowPrice(itemId) {
       const nowNewPrice = this.$store.state.nowNewPrice

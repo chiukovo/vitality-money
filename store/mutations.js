@@ -20,6 +20,17 @@ export default {
   setApiExample(state, data) {
     state.apiExampleData = data
   },
+  clearFiveData(state) {
+    state.items0 = []
+  },
+  setTipsContent(state,  {text, type}) {
+    state.tipsContent = text
+    state.tipsType = type
+    state.tipsShow = true
+  },
+  tipsStateChange(state, data) {
+    state.tipsShow = data
+  },
   setDoClapping(state, data) {
     state.doClapping = data
   },
@@ -244,12 +255,12 @@ export default {
             state.clickItemId = val.product_id
             state.itemName = val.product_name
 
-            //set default now data
-            _this.commit('setNowMainItem', val)
-
             firstIn = false
             firstKey = false
           }
+
+          //set default now data
+          _this.commit('setNowMainItem', val)
         }
 
         newMainItem.push(val)
@@ -278,6 +289,8 @@ export default {
     state.todayLoseWin = userArray.TodayMoney + state.totalUncoverLossWinMoney
   },
   setUserOrder(state, data) {
+    const _this = this
+
     state.userOrder = data
     let uncoveredCountDetail = []
     //計算未平倉數量
@@ -298,6 +311,8 @@ export default {
           uncoveredCountDetail[val.ID] += -1 * val.Quantity
         }
       }
+
+      uncoveredCountDetail[val.ID] = _this._vm.numberToPrecision(uncoveredCountDetail[val.ID])
 
       //default
       val.thisSerialPointDiff = 0
@@ -322,7 +337,8 @@ export default {
     state.unCoverBuySum = data.UnCoverBuySum
     state.unCoverSellSum = data.UnCoverSellSum == 0 ? 0 : '-' + data.UnCoverSellSum
     state.unCoverTotal = state.uncovered.length
-
+    //計算未平損益
+    this.commit('computedUncovered', state.uncovered)
     //加入多檔刪除
     state.buySell = state.buySell.map(function(source) {
       const multiDeleteInfo = {
@@ -379,6 +395,9 @@ export default {
   },
   setMobile(state, data) {
     state.isMobile = data
+  },
+  setOpenKchart(state, data) {
+    state.openKchart = data
   },
   setTradingViewChart(state, tdChart) {
     state.tdChart = tdChart
@@ -619,6 +638,10 @@ export default {
 
     const newPrice = state.nowNewPrice[itemId]
 
+    if (typeof newPrice == "undefined") {
+      return
+    }
+
     //計算未平損益
     this.commit('computedUncovered', state.uncovered)
 
@@ -643,6 +666,7 @@ export default {
     }
   },
   computedUncovered(state, data) {
+    const _this = this
     let nowNewPrice = state.nowNewPrice
     //總共未平損益
     state.totalUncoverLossWinMoney = 0
@@ -665,30 +689,23 @@ export default {
 
       // 取得點數現價差
       let diff = Number(nowPrice) - Number(val.FinalPrice)
+
       // 如果是買單
       if (val.BuyOrSell == 0) {
-          // 此單未平點數
-          val.thisSerialPointDiff = diff
-          // 總共未平損益
-          state.totalUncoverLossWinMoney += diff * Number(val.PointMoney) * Number(val.Quantity)
+        // 此單未平點數
+        val.thisSerialPointDiff = diff
+        // 總共未平損益
+        state.totalUncoverLossWinMoney += diff * Number(val.PointMoney) * Number(val.Quantity)
       } else {
-          val.thisSerialPointDiff = diff * -1
-          state.totalUncoverLossWinMoney -= diff * Number(val.PointMoney) * Number(val.Quantity)
+        val.thisSerialPointDiff = diff * -1
+        state.totalUncoverLossWinMoney -= diff * Number(val.PointMoney) * Number(val.Quantity)
       }
+
+      state.totalUncoverLossWinMoney = _this._vm.numberToPrecision(state.totalUncoverLossWinMoney)
 
       // 此單未平損益 (要算手續費)，要更新在未平單上
       val.thisSerialTotalMoney = val.thisSerialPointDiff * Number(val.PointMoney) * Number(val.Quantity)
-
-
-      //也要計算買賣下單
-      state.buySell = state.buySell.map(function(buySell) {
-        if (buySell.Serial == val.Serial) {
-          buySell.thisSerialTotalMoney = val.thisSerialTotalMoney
-          buySell.thisSerialPointDiff = val.thisSerialPointDiff
-        }
-
-        return buySell
-      })
+      val.thisSerialTotalMoney = _this._vm.numberToPrecision(val.thisSerialTotalMoney)
 
       result.push(val)
     })
@@ -703,7 +720,7 @@ export default {
     let itemId = state.clickItemId
     let targetNewPrice = state.nowNewPrice[itemId]
 
-    if (typeof fiveData != "undefined") {
+    if (typeof fiveData != "undefined" && typeof targetNewPrice != "undefined") {
       if (fiveData[5][2] != targetNewPrice) {
         fiveData[5][2] = targetNewPrice
       }
@@ -840,7 +857,7 @@ export default {
       return result
     })
 
-    state.nowFiveMoney[itemId] = formatData
+    state.nowFiveMoney[itemId] = JSON.parse(JSON.stringify(formatData))
 
     this.commit('setFiveItemChange', formatData)
     //陣列第[3]：第一筆買價

@@ -50,16 +50,16 @@
           vxe-table-column(width="30" align="center")
             template(slot-scope='scope')
               input(class="m-0" type="checkbox" v-model="multiDeleteSelect" :value="scope.row.Serial" v-if="scope.row.Operation[1]")
-          vxe-table-column(title='操作' width="80" align="center")
+          vxe-table-column(title='操作' width="90" align="center")
             template(slot-scope='scope')
               button.button(v-if="scope.row.Operation[0] || !cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, 'edit')") 改
               //-改單
               button.button(v-if="scope.row.Operation[1]" @click="deleteOrder(scope.row)") 刪
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
-          vxe-table-column(title='不留倉')
+          vxe-table-column(title='不留倉' width="70")
             template(slot-scope='scope' v-if="scope.row.Operation[2]")
               label.checkbox
-                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)" :disabled="dayCoverIsDisabled(scope.row.ID)")
+                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row, $event)" :disabled="dayCoverIsDisabled(scope.row.ID)")
                 span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
@@ -110,13 +110,14 @@
           vxe-table-column(width="50" align="center")
             template(slot-scope='scope')
               input(class="m-0" type="checkbox" v-model="multiOrderSelect" :value="scope.row.Serial" :disabled="!scope.row.Operation[2]")
-          vxe-table-column(title='操作' align="center")
+          vxe-table-column(title='操作' align="center" width="90")
             template(slot-scope='scope')
+              button.button(v-if="!cantSetWinLoss(scope.row.Operation)" @click="openEdit(scope.row, '')") 改
               button.button(v-if="scope.row.Operation[2]" @click="doCovered(scope.row, 1)") 平
-          vxe-table-column(title='不留倉')
+          vxe-table-column(title='不留倉' width="70")
             template(slot-scope='scope' v-if="scope.row.Operation[2]")
               label.checkbox
-                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row)" :disabled="dayCoverIsDisabled(scope.row.ID)")
+                input.checkbox__input(type="checkbox" style="margin: 0" :checked="scope.row.DayCover" @click="changeDayCover(scope.row, $event)" :disabled="dayCoverIsDisabled(scope.row.ID)")
                 span.checkbox__label 不留倉
           vxe-table-column(field='Serial' title='序號')
           vxe-table-column(field='Name' title='商品' width="94")
@@ -341,34 +342,34 @@
               el-input-number(v-model="edit.nowPrice")
           //-點數輸入
           .point-input(v-show="pointInputType == 1")
-            .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
+            .win-point.text__center(v-if="checkUncoveredEdit('win')")
               p.pl-15 新獲利點需大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
               el-form-item(label="獲利點")
                 el-input-number(v-model="edit.winPoint")
-            .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
+            .loss-point.text__center(v-if="checkUncoveredEdit('loss')")
               p.pl-15 新損失點需大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPoint }} ]
               el-form-item(label="損失點")
                 el-input-number(v-model="edit.lossPoint")
-            .inverted-point.text__center(v-if="editType == 'inverted'")
+            .inverted-point.text__center(v-if="checkUncoveredEdit('inverted')")
               p.pl-15 新倒限利不得大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPoint }} ]
               el-form-item(label="倒限點")
                 el-input-number(v-model="edit.invertedPoint")
           //-行情輸入
           .money-input(v-show="pointInputType == 2")
-            .win-point.text__center(v-if="editType == 'win' || editType == 'edit'")
+            .win-point.text__center(v-if="checkUncoveredEdit('win')")
               p.pl-15 新獲利點需大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
               el-form-item(label="獲利點")
                 el-input-number(v-model="changeWinPrice")
-            .loss-point.text__center(v-if="editType == 'loss' || editType == 'edit'")
+            .loss-point.text__center(v-if="checkUncoveredEdit('loss')")
               p.pl-15 新損失點需大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitLossPrice }} ]
               el-form-item(label="損失點")
                 el-input-number(v-model="changeLossPrice")
-            .inverted-point.text__center(v-if="editType == 'inverted'")
+            .inverted-point.text__center(v-if="checkUncoveredEdit('inverted')")
               p.pl-15 新倒限利不得大於:
                 span.text__bold.bg-colr-warring [ {{ editPoint.limitWinPrice }} ]
               el-form-item(label="倒限點")

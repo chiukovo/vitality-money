@@ -18,7 +18,8 @@
   .main.mainItem
     Dialog(
       :click-type="dialog.clickType",
-      :visible.sync="dialog.isOpen")
+      :visible.sync="dialog.isOpen"
+      v-if="dialog.isOpen")
     .modals.mainItem(v-show="analysisShow")
       .header
         .header__left
@@ -233,7 +234,7 @@ export default {
       }
 
       //判斷狀態
-      if(columnIndex == 13) {
+      if(columnIndex == 13 || columnIndex == 0) {
         if (row.state != 2) {
           return 'text__secondary'
         }

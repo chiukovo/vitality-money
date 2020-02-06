@@ -16,7 +16,7 @@ div(class="h-100")
         .change-icon
           .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
         div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
-  #tdview-container.h-100
+  #tdview-container(style="height: calc(100% - 30px)")
 </template>
 
 <script>
@@ -29,9 +29,13 @@ export default {
   data() {
     return {}
   },
-  mounted () {
+  mounted() {
+    //openKline
+    this.$store.commit('setOpenKchart', true)
+
     const this_vue = this
     const disabled_features = ['use_localstorage_for_settings', 'header_symbol_search', 'border_around_the_chart']
+
     //判斷是否另開視窗
     if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
       this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', this.$route.query.id)
@@ -41,7 +45,7 @@ export default {
           id: this.$route.query.id,
           name: this.$route.query.name
         })
-      }, 3000)
+      }, 1000)
     }
 
 	  const tdChart = window.tvWidget = new TradingView.widget({
@@ -125,6 +129,10 @@ export default {
         .text('儲存')
         .on('click', saveTradingChart)
     })
+  },
+  destroyed() {
+    //closeKline
+    this.$store.commit('setOpenKchart', false)
   },
   computed: mapState({
     nowMainItem: 'nowMainItem',
