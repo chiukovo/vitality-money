@@ -7,8 +7,6 @@ import {
   Radio,
   Link,
   Switch,
-  Pagination,
-  Divider,
   RadioGroup,
   RadioButton,
   Checkbox,
@@ -21,8 +19,6 @@ import {
   ButtonGroup,
   Carousel,
   CarouselItem,
-  Table,
-  TableColumn,
   DatePicker,
   TimeSelect,
   TimePicker,
@@ -57,15 +53,11 @@ Vue.use(Option);
 Vue.use(Link);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
-Vue.use(Pagination);
-Vue.use(Divider);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(OptionGroup);
 Vue.use(Button);
 Vue.use(ButtonGroup);
-Vue.use(Table);
-Vue.use(TableColumn);
 Vue.use(DatePicker);
 Vue.use(TimeSelect);
 Vue.use(TimePicker);
