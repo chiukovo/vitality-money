@@ -330,6 +330,11 @@ Vue.mixin({
         invertedPoint: Number(row.InvertedPoint),
       }
 
+      //先歸0
+      this.changeWinPrice = 0
+      this.changeLossPrice = 0
+      this.changeInvertedPrice = 0
+
       //行情
       if (this.edit.winPoint != 0) {
         this.changeWinPrice = this.edit.winPoint + finalPrice
