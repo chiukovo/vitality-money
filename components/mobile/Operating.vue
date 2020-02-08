@@ -164,10 +164,7 @@ export default {
         }
       })
 
-      this.$store.commit('setClickItemId', {
-        id: id,
-        name: name
-      })
+      this.preSetClickItemId(id, name)
     },
     commidyArray() {
       this.getNowOverall()

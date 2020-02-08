@@ -407,10 +407,11 @@ export default {
   },
   setClickItemId(state, {id, name}) {
     const _this = this
-    //取消before click id
-    this._vm.$socket.send(this._vm.paramBcancelclickId(state.clickItemId))
-    //註冊
-    this._vm.$socket.send(this._vm.paramBclickId(id))
+    //清空五檔socket
+    state.items0 = []
+    _this.commit('sendMessage', 'f:TXF,TXFAF,EXF,FXF,TSLQ,HSI,HSIAF,E7,NK225,NK225AF,FDAX,YM,NQ,CL,GC,SI,CN,CNAF,CIF')
+    _this.commit('sendMessage', 'h:' + id)
+
     //change now mainItem
     state.mainItem.forEach(function(val) {
       if (val.product_id == id) {

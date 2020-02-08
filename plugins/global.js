@@ -225,6 +225,21 @@ Vue.mixin({
       })
 
       return disabled
+    },
+    preSetClickItemId(id, name) {
+      //開始新的
+      this.$store.commit('setClickItemId', {
+        id: id,
+        name: name
+      })
+
+      this.$store.dispatch('CALL_QUERY_TECH', {
+        'id': id,
+        'type': 'chart',
+        'num': 1
+      })
+
+      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id)
     }
   }
 })

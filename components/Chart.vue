@@ -126,22 +126,8 @@ export default {
 
     //判斷是否另開視窗
     if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
-      // this.$store.dispatch('CALL_QUERY_TECH', {
-      //   'id': this.$route.query.id,
-      //   'type': 'chart',
-      //   'num': 1
-      // })
-
       setTimeout(() => {
-        this.$store.commit('setClickItemId', {
-          id: this.$route.query.id,
-          name: this.$route.query.name
-        })
-        this.$store.dispatch('CALL_QUERY_TECH', {
-          'id': this.$route.query.id,
-          'type': 'chart',
-          'num': 1
-        })
+        this.preSetClickItemId(this.$route.query.id, this.$route.query.name)
       }, 1000)
 
       this.name = this.$route.query.name
