@@ -7,7 +7,7 @@
     Header
   #main
     //- style A
-    splitpanes(class="default-theme" v-show="mainStyle == 'A'")
+    splitpanes(class="default-theme" v-show="mainStyle == 'A'" @resized="resized()")
       pane(size="20")
         splitpanes(horizontal @resized="resized()")
           pane(size="30")
@@ -24,7 +24,7 @@
             Operating(v-if="checkIsset('A')")
 
     //- style B
-    splitpanes(class="default-theme"  v-show="mainStyle == 'B'")
+    splitpanes(class="default-theme"  v-show="mainStyle == 'B'" @resized="resized()")
       pane(size="80")
         splitpanes(horizontal @resized="resized()")
           pane(size="42")

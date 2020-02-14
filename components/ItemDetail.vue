@@ -6,34 +6,29 @@
         .header__title 五檔揭示[{{ $store.state.itemName }}]
       .itemDetail-content
         .itemDetail__TotalTable
-          client-only
-            vxe-table(
-              :data="$store.state.items0"
-              :row-class-name="tableCenterHeightLight"
-              max-width="100%"
-              height="100%"
-              size="mini"
-              align="center"
-              border
-              auto-resize)
-              vxe-table-column(title="比例")
-                template(slot-scope='scope')
-                  template(v-if="scope.row[0] == ''")
-                  template(v-else)
+          table
+            thead
+              tr
+                th 比例
+                th 委買
+                th 價格
+                th 委賣
+                th 比例
+            tbody
+              tr(v-for="row in items0")
+                td
+                  div(v-if="row[0] == ''")
+                  div(v-else)
                     .progress-bar.progress-bar__right
-                      .progress-bar__inner(:style="'width: ' + scope.row[0] + '%'")
-              vxe-table-column(title="委買" width="20%")
-                template(slot-scope="scope") {{ scope.row[1] }}
-              vxe-table-column(title="價格")
-                template(slot-scope="scope") {{ scope.row[2] }}
-              vxe-table-column(title="委賣" width="20%")
-                template(slot-scope="scope") {{ scope.row[3] }}
-              vxe-table-column(title="比例")
-                template(slot-scope="scope")
-                  template(v-if="scope.row[4] == ''")
-                  template(v-else)
+                      .progress-bar__inner(:style="'width: ' + row[0] + '%'")
+                td {{ row[1] }}
+                td {{ row[2] }}
+                td {{ row[3] }}
+                td
+                  div(v-if="row[4] == ''")
+                  div(v-else)
                     .progress-bar
-                      .progress-bar__inner(:style="'width: ' + scope.row[4] + '%'")
+                      .progress-bar__inner(:style="'width: ' + row[4] + '%'")
         .itemDetail__Total
           .row
             .col {{ $store.state.fiveTotal.more }}
@@ -49,25 +44,24 @@
       .itemDetail-header
         .header__title 量價分佈[{{ $store.state.itemName }}]
       .itemDetail-content
-        client-only
-          vxe-table(
-            :data="$store.state.items1"
-            max-width="100%"
-            height="100%"
-            size="mini"
-            align="center"
-            border
-            auto-resize)
-            vxe-table-column(field="price" title='價格' width='30%')
-            vxe-table-column(width='20%')
-              template(slot-scope='scope' v-if="scope.row['isNow']") 現價
-            vxe-table-column(title='比例' width='28%')
-              template(slot-scope='scope')
-                template(v-if="scope.row['percent'] == ''")
-                template(v-else)
+        table
+          thead
+            tr
+              th(width='30%') 價格
+              th(width='20%')
+              th(width='28%') 比例
+              th(width='22%') 口
+          tbody
+            tr(v-for="row in items1")
+              td(width='30%') {{ row.price }}
+              td(width='20%')
+                span(v-if="row['isNow']") 現價
+              td(width='28%')
+                div(v-if="row['percent'] == ''")
+                div(v-else)
                   .progress-bar
-                    .progress-bar__inner(:style="'width: ' + scope.row['percent'] + '%'")
-            vxe-table-column(field="amount" title='口' width='22%')
+                    .progress-bar__inner(:style="'width: ' + row['percent'] + '%'")
+              td(width='22%') {{ row.amount }}
     div(v-show='itemDetailTabShow == 3' class="h-100")
       .itemDetail-header
         .header__title
@@ -76,26 +70,25 @@
           label.checkbox
             input.checkbox__input(type="checkbox" v-model="autoScroll")
             span.checkbox__label 置底
-      .itemDetail-content
-        client-only
-          vxe-table(
-            ref="xTable"
-            :data="items2"
-            :cell-class-name="tableCellClassName"
-            max-width="100%"
-            height="100%"
-            size="mini"
-            align="center"
-            border
-            auto-resize)
-            vxe-table-column(field="flocalTime" title='市場時間' width='30%')
-            vxe-table-column(field="amount" title='口' width='14%')
-            vxe-table-column(title='漲跌' width='28%')
-              template(slot-scope='scope')
+      #item2.itemDetail-content
+        table.custom__table
+          thead.thead
+            tr
+              th 市場時間
+              th 口
+              th 漲跌
+              th 價格
+          tbody.tbody(@scroll="tbodyScroll($event)")
+            tr(v-for="row in items2" @click="trClick($event)")
+              td {{ row.flocalTime }}
+              td {{ row.amount }}
+              td
                 .change-icon
-                  .icon-arrow(:class="scope.row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span {{ scope.row['gain'] }}
-            vxe-table-column(field="price" title='價格' width='28%')
+                  .icon-arrow(:class="row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+                span {{ row['gain'] }}
+              td {{ row.price }}
+            tr(class="non-data" v-if="items2.length == 0")
+              td 無資料
   .itemDetail-tabs.tabs-nav
     .tabs__item(@click='handleItemDetailTabs(1)' :class="{'is-active' : itemDetailTabShow == 1}") 五檔揭示
     .tabs__item(@click='handleItemDetailTabs(2)' :class="{'is-active' : itemDetailTabShow == 2}") 量價分佈
@@ -126,6 +119,8 @@ export default {
     }
   },
   computed: mapState([
+    'items0',
+    'items1',
     'items2',
     'clickItemId',
   ]),
@@ -141,7 +136,7 @@ export default {
     setAutoScroll() {
       if (this.autoScroll) {
         //自動置底
-        this.$refs.xTable.scrollTo(0, 99999)
+         document.querySelector('#item2 tbody').scrollTop = 9999
       }
     },
     handleItemDetailTabs(e) {

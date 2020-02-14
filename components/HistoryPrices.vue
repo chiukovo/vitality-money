@@ -7,19 +7,10 @@
           el-form-item(label='商品: ' size='mini')
             el-select(placeholder='請選擇' style="width: 90px;" v-model="form.itemType")
               el-option(
-                v-for="(data, key) in commidy"
+                v-for="(data, key) in $store.state.commidyArray"
                 :key="key"
-                :label="data.name"
-                :value="data.id"
-              )
-          el-form-item(label='開始日期:')
-            el-form-item
-              el-date-picker(
-                v-model='form.start',
-                type='date',
-                placeholder='開始日期',
-                value-format="yyyy-MM-dd"
-                style="width: 130px;",
+                :label="data.Name"
+                :value="data.ID"
               )
           el-form-item(label='開始時間: ' size='mini')
             el-time-picker(
@@ -27,30 +18,23 @@
               style="width: 132px;"
               value-format="HH:mm:ss"
               format="HH:mm:ss")
-          button.button(type="button" @click="query") 送出
-    .row
-      .col
-        el-divider(content-position='center') 時間: {{ form.start }} {{ form.startDt }} ~ {{ form.end }} 23:59:59
+          button.button(type="button" @click="query") 查詢
+          .badge.badge-warning(style="margin-left: 10px;position: relative;bottom: 6px;") *3 分鐘
   .dialog__content
-    client-only
-      vxe-table(
-        :data="items.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-        max-width="100%"
-        height="266px"
-        size="mini"
-        align="center"
-        border
-        auto-resize
-        highlight-current-row
-        highlight-hover-row)
-        vxe-table-column(field="time" title='市場時間' min-width='30%')
-        vxe-table-column(field="submit" title='口' width='14%')
-        vxe-table-column(field="price" title='價格' width='28%')
-    el-pagination(
-      background
-      layout="prev, pager, next"
-      :total="total"
-      @current-change="currentChange")
+    .m-10
+      table.custom__table.large
+        thead.thead
+          tr
+            th 時間
+            th 成交價
+            th 單量
+        tbody.tbody(@scroll="tbodyScroll($event)")
+          tr(v-for="row in items" @click="trClick($event)")
+            td {{ row.time }}
+            td {{ row.price }}
+            td {{ row.submit }}
+          tr(class="non-data" v-if="items.length == 0")
+            td 無資料
 </template>
 <script>
 
@@ -73,28 +57,19 @@ export default {
       currentPage: 1
     }
   },
-  mounted () {
+  mounted() {
     //end date
     this.form.start = this.formatDate(new Date())
     this.form.end = this.formatDate(new Date())
-    this.getItems()
+  },
+  watch: {
+    items() {
+      this.computedTableContent()
+    }
   },
   methods: {
     currentChange(currentPage) {
       this.currentPage = currentPage;
-    },
-    getItems() {
-      //取得商品列表
-      let commidyArray = this.$store.state.commidyArray
-      commidyArray = JSON.parse(JSON.stringify(commidyArray))
-      let _this = this
-
-      commidyArray.forEach(function (val) {
-        _this.commidy.push({
-          name: val.Name,
-          id: val.ID,
-        })
-      })
     },
     async query() {
       let _this = this
@@ -113,12 +88,10 @@ export default {
         }))
         .then(response => {
           const result = response.data
-          _this.items = []
 
           if (result.Code == 1) {
             //計算
-            let history = result.ComDataArray.split(",")
-
+            let history = result.ComDataArray.split(",");
             if(history.length < 3) {
               return;
             }
@@ -139,7 +112,7 @@ export default {
               }
             }
 
-            for(let i = 0; i < history.length; i += 3) {
+            for(let i = 0;i < history.length; i += 3) {
               if(parseInt(history[i + 2]) > 0) {
                 _this.items.push({
                   time: _this.form.start + ' ' + _this.formatTime(history[i]),
@@ -149,7 +122,7 @@ export default {
               }
             }
 
-            _this.total= _this.items.length;
+            _this.total = _this.items.length
           }
         })
       }
