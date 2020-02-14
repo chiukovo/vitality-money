@@ -131,19 +131,21 @@ export default {
     const setting = state.customItemSetting
     let mainItem = state.mainItem
     let result = []
+    let resultToOrder = []
 
-    mainItem.forEach(function(val) {
+    result = mainItem.map(function(val) {
       //確認此筆是否要隱藏
       //使用者設定
       let userHide = false
+
       setting.forEach(function(custom) {
         if (custom.id == val.product_id && !custom.show) {
           userHide = true
         }
       })
 
-      if (userHide && setting.length > 0) {
-        return
+      if (userHide && setting.length > 0 && val.product_id != 'TSLQ') {
+        return ''
       }
 
       //顏色 昨收價 < 成交價 紅
@@ -158,11 +160,32 @@ export default {
       val.newest_qty_change = ''
       val.gain_change = ''
       val.gain_percent_change = ''
+      val.state_color = ''
+      val.row_hide = false
+
 
       if (val.newest_price > val.yesterday_close_price) {
         val.color = 'text__danger'
       } else {
         val.color = 'text__success'
+      }
+
+      val.computed_color = val.color
+
+      //判斷是否要相反
+      if (state.localStorage.customSetting.listColorStyle == 2) {
+        //相反
+        if (val.color == 'text__danger') {
+          val.computed_color = 'text__success'
+        }
+        if (val.color == 'text__success') {
+          val.computed_color = 'text__danger'
+        }
+      }
+
+      //狀態顏色
+      if (val.state != 2) {
+        val.state_color = 'text__secondary'
       }
 
       val.gain = val.newest_price - val.yesterday_close_price
@@ -173,10 +196,25 @@ export default {
       //寫入store 目前最新成交價錢
       state.nowNewPrice[val.product_id] = val.newest_price
 
-      result.push(val)
+      if (val.product_id == 'TSLQ') {
+        val.row_hide  = false
+      }
+
+      return val
     })
 
-    state.mainItem = result
+    //order
+    setting.forEach(function(custom) {
+      result.forEach(function(val) {
+        if (val != '') {
+          if (custom.id == val.product_id) {
+            resultToOrder.push(val)
+          }
+        }
+      })
+    })
+
+    state.mainItem = resultToOrder
   },
   clearUserAuth(state, data) {
     state.localStorage.userAuth = []

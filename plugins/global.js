@@ -200,6 +200,15 @@ Vue.mixin({
     getMoneyColor(target) {
       return target < 0 ? 'text__success' : 'text__danger'
     },
+    dateOnlyHis(date) {
+      const format = date.split(" ")
+
+      if (typeof format[1] != "undefined") {
+        return format[1]
+      } else {
+        return date
+      }
+    },
     findMainItemById(id) {
       const mainItem = this.$store.state.mainItem
       let target = ''
@@ -240,6 +249,116 @@ Vue.mixin({
       })
 
       this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id)
-    }
+    },
+    checkBuySellColor(row) {
+      return row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'
+    },
+    showErrorMsg(msg) {
+      this.$alert(msg, 'Api Server Error', {
+        type: 'error'
+      })
+    },
+    trClick(event) {
+      const target = event.target.closest('tr')
+
+      let other = target.parentNode.querySelectorAll('tr')
+
+      //other rm class
+      for (let num = 0; num < other.length; num++) {
+        other[num].classList.remove("current")
+      }
+
+      target.classList.add("current")
+    },
+    tbodyScroll(event, fixedLeft, mobMain) {
+      const target = event.target.parentNode
+
+      if (target == null) {
+        return
+      }
+
+      //tbody scrollleft
+      let tbody = target.querySelector('.custom__table .tbody')
+      let thead = target.querySelector('.custom__table .thead')
+      let tbodyFirst = target.querySelectorAll('.custom__table .tbody td:nth-child(1)')
+      let theadFirst = target.querySelector('.custom__table .thead th:nth-child(1)')
+
+      if (tbody == null) {
+        return
+      }
+
+      if (mobMain) {
+        let fakeTbody = document.querySelector('.mob__table .tbody')
+
+        fakeTbody.scrollTop = tbody.scrollTop
+      }
+
+      const scrollLeft = tbody.scrollLeft
+
+      thead.style.left = '-' + scrollLeft + 'px'
+
+      if (fixedLeft) {
+        theadFirst.style.left = scrollLeft + 'px'
+        for (let num = 0; num < tbodyFirst.length; num++) {
+          tbodyFirst[num].style.left = scrollLeft + 'px'
+        }
+      }
+    },
+    computedTableContent(isMobMain) {
+      const _this = this
+
+      setTimeout(function() {
+        let target = document.querySelectorAll('.custom__table')
+        let content = null
+        let tbody
+        let thead
+        let w = 0
+        let h = 0
+        let fontStyle = 0
+
+        if (target.length > 0) {
+          target.forEach(function(el) {
+            let num = 0
+            content = el.parentNode
+            tbody = content.querySelector('.custom__table .tbody')
+            thead = content.querySelector('.custom__table .thead')
+
+            if (content == null || tbody == null || thead == null) {
+              return
+            }
+
+            w = content.offsetWidth
+            h = content.offsetHeight
+
+            if (w == 0 && h == 0) {
+              return
+            }
+
+            //only scrollY
+            if (tbody.scrollHeight > content.clientHeight && tbody.scrollWidth < content.clientWidth) {
+              num = 16
+            }
+
+            if (isMobMain) {
+              let fakeTable = document.querySelector('.mob__table')
+              let fakeTbody = fakeTable.querySelector('.tbody')
+
+              fakeTable.style.top = el.offsetTop + 'px'
+              fakeTbody.style.height = h - thead.offsetHeight + 'px'
+            }
+
+            if (w + 'px' == tbody.style.width && w + 'px' == thead.style.width) {
+              if (tbody.style.height == h - thead.offsetHeight + 'px' && num == 0) {
+                return
+              }
+            }
+
+            tbody.style.width = w + 'px'
+            thead.style.width = (w - num) + 'px'
+            tbody.style.height = h - thead.offsetHeight + 'px'
+          })
+        }
+       }, 200)
+    },
   }
 })

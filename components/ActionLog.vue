@@ -20,24 +20,25 @@
         button.button(@click="selectDayType('thisMonth')") 本月
         button.button(@click="selectDayType('beforeMonth')") 上月
   .dialog__content
-    client-only
-      vxe-table(
-        :data='items'
-        max-width="100%"
-        height="500"
-        column-min-width="74"
-        size="mini"
-        align="center"
-        border
-        auto-resize
-        highlight-current-row
-        highlight-hover-row)
-        vxe-table-column(field="Index" title='序號' width="50")
-        vxe-table-column(field="ActionUserAccount" title='帳號')
-        vxe-table-column(field="ActionType" title='動作類別')
-        vxe-table-column(field="ActionData" title='說明')
-        vxe-table-column(field="ActionTime" title='日期')
-        vxe-table-column(field="ActionIP" title='IP紀錄' width="120")
+    table.custom__table.large
+      thead.thead
+        tr
+          th 序號
+          th 帳號
+          th 動作類別
+          th(style="width: 200px;") 說明
+          th(style="width: 130px;") 日期
+          th(style="width: 130px;") IP紀錄
+      tbody.tbody(@scroll="tbodyScroll($event)")
+        tr(v-for="row in items" @click="trClick($event)")
+          td {{ row.Index }}
+          td {{ row.ActionUserAccount }}
+          td {{ row.ActionType }}
+          td(style="width: 200px;") {{ row.ActionData }}
+          td(style="width: 130px;") {{ row.ActionTime }}
+          td(style="width: 130px;") {{ row.ActionIP }}
+        tr(class="non-data" v-if="items.length == 0")
+          td 無資料
 </template>
 <script>
 
@@ -76,6 +77,7 @@ export default {
         .then(response => {
           const result = response.data
           _this.items = result.ActionArray
+          _this.computedTableContent()
         })
       }
     }

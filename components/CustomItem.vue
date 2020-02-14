@@ -4,25 +4,25 @@
     el-button(size='mini' @click="allChecked(true)") 全選
     el-button(size='mini' @click="allChecked(false)") 全不選
   .dialog__content
-    vxe-table(
-      :data='items'
-      ref="multipleTable"
-      @checkbox-change="handleSelectionChange"
-      max-width="100%"
-      height="500"
-      size="mini"
-      border
-      auto-resize
-      highlight-hover-row
-      :checkbox-config="{checkStrictly: true}")
-      vxe-table-column(width="55px" fixed)
-        template(slot-scope='scope')
-          input(type="checkbox" v-model="multipleSelection" :value="scope.row.id")
-      vxe-table-column(field="name" title='商品')
-      vxe-table-column(field="id" title='代碼')
-      vxe-table-column(title='可下單時間')
-        template(slot-scope="scope") <span v-html="scope.row.trade_time"></span>
-      vxe-table-column(field="market_name" title='交易所')
+    table.custom__table.large
+      thead.thead
+        tr
+          th
+          th 商品
+          th 代碼
+          th 可下單時間
+          th 交易所
+      tbody.tbody(@scroll="tbodyScroll($event)")
+        tr(v-for="row in items" @click="trClick($event)")
+          td
+            input(type="checkbox" v-model="multipleSelection" :value="row.id")
+          td {{ row.name }}
+          td {{ row.id }}
+          td
+            span(v-html="row.trade_time")
+          td {{ row.market_name }}
+        tr(class="non-data" v-if="items.length == 0")
+          td 無資料
   .dialog__footer
     button.button_light(@click="cancel") 取消
     button.button(type='primary' @click="submit") 確認
@@ -52,6 +52,8 @@ export default {
         _this.multipleSelection.push(val.id)
       }
     })
+
+    this.computedTableContent()
   },
   methods: {
     allChecked(allChecked) {

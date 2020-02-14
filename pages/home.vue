@@ -9,13 +9,13 @@
     //- style A
     splitpanes(class="default-theme" v-show="mainStyle == 'A'")
       pane(size="20")
-        splitpanes(horizontal)
+        splitpanes(horizontal @resized="resized()")
           pane(size="30")
             UserInfo(v-if="checkIsset('A')")
           pane(size="70")
             ItemDetail(v-if="checkIsset('A')")
       pane(size="80")
-        splitpanes(horizontal)
+        splitpanes(horizontal @resized="resized()")
           pane(size="42")
             MainItem(v-if="checkIsset('A')")
           pane(size="44")
@@ -26,7 +26,7 @@
     //- style B
     splitpanes(class="default-theme"  v-show="mainStyle == 'B'")
       pane(size="80")
-        splitpanes(horizontal)
+        splitpanes(horizontal @resized="resized()")
           pane(size="42")
             MainItem(v-if="checkIsset('B')")
           pane(size="44")
@@ -34,7 +34,7 @@
           pane(size="14")
             Operating(v-if="checkIsset('B')")
       pane(size="20")
-        splitpanes(horizontal)
+        splitpanes(horizontal @resized="resized()")
           pane(size="30")
             UserInfo(v-if="checkIsset('B')")
           pane(size="70")
@@ -92,6 +92,8 @@ export default {
   watch: {
     theme(style) {
       this.themeStyle = style
+      //計算寬高
+      this.computedTableContent()
     },
     doClapping(type) {
       const _this = this
@@ -120,11 +122,19 @@ export default {
     }
 
     this.checkLogin()
+
+    window.onresize = function() {
+      //計算寬高
+      _this.computedTableContent()
+    };
   },
   methods: {
     checkIsset(type) {
       return type == this.mainStyle
-    }
+    },
+    resized() {
+      this.computedTableContent()
+    },
   }
 }
 </script>

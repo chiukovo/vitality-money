@@ -1193,7 +1193,113 @@ button {
     }
   }
 }
-
+//-------------- table
+.custom__table {
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+  border-collapse: collapse;
+  &.general {
+    height: 150px;
+  }
+  &.large {
+    height: 400px;
+  }
+  tr {
+    border-left: 1px solid #dee2e6;
+  }
+  thead {
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    overflow: visible;
+    background-color: #f9f9f9;
+    border-top: 1px solid #dee2e6;
+    th {
+      width: 80px;
+      height: 100%;
+      line-height: 1.2;
+      padding: 4px;
+      background-color: #f9f9f9;
+      background-image: linear-gradient(-90deg,#dee2e6,#dee2e6),linear-gradient(-180deg,#dee2e6,#dee2e6);
+      background-repeat: no-repeat;
+      background-size: 1px 100%,100% 1px;
+      background-position: 100% 0,100% 100%;
+      &:nth-child(1) {
+        position: relative;
+        z-index: 99;
+      }
+    }
+  }
+  tbody {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #fff;
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-left: 1px solid #dee2e6;
+      &.current {
+        td {
+          background-color: #f1e5e5 !important;
+        }
+      }
+      &:nth-child(even) {
+        background-color: #f3f3f3;
+        td:nth-child(1) {
+          background-color: #f3f3f3;
+        }
+      }
+      td {
+        background-image: linear-gradient(-90deg,#dee2e6,#dee2e6),linear-gradient(-180deg,#dee2e6,#dee2e6);
+        background-repeat: no-repeat;
+        background-size: 1px 100%, 100% 1px;
+        background-position: right top, right bottom;
+        &:nth-child(1) {
+          background-color: #fff;
+        }
+      }
+    }
+    td {
+      width: 80px;
+      height: 26px;
+      padding: 2px 4px;
+      position: relative;
+      input[type="checkbox"] {
+        margin: 10px;
+      }
+      &:nth-child(1) {
+        position: relative;
+        z-index: 99;
+      }
+    }
+  }
+  .cell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2px 4px;
+  }
+  .border__danger, .border__success {
+    border-color: #4fbbfb !important;
+  }
+  .bg__success, .bg__danger {
+    color: #fff;
+    background-image: linear-gradient(-90deg,#dee2e6,#dee2e6),linear-gradient(-180deg,#dee2e6,#dee2e6);
+    background-repeat: no-repeat;
+    background-size: 1px 100%, 100% 1px;
+    background-position: right top, right bottom;
+  }
+}
 //-------------- scrollbar
 // scrollbar background
 body::-webkit-scrollbar-track {
