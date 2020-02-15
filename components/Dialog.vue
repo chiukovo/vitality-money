@@ -104,18 +104,15 @@ export default {
     chartId: 'chartId'
   }),
   watch: {
-    visible(isOpen) {
-      if (isOpen) {
-        if (this.size != '' && typeof this.size != 'undefined') {
-          this.diaiogSize = this.size
-        } else {
-          this.diaiogSize = '86%'
-        }
-      }
-    }
   },
   mounted() {
     this.clickMainStyle = this.mainStyle
+
+    if (this.size != '' && typeof this.size != 'undefined') {
+      this.diaiogSize = this.size
+    } else {
+      this.diaiogSize = '86%'
+    }
   },
   methods: {
     reSize(type) {

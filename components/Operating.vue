@@ -96,11 +96,14 @@
                   td {{ row.name }}
                   td {{ row.userName }}
                   td
-                    span(:class="row.buy == 0 ? 'bg_danger' : 'bg_success'" class="text__white") {{ row.buy == 0 ? '多' : '空' }}
+                    span(:class="row.buy == 0 ? 'text__danger' : 'text__success'") {{ row.buy == 0 ? '多' : '空' }}
                   td {{ row.price }}
                   td {{ row.submit }}
                 tr(class="non-data" v-if="confirmData.length == 0")
                     td 無資料
+          .dialog__footer
+            button.button.button__light(@click="cancel") 取消
+            button.button(@click="doOrder") 確認
     .operating-5
       label.checkbox
         input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
@@ -138,7 +141,7 @@
            td {{ row.Name }}
            td {{ row.FinalPrice }}
            td
-              span(:class="row.BuyOrSell == 0 ? 'bg_danger' : 'bg_success'" class="text__white") {{ row.BuyOrSell == 0 ? '多' : '空' }}
+              span(:class="row.BuyOrSell == 0 ? 'text__danger' : 'text__success'") {{ row.BuyOrSell == 0 ? '多' : '空' }}
            td {{ row.Quantity }}
           tr(class="non-data" v-if="overAllList.length == 0")
             td 無資料
@@ -394,7 +397,7 @@ export default {
       this.confirmData = [{
         name: this.$store.state.itemName,
         userName: this.$store.state.userInfo.Account,
-        buy: type == 1 ? '空' : '多',
+        buy: type,
         price: buyTypeName,
         submit: this.submitNum,
       }]
