@@ -2,27 +2,24 @@
 .userInfo
   .userInfo-header {{ userInfo.Account }} ({{ userInfo.State }})
   .userInfo-content
-    client-only
-      vxe-table(
-        :data="tableData"
-        :show-header='false'
-        :cell-class-name='tableCellClassName'
-        max-width="100%"
-        height="100%"
-        size="small"
-        column-min-width="80"
-        border
-        auto-resize
-        resizable)
-        vxe-table-column(field='title' show-overflow width="130")
-        vxe-table-column(field='info' show-overflow width="110")
+    table.custom__table.large
+      thead.thead(style="display: none")
+        tr
+          th
+          th
+      tbody.tbody(@scroll="tbodyScroll($event)")
+        tr(v-for="row in items" @click="trClick($event)")
+         td(style="width: 130px") {{ row.title }}
+         td(:class="checkColor(row)" style="width: 110px") {{ row.info }}
+        tr(class="non-data" v-if="items.length == 0")
+          td 無資料
 </template>
 <script>
 import { mapState } from 'vuex';
 export default {
   data () {
     return {
-      tableData: []
+      items: []
     }
   },
   computed: mapState([
@@ -46,7 +43,7 @@ export default {
       const _this = this
       const userInfo = this.userInfo
 
-      this.tableData = [{
+      this.items = [{
           title: '客戶名稱:',
           info: userInfo.Name,
         }, {
@@ -96,19 +93,16 @@ export default {
           info: userInfo.PriceMode == 0 ? '整數報價' : '完整報價',
         }]
     },
-    tableCellClassName({ row, column, columnIndex }) {
+    checkColor(row) {
       if(row.title == '帳戶餘額:' || row.title == '信用額度:' || row.title == '對匯額度:' || row.title == '極贏額度:') {
-        if(columnIndex == 1) {
-          return 'text__info'
-        }
+        return 'text__info'
       }
+
       if(row.title == '今日損益:') {
-        if(columnIndex == 1) {
-          if(row.info < 0) {
-            return 'text__success'
-          } else {
-            return 'text__danger'
-          }
+        if(row.info < 0) {
+          return 'text__success'
+        } else {
+          return 'text__danger'
         }
       }
     }

@@ -28,22 +28,20 @@
                   el-link(@click='showDetail = false' icon='el-icon-arrow-left' :underline='false') 返回
                 .header__title [{{ targetName }}] 歷史損益: {{ totalLossWinPoint | currency }}
               .main
-                client-only
-                  vxe-table.table(
-                    :data='detail'
-                    max-width="100%"
-                    height="100%"
-                    column-min-width="90"
-                    size="mini"
-                    border
-                    auto-resize
-                    highlight-current-row)
-                    vxe-table-column(field="NewSerial" title='序號' fixed="left")
-                    vxe-table-column(field='Name' title='商品' align='center' fixed="left" width="130")
-                    vxe-table-column(field='TotalFee' title='手續費' align='center')
-                    vxe-table-column(title='損益')
-                      template(slot-scope='scope')
-                        span(:class="scope.row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['Money'] | currency }}
+                table.custom__table.large
+                  thead.thead
+                    tr
+                      th 序號
+                      th 商品
+                      th 手續費
+                      th 損益
+                  tbody.tbody(@scroll="tbodyScroll($event)")
+                    tr(v-for="row in items" @click="trClick($event)")
+                      td {{ row.NewSerial }}
+                      td {{ row.Name }}
+                      td {{ row.TotalFee }}
+                      td
+                        span(:class="getMoneyColor(row['Money'])") {{ row['Money'] | currency }}
 </template>
 <script>
 
@@ -131,6 +129,7 @@ export default {
           })
 
           _this.coveredArray = response.data.CoveredArray
+          _this.computedTableContent()
         })
       }
     }

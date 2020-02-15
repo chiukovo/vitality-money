@@ -28,11 +28,20 @@
     .operating-2
       el-form(ref='form' size='mini' label-width='50px')
         el-form-item(label='限價:' v-if="buyType == 1")
-          el-input-number(v-model='nowPrice' controls-position='right' :min="0")
+          .number-input(:class="buyType != 1 ? 'disabled' : ''")
+            button.button__increase(type="button" @click="addLimitPoint('--')")
+            input(type="text" v-model='nowPrice' :min="0" :disabled="buyType != 1")
+            button.button__decrease(type="button" @click="addLimitPoint('++')")
         el-form-item(label='停利:')
-          el-input-number(v-model='profit' controls-position='right' :min="0")
+          .number-input
+            button.button__increase(type="button" @click="profit--")
+            input(type="text" v-model='profit')
+            button.button__decrease(type="button" @click="profit++")
         el-form-item(label='停損:')
-          el-input-number(v-model='damage' controls-position='right' :min="0")
+          .number-input
+            button.button__increase(type="button" @click="damage--")
+            input(type="text" v-model='damage')
+            button.button__decrease(type="button" @click="damage++")
     .operating-3
       .numberbtn
         el-form(ref='form' size='mini' label-width='30px')
@@ -40,7 +49,10 @@
       .numberinput
         el-form(ref='form' size='mini' label-width='50px')
           el-form-item(label='口數:' style='margin: 2px 0;')
-            el-input-number(v-model='submitNum' controls-position='right' :min="0" :step="submitStep")
+            .number-input
+              button.button__increase(type="button" @click="changeSubmitNum('-')")
+              input(type="text" v-model='submitNum' :min="0")
+              button.button__decrease(type="button" @click="changeSubmitNum('+')")
       .editbtn
         button.button(@click="dialogVisible = true") 編輯
         button.button(@click="resetNum") 還原
@@ -70,22 +82,25 @@
           .header-custom(slot='title')
             i.el-icon-info
             |  確認下單
-          client-only
-            vxe-table(
-              :data="confirmData"
-              max-width="100%"
-              height="200px"
-              size="mini"
-              border
-              auto-resize)
-              vxe-table-column(field="name" title='目標商品')
-              vxe-table-column(field="userName" title='用戶名稱')
-              vxe-table-column(field="buy" title='買賣')
-              vxe-table-column(field="price" title='價格')
-              vxe-table-column(field="submit" title='口數')
-            .dialog__footer
-              button.button__light(@click="cancel") 取消
-              button.button(@click="doOrder") 確認
+          .m-10
+            table.custom__table.general
+              thead.thead
+                tr
+                  th 目標商品
+                  th 用戶名稱
+                  th 買賣
+                  th 價格
+                  th 口數
+              tbody.tbody
+                tr(v-for="row in confirmData")
+                  td {{ row.name }}
+                  td {{ row.userName }}
+                  td
+                    span(:class="row.buy == 0 ? 'bg_danger' : 'bg_success'" class="text__white") {{ row.buy == 0 ? '多' : '空' }}
+                  td {{ row.price }}
+                  td {{ row.submit }}
+                tr(class="non-data" v-if="confirmData.length == 0")
+                    td 無資料
     .operating-5
       label.checkbox
         input.checkbox__input(type="checkbox" :checked="noRemaining == 1" @click="setNoRemaining")
@@ -109,22 +124,27 @@
       .header-custom(slot='title')
         i.el-icon-info
         |  全部平倉
-      client-only
-        vxe-table(
-          :data="overAllList"
-          height="100px"
-          size="mini"
-          column-min-width="60"
-          border)
-          vxe-table-column(field="Serial" title='序號')
-          vxe-table-column(field="Name" title='商品')
-          vxe-table-column(field="FinalPrice" title='成交價')
-          vxe-table-column(title='多空')
-            template(slot-scope='scope') {{ scope.row['BuyOrSell'] == 0 ? '多' : '空' }}
-          vxe-table-column(field="Quantity" title='口數')
-        .dialog__footer
-          button.button__light(@click="overAllConfirm = false") 取消
-          button.button(type='primary' @click="doSendOverAll") 確認
+      table.custom__table.general
+        thead.thead
+          tr
+            th 序號
+            th 商品
+            th 成交價
+            th 多空
+            th 口數
+        tbody.tbody(@scroll="tbodyScroll($event)")
+          tr(v-for="row in overAllList" @click="trClick($event)")
+           td {{ row.Serial }}
+           td {{ row.Name }}
+           td {{ row.FinalPrice }}
+           td
+              span(:class="row.BuyOrSell == 0 ? 'bg_danger' : 'bg_success'" class="text__white") {{ row.BuyOrSell == 0 ? '多' : '空' }}
+           td {{ row.Quantity }}
+          tr(class="non-data" v-if="overAllList.length == 0")
+            td 無資料
+      .dialog__footer
+        button.button__light(@click="overAllConfirm = false") 取消
+        button.button(type='primary' @click="doSendOverAll") 確認
 </template>
 
 <script>
@@ -161,6 +181,18 @@ export default {
     'commidyArray',
   ]),
   watch: {
+    damage() {
+      //最小為零
+      if (this.damage < 0) {
+        this.damage = 0
+      }
+    },
+    profit() {
+      //最小為零
+      if (this.profit < 0) {
+        this.profit = 0
+      }
+    },
     commidyArray() {
       this.getNowOverall()
     },
@@ -196,6 +228,24 @@ export default {
     }
   },
   methods: {
+    addLimitPoint(type) {
+      if (this.buyType != 1) {
+        return
+      }
+
+      if (type == '++') {
+        this.nowPrice++
+      } else if (type == '--') {
+        this.nowPrice--
+      }
+    },
+    changeSubmitNum(type) {
+      if (type == '+') {
+        this.submitNum = parseFloat((this.submitNum + this.submitStep).toFixed(10))
+      } else {
+        this.submitNum = parseFloat((this.submitNum - this.submitStep).toFixed(10))
+      }
+    },
     setNoRemaining() {
       //設定不留倉
       const _this = this

@@ -20,7 +20,7 @@
       :click-type="dialog.clickType",
       :visible.sync="dialog.isOpen"
       v-if="dialog.isOpen")
-    .modals.mainItem(v-show="analysisShow")
+    .modals.mainItem(v-if="analysisShow")
       .header
         .header__left
           el-link(icon='el-icon-arrow-left' :underline='false' @click="analysisShow = false") 返回
@@ -31,56 +31,59 @@
             select(v-model='selectItemId')
               option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
       Analysis(@close-more="more = false")
-    client-only
-      vxe-table.table(
-        ref="xTable"
-        :data='mainItem',
-        :cell-class-name='tableCellClassName'
-        @cell-click="openItemDetail"
-        @scroll="vxeTableScrollEvent"
-        max-width="100%"
-        height="100%"
-        column-min-width="90"
-        size="mini"
-        border
-        auto-resize
-        highlight-current-row)
-        vxe-table-column(title='商品' width='94' fixed="left")
-          template(slot-scope='scope')
-            span(class="self-item-color" @click.prevent.stop="clickChart(scope.row)") {{ scope.row['product_name'] }}{{ scope.row['monthday'] }}
-        vxe-table-column(title='倉位' width='60' fixed="left" align="center")
-          template(slot-scope='scope' v-if="typeof $store.state.uncoveredCountDetail[scope.row['product_id']] != 'undefined'")
-            <span class="bg__danger" v-if="$store.state.uncoveredCountDetail[scope.row['product_id']] > 0">{{ $store.state.uncoveredCountDetail[scope.row['product_id']] }}</span>
-            <span class="bg__success" v-else>{{ Math.abs($store.state.uncoveredCountDetail[scope.row['product_id']]) }}</span>
-        vxe-table-column(title='成交')
-          template(slot-scope='scope')
-            span(:class="scope.row['newest_price_change']") {{ scope.row['newest_price'] }}
-        vxe-table-column(title='買進')
-          template(slot-scope='scope') {{ scope.row['bp_price'] }}
-        vxe-table-column(title='賣出')
-          template(slot-scope='scope') {{ scope.row['sp_price'] }}
-        vxe-table-column(title='漲跌')
-          template(slot-scope='scope')
+    table.custom__table(v-if="!analysisShow")
+      thead.thead
+        tr
+          th(style="width: 100px") 商品
+          th 倉位
+          th 成交
+          th 買進
+          th 賣出
+          th 漲跌
+          th 漲跌幅
+          th 總量
+          th 開盤
+          th 最高
+          th 最低
+          th 昨收盤
+          th 昨結算
+          th 狀態
+      tbody.tbody(@scroll="tbodyScroll($event, false, true)")
+        tr(v-for="row in mainItem" v-show="!row.row_hide" @click="openItemDetail(row)")
+          td(style="width: 100px")
+            span {{ row['product_name'] }}{{ row['monthday'] }}
+          td
+            .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
+              span.bg__danger(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
+              span.bg__success(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
+          td
+            span(:class="[row['newest_price_change'], row.computed_color]") {{ row['newest_price'] }}
+          td
+            span(:class="[row['bp_price_change'], row.computed_color]") {{ row['bp_price'] }}
+          td
+            span(:class="[row['sp_price_change'], row.computed_color]") {{ row['sp_price'] }}
+          td
             .change-icon
-              .icon-arrow(:class="scope.row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-            span(:class="scope.row['gain'] > 0 ? 'text__danger' : 'text__success'") {{ scope.row['gain'] }}
-        vxe-table-column(title='漲跌幅')
-          template(slot-scope='scope') {{ scope.row['gain_percent'] }}%
-        vxe-table-column(title='總量')
-          template(slot-scope='scope')
-            span(:class="scope.row['total_qty_change']") {{ scope.row['total_qty'] }}
-        vxe-table-column(title='開盤')
-          template(slot-scope='scope') {{ scope.row['open_price'] }}
-        vxe-table-column(title='最高')
-          template(slot-scope='scope') {{ scope.row['highest_price'] }}
-        vxe-table-column(title='最低')
-          template(slot-scope='scope') {{ scope.row['lowest_price'] }}
-        vxe-table-column(title='昨收盤')
-          template(slot-scope='scope') {{ scope.row['yesterday_last_price']  }}
-        vxe-table-column(title='昨結算')
-          template(slot-scope='scope') {{ scope.row['yesterday_close_price']  }}
-        vxe-table-column(title='狀態')
-          template(slot-scope='scope') {{ scope.row['state_name'] }}
+              .icon-arrow(:class="row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+            span(:class="row.computed_color") {{ row['gain'] }}
+          td(:class="row.computed_color") {{ row['gain_percent'] }}%
+          td
+            span(:class="[row['total_qty_change'], row.computed_color]") {{ row['total_qty'] }}
+          td {{ row['open_price']}}
+          td {{ row['highest_price']}}
+          td {{ row['lowest_price']}}
+          td {{ row['yesterday_last_price'] }}
+          td {{ row['yesterday_close_price'] }}
+          td
+            span(:class="row.state_color") {{ row.state_name }}
+    table.custom__table.mob__table(v-if="!analysisShow")
+      thead.thead
+        tr
+          th 商品
+      tbody.tbody
+        tr(v-for="row in mainItem" v-show="!row.row_hide")
+          td
+            span(class="self-item-color" @click.prevent.stop="clickChart(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
   .swiper-scrollbar(slot="scrollbar")
   el-dialog(
     :visible.sync="itemDetail.isOpen"
@@ -154,7 +157,15 @@ export default {
     'userInfo',
     'commidyArray',
   ]),
+  mounted() {
+    this.computedTableContent(true)
+  },
   watch: {
+    analysisShow(show) {
+      if (!show) {
+        this.computedTableContent(true)
+      }
+    },
     clickItemId(id) {
       //目前選擇商品
       this.selectItemId = id
@@ -197,7 +208,7 @@ export default {
     },
   },
   methods: {
-    openItemDetail({ row }) {
+    openItemDetail(row) {
       this.rowId = row.product_id
       this.itemDetail.isOpen = true
       this.itemDetail.title = row.product_name + row.monthday
@@ -222,19 +233,6 @@ export default {
       })
 
       this.analysisShow = true
-    },
-    tableCellClassName({ row, column, columnIndex }) {
-      //判斷整行顏色
-      if(columnIndex >= 2 && columnIndex != 5 && columnIndex != 7 && columnIndex != 13) {
-        return row.color
-      }
-
-      //判斷狀態
-      if(columnIndex == 13 || columnIndex == 0) {
-        if (row.state != 2) {
-          return 'text__secondary'
-        }
-      }
     },
   }
 }

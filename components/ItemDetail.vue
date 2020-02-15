@@ -62,6 +62,8 @@
                   .progress-bar
                     .progress-bar__inner(:style="'width: ' + row['percent'] + '%'")
               td(width='22%') {{ row.amount }}
+            tr(class="non-data" v-if="items1.length == 0")
+              td 無資料
     div(v-show='itemDetailTabShow == 3' class="h-100")
       .itemDetail-header
         .header__title

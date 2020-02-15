@@ -8,36 +8,36 @@
     .main
       .area
         .area__header
-          button(@click="changeType('thisWeek')" :class="checkTypeClass('thisWeek')") 本週
-          button(@click="changeType('beforeWeek')" :class="checkTypeClass('beforeWeek')") 上週
-          button(@click="changeType('thisMonth')" :class="checkTypeClass('thisMonth')") 本月
-          button(@click="changeType('beforeMonth')" :class="checkTypeClass('beforeMonth')") 上月
+          button.button(@click="selectDayType('thisWeek')") 本週
+          button.button(@click="selectDayType('beforeWeek')") 上週
+          button.button(@click="selectDayType('thisMonth')") 本月
+          button.button(@click="selectDayType('beforeMonth')") 上月
       .area(style="height: calc(100% - 40px); overflow-y: scroll;")
-        client-only
-          vxe-table(
-            :data='accountMoneyList'
-            max-width="100%"
-            height="100%"
-            column-min-width="90"
-            size="mini"
-            border
-            auto-resize
-            highlight-current-row)
-            vxe-table-column(field="Date" title='日期' width="120" fixed="left")
-            vxe-table-column(title='預設額度')
-              template(slot-scope='scope') {{ scope.row.TouchPoint | currency }}
-            vxe-table-column(title='帳戶餘額' width="130")
-              template(slot-scope='scope') {{ scope.row.RemainingMoney | currency }}
-            vxe-table-column(title='今日損益' width="130")
-              template(slot-scope='scope')
-                span.text__success(v-if="scope.row.TodayMoney < 0") {{ scope.row.TodayMoney | currency }}
-                span.text__danger(v-else) {{ scope.row.TodayMoney | currency }}
-            vxe-table-column(field="TotalSubmit" title='口數')
-            vxe-table-column(field="Withholding" title='留倉預扣')
-            vxe-table-column(title='對匯額度')
-              template(slot-scope='scope') {{ scope.row.Limitpoint | currency }}
-            vxe-table-column(title='交收')
-              template(slot-scope='scope') {{ scope.row.Uppay | currency }}
+        table.custom__table.large
+          thead.thead
+            tr
+              th 日期
+              th 預設額度
+              th 帳戶餘額
+              th 今日損益
+              th 口數
+              th 留倉預扣
+              th 對匯額度
+              th 交收
+          tbody.tbody(@scroll="tbodyScroll($event)")
+            tr(v-for="row in accountMoneyList" @click="trClick($event)")
+              td {{ row.Date }}
+              td {{ row.TouchPoint }}
+              td {{ row.RemainingMoney }}
+              td
+                span.text__success(v-if="row.TodayMoney >= 0") {{ row.TodayMoney}}
+                span.text__danger(v-else) {{ row.TodayMoney}}
+              td {{ row.TotalSubmit }}
+              td {{ row.Withholding }}
+              td {{ row.Limitpoint }}
+              td {{ row.Uppay }}
+            tr(class="non-data" v-if="accountMoneyList.length == 0")
+              td 無資料
 </template>
 <script>
 
@@ -52,7 +52,6 @@ export default {
         start: '',
         end: '',
       },
-      type: 'thisWeek',
     }
   },
   mounted() {
@@ -65,13 +64,6 @@ export default {
     this.query()
   },
   methods: {
-    checkTypeClass(type) {
-      return this.type == type ? 'button__primary' : 'button'
-    },
-    changeType(type) {
-      this.type = type
-      this.selectDayType(type)
-    },
     async query() {
       let _this = this
 
@@ -88,6 +80,7 @@ export default {
 
           if (result.Code > 0) {
             _this.accountMoneyList = result.MoneyArray
+            _this.computedTableContent()
           }
         })
       }

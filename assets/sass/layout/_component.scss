@@ -11,6 +11,13 @@
   display: none
 }
 
+.custom__table .tbody .non-data {
+  height: 100%;
+  td {
+    text-align: center !important;
+  }
+}
+
 *, *:focus {
   outline: 0;
 }

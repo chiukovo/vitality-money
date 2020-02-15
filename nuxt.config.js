@@ -32,7 +32,6 @@ module.exports = {
     {src: '~plugins/websocket.js', ssr: false},
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/element-ui', ssr: true},
-    {src: '~plugins/vue-table', ssr: false},
     {src: '~plugins/version', ssr: false},
   ],
   /*

@@ -5,7 +5,6 @@
 @import 'vendor/bootstrap';
 @import 'vendor/element';
 @import 'vendor/splitpanes';
-@import 'vendor/vxetable';
 
 // material icons
 $material-icons-font-path: '~material-icons/iconfont/';
@@ -851,10 +850,6 @@ button {
     bottom: 4rem !important;
 }
 
-.vxe-table .vxe-body--row.row--current {
-    background-color: $gray-800;
-}
-
 //input
 .point-computed {
   width: 80px;
@@ -911,5 +906,120 @@ button {
     .bg__success, .bg__danger {
       color: #fff;
     }
+  }
+}
+
+.mob__table {
+  position: absolute !important;
+  width: 100px !important;
+  tbody::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.custom__table {
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+  border-collapse: collapse;
+  &.general {
+    height: 150px;
+  }
+  &.large {
+    height: 400px;
+  }
+  tr {
+    border-left: 1px solid #191b1d;
+  }
+  thead {
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    overflow: visible;
+    background-color: #3a3a3a;
+    border-top: 1px solid #191b1d;
+    th {
+      width: 80px;
+      text-align: right;
+      line-height: 1.2;
+      padding: 6px 10px;
+      background-color: #3a3a3a;
+      background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
+      background-repeat: no-repeat;
+      background-size: 1px 100%,100% 1px;
+      background-position: 100% 0,100% 100%;
+      &:nth-child(1) {
+        text-align: left;
+        position: relative;
+        z-index: 99;
+        padding: 6px 2px;
+      }
+    }
+  }
+  tbody {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #121315;
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-left: 1px solid #121315;
+      &.current {
+        td {
+          background-color: #502d2d !important;
+        }
+      }
+      td {
+        text-align: right;
+        background-image: linear-gradient(-90deg,#272a2e,#272a2e),linear-gradient(-180deg,#272a2e,#272a2e);
+        background-repeat: no-repeat;
+        background-size: 1px 100%, 100% 1px;
+        background-position: right top, right bottom;
+        &:nth-child(1) {
+          text-align: left;
+          background-color: #121315;
+          padding: 6px 2px;
+        }
+      }
+    }
+    td {
+      position: relative;
+      width: 80px;
+      height: 100%;
+      line-height: 1.2;
+      padding: 6px 10px;
+      &:nth-child(1) {
+        position: relative;
+        z-index: 99;
+      }
+    }
+  }
+  .cell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2px 4px;
+  }
+  .border__danger,
+  .border__success {
+    background-color: #3d3d3d;
+    border: 0;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
+    background-repeat: no-repeat;
+    background-size: 1px 100%,100% 1px;
+    background-position: 100% 0,100% 100%;
   }
 }

@@ -4,15 +4,13 @@
     .row
       .col-lg-auto
         el-form(ref='form' size='mini' :inline='true')
-          el-form-item(label='開始日期:')
+          el-form-item(label='日期:')
             el-form-item
               el-date-picker(type='date' placeholder='開始日期' v-model="form.start" style="width: 130px;")
-          el-form-item(label='結束日期:')
-            el-form-item
-              el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
-          button.button(@click="query") 送出
+          el-form-item
+            el-date-picker(type='date' placeholder='結束日期' v-model="form.end" style="width: 130px;")
+          button.button(type="button" @click="query") 送出
       .col-lg-auto
-        span.label 快速查詢
         button.button(@click="selectDayType('today')") 今日
         button.button(@click="selectDayType('yesterday')") 昨日
         button.button(@click="selectDayType('thisWeek')") 本週
@@ -20,20 +18,20 @@
         button.button(@click="selectDayType('thisMonth')") 本月
         button.button(@click="selectDayType('beforeMonth')") 上月
   .dialog__content
-    client-only
-      vxe-table(
-        :data='items'
-        max-width="100%"
-        height="500"
-        size="mini"
-        border
-        auto-resize
-        highlight-current-row
-        highlight-hover-row)
-        vxe-table-column(field="SaveMoney" title='儲值金額')
-        vxe-table-column(title='類型')
-          template(slot-scope='scope') {{ scope.row['MoneyType'] == 0 ? '餘額' : '信用額度' }}
-        vxe-table-column(field="MoneyDate" title='儲值日期')
+    table.custom__table.large
+      thead.thead
+        tr
+          th 儲值金額
+          th 類型
+          th 儲值日期
+      tbody.tbody(@scroll="tbodyScroll($event)")
+        tr(v-for="row in items" @click="trClick($event)")
+          td {{ row.SaveMoney }}
+          td
+            span {{ row['MoneyType'] == 0 ? '餘額' : '信用額度' }}
+          td {{ row.MoneyDate }}
+        tr(class="non-data" v-if="items.length == 0")
+          td 無資料
 </template>
 <script>
 
@@ -74,6 +72,7 @@ export default {
 
           if (result.Code == 1) {
             _this.items = result.MoneyArray
+            _this.computedTableContent()
           }
         })
       }
