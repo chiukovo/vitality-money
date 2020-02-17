@@ -174,8 +174,8 @@
             th 多空
             th 成交價
             th 平倉價
-            th(style="width: 150px;") 成交日期
-            th(style="width: 150px;") 平倉日期
+            th(style="width: 160px;") 成交日期
+            th(style="width: 160px;") 平倉日期
             th 點數
             th 種類
             th 手續費
@@ -195,8 +195,8 @@
               span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['NewPrice'] }}
             td
               span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['CoverPrice'] }}
-            td(style="width: 150px;") {{ row.NewDate }}
-            td(style="width: 150px;") {{ row.CoverDate }}
+            td(style="width: 160px;") {{ row.NewDate }}
+            td(style="width: 160px;") {{ row.CoverDate }}
             td
               .change-icon
                 .icon-arrow(:class="row['Point'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
