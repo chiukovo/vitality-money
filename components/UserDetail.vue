@@ -1,7 +1,7 @@
 <template lang='pug'>
 .dialog
   .dialog__content
-    table.custom__table.large
+    table.custom__table(:class="typeof itemId == 'undefined' ? 'large' : 'general'")
       thead.thead
         tr
           th 商品名稱
@@ -23,7 +23,7 @@
           th 禁新
           th 強平
       tbody.tbody(@scroll="tbodyScroll($event)")
-        tr(v-for="row in commidyArray" @click="trClick($event)")
+        tr(v-for="row in commidyArray" @click="trClick($event)" v-if="trShow(row)")
           td {{ row.Name }}
           td {{ row.PointMoney }}
           td {{ row.StoreLimit }}
@@ -61,19 +61,14 @@ export default {
     'commidyArray',
   ]),
   methods: {
-    tableCellClassName({ row, column, columnIndex }) {
+    trShow(row) {
       if (typeof this.itemId != 'undefined') {
         if (row.ID != this.itemId) {
-          return 'hide'
+          return false
         }
       }
-    },
-    checkHeight() {
-      if (typeof this.itemId != 'undefined') {
-        return ''
-      } else {
-        return 450
-      }
+
+      return true
     }
   }
 }

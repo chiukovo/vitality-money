@@ -1,12 +1,12 @@
 <template lang="pug">
 .mainItem
+  Dialog(
+    :click-type="dialog.clickType"
+    :visible.sync="dialog.isOpen"
+    :size="dialog.size"
+    :itemId="dialog.itemId"
+  )
   .mainItem-content
-    Dialog(
-      :click-type="dialog.clickType"
-      :visible.sync="dialog.isOpen"
-      :size="dialog.size"
-      :itemId="dialog.itemId"
-    )
     table.custom__table
       thead.thead
         tr
@@ -97,7 +97,7 @@ export default {
     },
     clickSelfItem(row) {
       this.dialog.clickType = 'userDetail'
-      this.dialog.size = '86%'
+      this.dialog.size = ''
       this.dialog.itemId = row.product_id
       this.dialog.isOpen = true
     },
