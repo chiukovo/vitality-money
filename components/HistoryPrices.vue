@@ -21,20 +21,19 @@
           button.button(type="button" @click="query") 查詢
           .badge.badge-warning(style="margin-left: 10px;position: relative;bottom: 6px;") *3 分鐘
   .dialog__content
-    .m-10
-      table.custom__table.large
-        thead.thead
-          tr
-            th 時間
-            th 成交價
-            th 單量
-        tbody.tbody(@scroll="tbodyScroll($event)")
-          tr(v-for="row in items" @click="trClick($event)")
-            td {{ row.time }}
-            td {{ row.price }}
-            td {{ row.submit }}
-          tr(class="non-data" v-if="items.length == 0")
-            td 無資料
+    table.custom__table.large
+      thead.thead
+        tr
+          th 時間
+          th 成交價
+          th 單量
+      tbody.tbody(@scroll="tbodyScroll($event)")
+        tr(v-for="row in items" @click="trClick($event)")
+          td {{ row.time }}
+          td {{ row.price }}
+          td {{ row.submit }}
+        tr(class="non-data" v-if="items.length == 0")
+          td 無資料
 </template>
 <script>
 

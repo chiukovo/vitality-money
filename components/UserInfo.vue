@@ -2,7 +2,7 @@
 .userInfo
   .userInfo-header {{ userInfo.Account }} ({{ userInfo.State }})
   .userInfo-content
-    table.custom__table.large
+    table.custom__table
       thead.thead(style="display: none")
         tr
           th

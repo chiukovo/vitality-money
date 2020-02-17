@@ -17,24 +17,23 @@
           thead.thead
             tr
               th 日期
-              th 預設額度
-              th 帳戶餘額
-              th 今日損益
+              th(style="width: 100px") 預設額度
+              th(style="width: 100px") 帳戶餘額
+              th(style="width: 100px") 今日損益
               th 口數
-              th 留倉預扣
-              th 對匯額度
+              th(style="width: 100px") 留倉預扣
+              th(style="width: 100px") 對匯額度
               th 交收
           tbody.tbody(@scroll="tbodyScroll($event)")
             tr(v-for="row in accountMoneyList" @click="trClick($event)")
               td {{ row.Date }}
-              td {{ row.TouchPoint }}
-              td {{ row.RemainingMoney }}
-              td
-                span.text__success(v-if="row.TodayMoney >= 0") {{ row.TodayMoney}}
-                span.text__danger(v-else) {{ row.TodayMoney}}
+              td(style="width: 100px") {{ row.TouchPoint }}
+              td(style="width: 100px") {{ row.RemainingMoney }}
+              td(style="width: 100px")
+                span(:class="getMoneyColor(row.TodayMoney)") {{ row.TodayMoney }}
               td {{ row.TotalSubmit }}
-              td {{ row.Withholding }}
-              td {{ row.Limitpoint }}
+              td(style="width: 100px") {{ row.Withholding }}
+              td(style="width: 100px") {{ row.Limitpoint }}
               td {{ row.Uppay }}
             tr(class="non-data" v-if="accountMoneyList.length == 0")
               td 無資料

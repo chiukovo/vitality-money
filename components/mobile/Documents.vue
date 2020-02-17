@@ -117,7 +117,7 @@
                     th 點數
                     th 天數
                     th(style="width: 130px;") 狀態
-                    th 昨日損益
+                    th(style="width: 110px;") 昨日損益
                 tbody.tbody(@scroll="tbodyScroll($event)")
                   tr(v-for="row in $store.state.uncovered" @click="trClick($event)")
                     td(style="width: 40px;").text__center
@@ -155,7 +155,7 @@
                       span(v-else :class="getSourceMoneyColor(row.thisSerialPointDiff)") {{ row['thisSerialPointDiff'] }}
                     td {{ row.Day }}
                     td(style="width: 130px;") {{ row.State }}
-                    td
+                    td(style="width: 110px;")
                       div(v-if="row.OriginalMoney > 0")
                         span(:class="getMoneyColor(row.OriginalMoney)" style="text-decoration:underline;" @click="openDetail(row)") {{ row.OriginalMoney | currency }}
                   tr(class="non-data" v-if="$store.state.uncovered.length == 0")
@@ -172,9 +172,9 @@
               thead.thead
                 tr
                   th(style="width: 100px;") 商品
-                  th 新倉序號
-                  th 平倉序號
-                  th 新倉型別
+                  th(style="width: 110px;") 新倉序號
+                  th(style="width: 110px;") 平倉序號
+                  th(style="width: 100px;") 新倉型別
                   th 口數
                   th 多空
                   th 成交價
@@ -188,9 +188,9 @@
               tbody.tbody(@scroll="tbodyScroll($event)")
                 tr(v-for="row in $store.state.covered" @click="trClick($event)")
                   td(style="width: 100px;") {{ row.Name }}
-                  td {{ row.NewSerial }}
-                  td {{ row.CoverSerial }}
-                  td
+                  td(style="width: 110px;") {{ row.NewSerial }}
+                  td(style="width: 110px;") {{ row.CoverSerial }}
+                  td(style="width: 100px;")
                     span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['NewType'] }}
                   td
                     span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['SerialCoveredNum'] }}

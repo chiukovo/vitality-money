@@ -32,8 +32,8 @@
             span(@click="clickSelfItem(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
           td
             .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
-              span.bg__danger(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
-              span.bg__success(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
+              span.bg__danger.text__white(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
+              span.bg__success.text__white(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
           td(style="width: 40px").text__center
             a.btn-Kline(href="#" @click='clickKline(row)') k線
           td(style="width: 40px").text__center
@@ -74,6 +74,7 @@ export default {
         size: '360px',
         itemId: '',
       },
+      first: true
 	  }
 	},
   computed: mapState([
@@ -84,11 +85,16 @@ export default {
     Dialog,
   },
   mounted() {
-    const _this = this
+  },
+  watch: {
+    mainItem() {
+      const _this = this
+      if (this.first) {
+        _this.computedTableContent()
 
-    setTimeout(function() {
-      _this.computedTableContent()
-    }, 0)
+        this.first = false
+      }
+    }
   },
   methods: {
     clickItem(row) {

@@ -39,16 +39,16 @@ div
                     :label="data.name"
                     :value="data.id"
                   )
-        .area(style="height: calc(100% - 234px);")
+        .area(style="height: calc(100% - 50px);")
           table.custom__table
             thead.thead
               tr
-                th 時間
+                th(style="width: 150px") 時間
                 th 成交價
                 th 單量
             tbody.tbody(@scroll="tbodyScroll($event)")
               tr(v-for="row in items" @click="trClick($event)")
-                td {{ row.time }}
+                td(style="width: 150px") {{ row.time }}
                 td {{ row.price }}
                 td {{ row.submit }}
               tr(class="non-data" v-if="items.length == 0")

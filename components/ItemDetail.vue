@@ -82,14 +82,14 @@
               th(style="width: 40px") 口
               th 漲跌
               th 價格
-          tbody.tbody(@scroll="tbodyScroll($event)")
+          tbody.tbody
             tr(v-for="row in items2" @click="trClick($event)")
               td(style="width: 64px")  {{ row.flocalTime }}
               td(style="width: 40px") {{ row.amount }}
-              td( :class="nowMainItem.computed_color")
+              td
                 .change-icon
                   .icon-arrow(:class="row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-                span {{ row['gain'] }}
+                span(:class="getSourceMoneyColor(row.gain)") {{ row['gain'] }}
               td(:class="nowMainItem.computed_color") {{ row.price }}
             tr(class="non-data" v-if="items2.length == 0")
               td 無資料
@@ -115,6 +115,7 @@ export default {
     return {
       itemDetailTabShow: 3,
       autoScroll: true,
+      first: true,
       dialog: {
         clickType: '',
         isOpen: false,
@@ -135,6 +136,17 @@ export default {
     },
     items2(items) {
       this.setAutoScroll()
+
+      if (this.first) {
+        let target = document.querySelector('#item2 .custom__table')
+        let tbody = target.querySelector('.custom__table .tbody')
+        let thead = target.querySelector('.custom__table .thead')
+
+        if (tbody.scrollHeight > target.clientHeight) {
+          this.computedTableContent()
+          this.first = false
+        }
+      }
     }
   },
   methods: {

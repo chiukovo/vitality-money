@@ -5,7 +5,7 @@
       .header__left
         el-link(@click='$parent.handleQuote(0)' icon='el-icon-arrow-left' :underline='false') 返回
       .header__title 歷史損益
-        span(:class="totalLossWinPoint < 0 ? 'text__success' : 'text__danger'") ({{ totalLossWinPoint | currency }})
+        span(:class="getMoneyColor(totalLossWinPoint)") ({{ totalLossWinPoint | currency }})
       .header__right
     .main
       .area
@@ -18,7 +18,7 @@
         ul.area-list
           li(@click='getDetailData(name)' v-for="name in allItemsName") [{{ name }}] 口數: {{ items[name].TotalSubmit }} 手續費: {{ items[name].FeeAll }} 
             span(style="padding-left: 5px") 損益: 
-            span(:class="items[name].TodayMoney > 0 ? 'text__danger' : 'text__success'") {{ items[name].TodayMoney }}
+            span(:class="getMoneyColor(items[name].TodayMoney)") {{ items[name].TodayMoney }}
             i.el-icon-arrow-right
         template(v-if='showDetail')
           .modals.HistoryWinLoss__detail
@@ -26,19 +26,20 @@
               .header
                 .header__left
                   el-link(@click='showDetail = false' icon='el-icon-arrow-left' :underline='false') 返回
-                .header__title [{{ targetName }}] 歷史損益: {{ totalLossWinPoint | currency }}
+                .header__title [{{ targetName }}] 歷史損益: 
+                  span(:class="getMoneyColor(totalLossWinPoint)") ({{ totalLossWinPoint | currency }})
               .main
                 table.custom__table.large
                   thead.thead
                     tr
                       th 序號
-                      th 商品
+                      th(style="width: 100px") 商品
                       th 手續費
                       th 損益
                   tbody.tbody(@scroll="tbodyScroll($event)")
-                    tr(v-for="row in items" @click="trClick($event)")
+                    tr(v-for="row in coveredArray" @click="trClick($event)")
                       td {{ row.NewSerial }}
-                      td {{ row.Name }}
+                      td(style="width: 100px") {{ row.Name }}
                       td {{ row.TotalFee }}
                       td
                         span(:class="getMoneyColor(row['Money'])") {{ row['Money'] | currency }}
@@ -87,6 +88,8 @@ export default {
           _this.detail.push(val)
         }
       })
+
+      this.computedTableContent()
     },
     async query() {
       let _this = this
