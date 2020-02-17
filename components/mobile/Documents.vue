@@ -152,7 +152,7 @@
                       .change-icon(v-if="typeof row['thisSerialPointDiff'] != 'undefined'")
                         .icon-arrow(v-if="row['thisSerialPointDiff'] != 0" :class="row['thisSerialPointDiff'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                       span(v-if="row['thisSerialPointDiff'] == 0" class="text__black") {{ row['thisSerialPointDiff'] }}
-                      span(v-else :class="getMoneyColor(row.thisSerialPointDiff)") {{ row['thisSerialPointDiff'] }}
+                      span(v-else :class="getSourceMoneyColor(row.thisSerialPointDiff)") {{ row['thisSerialPointDiff'] }}
                     td {{ row.Day }}
                     td(style="width: 130px;") {{ row.State }}
                     td
@@ -209,7 +209,7 @@
                   td {{ row.CoverType }}
                   td {{ row.TotalFee }}
                   td
-                    span(:class="row['Money'] > 0 ? 'text__danger' : 'text__success'") {{ row['Money'] }}
+                    span(:class="getMoneyColor(row.Money)") {{ row['Money'] }}
                 tr(class="non-data" v-if="$store.state.covered.length == 0")
                   td 無資料
     template(v-if='documentShow == 4')
@@ -309,11 +309,9 @@
                   td {{ row.TotalSubmit }}
                   td {{ row.TotalFee }}
                   td
-                    span.text__success(v-if="row.TodayMoney < 0") {{ row.TodayMoney }}
-                    span.text__danger(v-else) {{ row.TodayMoney }}
+                    span(:class="getMoneyColor(row.TodayMoney)") {{ row.TodayMoney }}
                   td
-                    span.text__success(v-if="row.RemainingWithholding < 0") {{ row.RemainingWithholding }}
-                    span.text__danger(v-else) {{ row.RemainingWithholding }}
+                    span(:class="getMoneyColor(row.RemainingWithholding)") {{ row.RemainingWithholding }}
                 tr(class="non-data" v-if="$store.state.commodity.length == 0")
                   td 無資料
     //-改價減量

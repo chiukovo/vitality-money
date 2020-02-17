@@ -58,6 +58,7 @@ export default {
         }, {
           title: '今日損益:',
           info: _this.$options.filters.currency(_this.todayLoseWin),
+          sourceMoney: _this.todayLoseWin,
         }, {
           title: '信用額度:',
           info: _this.$options.filters.currency(userInfo.TouchPoint),
@@ -99,11 +100,7 @@ export default {
       }
 
       if(row.title == '今日損益:') {
-        if(row.info < 0) {
-          return 'text__success'
-        } else {
-          return 'text__danger'
-        }
+        return this.getMoneyColor(row.sourceMoney)
       }
     }
   }

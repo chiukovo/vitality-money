@@ -198,6 +198,9 @@ Vue.mixin({
       return [year, month, day].join('-')
     },
     getMoneyColor(target) {
+      return target < 0 ? 'text__danger' : 'text__info'
+    },
+    getSourceMoneyColor(target) {
       return target < 0 ? 'text__success' : 'text__danger'
     },
     dateOnlyHis(date) {
