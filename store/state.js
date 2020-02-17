@@ -50,6 +50,7 @@ export default () => ({
     nullNum: 0,
   },
   serviceMessages: [],
+  serviceErrorMsg: '',
   hasMessage: false,
   //帳戶餘額
   nowMoney: 0,

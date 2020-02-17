@@ -243,7 +243,15 @@ export default {
       const result = response.data
 
       if (result.Code == 1) {
-        commit('setServiceMessages', result.MessageArray)
+        commit('setServiceMessages', {
+          msg: result.MessageArray,
+          errorMsg: ''
+        })
+      } else {
+        commit('setServiceMessages', {
+          msg: result.MessageArray,
+          errorMsg: result.ErrorMsg
+        })
       }
     })
   },

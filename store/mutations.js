@@ -108,8 +108,9 @@ export default {
       return val
     })
   },
-  setServiceMessages(state, data) {
-    state.serviceMessages = data
+  setServiceMessages(state, response) {
+    state.serviceMessages = response.msg
+    state.serviceErrorMsg = response.errorMsg
   },
   setCustomSetting(state, type) {
     state.localStorage.customSetting[type] = !state.localStorage.customSetting[type]

@@ -6,7 +6,7 @@
       button.button.header-button(@click="clearConfirmMsg") 清除訊息
   .main
     .chat
-      //- .chat-area.no-service 尚未啟用線上客服，請洽管理員開通。
+      .chat-area.no-service(v-if="serviceErrorMsg != ''") {{ serviceErrorMsg }}
       #chat-area.chat-area
         .message-list(v-for="message in messages")
           .from-service-group(v-if="message.FromService")
@@ -18,8 +18,8 @@
               |:
             .from-customer.chat-content {{ message.Content }}
       .chat-input-wrap
-        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊送出")
-        button.button(type="button" @click="send") 送出
+        input.chat-input(v-model="sendMsg" placeholder="請在此輸入文字後，點擊送出" :disabled="serviceErrorMsg != ''")
+        button.button(type="button" @click="send" :disabled="serviceErrorMsg != ''") 送出
 </template>
 
 <script>
@@ -33,13 +33,15 @@ export default {
     return {
       messages: [],
       sendMsg: '',
+      sending: false,
     }
   },
   props: ['tabShow'],
   computed: mapState({
     userAuth: state => state.localStorage.userAuth,
     lang: state => state.localStorage.lang,
-    serviceMessages: 'serviceMessages'
+    serviceMessages: 'serviceMessages',
+    serviceErrorMsg: 'serviceErrorMsg'
   }),
   mounted() {
     this.$store.dispatch('CALL_SERVICE_MESSAGE')
@@ -88,8 +90,9 @@ export default {
       })
     },
     send() {
-      if (this.sendMsg != '') {
+      if (this.sendMsg != '' && !this.sending) {
         const _this = this
+        this.sending = true
 
         axios.post(process.env.NUXT_ENV_API_URL + "/add_service_messages?lang=" + this.lang, qs.stringify({
           UserID: this.userAuth.userId,
@@ -98,6 +101,7 @@ export default {
         }))
         .then(response => {
           _this.sendMsg = ''
+          _this.sending = false
           _this.$store.dispatch('CALL_SERVICE_MESSAGE')
         })
       }
