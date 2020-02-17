@@ -29,7 +29,7 @@
       tbody.tbody(@scroll="tbodyScroll($event, true)")
         tr(v-for="row in mainItem" v-show="!row.row_hide" @click="clickItem(row)" :class="clickItemId == row.product_id ? 'current' : ''")
           td(style="width: 80px")
-            span(class="self-item-color" @click="clickSelfItem(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
+            span(@click="clickSelfItem(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
           td
             .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
               span.bg__danger(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
