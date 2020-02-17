@@ -6,7 +6,7 @@
         .header__title 五檔揭示[{{ $store.state.itemName }}]
       .itemDetail-content
         .itemDetail__TotalTable
-          table
+          table.custom__table.itemDetail_FirstTable
             thead
               tr
                 th 比例
@@ -44,24 +44,24 @@
       .itemDetail-header
         .header__title 量價分佈[{{ $store.state.itemName }}]
       .itemDetail-content
-        table
+        table.custom__table.custom__table.itemDetail_secTable
           thead
             tr
-              th(width='30%') 價格
-              th(width='20%')
-              th(width='28%') 比例
-              th(width='22%') 口
+              th 價格
+              th(style="width: 40px")
+              th 比例
+              th(style="width: 40px") 口
           tbody
             tr(v-for="row in items1")
-              td(width='30%') {{ row.price }}
-              td(width='20%')
+              td {{ row.price }}
+              td(style="width: 40px")
                 span(v-if="row['isNow']") 現價
-              td(width='28%')
+              td
                 div(v-if="row['percent'] == ''")
                 div(v-else)
                   .progress-bar
                     .progress-bar__inner(:style="'width: ' + row['percent'] + '%'")
-              td(width='22%') {{ row.amount }}
+              td(style="width: 40px") {{ row.amount }}
             tr(class="non-data" v-if="items1.length == 0")
               td 無資料
     div(v-show='itemDetailTabShow == 3' class="h-100")
@@ -76,14 +76,14 @@
         table.custom__table
           thead.thead
             tr
-              th 市場時間
-              th 口
+              th(style="width: 64px") 市場時間
+              th(style="width: 40px") 口
               th 漲跌
               th 價格
           tbody.tbody(@scroll="tbodyScroll($event)")
             tr(v-for="row in items2" @click="trClick($event)")
-              td {{ row.flocalTime }}
-              td {{ row.amount }}
+              td(style="width: 64px")  {{ row.flocalTime }}
+              td(style="width: 40px") {{ row.amount }}
               td
                 .change-icon
                   .icon-arrow(:class="row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
