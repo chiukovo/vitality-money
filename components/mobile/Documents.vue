@@ -289,25 +289,25 @@
               thead.thead
                 tr
                   th(style="width: 100px;") 商品名稱
-                  th 總多
-                  th 總空
-                  th 未平倉
-                  th 總口數
-                  th 手續費合計
+                  th.text__center 總多
+                  th.text__center 總空
+                  th.text__center 未平倉
+                  th.text__center 總口數
+                  th(style="width: 120px;") 手續費合計
                   th 損益
                   th 留倉預扣
               tbody.tbody(@scroll="tbodyScroll($event)")
                 tr(v-for="row in $store.state.commodity" @click="trClick($event)")
                   td(field="Name" title='商品名稱' style="width: 100px;") {{ row.Name }}
-                  td
+                  td.text__center
                     span.text__danger {{ row.TotalBuySubmit }}
-                  td
+                  td.text__center
                     span.text__success {{ row.TotalSellSubmit }}
                   td
                     span(class="cell text__center bg__danger" v-if="row.RemainingBuyStock - row.RemainingSellStock > 0") {{ row.RemainingBuyStock - row.RemainingSellStock }}
                     span(class="cell text__center bg__success" v-else) {{ Math.abs(row.RemainingBuyStock - row.RemainingSellStock) }}
-                  td {{ row.TotalSubmit }}
-                  td {{ row.TotalFee }}
+                  td.text__center {{ row.TotalSubmit }}
+                  td(style="width: 120px;")  {{ row.TotalFee }}
                   td
                     span(:class="getMoneyColor(row.TodayMoney)") {{ row.TodayMoney }}
                   td
