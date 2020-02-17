@@ -939,14 +939,14 @@ button {
     table-layout: fixed;
     width: 100%;
     overflow: visible;
-    background-color: #3a3a3a;
+    background-color: #1e2126;
     border-top: 1px solid #191b1d;
     th {
       width: 80px;
       text-align: right;
       line-height: 1.2;
       padding: 6px 10px;
-      background-color: #3a3a3a;
+      background-color: #1e2126;
       background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
       background-repeat: no-repeat;
       background-size: 1px 100%,100% 1px;
@@ -978,7 +978,7 @@ button {
       }
       td {
         text-align: right;
-        background-image: linear-gradient(-90deg,#272a2e,#272a2e),linear-gradient(-180deg,#272a2e,#272a2e);
+        background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
         background-repeat: no-repeat;
         background-size: 1px 100%, 100% 1px;
         background-position: right top, right bottom;
@@ -1011,15 +1011,12 @@ button {
   }
   .border__danger,
   .border__success {
-    background-color: #3d3d3d;
+    background-color: rgba(0,123,255,.08);
     border: 0;
     padding: 6px 10px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
-    background-repeat: no-repeat;
-    background-size: 1px 100%,100% 1px;
-    background-position: 100% 0,100% 100%;
+    border: 1px solid transparent;
   }
 }

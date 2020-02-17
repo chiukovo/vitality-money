@@ -112,7 +112,7 @@ button {
 $align: center right left;
 @each $author in $align {
   .text__#{$author} {
-    text-align: #{$author};
+    text-align: #{$author} !important;
   }
 }
 @each $color, $value in $theme-colors {

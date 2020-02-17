@@ -35,7 +35,7 @@
       thead.thead
         tr
           th(style="width: 100px") 商品
-          th 倉位
+          th.text__center 倉位
           th 成交
           th 買進
           th 賣出

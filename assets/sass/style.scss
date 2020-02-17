@@ -547,9 +547,16 @@ $use-fadeInDown: true;
       width: 48px;
       text-align: center;
     }
-    &.itemDetail_FirstTable tbody td {
-      &:first-child, &:last-child {
+    &.itemDetail_FirstTable tbody {
+      td:first-child, td:last-child {
         padding: 2px 0;
+      }
+      tr:nth-child(6) {
+        border: 1px solid #007bff;
+        td:nth-child(3) {
+          color: #fff;
+          background-color: #007bff;
+        }
       }
     }
     &.itemDetail_secTable tbody td {
