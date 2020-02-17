@@ -31,7 +31,7 @@
             select(v-model='selectItemId')
               option(v-for="item in mainItem" :value='item.product_id') {{ item.product_name }}
       Analysis(@close-more="more = false")
-    table.custom__table(v-if="!analysisShow")
+    table.custom__table.text__right(v-if="!analysisShow")
       thead.thead
         tr
           th(style="width: 100px") 商品

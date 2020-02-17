@@ -167,6 +167,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
         list-style: none;
         margin: 0;
         padding: 0;
+        word-break: keep-all;
         li, a {
             display: flex;
             align-items: center;
@@ -922,6 +923,7 @@ button {
   height: 100%;
   font-size: 15px;
   position: relative;
+  z-index: 1;
   overflow: hidden;
   border-collapse: collapse;
   &.general {
@@ -943,7 +945,6 @@ button {
     border-top: 1px solid #191b1d;
     th {
       width: 80px;
-      text-align: right;
       line-height: 1.2;
       padding: 6px 10px;
       background-color: #1e2126;
@@ -977,7 +978,6 @@ button {
         }
       }
       td {
-        text-align: right;
         background-image: linear-gradient(-90deg,#191b1d,#191b1d),linear-gradient(-180deg,#191b1d,#191b1d);
         background-repeat: no-repeat;
         background-size: 1px 100%, 100% 1px;

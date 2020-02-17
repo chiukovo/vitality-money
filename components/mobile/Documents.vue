@@ -29,7 +29,7 @@
                 thead.thead
                   tr
                     th
-                    th 操作
+                    th(style="width: 100px;").text__center 操作
                     th 不留倉
                     th 序號
                     th(style="width: 100px;") 商品
@@ -40,14 +40,14 @@
                     th 型別
                     th 損失點數
                     th 獲利點數
-                    th(style="width: 160px;") 下單時間
-                    th(style="width: 160px;") 完成時間
+                    th(style="width: 180px;") 下單時間
+                    th(style="width: 180px;") 完成時間
                     th(style="width: 130px;") 狀態
                 tbody.tbody(@scroll="tbodyScroll($event)")
                   tr(v-for="row in $store.state.buySell" @click="trClick($event)")
                     td
                       input(class="m-0" type="checkbox" v-model="multiDeleteSelect" :value="row.Serial" v-if="row.Operation[1]")
-                    td(title='操作' width="90" align="center")
+                    td(title='操作' style="width: 100px;").text__center
                       button.button(v-if="row.Operation[1]" @click="deleteOrder(row)") 刪
                       button.button(v-if="row.Operation[2]" @click="doCovered(row, 1)") 平
                       button.button(v-if="row.Operation[0] || !cantSetWinLoss(row.Operation)" @click="openEdit(row, 'edit')") 改
@@ -69,8 +69,8 @@
                       button.button.button__success(:disabled="cantSetWinLoss(row.Operation)" @click="openEdit(row, 'loss')") {{ Number(row.LossPoint) }}
                     td
                       button.button.button__danger(:disabled="cantSetWinLoss(row.Operation)" @click="openEdit(row, 'win')") {{ Number(row.WinPoint) }}
-                    td(:class="checkBuySellColor(row)" style="width: 160px;") {{ row.OrderTime }}
-                    td(:class="checkBuySellColor(row)" style="width: 160px;") {{ row.FinalTime }}
+                    td(:class="checkBuySellColor(row)" style="width: 180px;") {{ row.OrderTime }}
+                    td(:class="checkBuySellColor(row)" style="width: 180px;") {{ row.FinalTime }}
                     td(style="width: 130px;")
                       span.blink(v-if="row.State == '未成交'") {{ row.State }}
                       span(v-else) {{ row.State }}
@@ -100,8 +100,8 @@
               table.custom__table
                 thead.thead
                   tr
-                    th
-                    th(style="width: 100px;") 操作
+                    th(style="width: 40px;")
+                    th(style="width: 120px;").text__center 操作
                     th 序號
                     th(style="width: 100px;") 商品
                     th 不留倉
@@ -120,9 +120,9 @@
                     th 昨日損益
                 tbody.tbody(@scroll="tbodyScroll($event)")
                   tr(v-for="row in $store.state.uncovered" @click="trClick($event)")
-                    td
+                    td(style="width: 40px;").text__center
                       input(class="m-0" type="checkbox" v-model="multiOrderSelect" :value="row.Serial" :disabled="!row.Operation[2]")
-                    td(style="width: 100px;")
+                    td(style="width: 120px;")
                       button.button(v-if="row.Operation[2]" @click="doCovered(row, 1)") 平
                       button.button(v-if="!cantSetWinLoss(row.Operation)" @click="openEdit(row, '')") 設損
                     td {{ row.Serial }}
@@ -179,8 +179,8 @@
                   th 多空
                   th 成交價
                   th 平倉價
-                  th(style="width: 150px;") 成交日期
-                  th(style="width: 150px;") 平倉日期
+                  th(style="width: 180px;") 成交日期
+                  th(style="width: 180px;") 平倉日期
                   th 點數
                   th 種類
                   th 手續費
@@ -200,8 +200,8 @@
                     span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['NewPrice'] }}
                   td
                     span(:class="row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'") {{ row['CoverPrice'] }}
-                  td(style="width: 150px;") {{ row.NewDate }}
-                  td(style="width: 150px;") {{ row.CoverDate }}
+                  td(style="width: 180px;") {{ row.NewDate }}
+                  td(style="width: 180px;") {{ row.CoverDate }}
                   td
                     .change-icon
                       .icon-arrow(:class="row['Point'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
@@ -229,8 +229,8 @@
               table.custom__table
                 thead.thead
                   tr
-                    th
-                    th 操作
+                    th(style="width: 40px;")
+                    th(style="width: 100px;").text__center 操作
                     th 不留倉
                     th 序號
                     th(style="width: 100px;") 商品
@@ -241,14 +241,14 @@
                     th 型別
                     th 損失點數
                     th 獲利點數
-                    th(style="width: 160px;") 下單時間
-                    th(style="width: 160px;") 完成時間
+                    th(style="width: 180px;") 下單時間
+                    th(style="width: 180px;") 完成時間
                     th(style="width: 130px;") 狀態
                 tbody.tbody(@scroll="tbodyScroll($event)")
                   tr(v-for="row in $store.state.buySell" @click="trClick($event)" v-if="checkBuySell(row)")
-                    td
+                    td(style="width: 40px;").text__center
                       input(class="m-0" type="checkbox" v-model="multiDeleteSelect" :value="row.Serial" v-if="row.Operation[1]")
-                    td(title='操作' width="90" align="center")
+                    td(title='操作' style="width: 100px;").text__center
                       button.button(v-if="row.Operation[1]" @click="deleteOrder(row)") 刪
                       button.button(v-if="row.Operation[2]" @click="doCovered(row, 1)") 平
                       button.button(v-if="row.Operation[0] || !cantSetWinLoss(row.Operation)" @click="openEdit(row, 'edit')") 改
@@ -270,8 +270,8 @@
                       button.button.button__success(:disabled="cantSetWinLoss(row.Operation)" @click="openEdit(row, 'loss')") {{ Number(row.LossPoint) }}
                     td
                       button.button.button__danger(:disabled="cantSetWinLoss(row.Operation)" @click="openEdit(row, 'win')") {{ Number(row.WinPoint) }}
-                    td(:class="checkBuySellColor(row)" style="width: 160px;") {{ row.OrderTime }}
-                    td(:class="checkBuySellColor(row)" style="width: 160px;") {{ row.FinalTime }}
+                    td(:class="checkBuySellColor(row)" style="width: 180px;") {{ row.OrderTime }}
+                    td(:class="checkBuySellColor(row)" style="width: 180px;") {{ row.FinalTime }}
                     td(style="width: 130px;")
                       span.blink(v-if="row.State == '未成交'") {{ row.State }}
                       span(v-else) {{ row.State }}
@@ -288,7 +288,7 @@
             table.custom__table
               thead.thead
                 tr
-                  th 商品名稱
+                  th(style="width: 100px;") 商品名稱
                   th 總多
                   th 總空
                   th 未平倉
@@ -298,7 +298,7 @@
                   th 留倉預扣
               tbody.tbody(@scroll="tbodyScroll($event)")
                 tr(v-for="row in $store.state.commodity" @click="trClick($event)")
-                  td(field="Name" title='商品名稱') {{ row.Name }}
+                  td(field="Name" title='商品名稱' style="width: 100px;") {{ row.Name }}
                   td
                     span.text__danger {{ row.TotalBuySubmit }}
                   td
