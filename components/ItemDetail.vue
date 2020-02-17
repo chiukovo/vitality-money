@@ -29,6 +29,8 @@
                   div(v-else)
                     .progress-bar
                       .progress-bar__inner(:style="'width: ' + row[4] + '%'")
+              tr(class="non-data" v-if="items0.length == 0")
+                td 無資料
         .itemDetail__Total
           .row
             .col {{ $store.state.fiveTotal.more }}
@@ -84,11 +86,11 @@
             tr(v-for="row in items2" @click="trClick($event)")
               td(style="width: 64px")  {{ row.flocalTime }}
               td(style="width: 40px") {{ row.amount }}
-              td
+              td( :class="nowMainItem.computed_color")
                 .change-icon
                   .icon-arrow(:class="row['gain'] >= 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
                 span {{ row['gain'] }}
-              td {{ row.price }}
+              td(:class="nowMainItem.computed_color") {{ row.price }}
             tr(class="non-data" v-if="items2.length == 0")
               td 無資料
   .itemDetail-tabs.tabs-nav
@@ -125,6 +127,7 @@ export default {
     'items1',
     'items2',
     'clickItemId',
+    'nowMainItem',
   ]),
   watch: {
     clickItemId() {

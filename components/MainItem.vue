@@ -27,7 +27,7 @@
           th 昨結算
           th 狀態
       tbody.tbody(@scroll="tbodyScroll($event, true)")
-        tr(v-for="row in mainItem" v-show="!row.row_hide" @click="trClick($event); clickItem(row)")
+        tr(v-for="row in mainItem" v-show="!row.row_hide" @click="clickItem(row)" :class="clickItemId == row.product_id ? 'current' : ''")
           td(style="width: 80px")
             span(class="self-item-color" @click="clickSelfItem(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
           td
@@ -77,7 +77,8 @@ export default {
 	  }
 	},
   computed: mapState([
-    'mainItem'
+    'mainItem',
+    'clickItemId',
   ]),
   components: {
     Dialog,
