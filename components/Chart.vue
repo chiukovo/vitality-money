@@ -10,24 +10,29 @@ div(class="h-100")
           th 低
           th 成交
           th 漲跌
+          th 漲跌幅
+          th 總量
           th
       tbody
         tr
           td
             span.number {{ nowMainItem.yesterday_close_price }}
           td
-            span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
+            span(:class="nowMainItem.computed_color") {{ nowMainItem.open_price }}
           td
-            span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
+            span(:class="nowMainItem.computed_color") {{ nowMainItem.highest_price }}
           td
-            span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
+            span(:class="nowMainItem.computed_color") {{ nowMainItem.lowest_price }}
           td
-            span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
+            span(:class="nowMainItem.computed_color") {{ nowMainItem.newest_price }}
           td
             span
               .change-icon
                 .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
               div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
+          td(:class="nowMainItem.computed_color") {{ nowMainItem.gain_percent }}%
+          td
+            span(:class="nowMainItem.computed_color") {{ nowMainItem.total_qty }}
           td
             label
               input(type="checkbox" v-model="newestPriceLineEnable")

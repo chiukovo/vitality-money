@@ -6,6 +6,7 @@
     :close-on-click-modal='false'
     :width='diaiogSize'
     :height='diaiogHeight'
+    v-dialogDrag
     :modal='false')
     .header-custom(slot='title')
       i.el-icon-info

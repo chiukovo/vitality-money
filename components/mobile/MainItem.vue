@@ -90,6 +90,7 @@
     :fullscreen='false'
     :close-on-click-modal='false'
     :modal='false'
+    v-dialogDrag
     :title='itemDetail.title')
     .header-custom(slot='title')
       i.el-icon-info

@@ -318,6 +318,7 @@
     el-dialog(
       :visible.sync='editDialog'
       :modal='false'
+      v-dialogDrag
       width="300px"
       title='改價減量')
       .header-custom(slot='title')
@@ -408,6 +409,7 @@
     el-dialog(
       :visible.sync='multiOrderConfirm'
       :modal='false'
+      v-dialogDrag
       :show-close='false'
       width="200px"
       title='確認平倉')
@@ -439,6 +441,7 @@
     el-dialog(
       :visible.sync='deleteConfirm'
       :modal='false'
+      v-dialogDrag
       :show-close='false'
       width="200px"
       title='確認刪除')

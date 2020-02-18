@@ -63,6 +63,7 @@
         el-dialog(
           :visible.sync='dialogVisible'
           :modal='false'
+          v-dialogDrag
           width="400px"
           title='調整數量')
             .header-custom(slot='title') 調整數量
@@ -81,6 +82,7 @@
         el-dialog(
           :visible.sync='orderConfirm'
           :modal='false'
+          v-dialogDrag
           width="400px"
           title='確認下單')
           .header-custom(slot='title')
@@ -126,6 +128,7 @@
       :visible.sync='overAllConfirm'
       :modal='false'
       :show-close='false'
+      v-dialogDrag
       width="600px"
       title='全部平倉')
       .header-custom(slot='title')

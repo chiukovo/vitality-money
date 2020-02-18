@@ -33,6 +33,7 @@ module.exports = {
     {src: '~plugins/auth.js', ssr: false},
     {src: '~plugins/element-ui', ssr: true},
     {src: '~plugins/version', ssr: false},
+    '@/static/js/el-dialogdrag'
   ],
   /*
   ** Nuxt.js dev-modules

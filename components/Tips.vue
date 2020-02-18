@@ -4,6 +4,7 @@
     :before-close='handleClose'
     :close-on-click-modal='false'
     width='300px'
+    v-dialogDrag
     :modal='false')
     .header-custom(slot='title')
       |  訊息
