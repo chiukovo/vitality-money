@@ -252,6 +252,9 @@ Vue.mixin({
       })
 
       this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id)
+
+      //計算
+      this.computedTableContent()
     },
     checkBuySellColor(row) {
       return row['BuyOrSell'] == 0 ? 'text__danger' : 'text__success'
@@ -350,7 +353,7 @@ Vue.mixin({
               fakeTbody.style.height = h - thead.offsetHeight + 'px'
             }
 
-            if (w + 'px' == tbody.style.width && w + 'px' == thead.style.width) {
+            if (w + 'px' == tbody.style.width && (w - num) + 'px' == thead.style.width) {
               if (tbody.style.height == h - thead.offsetHeight + 'px' && num == 0) {
                 return
               }
