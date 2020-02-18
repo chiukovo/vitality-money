@@ -1,36 +1,54 @@
 <template lang="pug">
 div(class="h-100")
-  .linesp-wrap(v-show="!$store.state.isMobile")
-    .linesp 昨收
-      span.number {{ nowMainItem.yesterday_close_price }}
-    .linesp 開
-      span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
-    .linesp 高
-      span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
-    .linesp 低
-      span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
-    .linesp 成交
-      span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
-    .linesp 漲跌
-      span
-        .change-icon
-          .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-        div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
-    .linesp
-      label
-        input(type="checkbox" v-model="newestPriceLineEnable")
-        span 成交價線
-      label
-        input(type="checkbox" v-model="crossEnable")
-        span 十字線
-  .linesp-wrap(v-show="$store.state.isMobile")
-    .linesp
-      label
-        input(type="checkbox" v-model="newestPriceLineEnable")
-        span 成交價線
-      label
-        input(type="checkbox" v-model="crossEnable")
-        span 十字線
+  .linesp-table-wrap
+    table.linesp-table(v-show="!$store.state.isMobile")
+      thead
+        tr
+          th 昨收
+          th 開
+          th 高
+          th 低
+          th 成交
+          th 漲跌
+          th
+      tbody
+        tr
+          td
+            span.number {{ nowMainItem.yesterday_close_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
+          td
+            span
+              .change-icon
+                .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
+          td
+            label
+              input(type="checkbox" v-model="newestPriceLineEnable")
+              span 成交價線
+            label
+              input(type="checkbox" v-model="crossEnable")
+              span 十字線
+  .linesp-table-wrap(v-show="$store.state.isMobile")
+    table.linesp-table
+      thead
+        tr
+          th
+      tbody
+        tr
+          td
+            label
+              input(type="checkbox" v-model="newestPriceLineEnable")
+              span 成交價線
+            label
+              input(type="checkbox" v-model="crossEnable")
+              span 十字線
   div(id="self-highcharts" class="h-100" :style="checkChartHeight()" :class="{ crossSet: crossEnable }")
   div(v-loading="chartHide" v-show="!chartHide || chartId == ''" class="h-100")
 </template>
@@ -401,7 +419,7 @@ export default {
       if (this.selectChartId == chartId) {
         return;
       }
-  
+
       const _this = this
       this.selectChartId = chartId
       if (this.$store.state.chartData.length == 0) {

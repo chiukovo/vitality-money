@@ -87,10 +87,12 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
 }
 .el-dialog {
   margin: 0 auto;
   margin-top: 0 !important;
+  pointer-events: auto;
 }
 .el-dialog__body {
   overflow: hidden;

@@ -1,21 +1,32 @@
 <template lang='pug'>
 div(class="h-100")
-  .linesp-wrap(v-show="!$store.state.isMobile")
-    .linesp 昨收
-      span.number {{ nowMainItem.yesterday_close_price }}
-    .linesp 開
-      span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
-    .linesp 高
-      span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
-    .linesp 低
-      span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
-    .linesp 成交
-      span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
-    .linesp 漲跌
-      span
-        .change-icon
-          .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
-        div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
+  .linesp-table-wrap
+    table.linesp-table(v-show="!$store.state.isMobile")
+      thead
+        tr
+          th 昨收
+          th 開
+          th 高
+          th 低
+          th 成交
+          th 漲跌
+      tbody
+        tr
+          td
+            span.number {{ nowMainItem.yesterday_close_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.open_price)") {{ nowMainItem.open_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.highest_price)") {{ nowMainItem.highest_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.lowest_price)") {{ nowMainItem.lowest_price }}
+          td
+            span(:class="checkNumberColor(nowMainItem.newest_price)") {{ nowMainItem.newest_price }}
+          td
+            span
+              .change-icon
+                .icon-arrow(:class="nowMainItem.gain > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
+              div(style="display: inline" :class="nowMainItem.gain > 0 ? 'text__danger' : 'text__success'") {{ nowMainItem.gain }}
   #tdview-container(style="height: calc(100% - 30px)")
 </template>
 
@@ -93,7 +104,7 @@ export default {
         tdChart.save(function(data) {
           this_vue.$alert('儲存成功', '圖表')
           const thisData = JSON.stringify(data)
-          if (thisData != this_vue.$store.state.localStorage.tradingViewUserSaveData) { 
+          if (thisData != this_vue.$store.state.localStorage.tradingViewUserSaveData) {
             this_vue.$store.commit('setTradingViewUserSaveData', thisData)
           }
         })
