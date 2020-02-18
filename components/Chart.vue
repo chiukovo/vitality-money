@@ -215,7 +215,7 @@ export default {
       if (this.$store.state.isMobile) {
         return 'height: calc(100% - 25px)'
       } else {
-        return 'height: calc(100% - 30px)'
+        return 'height: calc(100% - 55px)'
       }
     },
     updateExtreme(chart, nowMainItem) {
