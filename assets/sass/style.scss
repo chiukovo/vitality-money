@@ -875,47 +875,7 @@ button {
   }
 }
 
-.linesp-table-wrap {
-  width: 100%;
-  background: #121722;
-  border-bottom: 1px solid #363c4e;
-}
-.linesp-table {
-  th, td {
-    min-width: 100px;
-    text-align: center;
-    padding: 4px 10px;
-    background-image: linear-gradient(-90deg, rgba(48, 56, 69, 0.62), rgba(48, 56, 69, 0.62)), linear-gradient(-180deg, rgba(48, 56, 69, 0.62), rgba(48, 56, 69, 0.62));
-    background-repeat: no-repeat;
-    background-size: 1px 100%, 100% 1px;
-    background-position: right top, right bottom;
-  }
-  thead {
-    color: #757a87;
-    background: rgba(48, 56, 69, 0.62);
-    th {
-      font-size: 14px;
-    }
-  }
-  tbody {
-    color: #fff;
-    td {
-      font-size: 16px;
-    }
-  }
-  .text__danger {
-    color: #ff0b0b;
-  }
-  .text__success {
-    color: #4bc250;
-  }
-  .icon-arrow-down {
-    border-color: #4bc250 transparent transparent transparent;
-  }
-  .icon-arrow-up {
-    border-color: transparent transparent #ff0b0b transparent;
-  }
-}
+
 
 // form
 .label {
@@ -1367,6 +1327,56 @@ button {
     border: 1px solid transparent;
     background-color: rgba(0, 0, 0, .08);
     padding: 3px 4px 2px;
+  }
+}
+
+.linesp-table-wrap {
+  width: 100%;
+  background: #121722;
+  border-bottom: 1px solid #363c4e;
+  overflow: auto;
+}
+.linesp-table {
+  width: 100%;
+  th, td {
+    min-width: 80px;
+    text-align: center;
+    padding: 4px 10px;
+    background-image: linear-gradient(-90deg, rgba(48, 56, 69, 0.62), rgba(48, 56, 69, 0.62)), linear-gradient(-180deg, rgba(48, 56, 69, 0.62), rgba(48, 56, 69, 0.62));
+    background-repeat: no-repeat;
+    background-size: 1px 100%, 100% 1px;
+    background-position: right top, right bottom;
+  }
+  thead {
+    color: #757a87;
+    background: rgba(48, 56, 69, 0.62);
+    tr {
+      display: table;
+      table-layout: fixed;
+    }
+    th {
+      font-size: 14px;
+    }
+  }
+  tbody {
+    display: table;
+    table-layout: fixed;
+    color: #fff;
+    td {
+      font-size: 16px;
+    }
+  }
+  .text__danger {
+    color: #ff0b0b;
+  }
+  .text__success {
+    color: #4bc250;
+  }
+  .icon-arrow-down {
+    border-color: #4bc250 transparent transparent transparent;
+  }
+  .icon-arrow-up {
+    border-color: transparent transparent #ff0b0b transparent;
   }
 }
 //-------------- scrollbar
