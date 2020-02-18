@@ -50,12 +50,12 @@
             span(:class="row.computed_color") {{ row['gain'] }}
           td(:class="row.computed_color") {{ row['gain_percent'] }}%
           td
-            span(:class="[row['total_qty_change'], row.computed_color]") {{ row['total_qty'] }}
-          td {{ row['open_price']}}
-          td {{ row['highest_price']}}
-          td {{ row['lowest_price']}}
-          td {{ row['yesterday_last_price'] }}
-          td {{ row['yesterday_close_price'] }}
+            span(:class="row['total_qty_change']" class="text__info") {{ row['total_qty'] }}
+          td(:class="row.computed_color") {{ row['open_price']}}
+          td(:class="row.computed_color") {{ row['highest_price']}}
+          td(:class="row.computed_color") {{ row['lowest_price']}}
+          td(:class="row.computed_color") {{ row['yesterday_last_price'] }}
+          td(:class="row.computed_color") {{ row['yesterday_close_price'] }}
           td
             span(:class="row.state_color") {{ row.state_name }}
 </template>
