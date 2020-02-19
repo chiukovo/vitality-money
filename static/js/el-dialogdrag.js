@@ -14,7 +14,8 @@ Vue.directive('dialogDrag', {
       // 鼠标按下，计算当前元素距离可视区的距离
       const disX = e.clientX - dialogHeaderEl.offsetLeft;
       const disY = e.clientY - dialogHeaderEl.offsetTop;
- 
+      let onMove = false
+
       // 获取到的值带px 正则匹配替换
       let styL, styT;
  
@@ -38,14 +39,23 @@ Vue.directive('dialogDrag', {
  
         //将此时的位置传出去
         //binding.value({x:e.pageX,y:e.pageY})
+        onMove = true
       };
  
       document.onmouseup = function (e) {
         document.onmousemove = null;
         document.onmouseup = null;
+
+        //0
+        if (!onMove) {
+          setTimeout(function(){
+            dragDom.style.left = ''
+            dragDom.style.top = ''
+          }, 500)
+        }
       };
     }
-  }
+  },
 })
  
 // v-dialogDragWidth: 弹窗宽度拖大 拖小
