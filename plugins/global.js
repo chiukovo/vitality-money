@@ -251,7 +251,14 @@ Vue.mixin({
         'num': 1
       })
 
-      this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id)
+      //看看k是否隱藏
+      let kcontainer = document.querySelector('#tdview-container')
+
+      if (kcontainer != null) {
+        if (kcontainer.offsetWidth > 0) {
+          this.$store.dispatch('CALL_CHANGE_CHART_SYMBOL', id)
+        }
+      }
 
       //計算
       this.computedTableContent()
