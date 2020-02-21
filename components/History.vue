@@ -296,6 +296,8 @@
             td {{ row.Withholding | currency }}
             td {{ row.Limitpoint | currency }}
             td {{ row.Uppay | currency }}
+          tr(class="non-data" v-if="accountMoneyList.length == 0")
+            td 無資料
   Message(v-show='historyTabShow == 6' :tabShow="historyTabShow")
   //-改價減量
   el-dialog(
