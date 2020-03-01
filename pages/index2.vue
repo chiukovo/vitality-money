@@ -189,8 +189,8 @@
     <!-- What bitcoin offers you-->
     <section class="section section-xl bg-white text-center">
       <div class="container">
-        <h6>What bitcoin offers you</h6>
-        <h2>No idea <strong>what’s</strong>  going on?</h2>
+        <h6>Trading platform</h6>
+        <h2>交易平台</h2>
         <p><span style="max-width: 430px;">Bitcoin is received, stored, and sent using software known as Bitcoin Wallet, which is available for free.</span></p>
         <div class="row row-30">
           <div class="col-lg-7">
@@ -201,31 +201,31 @@
             <div class="row row-30">
               <div class="col-12"></div>
               <div class="col-12 wow fadeInUpSmall">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-mouse-right"></span>
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-folder-search"></span>
                   <div class="link-box__main">
-                    <h4>Download a Wallet</h4>
-                    <p>Easily gain access to your own wallet in a few clicks.</p>
+                    <h4>簡易操作</h4>
+                    <p>適合所有及別的交易者。從初學這到經驗者在到專業人士。</p>
                   </div></a>
               </div>
               <div class="col-12 wow fadeInUpSmall" data-wow-delay=".1s">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-cart-exchange"></span>
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon  linearicons-bag-dollar"></span>
                   <div class="link-box__main">
-                    <h4>Use Bitcoin</h4>
-                    <p>You can use your Bitcoins for all kinds of transactions.</p>
+                    <h4>多功能</h4>
+                    <p>三種不同的技術圖表，十七種的技術指標跟定制趨勢線。</p>
                   </div></a>
               </div>
               <div class="col-12 wow fadeInUpSmall" data-wow-delay=".15s">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-bag-dollar"></span>
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-cart-exchange"></span>
                   <div class="link-box__main">
-                    <h4>Time to Buy Bitcoins</h4>
-                    <p>Every registered user can buy or exchange bitcoins.</p>
+                    <h4>多種交易模式</h4>
+                    <p>兩種不同的交易模式，經典高底(HIGHLOW Options)還是任意時間(Anytime Options)，一切取決於您的偏好。</p>
                   </div></a>
               </div>
               <div class="col-12 wow fadeInUpSmall" data-wow-delay=".2s">
-                <!-- Link Box --><a class="link-box" href="#"><span class="icon link-box__icon linearicons-folder-search"></span>
+                <!-- Link Box --><a class="link-box" href="#"><span class="icon link-box__icon linearicons-mouse-right"></span>
                   <div class="link-box__main">
-                    <h4>Knowledge Base</h4>
-                    <p>Find an answer to any Bitcoin-related question.</p>
+                    <h4>適用於所有設備</h4>
+                    <p>交易平台建立在瀏覽器上，適用所有設備。</p>
                   </div></a>
               </div>
             </div>
@@ -421,10 +421,6 @@
     <section class="section bg-gray-100 slider-group_testimonials">
       <div class="slick-slider carousel-child wow fadeIn" id="child-carousel" data-for=".carousel-parent" data-arrows="false" data-loop="true" data-dots="false" data-swipe="false" data-fade="true" data-swiper="true" data-items="1">
         <div class="item"><img src="index/images/home-testimonials-1-744x623.png" alt="" width="744" height="623"/>
-        </div>
-        <div class="item"><img src="index/images/home-testimonials-2-744x623.png" alt="" width="744" height="623"/>
-        </div>
-        <div class="item"><img src="index/images/home-testimonials-3-744x623.png" alt="" width="744" height="623"/>
         </div>
       </div>
       <div class="container">
