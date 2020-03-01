@@ -70,68 +70,29 @@
             <div class="rd-navbar-nav-outer">
               <!-- RD Navbar Nav-->
               <ul class="rd-navbar-nav">
-                <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Home</a>
+                <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">首頁</a>
                 </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="#">Pages</a>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#">交易平台</a>
                   <!-- RD Navbar Megamenu-->
                   <ul class="rd-menu rd-navbar-megamenu">
                     <li class="rd-megamenu-item">
-                      <p class="rd-megamenu-title">Pages 1</p>
+                      <p class="rd-megamenu-title">交易平台</p>
                       <ul class="rd-megamenu-list">
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="faq.html">FAQ</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="typography.html">Typography</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="buttons.html">Buttons</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="forms.html">Forms</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="tabs-and-accordions.html">Tabs and accordions</a></li>
-                      </ul>
-                    </li>
-                    <li class="rd-megamenu-item">
-                      <p class="rd-megamenu-title">Pages 2</p>
-                      <ul class="rd-megamenu-list">
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="progress-bars.html">Progress bars</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="tables.html">Tables</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="grid-system.html">Grid system</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="privacy-policy.html">Privacy policy</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="search-results.html">Search results</a></li>
-                      </ul>
-                    </li>
-                    <li class="rd-megamenu-item">
-                      <p class="rd-megamenu-title">Pages 3</p>
-                      <ul class="rd-megamenu-list">
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="404-page.html">404 Page</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="503-page.html">503 Page</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="maintenance.html">Maintenance</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="coming-soon.html">Coming Soon</a></li>
+                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">TT2交易平台</a></li>
+                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">B交易平台</a></li>
+                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">D交易平台</a></li>
                       </ul>
                     </li>
                   </ul>
-                </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="about-us.html">About us</a>
-                </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="features.html">Features</a>
-                  <!-- RD Navbar Dropdown-->
-                  <ul class="rd-menu rd-navbar-dropdown">
-                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="use-bitcoin.html">Use Bitcoin</a></li>
-                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="wallet.html">Wallet</a></li>
-                  </ul>
-                </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="news.html">News</a>
-                  <!-- RD Navbar Dropdown-->
-                  <ul class="rd-menu rd-navbar-dropdown">
-                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="news-list.html">News List</a></li>
-                    <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="news-post.html">News Post</a></li>
-                  </ul>
-                </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">Contacts</a>
                 </li>
               </ul>
             </div>
-            <div class="btc-to-usd">
+            <!-- <div class="btc-to-usd">
               <p class="btc-to-usd__title">BTC\USD</p>
               <div class="btc-price">
                 <div class="btcwdgt-price" data-bw-theme="light"></div>
               </div>
-            </div>
+            </div> -->
           </div>
         </nav>
       </div>
@@ -183,22 +144,22 @@
     <section class="section bg-white section-sm">
       <div class="container">
         <div class="row justify-content-center justify-content-lg-between align-items-center">
-          <div class="col-md-8 col-lg-6">
-            <h6>Available on any device</h6>
-            <h2>Ideal <strong>for</strong> beginners and advanced users</h2>
-            <p>NODO Crypt offers unique cryptocurrency solutions that are multiplatform and easy-to-use. Our online exchange can be used on the go and it perfectly fits owners of Bitcoin and other cryptocurrencies.</p>
+          <div class="col-md-8 col-lg-5">
+            <h6>Technical standards</h6>
+            <h2><strong>技術規格</strong></h2>
+            <p>網頁版支持的系統，並且完美兼容各種移動設備</p>
             <div class="group group-1"><a class="box-lite" href="#">
                 <div class="icon box-lite__icon mdi mdi-android"></div>
                 <p class="box-lite__title">Android</p></a><a class="box-lite" href="#">
                 <div class="icon box-lite__icon mdi mdi-apple"></div>
-                <p class="box-lite__title">IOS</p></a><a class="box-lite" href="#">
+                <p class="box-lite__title ">IOS</p></a><a class="box-lite" href="#">
                 <div class="icon box-lite__icon mdi mdi-windows"></div>
                 <p class="box-lite__title">Windows</p></a><a class="box-lite" href="#">
                 <div class="icon box-lite__icon mdi mdi-linux"></div>
                 <p class="box-lite__title">Linux</p></a></div>
           </div>
-          <div class="col-md-4 col-xl-5">
-            <div class="image-group-2"><img src="index/images/index-phone-2-273x555.png" alt="" width="273" height="555" data-parallax-scroll="{&quot;y&quot;: 110,  &quot;smoothness&quot;: 30 }"/><img src="index/images/index-phone-1-323x652.png" alt="" width="323" height="652" data-parallax-scroll="{&quot;y&quot;: -100,  &quot;smoothness&quot;: 30}"/>
+          <div class="col-md-4 col-xl-7">
+            <div class="image-group-2"><img src="index/images/index-1-555.png" alt="" width="758" height="555" data-parallax-scroll="{&quot;y&quot;: 20,  &quot;smoothness&quot;: 30 }"/><img src="index/images/index-phone-2.png" alt="" width="323" height="652" data-parallax-scroll="{&quot;y&quot;: 300,  &quot;smoothness&quot;: 30}"/>
             </div>
           </div>
         </div>
@@ -206,8 +167,8 @@
     </section>
     <section class="section section-md bg-gray-700 text-center context-dark section-overlay-1">
       <div class="container">
-        <h6>Download wallet</h6>
-        <h2><span class="d-inline-block" style="max-width: 520px;">Wallet makes using and holding <strong>bitcoins</strong> easy.</span></h2>
+        <h6>Technical standards</h6>
+        <h2><span class="d-inline-block" style="max-width: 520px;">技術規格</span></h2>
         <div class="row row-40 offset-top-1">
           <div class="col-6 col-md-3"><a class="box-lily" href="#">
               <div class="icon box-lily__icon mdi mdi-windows"></div>
@@ -279,7 +240,7 @@
         <div class="row justify-content-center">
           <div class="col-sm-10 col-md-12">
             <h6 class="wow fadeInUpSmall">How it works</h6>
-            <h2 class="wow fadeInUpSmall" data-wow-delay=".1s"><span class="d-inline-block" style="max-width: 570px;">The way to <strong>bitcoins</strong> is not as complex as it seems</span></h2>
+            <h2 class="wow fadeInUpSmall" data-wow-delay=".1s"><span class="d-inline-block" style="max-width: 570px;">以您的方式在市場交易</span></h2>
           </div>
         </div>
         <ul class="list-steps">
@@ -287,24 +248,24 @@
             <div class="list-steps__item-counter"></div>
             <div class="list-steps__item-divider"></div>
             <div class="list-steps__item-main">
-              <h4><a href="#">Download Bitcoin Wallet</a></h4>
-              <p>Download Bitcoin Wallet app for your PC, Android, or iOS to create, send and receive bitcoins. You can create multiple wallets for one account.</p>
+              <h4><a href="#">全部在瞬間完成</a></h4>
+              <p>使用即時買入和賣出按鈕直接從實時圖表中開設倉位</p>
             </div>
           </li>
           <li class="list-steps__item wow fadeInLeftSmall" data-wow-delay=".2s">
             <div class="list-steps__item-counter"></div>
             <div class="list-steps__item-divider"></div>
             <div class="list-steps__item-main">
-              <h4><a href="#">Add Coins to Your Wallet</a></h4>
-              <p>Once the app is downloaded you can add the bitcoins you’ve already created or exchanged via credit card.</p>
+              <h4><a href="#">無需在查找</a></h4>
+              <p>使用個性化觀察列表將您交易最多的產品放於一處</p>
             </div>
           </li>
           <li class="list-steps__item wow fadeInLeftSmall" data-wow-delay=".3s">
             <div class="list-steps__item-counter"></div>
             <div class="list-steps__item-divider"></div>
             <div class="list-steps__item-main">
-              <h4><a href="#">Send/Receive with Wallet</a></h4>
-              <p>The process of sending bitcoins is very easy. In two words, you need to enter receiver's Bitcoin address, specify the amount, confirm address and send.</p>
+              <h4><a href="#">氣質與內涵</a></h4>
+              <p>在深暗與明亮主題之間切換以自定義平台視圖</p>
             </div>
           </li>
         </ul>
@@ -469,38 +430,15 @@
       <div class="container">
         <div class="row justify-content-end">
           <div class="col-md-8 col-lg-7">
-            <h2><strong>What</strong> People Say</h2>
+            <h2><strong>金融家</strong> 網頁版交易</h2>
             <div class="slick-slider carousel-parent" data-arrows="false" data-loop="false" data-dots="true" data-swipe="false" data-items="1" data-fade="true" data-child="#child-carousel" data-for="#child-carousel">
               <div class="item">
                 <blockquote class="quote-classic">
-                  <div class="quote-classic__text">
-                    <p>I chose this website to trade bitcoin and a few other currencies. They have clear trading venue with good reputation over the past years and  many exchange directions. Most people I know are using it. I hope to work with NODO Crypt more in the future and I will recommend this site to all my colleagues and friends.</p>
-                  </div>
                   <div class="quote-classic__meta">
-                    <cite class="quote-classic__cite">Bryan Thompson</cite>
-                    <p class="quote-classic__info">Businessman </p>
+                    <cite class="quote-classic__cite">通過您的網路流覽器開始金融市場的交易</cite>
                   </div>
-                </blockquote>
-              </div>
-              <div class="item">
-                <blockquote class="quote-classic">
                   <div class="quote-classic__text">
-                    <p>As an expert in finance, I truly believe that cryptocurrencies are the future. I’m glad to say that your website is a perfect source for both newbies and professionals in bitcoin trading and exchange as it allows to better understand how it works. What’s more important, your team is always ready to help if a user has any questions.</p>
-                  </div>
-                  <div class="quote-classic__meta">
-                    <cite class="quote-classic__cite">Joan McMillan</cite>
-                    <p class="quote-classic__info">Finance Expert</p>
-                  </div>
-                </blockquote>
-              </div>
-              <div class="item">
-                <blockquote class="quote-classic">
-                  <div class="quote-classic__text">
-                    <p>I started bitcoin trading as a hobby and your website was the only source I found on the Internet to be completely reliable. Your Support Team helped me avoid all twists and turns that appeared to be risky and now I can successfully exchange and trade my bitcoins on your website. Thank you for your help and understanding!</p>
-                  </div>
-                  <div class="quote-classic__meta">
-                    <cite class="quote-classic__cite">Sam Wilson</cite>
-                    <p class="quote-classic__info">Designer           </p>
+                    <p>金融家 可以使您從任何流覽器和任何作業系統，包括Windows，Mac和Linux，開始進行外匯，股票，期貨市場的交易。您可以在網站直接訪問MetaTrader 5桌面平臺提供的豐富功能，這意味著您可以分析報價和交易，而無需下載或安裝任何應用程式。簡單地敲擊幾次，您就可以訪問您的帳戶並開始交易。網路平臺的交易非常安全，傳播的任何資訊都是被安全加密的。</p>
                   </div>
                 </blockquote>
               </div>
@@ -508,7 +446,7 @@
           </div>
         </div>
       </div>
-      <p class="text-extra-large">Feedback</p>
+      <p class="text-extra-large">Financier</p>
     </section>
 
     <!-- News-->
@@ -677,7 +615,7 @@
                 <input name="checkbox" value="checkbox-1" type="checkbox" checked>Remember me 
               </label>
             </div>
-            <div class="group"> 
+            <div class="group">
               <button class="button button-primary" type="submit">Login</button>
               <button class="button button-default-outline">Create an Account</button>
             </div>
@@ -692,7 +630,7 @@
 </template>
 
 <script>
-
+import '@/assets/index/style.scss'
 import axios from 'axios'
 import qs from 'qs'
 
