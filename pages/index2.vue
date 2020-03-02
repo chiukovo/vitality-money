@@ -405,9 +405,9 @@
             <div class="col-sm-10 col-lg-5">
               <div class="box-inset-2">
                 <h6 class="wow fadeInRightSmall">We can do for you</h6>
-                <h2 class="wow fadeInRightSmall" data-wow-delay=".1s">為您打造</h2>
-                <!-- <p class="wow fadeInRightSmall" data-wow-delay=".2s">Read the latest Bitcoin-related news articles and stories and share your own ones!</p> -->
-                <a class="button button-primary wow fadeIn" data-wow-delay=".3s" href="#">立即加入</a>
+                <h2 class="wow fadeInRightSmall" data-wow-delay=".1s">值得信赖</h2>
+                <p class="wow fadeInRightSmall" data-wow-delay=".2s">金融家 是網絡交易行業的領軍人。我們受到30,000,000客戶的信任。!</p>
+                <!-- <a class="button button-primary wow fadeIn" data-wow-delay=".3s" href="#">立即加入</a> -->
               </div>
             </div>
             <div class="col-lg-7">
