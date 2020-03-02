@@ -21,7 +21,7 @@
               <!-- RD Navbar Toggle-->
               <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-outer"><span></span></button>
               <!-- RD Navbar Brand-->
-              <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
+              <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="/index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="/index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
               </div>
             </div>
             <div class="rd-navbar-nav-outer">
@@ -147,8 +147,8 @@
           </div>
           <div class="col-md-4 col-xl-7">
             <div class="image-group-2">
-              <img src="index/images/MacBook.png" alt="" width="605" height="348" data-parallax-scroll="{&quot;y&quot;: 60,  &quot;smoothness&quot;: 30 }"/>
-              <img src="index/images/iPhone 5S.png" alt="" width="180" height="382" data-parallax-scroll="{&quot;y&quot;: 40,  &quot;smoothness&quot;: 30}"/>
+              <img src="/index/images/MacBook.png" alt="" width="605" height="348" data-parallax-scroll="{&quot;y&quot;: 60,  &quot;smoothness&quot;: 30 }"/>
+              <img src="/index/images/iPhone 5S.png" alt="" width="180" height="382" data-parallax-scroll="{&quot;y&quot;: 40,  &quot;smoothness&quot;: 30}"/>
             </div>
           </div>
         </div>
@@ -162,22 +162,22 @@
         <div class="row row-40 offset-top-1">
           <div class="col-6 col-md-3"><a class="box-lily" href="#">
               <div class="icon browser-logo">
-                <img src="index/images/browser_logo_chrome.png">
+                <img src="/index/images/browser_logo_chrome.png">
               </div>
               <p class="box-lily__title">Google Chrome</p></a></div>
           <div class="col-6 col-md-3"><a class="box-lily" href="#">
               <div class="icon browser-logo">
-                <img src="index/images/browser_logo_firefox.png">
+                <img src="/index/images/browser_logo_firefox.png">
               </div>
               <p class="box-lily__title">Mozilla Firefox</p></a></div>
           <div class="col-6 col-md-3"><a class="box-lily" href="#">
               <div class="icon browser-logo">
-                <img src="index/images/browser_logo_edge.png">
+                <img src="/index/images/browser_logo_edge.png">
               </div>
               <p class="box-lily__title">Microsoft Edge</p></a></div>
           <div class="col-6 col-md-3"><a class="box-lily" href="#">
               <div class="icon browser-logo">
-                <img src="index/images/browser_logo_safari.png">
+                <img src="/index/images/browser_logo_safari.png">
               </div>
               <p class="box-lily__title">Safari</p></a></div>
         </div>
@@ -192,7 +192,7 @@
         <!-- <span><span style="max-width: 430px;">Bitcoin is received, stored, and sent using software known as Bitcoin Wallet, which is available for free.</span></p> -->
         <div class="row row-30">
           <div class="col-lg-7">
-            <div class="image-group-3"><img src="index/images/index-ipad.png" alt="" width="812" height="592" data-parallax-scroll="{&quot;y&quot;: 80,  &quot;smoothness&quot;: 30 }"/>
+            <div class="image-group-3"><img src="/index/images/index-ipad.png" alt="" width="812" height="592" data-parallax-scroll="{&quot;y&quot;: 80,  &quot;smoothness&quot;: 30 }"/>
             </div>
           </div>
           <div class="col-lg-5">
@@ -371,7 +371,7 @@
     <!-- Feedback-->
     <section class="section bg-gray-100 slider-group_testimonials">
       <div class="slick-slider carousel-child wow fadeIn" id="child-carousel" data-for=".carousel-parent" data-arrows="false" data-loop="true" data-dots="false" data-swipe="false" data-fade="true" data-swiper="true" data-items="1">
-        <div class="item"><img src="index/images/home-testimonials-1-744x623.png" alt="" width="744" height="623"/>
+        <div class="item"><img src="/index/images/home-testimonials-1-744x623.png" alt="" width="744" height="623"/>
         </div>
       </div>
       <div class="container">
@@ -501,13 +501,13 @@ export default {
 	  	   class: 'wide wow-animation'
 	  	},
 	    script: [
-	      { src: 'index/js/core.min.js' },
-	      { src: 'index/js/script.js', body: true },
+	      { src: '/index/js/core.min.js' },
+	      { src: '/index/js/script.js', body: true },
 	    ],
 	    link: [
-	      { rel: 'stylesheet', href: 'index/css/fonts.css' },
-	      { rel: 'stylesheet', href: 'index/css/bootstrap.css' },
-	      { rel: 'stylesheet', href: 'index/css/style.css' },
+	      { rel: 'stylesheet', href: '/index/css/fonts.css' },
+	      { rel: 'stylesheet', href: '/index/css/bootstrap.css' },
+	      { rel: 'stylesheet', href: '/index/css/style.css' },
 	    ]
 	  }
 	},
