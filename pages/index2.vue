@@ -23,49 +23,6 @@
               <!-- RD Navbar Brand-->
               <div class="rd-navbar-brand"><a class="brand" href="index.html"><img class="brand-logo-dark" src="index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
               </div>
-              <div class="rd-sidebar">
-                <button class="rd-sidebar__button" data-rd-navbar-toggle="#rd-sidebar__list">
-                  <svg class="rd-sidebar__shape" version="1.1" x="0px" y="0px" width="28px" height="27px" viewbox="0 0 28 27">
-                    <path d="M10,7c0,1.657-1.343,3-3,3H3c-1.657,0-3-1.343-3-3V3c0-1.657,1.343-3,3-3h4c1.657,0,3,1.343,3,3V7z"></path>
-                    <path d="M28,7c0,1.657-1.343,3-3,3h-4c-1.657,0-3-1.343-3-3V3c0-1.657,1.343-3,3-3h4c1.657,0,3,1.343,3,3V7z"></path>
-                    <path d="M10,24c0,1.657-1.343,3-3,3H3c-1.657,0-3-1.343-3-3v-4c0-1.657,1.343-3,3-3h4c1.657,0,3,1.343,3,3V24z"></path>
-                    <path d="M28,24c0,1.657-1.343,3-3,3h-4c-1.657,0-3-1.343-3-3v-4c0-1.657,1.343-3,3-3h4c1.657,0,3,1.343,3,3V24z"></path>
-                  </svg>
-                </button>
-                <ul class="rd-sidebar__list context-dark" id="rd-sidebar__list">
-                  <li class="rd-sidebar__list-item">
-                    <div class="rd-sidebar__list-item-inner">
-                      <div class="icon rd-sidebar__list-item-icon linearicons-envelope"></div>
-                      <div class="rd-sidebar__list-item-main"><a class="rd-sidebar__list-item-link" href="contacts.html">Our Contacts</a></div>
-                    </div>
-                  </li>
-                  <li class="rd-sidebar__list-item">
-                    <div class="rd-sidebar__list-item-inner">
-                      <div class="icon rd-sidebar__list-item-icon linearicons-cash-dollar"></div>
-                      <div class="rd-sidebar__list-item-main"><a class="rd-sidebar__list-item-link" href="#">Create a Wallet</a></div>
-                    </div>
-                  </li>
-                  <li class="rd-sidebar__list-item">
-                    <div class="rd-sidebar__list-item-inner">
-                      <div class="icon rd-sidebar__list-item-icon linearicons-share2"></div>
-                      <div class="rd-sidebar__list-item-main">
-                        <ul class="list-inline list-inline-xs">
-                          <li><a class="icon icon-md link-light mdi mdi-facebook" href="#"></a></li>
-                          <li><a class="icon icon-md link-light mdi mdi-twitter" href="#"></a></li>
-                          <li><a class="icon icon-md link-light mdi mdi-youtube-play" href="#"></a></li>
-                          <li><a class="icon icon-md link-light mdi mdi-instagram" href="#"></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="rd-sidebar__list-item">
-                    <div class="rd-sidebar__list-item-inner">
-                      <div class="icon rd-sidebar__list-item-icon linearicons-bubble-dots"></div>
-                      <div class="rd-sidebar__list-item-main"><a class="rd-sidebar__list-item-link" href="#">Question Room</a></div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div class="rd-navbar-nav-outer">
               <!-- RD Navbar Nav-->
@@ -109,29 +66,29 @@
           <div class="slick-slider carousel-parent" data-arrows="true" data-loop="true" data-dots="true" data-swipe="true" data-items="1" data-fade="true" data-autoplay="true">
             <div>
               <div class="slick-slide-caption">
-                <h6>Your #1 bitcoin resource</h6>
-                <h1>Crypto Currency </h1>
-                <h3 class="decoration-heading-1">That Changed the World</h3>
-                <p>Bitcoin and other cryptocurrencies have completely changed the financial world. We are here to help you find out how it works.</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">Read More</a></div>
+                <h6>創新，安全，專業</h6>
+                <h1>讓獲利更簡單</h1>
+                <h3 class="decoration-heading-1">已有數百萬人使用 金融家系統。</h3>
+                <p>進行世界最受歡迎的市場交易，探索無限交易選擇。我們提供數千種金融工具、免費即時行情和全天候線上支持。</p>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
               </div>
             </div>
             <div>
               <div class="slick-slide-caption">
-                <h6>Leading bitcoin exchange</h6>
-                <h1>Easy exchange</h1>
-                <h3 class="decoration-heading-1">For Everyone Worldwide</h3>
-                <p>Our website has been a leading cryptocurrency exchange since day one of Bitcoin distribution. The whole process is easy and secure.</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">Read More</a></div>
+                <h6>通過我們強大的平台進入市場</h6>
+                <h1>專業數據分析</h1>
+                <h3 class="decoration-heading-1">交易及投資頂尖金融工具</h3>
+                <p>享受幾近即時的市場訂單執行流程，進行世界最受歡迎的市場交易。在簡單直覺的交易平台上投資各種市場。</p>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
               </div>
             </div>
             <div>
               <div class="slick-slide-caption">
-                <h6>A perfect payment tool</h6>
-                <h1>Pay everywhere</h1>
-                <h3 class="decoration-heading-1">For Goods and Services</h3>
-                <p>Like any other modern currency, Bitcoin is available everywhere at any time for transactions and payments.</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">Read More</a></div>
+                <h6>拒絕被淘汰</h6>
+                <h1>全新H5 智能分析</h1>
+                <h3 class="decoration-heading-1">簡單操作 適合所有族群</h3>
+                <p>每次最小交易手數低至0.01手，低保證金即可開倉。交易非常有競爭力、透明的低價差，低隔夜利息，讓您盡享低成本的交易</p>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
               </div>
             </div>
           </div>

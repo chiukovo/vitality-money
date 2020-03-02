@@ -980,11 +980,6 @@ setTimeout(function(){
     if ($('[data-parallax-scroll]').length && !isNoviBuilder && !isMobile) {
         ParallaxScroll.init();
     }
-    if (plugins.canvasWorld.length) {
-        canvasWolrd({
-            colorGraticule: '#3a4385'
-        });
-    }
     if (plugins.tiltHover.length) {
         plugins.tiltHover.tilt({
             maxTilt: 5,
