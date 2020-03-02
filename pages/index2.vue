@@ -78,21 +78,21 @@
                     <li class="rd-megamenu-item">
                       <p class="rd-megamenu-title">交易平台</p>
                       <ul class="rd-megamenu-list">
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">TT2交易平台</a></li>
                         <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">B交易平台</a></li>
                         <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">D交易平台</a></li>
                       </ul>
                     </li>
                   </ul>
                 </li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#">關於我們</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#">多國語言</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#">意見調查</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#">註冊</a></li>
+                <li class="rd-nav-item">
+                  <button class="button button-primary">登入</button>
+                </li>
               </ul>
             </div>
-            <!-- <div class="btc-to-usd">
-              <p class="btc-to-usd__title">BTC\USD</p>
-              <div class="btc-price">
-                <div class="btcwdgt-price" data-bw-theme="light"></div>
-              </div>
-            </div> -->
           </div>
         </nav>
       </div>
@@ -140,99 +140,6 @@
     </section>
 
     <section class="crypto-currency-wrap"></section>
-    <!-- Welcome-->
-    <section class="section bg-white section-sm">
-      <div class="container">
-        <div class="row justify-content-center justify-content-lg-between align-items-center">
-          <div class="col-md-8 col-lg-5">
-            <h6>Technical standards</h6>
-            <h2><strong>技術規格</strong></h2>
-            <p>網頁版支持的系統，並且完美兼容各種移動設備</p>
-            <div class="group group-1"><a class="box-lite" href="#">
-                <div class="icon box-lite__icon mdi mdi-android"></div>
-                <p class="box-lite__title">Android</p></a><a class="box-lite" href="#">
-                <div class="icon box-lite__icon mdi mdi-apple"></div>
-                <p class="box-lite__title ">IOS</p></a><a class="box-lite" href="#">
-                <div class="icon box-lite__icon mdi mdi-windows"></div>
-                <p class="box-lite__title">Windows</p></a><a class="box-lite" href="#">
-                <div class="icon box-lite__icon mdi mdi-linux"></div>
-                <p class="box-lite__title">Linux</p></a></div>
-          </div>
-          <div class="col-md-4 col-xl-7">
-            <div class="image-group-2"><img src="index/images/index-1-555.png" alt="" width="758" height="555" data-parallax-scroll="{&quot;y&quot;: 20,  &quot;smoothness&quot;: 30 }"/><img src="index/images/index-phone-2.png" alt="" width="323" height="652" data-parallax-scroll="{&quot;y&quot;: 300,  &quot;smoothness&quot;: 30}"/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section section-md bg-gray-700 text-center context-dark section-overlay-1">
-      <div class="container">
-        <h6>Technical standards</h6>
-        <h2><span class="d-inline-block" style="max-width: 520px;">技術規格</span></h2>
-        <div class="row row-40 offset-top-1">
-          <div class="col-6 col-md-3"><a class="box-lily" href="#">
-              <div class="icon box-lily__icon mdi mdi-windows"></div>
-              <p class="box-lily__title">Windows</p></a></div>
-          <div class="col-6 col-md-3"><a class="box-lily" href="#">
-              <div class="icon box-lily__icon mdi mdi-linux"></div>
-              <p class="box-lily__title">Linux</p></a></div>
-          <div class="col-6 col-md-3"><a class="box-lily" href="#">
-              <div class="icon box-lily__icon mdi mdi-apple"></div>
-              <p class="box-lily__title">IOS</p></a></div>
-          <div class="col-6 col-md-3"><a class="box-lily" href="#">
-              <div class="icon box-lily__icon mdi mdi-android"></div>
-              <p class="box-lily__title">Android</p></a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- What bitcoin offers you-->
-    <section class="section section-xl bg-white text-center">
-      <div class="container">
-        <h6>Trading platform</h6>
-        <h2>交易平台</h2>
-        <p><span style="max-width: 430px;">Bitcoin is received, stored, and sent using software known as Bitcoin Wallet, which is available for free.</span></p>
-        <div class="row row-30">
-          <div class="col-lg-7">
-            <div class="image-group-3"><img src="index/images/index-ipad-812x673.png" alt="" width="812" height="673" data-parallax-scroll="{&quot;y&quot;: 80,  &quot;smoothness&quot;: 30 }"/>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="row row-30">
-              <div class="col-12"></div>
-              <div class="col-12 wow fadeInUpSmall">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-folder-search"></span>
-                  <div class="link-box__main">
-                    <h4>簡易操作</h4>
-                    <p>適合所有及別的交易者。從初學這到經驗者在到專業人士。</p>
-                  </div></a>
-              </div>
-              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".1s">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon  linearicons-bag-dollar"></span>
-                  <div class="link-box__main">
-                    <h4>多功能</h4>
-                    <p>三種不同的技術圖表，十七種的技術指標跟定制趨勢線。</p>
-                  </div></a>
-              </div>
-              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".15s">
-                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-cart-exchange"></span>
-                  <div class="link-box__main">
-                    <h4>多種交易模式</h4>
-                    <p>兩種不同的交易模式，經典高底(HIGHLOW Options)還是任意時間(Anytime Options)，一切取決於您的偏好。</p>
-                  </div></a>
-              </div>
-              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".2s">
-                <!-- Link Box --><a class="link-box" href="#"><span class="icon link-box__icon linearicons-mouse-right"></span>
-                  <div class="link-box__main">
-                    <h4>適用於所有設備</h4>
-                    <p>交易平台建立在瀏覽器上，適用所有設備。</p>
-                  </div></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- How it works-->
     <section class="section section-lg bg-gray-100 text-center">
@@ -271,41 +178,205 @@
         </ul>
       </div>
     </section>
-
-    <!-- A few words about bitcoin-->
-    <section class="section bg-default">
-      <div class="range">
-        <div class="cell-lg-6 height-fill">
-          <div class="thumbnail-video context-dark"><img class="thumbnail-video__image" src="index/images/video-preview-1-961x598.jpg" alt="" width="961" height="598"/><a class="button-video" href="//www.youtube.com/embed/QZzbm-FrkGk" data-lightgallery="item" data-lg-fullscreen="false"></a>
+    <!-- Welcome-->
+    <section class="section bg-white section-xl">
+      <div class="container">
+        <div class="row justify-content-center justify-content-lg-between align-items-center">
+          <div class="col-md-8 col-lg-5">
+            <h6>html5 Technology</h6>
+            <h2><strong>HTML5</strong></h2>
+            <p>HTML5作爲一種被多個操作系統共同使用的標準，已經成爲跨平臺開發應用程序的首選。最大的特點就是手機移動平臺和電腦平臺都可以暢通無阻的玩遊戲，所以你不用裝任何APP軟體，只需要輸入網址就可以盡情享受。</p>
+            <p>支援各種電腦系統，並且完美兼容各種移動設備。</p>
+          </div>
+          <div class="col-md-4 col-xl-7">
+            <div class="image-group-2">
+              <img src="index/images/MacBook.png" alt="" width="605" height="348" data-parallax-scroll="{&quot;y&quot;: 60,  &quot;smoothness&quot;: 30 }"/>
+              <img src="index/images/iPhone 5S.png" alt="" width="180" height="382" data-parallax-scroll="{&quot;y&quot;: 40,  &quot;smoothness&quot;: 30}"/>
+            </div>
           </div>
         </div>
-        <div class="cell-lg-6 align-self-center">
-          <div class="cell-inner">
-            <div class="box-inset-1">
-              <h6 class="wow fadeInRightSmall">A few words about bitcoin</h6>
-              <h2 class="wow fadeInRightSmall" data-wow-delay=".1s"><strong>Bitcoin</strong> is different than any currency </h2>
-              <!-- Bootstrap tabs-->
-              <div class="tabs-custom tabs-horizontal tabs-line wow fadeInRightSmall" id="tabs-about" data-wow-delay=".2s">
-                <!-- Nav tabs-->
-                <ul class="nav nav-tabs">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-about-1" data-toggle="tab">About</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-about-2" data-toggle="tab">How it works</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-about-3" data-toggle="tab">Mission</a></li>
-                </ul>
-                <!-- Tab panes-->
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tabs-about-1">
-                    <p>Bitcoin differs from any currency you’ve used before, so it's important to understand some key points including the fact that this currency is not anonymous and can’t be regulated.</p>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-about-2">
-                    <p>Bitcoin is based on a protocol known as the blockchain, which allows to create, transfer and verify ultra-secure financial data without interference of third parties.</p>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-about-3">
-                    <p>Our mission as an official partner of Bitcoin Foundation is to help you enter and better understand the world of #1 cryptocurrency and avoid any issues you may encounter.</p>
-                  </div>
-                </div>
-              </div><a class="button button-default-outline wow fadeIn" data-wow-delay=".3s" href="about-us.html">Read more</a>
+      </div>
+    </section>
+    <section class="section section-md bg-gray-700 text-center context-dark section-overlay-1">
+      <div class="container">
+        <h6>Technical standards</h6>
+        <h2><span class="d-inline-block" style="max-width: 520px;">技術規格</span></h2>
+        <p>網頁版/支持的瀏覽器</p>
+        <div class="row row-40 offset-top-1">
+          <div class="col-6 col-md-3"><a class="box-lily" href="#">
+              <div class="icon browser-logo">
+                <img src="index/images/browser_logo_chrome.png">
+              </div>
+              <p class="box-lily__title">Google Chrome</p></a></div>
+          <div class="col-6 col-md-3"><a class="box-lily" href="#">
+              <div class="icon browser-logo">
+                <img src="index/images/browser_logo_firefox.png">
+              </div>
+              <p class="box-lily__title">Mozilla Firefox</p></a></div>
+          <div class="col-6 col-md-3"><a class="box-lily" href="#">
+              <div class="icon browser-logo">
+                <img src="index/images/browser_logo_edge.png">
+              </div>
+              <p class="box-lily__title">Microsoft Edge</p></a></div>
+          <div class="col-6 col-md-3"><a class="box-lily" href="#">
+              <div class="icon browser-logo">
+                <img src="index/images/browser_logo_safari.png">
+              </div>
+              <p class="box-lily__title">Safari</p></a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What bitcoin offers you-->
+    <section class="section section-xl bg-white text-center">
+      <div class="container">
+        <h6>Trading platform</h6>
+        <h2>交易平台</h2>
+        <!-- <span><span style="max-width: 430px;">Bitcoin is received, stored, and sent using software known as Bitcoin Wallet, which is available for free.</span></p> -->
+        <div class="row row-30">
+          <div class="col-lg-7">
+            <div class="image-group-3"><img src="index/images/index-ipad.png" alt="" width="812" height="592" data-parallax-scroll="{&quot;y&quot;: 80,  &quot;smoothness&quot;: 30 }"/>
             </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="row row-30">
+              <div class="col-12"></div>
+              <div class="col-12 wow fadeInUpSmall">
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-mouse-right"></span>
+                  <div class="link-box__main">
+                    <h4>簡易操作</h4>
+                    <p>適合所有及別的交易者。從初學這到經驗者在到專業人士。</p>
+                  </div></a>
+              </div>
+              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".1s">
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon  linearicons-signal"></span>
+                  <div class="link-box__main">
+                    <h4>多功能</h4>
+                    <p>三種不同的技術圖表，十七種的技術指標跟定制趨勢線。</p>
+                  </div></a>
+              </div>
+              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".15s">
+                <!-- Link Box--><a class="link-box" href="#"><span class="icon link-box__icon linearicons-cash-dollar"></span>
+                  <div class="link-box__main">
+                    <h4>多種交易模式</h4>
+                    <p>兩種不同的交易模式，經典高底(HIGHLOW Options)還是任意時間(Anytime Options)，一切取決於您的偏好。</p>
+                  </div></a>
+              </div>
+              <div class="col-12 wow fadeInUpSmall" data-wow-delay=".2s">
+                <!-- Link Box --><a class="link-box" href="#"><span class="icon link-box__icon linearicons-laptop-phone"></span>
+                  <div class="link-box__main">
+                    <h4>適用於所有設備</h4>
+                    <p>交易平台建立在瀏覽器上，適用所有設備。</p>
+                  </div></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features-->
+    <section class="section bg-gray-100 section-xl text-center">
+      <div class="container">
+        <h6>Advantage</h6>
+        <h2>金融家 網頁版交易的優勢</h2>
+        <p>網頁版交易的所有優勢現在都能提供給您。現在就打開您的網路流覽器開始交易！</p>
+        <div class="row row-bordered-1">
+          <div class="col-sm-4 col-lg-3 wow fadeIn">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-desktop"></span>
+              <!-- <h4 class="box-minimal__title">Safe &amp; Secure</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>通過任何網路流覽器進行外匯，股票，期貨和的交易</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".1s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-new-tab"></span>
+              <!-- <h4 class="box-minimal__title">Instant Exchange</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>網頁平臺的操作無需任何額外的軟體或流覽器擴展</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-network"></span>
+              <!-- <h4 class="box-minimal__title">Expert Support</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>相容Windows，Mac，Linux</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-laptop-phone"></span>
+              <!-- <h4 class="box-minimal__title">Recurring Buys</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>支援各種行動裝置</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-shirt"></span>
+              <!-- <h4 class="box-minimal__title">Recurring Buys</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>各種不同的佈景主題</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-shield-check"></span>
+              <!-- <h4 class="box-minimal__title">Mobile Apps</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>可靠的資料保護</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".1s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-lock"></span>
+              <!-- <h4 class="box-minimal__title">Personal Wallet</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>單邊持倉和鎖倉持倉帳戶系統</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-files"></span>
+              <!-- <h4 class="box-minimal__title">Recurring Buys</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>全部的交易訂單，包括掛單和止損訂單</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-finger-tap2"></span>
+              <!-- <h4 class="box-minimal__title">Mobile Apps</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>先進的市場深度和一鍵交易</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".1s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-graph"></span>
+              <!-- <h4 class="box-minimal__title">Personal Wallet</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>3種圖表類型和9種時間週期</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-chart-settings"></span>
+              <!-- <h4 class="box-minimal__title">Recurring Buys</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>30種指標和24個圖形物件用於技術分析</p>
+            </article>
+          </div>
+          <div class="col-sm-4 col-lg-3 wow fadeIn" data-wow-delay=".2s">
+            <!-- Box Minimal-->
+            <article class="box-minimal"><span class="icon box-minimal__icon linearicons-power"></span>
+              <!-- <h4 class="box-minimal__title">Recurring Buys</h4> -->
+              <div class="box-minimal__divider"></div>
+              <p>即時獲得市場報價</p>
+            </article>
           </div>
         </div>
       </div>
@@ -318,98 +389,22 @@
         <div class="row justify-content-center justify-content-xl-between align-items-end">
           <div class="col-md-10 col-lg-6">
             <div class="section-lg">
-              <h6 class="wow fadeInLeftSmall">Be one step ahead</h6>
-              <h2 class="wow fadeInLeftSmall" data-wow-delay=".1s">Learning <strong>80%</strong> of what the experts know is easy</h2>
-              <p class="lead wow fadeInLeftSmall" data-wow-delay=".15s">Join our FREE 10-day email course and start today.</p>
+              <h6 class="wow fadeInLeftSmall">join us</h6>
+              <h2 class="wow fadeInLeftSmall" data-wow-delay=".1s">立即加入我們</h2>
               <!-- RD Mailform-->
               <form class="form form-lg rd-mailform form-inline wow fadeInLeftSmall" data-wow-delay=".2s" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                <div class="form-wrap">
+                <!-- <div class="form-wrap">
                   <input class="form-input" id="subscribe-form-email" type="email" name="email" data-constraints="@Email @Required">
                   <label class="form-label" for="subscribe-form-email">Enter your e-mail</label>
+                </div> -->
+                <div class="form-button">
+                  <button class="button button-primary" type="submit">註冊真實帳戶</button>
                 </div>
                 <div class="form-button">
-                  <button class="button button-primary" type="submit">Send</button>
+                  <button class="button button-default-outline" type="submit">免費註冊模擬帳戶</button>
                 </div>
               </form>
               <p class="wow fadeInLeftSmall" data-wow-delay=".25s"><span style="opacity: .25;">*We promise not to send spam</span></p>
-            </div>
-          </div>
-          <div class="col-md-10 col-lg-6 col-xl-5">
-            <div class="bitcoin-widget bitcoin-widget_windowed bitcoin-widget_windowed-1"><img class="bitcoin-widget__top-panel" src="index/images/decoration-browser-panel-564x36.png" alt="" width="564" height="36"/>
-              <div class="btcwdgt-chart" data-bw-theme="dark"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features-->
-    <section class="section bg-white">
-      <div class="container">
-        <div class="row row-bordered-1">
-          <div class="col-sm-6 col-lg-4 wow fadeIn">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-lock"></span>
-                    <h4 class="box-minimal__title">Safe &amp; Secure</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>Be sure in your account security and your funds safety.</p>
-                  </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 wow fadeIn" data-wow-delay=".1s">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-cloud-upload"></span>
-                    <h4 class="box-minimal__title">Instant Exchange</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>Exchange your bitcoins instantly without any extra payments.</p>
-                  </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 wow fadeIn" data-wow-delay=".2s">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-umbrella2"></span>
-                    <h4 class="box-minimal__title">Expert Support</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>We provide 24/7 expert support for our registered clients.</p>
-                  </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 wow fadeIn">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-tablet2"></span>
-                    <h4 class="box-minimal__title">Mobile Apps</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>Perfectly developed mobile apps will open you new opportunities.</p>
-                  </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 wow fadeIn" data-wow-delay=".1s">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-credit-card"></span>
-                    <h4 class="box-minimal__title">Personal Wallet</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>Our easy-to-use personal wallet system will keep your bitcoins safe.</p>
-                  </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 wow fadeIn" data-wow-delay=".2s">
-                  <!-- Box Minimal-->
-                  <article class="box-minimal"><span class="icon box-minimal__icon linearicons-sync"></span>
-                    <h4 class="box-minimal__title">Recurring Buys</h4>
-                    <div class="box-minimal__divider"></div>
-                    <p>Bitcoin allows you to set up recurring transactions in just two clicks.</p>
-                  </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA-->
-    <section class="section parallax-container section-md bg-gray-700 text-center section-overlay-1 text-lg-left" data-parallax-img="index/images/home-parallax-1.jpg">
-      <div class="parallax-content">
-        <div class="container">
-          <div class="row row-30 align-items-center">
-            <div class="col-lg-9 wow fadeInLeftSmall">
-              <h2>Get fully <strong>featured</strong>, convenient wallet</h2>
-              <p class="big">Bitcoin wallet is a perfect solution for your cryptocurrency storage needs.</p>
-            </div>
-            <div class="col-lg-3 wow fadeInRightSmall text-lg-right">
-              <button class="button button-default-outline" data-toggle="modal" data-target="#modal-login-register">Register now</button>
             </div>
           </div>
         </div>
@@ -452,9 +447,10 @@
           <div class="row row-30 flex-lg-row-reverse justify-content-center align-items-center">
             <div class="col-sm-10 col-lg-5">
               <div class="box-inset-2">
-                <h6 class="wow fadeInRightSmall">In the spotlight</h6>
-                <h2 class="wow fadeInRightSmall" data-wow-delay=".1s">Latest Bitcoin <strong>News</strong> Stories</h2>
-                <p class="wow fadeInRightSmall" data-wow-delay=".2s">Read the latest Bitcoin-related news articles and stories and share your own ones!</p><a class="button button-primary wow fadeIn" data-wow-delay=".3s" href="news.html">Read all news</a>
+                <h6 class="wow fadeInRightSmall">We can do for you</h6>
+                <h2 class="wow fadeInRightSmall" data-wow-delay=".1s">為您打造</h2>
+                <!-- <p class="wow fadeInRightSmall" data-wow-delay=".2s">Read the latest Bitcoin-related news articles and stories and share your own ones!</p> -->
+                <a class="button button-primary wow fadeIn" data-wow-delay=".3s" href="#">立即加入</a>
               </div>
             </div>
             <div class="col-lg-7">
@@ -463,48 +459,39 @@
                 <!-- Owl Carousel-->
                 <div class="owl-carousel" data-items="1" data-dots="false" data-nav="false" data-loop="true" data-margin="10" data-autoplay="true" data-mouse-drag="false" data-animation-in="fadeIn" data-animation-out="fadeOut" data-autoplay-timeout="4012">
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>PR: Uservice Is a Global Decentralized Blockchain Platform for the Auto Industry</p>
+                    <p>24在線客服解決您任何時間的所有問題</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Major Exchanges Don’t Want Forked Coins but Smaller Platforms Can’t Get Enough of Them</p>
+                    <p>科技讓投資更簡單</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>American Programmer Arrested Over $20 Million Bitcoin Theft</p>
+                    <p>支援超過100種支付方式</p>
                   </article>
                 </div>
                 <!-- 2-->
                 <!-- Owl Carousel-->
                 <div class="owl-carousel" data-items="1" data-dots="false" data-nav="false" data-loop="true" data-margin="10" data-autoplay="true" data-mouse-drag="false" data-animation-in="fadeIn" data-animation-out="fadeOut" data-autoplay-timeout="5017">
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>A Hacker Gained Access to the Bitcoin Gold Windows Wallet Github</p>
+                    <p>支援超過100種支付方式</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Markets Update: Bitcoin Price Moves Sideways During the Holidays</p>
+                    <p>24在線客服解決您任何時間的所有問題</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Vietnam Investigates Merchants for Accepting Bitcoin Despite Warnings</p>
+                    <p>科技讓投資更簡單</p>
                   </article>
                 </div>
                 <!-- 3-->
                 <!-- Owl Carousel-->
                 <div class="owl-carousel" data-items="1" data-dots="false" data-nav="false" data-loop="true" data-margin="10" data-autoplay="true" data-mouse-drag="false" data-animation-in="fadeIn" data-animation-out="fadeOut" data-autoplay-timeout="6035">
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Hong Kong Company Set to Build Crypto Mining Farm and Museum</p>
+                    <p>科技讓投資更簡單</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Bitcoin Network Fees Are Irritating Cryptocurrency Proponents</p>
+                    <p>支援超過100種支付方式</p>
                   </article>
                   <article class="post-minimal">
-                    <time class="post-minimal__time" datetime="2018">Nov 20, 2018</time>
-                    <p>Data Over Drama: Bitcoin Cash Versus Bitcoin Core Transactions</p>
+                    <p>24在線客服解決您任何時間的所有問題</p>
                   </article>
                 </div>
               </div>
@@ -518,67 +505,9 @@
     <!-- Page Footer-->
     <footer class="section footer-classic context-dark">
       <div class="container">
-        <div class="footer-classic__main">
-          <div class="row row-50">
-            <div class="col-lg-6">
-              <div class="unit unit-spacing-sm flex-column flex-sm-row align-items-sm-center">
-                <div class="unit-left"><a class="brand" href="index.html"><img class="brand-logo-dark" src="index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
-                </div>
-                <div class="unit-body">
-                  <p><span style="max-width: 380px;">NODO Crypt is the leading exchange of #1 cryptocurrency offering you the best conversion rates.</span></p>
-                </div>
-              </div>
-              <div class="group group-lg group-middle">
-                <p class="large">Connect with Community</p>
-                <div class="group-item">
-                  <ul class="list-inline list-inline-sm">
-                    <li><a class="icon icon-lg link-default mdi mdi-facebook" href="#"></a></li>
-                    <li><a class="icon icon-lg link-default mdi mdi-twitter" href="#"></a></li>
-                    <li><a class="icon icon-lg link-default mdi mdi-youtube-play" href="#"></a></li>
-                    <li><a class="icon icon-lg link-default mdi mdi-instagram" href="#"></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="box-inset-3">
-                <h4>Sign Up for Our Newsletter</h4>
-                <!-- RD Mailform-->
-                <form class="form form-lg form_light rd-mailform form-inline" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                  <div class="form-wrap">
-                    <input class="form-input" id="footer-subscribe-form-email" type="email" name="email" data-constraints="@Email @Required">
-                    <label class="form-label" for="footer-subscribe-form-email">Enter your e-mail</label>
-                  </div>
-                  <div class="form-button">
-                    <button class="button button-color-2" type="submit">Subscribe</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <div class="footer-classic__aside">
-          <div class="list-wrap">
-            <ul class="list-nav">
-              <li><a href="faq.html">FAQ</a></li>
-              <li><a href="about-us.html">About</a></li>
-              <li><a href="news.html">News</a></li>
-              <li>
-                <button data-toggle="modal" data-target="#modal-login-register">Sign In</button>
-              </li>
-              <li><a href="#">Documentation</a></li>
-              <li><a href="contacts.html">Contacts</a></li>
-            </ul>
-          </div>
-          <div class="list-wrap">
-            <ul class="list-bordered">
-              <li>
-                <!-- Rights-->
-                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>NODO Crypt</span><span>.&nbsp;</span><a href="privacy-policy.html">Privacy Policy</a></p>
-              </li>
-              <li><a href="/cdn-cgi/l/email-protection#381b"><span class="__cf_email__" data-cfemail="d2bbbcb4bd92b6b7bfbdbebbbcb9fcbda0b5">[email&#160;protected]</span></a></li>
-            </ul>
+        <div class="footer-classic__aside text-center">
+          <div>
+            <span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>copyright</span><span>.&nbsp;</span><a href="＃">金融家</a>
           </div>
         </div>
       </div>
@@ -608,7 +537,7 @@
             </div>
             <div class="form-wrap">
               <label class="checkbox-inline">
-                <input name="checkbox" value="checkbox-1" type="checkbox" checked>Remember me 
+                <input name="checkbox" value="checkbox-1" type="checkbox" checked>Remember me
               </label>
             </div>
             <div class="group">

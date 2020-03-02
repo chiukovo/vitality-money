@@ -10,3 +10,17 @@
   letter-spacing: .05em;
   margin-top: 2rem;
 }
+.image-group-2 img+img {
+  margin-top: -56% !important;
+}
+.browser-logo img {
+  height: 80px;
+}
+
+.form-button + .form-button {
+  margin-left: 10px;
+}
+
+.rd-navbar-transparent .rd-navbar-static {
+  background-color: rgba(0,0,0,.3) !important;
+}
