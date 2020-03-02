@@ -502,7 +502,6 @@ export default {
 	  	   class: 'wide wow-animation'
 	  	},
 	    script: [
-	      { src: '/index/js/core.min.js' },
 	      { src: '/index/js/script.js', body: true },
 	    ],
 	    link: [
