@@ -21,32 +21,32 @@
               <!-- RD Navbar Toggle-->
               <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-outer"><span></span></button>
               <!-- RD Navbar Brand-->
-              <div class="rd-navbar-brand"><a class="brand" href="index.html"><img class="brand-logo-dark" src="index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
+              <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="index/images/logo-default-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-default-210x76.png 2x"/><img class="brand-logo-light" src="index/images/logo-inverse-125x45.png" alt="" width="125" height="45" srcset="index/images/logo-inverse-210x76.png 2x"/></a>
               </div>
             </div>
             <div class="rd-navbar-nav-outer">
               <!-- RD Navbar Nav-->
               <ul class="rd-navbar-nav">
-                <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">首頁</a>
+                <li class="rd-nav-item active"><a class="rd-nav-link" href="#" onclick="return false;">首頁</a>
                 </li>
                 <li class="rd-nav-item"><a class="rd-nav-link" href="#">交易平台</a>
-                  <!-- RD Navbar Megamenu-->
-                  <ul class="rd-menu rd-navbar-megamenu">
+                  <!-- RD Navbar Dropdown-->
+                  <ul class="rd-menu rd-navbar-dropdown">
                     <li class="rd-megamenu-item">
                       <p class="rd-megamenu-title">交易平台</p>
                       <ul class="rd-megamenu-list">
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">B交易平台</a></li>
-                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="#">D交易平台</a></li>
+                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" :href="horse_url">B交易平台</a></li>
+                        <li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" :href="dt_url">D交易平台</a></li>
                       </ul>
                     </li>
                   </ul>
                 </li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="#">關於我們</a></li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="#">多國語言</a></li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="#">意見調查</a></li>
-                <li class="rd-nav-item"><a class="rd-nav-link" href="#">註冊</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#" onclick="return false;">關於我們</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#" onclick="return false;">多國語言</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#" onclick="return false;">意見調查</a></li>
+                <li class="rd-nav-item"><a class="rd-nav-link" href="#" data-toggle="modal" data-target="#modal">註冊</a></li>
                 <li class="rd-nav-item">
-                  <button class="button button-primary">登入</button>
+                  <button class="button button-primary" data-toggle="modal" data-target="#modal">登入</button>
                 </li>
               </ul>
             </div>
@@ -70,7 +70,7 @@
                 <h1>讓獲利更簡單</h1>
                 <h3 class="decoration-heading-1">已有數百萬人使用 金融家系統。</h3>
                 <p>進行世界最受歡迎的市場交易，探索無限交易選擇。我們提供數千種金融工具、免費即時行情和全天候線上支持。</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="#" data-toggle="modal" data-target="#modal">立即登入</a></div>
               </div>
             </div>
             <div>
@@ -79,7 +79,7 @@
                 <h1>專業數據分析</h1>
                 <h3 class="decoration-heading-1">交易及投資頂尖金融工具</h3>
                 <p>享受幾近即時的市場訂單執行流程，進行世界最受歡迎的市場交易。在簡單直覺的交易平台上投資各種市場。</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="#" data-toggle="modal" data-target="#modal">立即登入</a></div>
               </div>
             </div>
             <div>
@@ -88,7 +88,7 @@
                 <h1>全新H5 智能分析</h1>
                 <h3 class="decoration-heading-1">簡單操作 適合所有族群</h3>
                 <p>每次最小交易手數低至0.01手，低保證金即可開倉。交易非常有競爭力、透明的低價差，低隔夜利息，讓您盡享低成本的交易</p>
-                <div class="slick-slide-caption__footer"><a class="button button-primary" href="about-us.html">立即登入</a></div>
+                <div class="slick-slide-caption__footer"><a class="button button-primary" href="#" data-toggle="modal" data-target="#modal">立即登入</a></div>
               </div>
             </div>
           </div>
@@ -349,19 +349,18 @@
               <h6 class="wow fadeInLeftSmall">join us</h6>
               <h2 class="wow fadeInLeftSmall" data-wow-delay=".1s">立即加入我們</h2>
               <!-- RD Mailform-->
-              <form class="form form-lg rd-mailform form-inline wow fadeInLeftSmall" data-wow-delay=".2s" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+              <div class="form form-lg rd-mailform form-inline wow fadeInLeftSmall">
                 <!-- <div class="form-wrap">
                   <input class="form-input" id="subscribe-form-email" type="email" name="email" data-constraints="@Email @Required">
                   <label class="form-label" for="subscribe-form-email">Enter your e-mail</label>
                 </div> -->
                 <div class="form-button">
-                  <button class="button button-primary" type="submit">註冊真實帳戶</button>
+                  <button class="button button-primary" data-toggle="modal" data-target="#modal">註冊真實帳戶</button>
                 </div>
                 <div class="form-button">
-                  <button class="button button-default-outline" type="submit">免費註冊模擬帳戶</button>
+                  <button class="button button-default-outline" data-toggle="modal" data-target="#modal">免費註冊模擬帳戶</button>
                 </div>
-              </form>
-              <p class="wow fadeInLeftSmall" data-wow-delay=".25s"><span style="opacity: .25;">*We promise not to send spam</span></p>
+              </div>
             </div>
           </div>
         </div>
@@ -464,7 +463,7 @@
       <div class="container">
         <div class="footer-classic__aside text-center">
           <div>
-            <span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>copyright</span><span>.&nbsp;</span><a href="＃">金融家</a>
+            <span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>copyright</span><span>.&nbsp;</span><a href="#" onclick="return false;">金融家</a>
           </div>
         </div>
       </div>
@@ -472,36 +471,15 @@
 
   </div>
   <!-- Modal Login/Register-->
-  <div class="modal modal-login-register fade" id="modal-login-register" tabindex="-1" role="dialog" aria-labelledby="modal-login-register-label" aria-hidden="true">
+  <div class="modal modal-login-register fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-login-register-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="font-weight-bold modal-title" id="modal-login-register-label">Login Form</h2>
+          <h2 class="font-weight-bold modal-title" id="modal-login-register-label">登入系統</h2>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body text-center">
           <div class="group-sm group-sm-justify"><a class="button button-sm button-facebook button-icon button-icon-left" href="#"><span class="icon fa fa-facebook"></span>Facebook</a><a class="button button-sm button-twitter button-icon button-icon-left" href="#"><span class="icon fa fa-twitter"></span>Twitter</a><a class="button button-sm button-google button-icon button-icon-left" href="#"><span class="icon fa fa-google-plus"></span>Google+</a></div>
-          <p class="text-uppercase">or</p>
-          <!-- RD Mailform-->
-          <form class="form rd-mailform form-centered">
-            <div class="form-wrap">
-              <input class="form-input" id="popup-form-login-email" type="email" name="email" data-constraints="@Email @Required">
-              <label class="form-label" for="popup-form-login-email">E-mail</label>
-            </div>
-            <div class="form-wrap">
-              <input class="form-input" id="popup-form-login-password" type="password" name="password" data-constraints="@Required">
-              <label class="form-label" for="popup-form-login-password">Password</label>
-            </div>
-            <div class="form-wrap">
-              <label class="checkbox-inline">
-                <input name="checkbox" value="checkbox-1" type="checkbox" checked>Remember me
-              </label>
-            </div>
-            <div class="group">
-              <button class="button button-primary" type="submit">Login</button>
-              <button class="button button-default-outline">Create an Account</button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -536,77 +514,19 @@ export default {
 	data () {
 	  return {
 			loading: true,
-			loginShow: false,
-			account: '',
-			password: '',
-			rememberMe: '',
-			server: 'server1',
+      dt_url: '',
+      horse_url: '',
 	  }
-	},
-	beforeMount() {
-		this.checkDevice()
 	},
 	mounted() {
 		this.loading = false
 
-		//remember data
-		const remember = this.$store.state.localStorage.remember
-		this.rememberMe = remember.me
-
-		if (this.rememberMe) {
-			this.account = remember.account
-			this.password = remember.password
-		}
+    this.dt_url = process.env.NUXT_ENV_DT_URL
+    this.horse_url = process.env.NUXT_ENV_HORSE_URL
 
 		setTimeout(function(){
 			document.getElementById("__nuxt").style = 'display: block'
 		}, 200)
-	},
-	methods: {
-		async doLogin() {
-			let _this = this
-
-			if (this.account == '' || this.password == '') {
-				this.$alert('帳號或密碼不得為空', '注意!')
-				return
-			}
-
-			this.loading = true
-
-			await axios.post(process.env.NUXT_ENV_API_URL + "/validation", qs.stringify({
-			  LoginAccount: this.account,
-			  LoginPassword: this.password,
-			  LoginMobile: 0,
-			}))
-			.then(response => {
-				const result = response.data
-
-			  if (result['Code'] <= 0) {
-			  	this.$alert(result['ErrorMsg'], '注意!')
-			  	_this.loading = false
-			  	return
-			  }
-
-			  if (result["Code"] == 2) {
-				sessionStorage.setItem("UserAccount", result["UserAccount"]);
-				sessionStorage.setItem("UserID", result["UserId"]);
-				sessionStorage.setItem("ChooseID", result["ChooseId"]);
-				sessionStorage.setItem("UserToken", result["Token"]);
-				window.location.href = "/agent/index.php"
-				return
-			  }
-
-			  //記住我
-			  _this.$store.commit('setRemember', {
-			  	me: _this.rememberMe,
-			  	account: _this.account,
-			  	password: _this.password,
-			  })
-
-			  //set user info
-			  _this.$store.commit('setuserAuth', result)
-			})
-		}
 	},
 }
 </script>
