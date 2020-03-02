@@ -22,7 +22,7 @@
               <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-outer"><span></span></button>
               <!-- RD Navbar Brand-->
               <div class="rd-navbar-brand"><a class="brand" href="#">
-                <img class="brand-logo-dark" src="/index/images/logo.png" alt="" width="125" height="45" srcset="index/images/logo.png 2x"/></a>
+                <img src="/index/images/logo.png" alt="" width="125" height="45" srcset="index/images/logo.png 2x"/></a>
               </div>
             </div>
             <div class="rd-navbar-nav-outer">
