@@ -992,7 +992,7 @@ setTimeout(function(){
             maxGlare: .5
         })
     }
-}, 200)
+}, 500)
 }())
 
 if (/iPhone|iPad/i.test(navigator.userAgent)) {
