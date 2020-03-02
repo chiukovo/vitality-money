@@ -6,7 +6,7 @@
 }
 
 .quote-classic__text {
-  font: normal 300 14px/22px "Titillium Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-weight: normal !important;
   letter-spacing: .05em;
   margin-top: 2rem;
 }
@@ -25,7 +25,7 @@
   background-color: rgba(0,0,0,.3);
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p, body {
   font-family:  "Microsoft JhengHei","Open Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
 }
 
