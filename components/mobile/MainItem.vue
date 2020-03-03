@@ -35,7 +35,7 @@
       thead.thead
         tr
           th(style="width: 80px") 商品
-          th(style="width: 50px").text__center 倉位
+          th(style="width: 60px").text__center 倉位
           th 成交
           th 買進
           th 賣出
@@ -52,7 +52,7 @@
         tr(v-for="row in mainItem" v-show="!row.row_hide" @click="openItemDetail(row)")
           td(style="width: 80px")
             span {{ row['product_name'] }}{{ row['monthday'] }}
-          td(style="width: 50px")
+          td(style="width: 60px")
             .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
               span.bg__danger.text__white(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
               span.bg__success.text__white(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
