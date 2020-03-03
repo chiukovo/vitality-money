@@ -481,6 +481,32 @@
         </div>
         <div class="modal-body text-center">
           <div class="group-sm group-sm-justify"><a class="button button-sm button-facebook button-icon button-icon-left" href="#"><span class="icon fa fa-facebook"></span>Facebook</a><a class="button button-sm button-twitter button-icon button-icon-left" href="#"><span class="icon fa fa-twitter"></span>Twitter</a><a class="button button-sm button-google button-icon button-icon-left" href="#"><span class="icon fa fa-google-plus"></span>Google+</a></div>
+          <p class="text-uppercase">or</p>
+          <!-- RD Mailform-->
+          <div class="form rd-mailform form-centered">
+            <div class="form-wrap">
+              <select class="form-input" style="text-align-last: center;" v-model='type'>
+                <option value="b">B交易平台</option>
+                <option value="d">D交易平台</option>
+              </select>
+            </div>
+            <div class="form-wrap">
+              <input class="form-input" id="popup-form-login-account" type="text" name="account"  data-constraints="@Required" v-model='account'>
+              <label class="form-label" for="popup-form-login-account">帳號</label>
+            </div>
+            <div class="form-wrap">
+              <input class="form-input" id="popup-form-login-password" type="password" name="password" data-constraints="@Required" v-model='password'>
+              <label class="form-label" for="popup-form-login-password">密碼</label>
+            </div>
+            <div class="form-wrap">
+              <label class="checkbox-inline">
+                <input name="checkbox" value="checkbox-1" type="checkbox" v-model="rememberMe">記住我 
+              </label>
+            </div>
+            <div class="form-wrap">
+              <button class="button button-block button-primary" @click.prevent="doLogin">登入</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -518,6 +544,10 @@ export default {
 	data () {
 	  return {
 			loading: true,
+      account: '',
+      password: '',
+      rememberMe: '',
+      type: 'b',
       dt_url: '',
       horse_url: '',
 	  }
@@ -528,9 +558,56 @@ export default {
     this.dt_url = process.env.NUXT_ENV_DT_URL
     this.horse_url = process.env.NUXT_ENV_HORSE_URL
 
-		setTimeout(function(){
-			document.getElementById("__nuxt").style = 'display: block'
-		}, 200)
+    //remember data
+    const remember = this.$store.state.localStorage.remember
+    this.rememberMe = remember.me
+
+    if (this.rememberMe) {
+      this.account = remember.account
+      this.password = remember.password
+    }
 	},
+  methods: {
+    async doLogin() {
+      let _this = this
+
+      if (this.account == '' || this.password == '') {
+        this.$alert('帳號或密碼不得為空', '注意!')
+        return
+      }
+
+      this.loading = true
+
+      await axios.post(process.env.NUXT_ENV_API_URL + "/validation", qs.stringify({
+        LoginAccount: this.account,
+        LoginPassword: this.password,
+        LoginMobile: 0,
+      }))
+      .then(response => {
+        const result = response.data
+
+        if (result['Code'] <= 0) {
+          this.$alert(result['ErrorMsg'], '注意!')
+          _this.loading = false
+          return
+        }
+
+        //記住我
+        _this.$store.commit('setRemember', {
+          me: _this.rememberMe,
+          account: _this.account,
+          password: _this.password,
+        })
+
+        const params = '/go?UserID=' + result.UserId + '&UserToken=' + result.Token + '&ReturnURL=' + document.URL
+
+        if (_this.type == 'b') {
+          location.href = _this.horse_url + params
+        } else {
+          location.href = _this.dt_url + params
+        }
+      })
+    }
+  },
 }
 </script>

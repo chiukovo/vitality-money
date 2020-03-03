@@ -368,6 +368,7 @@ setTimeout(function(){
             tiltHover: $('.js-tilt')
         };
     if (plugins.preloader.length && !isNoviBuilder) {
+    		document.getElementById("__nuxt").style = 'display: block'
         pageTransition({
             page: $('.page'),
             animDelay: 0,
