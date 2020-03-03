@@ -491,27 +491,27 @@
           <div class="group-sm modal-form">
             <div class="form-group">
               <label for="" class="form-input-label">帳號</label>
-              <input type="text" class="form-input2" placeholder="請輸入帳號">
+              <input type="text" class="form-input2" placeholder="請輸入帳號" v-model='account'>
             </div>
             <div class="form-group">
               <label for="" class="form-input-label">密碼</label>
-              <input type="text" class="form-input2" placeholder="請輸入密碼">
+              <input type="password" class="form-input2" placeholder="請輸入密碼" v-model='password'>
             </div>
             <div class="form-group">
               <div class="form-select">
                 <span class="icon linearicons-chevron-down"></span>
-                <select>
-                  <option value="B">B交易平台</option>
-                  <option value="D">D交易平台</option>
+                <select v-model='type'>
+                  <option value="b">B交易平台</option>
+                  <option value="d">D交易平台</option>
                 </select>
               </div>
             </div>
             <div class="form-group form-button">
-              <button>登入</button>
+              <button type='primary' native-type="submit" @click.prevent="doLogin">登入</button>
             </div>
             <div class="form-group group-sm-justify">
               <div class="form-group-col">
-                <input type="checkbox" id="save_account">
+                <input type="checkbox" id="save_account" v-model="rememberMe">
                 <label for="save_account">記住帳號</label>
               </div>
               <div class="form-group-col text-right">
