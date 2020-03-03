@@ -472,16 +472,50 @@
 
   </div>
   <!-- Modal Login/Register-->
-  <div class="modal modal-login-register fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-login-register-label" aria-hidden="true">
+  <div class="modal modal-login-register login fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-login-register-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="font-weight-bold modal-title" id="modal-login-register-label">登入系統</h2>
+          <h5 class="font-weight-bold modal-title" id="modal-login-register-label">登入系統</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body text-center">
-          <div class="group-sm group-sm-justify"><a class="button button-sm button-facebook button-icon button-icon-left" href="#"><span class="icon fa fa-facebook"></span>Facebook</a><a class="button button-sm button-twitter button-icon button-icon-left" href="#"><span class="icon fa fa-twitter"></span>Twitter</a><a class="button button-sm button-google button-icon button-icon-left" href="#"><span class="icon fa fa-google-plus"></span>Google+</a></div>
+        <div class="modal-body">
+          <div class="group-sm modal-form">
+            <div class="form-group">
+              <label for="" class="form-input-label">帳號</label>
+              <input type="text" class="form-input2" placeholder="請輸入帳號">
+            </div>
+            <div class="form-group">
+              <label for="" class="form-input-label">密碼</label>
+              <input type="text" class="form-input2" placeholder="請輸入密碼">
+            </div>
+            <div class="form-group">
+              <div class="form-select">
+                <span class="icon linearicons-chevron-down"></span>
+                <select>
+                  <option value="B">B交易平台</option>
+                  <option value="D">D交易平台</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-button">
+              <button>登入</button>
+            </div>
+            <div class="form-group group-sm-justify">
+              <div class="form-group-col">
+                <input type="checkbox" id="save_account">
+                <label for="save_account">記住帳號</label>
+              </div>
+              <div class="form-group-col text-right">
+                <a href="#">忘記密碼</a>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- <div class="form-group group-sm-justify">
+          <a class="button-facebook button-icon button-icon-left" href="#"><span class="icon fa fa-facebook"></span>Facebook</a>
+          <a class="button-google button-icon button-icon-left" href="#"><span class="icon fa fa-google-plus"></span>Google+</a>
+        </div> -->
       </div>
     </div>
   </div>
