@@ -22,17 +22,17 @@
                     span.label 成交
                     span(:class="nowMainItem.color") {{ nowMainItem.newest_price }}
                   li
-                    span.label 買進
-                    span(:class="nowMainItem.color") {{ nowMainItem.bp_price }}
-                  li
-                    span.label 賣出
-                    span(:class="nowMainItem.color") {{ nowMainItem.sp_price }}
-                  li
                     span.label 漲跌
                     span(:class="nowMainItem.color") {{ nowMainItem.gain }}
                   li
                     span.label 漲幅
                     span(:class="nowMainItem.color") {{ nowMainItem.gain_percent }}%
+                  li
+                    span.label 買進
+                    span(:class="nowMainItem.color") {{ nowMainItem.bp_price }}
+                  li
+                    span.label 賣出
+                    span(:class="nowMainItem.color") {{ nowMainItem.sp_price }}
                   li
                     span.label 總量
                     span(:class="nowMainItem.color") {{ nowMainItem.total_qty }}

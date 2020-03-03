@@ -15,10 +15,10 @@
           th(style="width: 40px").text__center K線
           th(style="width: 40px").text__center 走勢
           th 成交
-          th 買進
-          th 賣出
           th 漲跌
           th 漲跌幅
+          th 買進
+          th 賣出
           th 總量
           th 開盤
           th 最高
