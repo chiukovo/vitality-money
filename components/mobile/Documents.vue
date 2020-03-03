@@ -101,7 +101,7 @@
                 thead.thead
                   tr
                     th(style="width: 40px;")
-                    th(style="width: 120px;").text__center 操作
+                    th(style="width: 60px;").text__center 操作
                     th 序號
                     th(style="width: 100px;") 商品
                     th 不留倉
@@ -122,9 +122,8 @@
                   tr(v-for="row in $store.state.uncovered" @click="trClick($event)")
                     td(style="width: 40px;").text__center
                       input(class="m-0" type="checkbox" v-model="multiOrderSelect" :value="row.Serial" :disabled="!row.Operation[2]")
-                    td(style="width: 120px;")
+                    td(style="width: 60px;")
                       button.button(v-if="row.Operation[2]" @click="doCovered(row, 1)") 平
-                      button.button(v-if="!cantSetWinLoss(row.Operation)" @click="openEdit(row, '')") 設損
                     td {{ row.Serial }}
                     td(style="width: 100px;") {{ row.Name }}
                     td
