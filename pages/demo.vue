@@ -479,6 +479,7 @@
           <h5 class="font-weight-bold modal-title" id="modal-login-register-label">登入系統</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
         </div>
+<<<<<<< HEAD
         <div class="modal-body">
           <div class="group-sm modal-form">
             <div class="form-group">
@@ -552,6 +553,10 @@ export default {
 	data () {
 	  return {
 			loading: true,
+      account: '',
+      password: '',
+      rememberMe: '',
+      type: 'b',
       dt_url: '',
       horse_url: '',
 	  }
@@ -562,9 +567,56 @@ export default {
     this.dt_url = process.env.NUXT_ENV_DT_URL
     this.horse_url = process.env.NUXT_ENV_HORSE_URL
 
-		setTimeout(function(){
-			document.getElementById("__nuxt").style = 'display: block'
-		}, 200)
+    //remember data
+    const remember = this.$store.state.localStorage.remember
+    this.rememberMe = remember.me
+
+    if (this.rememberMe) {
+      this.account = remember.account
+      this.password = remember.password
+    }
 	},
+  methods: {
+    async doLogin() {
+      let _this = this
+
+      if (this.account == '' || this.password == '') {
+        this.$alert('帳號或密碼不得為空', '注意!')
+        return
+      }
+
+      this.loading = true
+
+      await axios.post(process.env.NUXT_ENV_API_URL + "/validation", qs.stringify({
+        LoginAccount: this.account,
+        LoginPassword: this.password,
+        LoginMobile: 0,
+      }))
+      .then(response => {
+        const result = response.data
+
+        if (result['Code'] <= 0) {
+          this.$alert(result['ErrorMsg'], '注意!')
+          _this.loading = false
+          return
+        }
+
+        //記住我
+        _this.$store.commit('setRemember', {
+          me: _this.rememberMe,
+          account: _this.account,
+          password: _this.password,
+        })
+
+        const params = '/go?UserID=' + result.UserId + '&UserToken=' + result.Token + '&ReturnURL=' + document.URL
+
+        if (_this.type == 'b') {
+          location.href = _this.horse_url + params
+        } else {
+          location.href = _this.dt_url + params
+        }
+      })
+    }
+  },
 }
 </script>
