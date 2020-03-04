@@ -68,7 +68,13 @@ Vue.mixin({
       if (returnUrl && returnUrl !== '') {
         location.href = returnUrl
       } else {
-        location.href = "/"
+        let targetUrl = '/'
+
+        if (this.$store.state.isMobile) {
+          targetUrl = '/mobile'
+        }
+
+        location.href = targetUrl
       }
     },
     startToken() {
