@@ -64,7 +64,13 @@ module.exports = {
   */
   build: {
     extractCSS: true,
-    transpile: [/^element-ui/],
+    babel: {
+      sourceType: 'unambiguous',
+    },
+    transpile: [
+      'nuxt-vuex-localstorage',
+      '/^element-ui/'
+    ],
     extend(config, ctx) {
       config.plugins.unshift(new LodashModuleReplacementPlugin)
       config.module.rules[2].use[0].options.plugins = ['lodash']
