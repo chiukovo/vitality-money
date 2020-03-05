@@ -354,21 +354,6 @@ Vue.mixin({
     },
     doEdit() {
       let sendText
-
-      //if 限價改市價 1 改 0
-      if (this.sourceEditData.buyType == '1' && this.edit.buyType == '0') {
-        sendText = 'e:' + this.userId + ',0,' + this.edit.itemId + ',0,0,0,6,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
-        this.$socketOrder.send(sendText)
-        this.editDialog = false
-      }
-
-      //if 改數量 or 價格
-      if (this.edit.submit != this.sourceEditData.Quantity || this.edit.nowPrice != this.sourceEditData.OrderPrice) {
-        sendText = 'e:' + this.userId + ',' + this.edit.submit + ',' + this.edit.itemId + ',0,0,' + this.edit.nowPrice + ',2,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
-        this.$socketOrder.send(sendText)
-        this.editDialog = false
-      }
-
       //檢查點數部分哪些有改
       //獲利點
       if (this.edit.winPoint != this.sourceEditData.WinPoint) {
@@ -384,6 +369,18 @@ Vue.mixin({
       if (this.edit.invertedPoint != this.sourceEditData.InvertedPoint) {
         this.editPoint.price = this.edit.invertedPoint
         this.doEditPoint('profitPointDialog')
+      }
+
+      //if 限價改市價 1 改 0
+      if (this.sourceEditData.buyType == '1' && this.edit.buyType == '0') {
+        sendText = 'e:' + this.userId + ',' + this.edit.submit + ',' + this.edit.itemId + ',0,0,0,6,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
+        this.$socketOrder.send(sendText)
+        this.editDialog = false
+      } else if (this.edit.submit != this.sourceEditData.Quantity || this.edit.nowPrice != this.sourceEditData.OrderPrice) {
+        //if 改數量 or 價格
+        sendText = 'e:' + this.userId + ',' + this.edit.submit + ',' + this.edit.itemId + ',0,0,' + this.edit.nowPrice + ',2,' + this.edit.serial + ',' + this.token + ',' + this.isMobile
+        this.$socketOrder.send(sendText)
+        this.editDialog = false
       }
     },
     doEditPoint(type) {
