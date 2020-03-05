@@ -87,6 +87,10 @@ button {
   }
 }
 
+
+input {
+  user-select: text;
+}
 .input {
   input {
     padding: 4px 6px;
