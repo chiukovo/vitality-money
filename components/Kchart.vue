@@ -32,7 +32,7 @@ div(class="h-100")
           td(:class="nowMainItem.computed_color") {{ nowMainItem.gain_percent }}%
           td
             span(:class="nowMainItem.computed_color") {{ nowMainItem.total_qty }}
-  #tdview-container(style="height: calc(100% - 30px)")
+  #tdview-container(:style="checkHeight()")
 </template>
 
 <script>
@@ -149,6 +149,13 @@ export default {
     nowMainItem: 'nowMainItem',
   }),
   methods: {
+    checkHeight() {
+      if (this.$store.state.isMobile) {
+        return 'height: 100%'
+      } else {
+        return 'height: calc(100% - 60px)'
+      }
+    },
     checkNumberColor(target) {
       if (this.nowMainItem.yesterday_close_price == target) {
         return 'number'

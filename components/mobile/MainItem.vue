@@ -79,11 +79,16 @@
     table.custom__table.mob__table(v-if="!analysisShow")
       thead.thead
         tr
-          th 商品
+          th(style="width: 80px") 商品
+          th(style="width: 60px").text__center 倉位
       tbody.tbody
         tr(v-for="row in mainItem" v-show="!row.row_hide")
-          td
+          td(style="width: 80px")
             span(class="self-item-color" @click.prevent.stop="clickChart(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
+          td(style="width: 60px")
+            .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
+              span.bg__danger.text__white(v-if="$store.state.uncoveredCountDetail[row['product_id']] > 0") {{ $store.state.uncoveredCountDetail[row['product_id']] }}
+              span.bg__success.text__white(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
   .swiper-scrollbar(slot="scrollbar")
   el-dialog(
     :visible.sync="itemDetail.isOpen"
