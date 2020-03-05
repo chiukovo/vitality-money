@@ -25,14 +25,13 @@ Vue.mixin({
       }
     },
     checkDevice() {
-      let isMobile = this.$device.isMobile
+      let isMobile = this.$device.isMobileOrTablet
       const name = this.$nuxt.$route.name.split('-')
+      const UA = navigator.userAgent
 
-      //平板設定為手機板
-      if (!isMobile) {
-        if (this.$device.isTablet) {
-          isMobile = true
-        }
+      //ipad判斷為手機板
+      if (/iPad|iPod/i.test(UA)) {
+        isMobile = true
       }
 
       //pc
