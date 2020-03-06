@@ -150,10 +150,6 @@ export default {
         }
       })
 
-      if (userHide && setting.length > 0 && val.product_id != 'TSLQ') {
-        return ''
-      }
-
       //顏色 昨收價 < 成交價 紅
       val.color = ''
       val.newest_price_change = ''
@@ -218,6 +214,11 @@ export default {
 
       //寫入store 目前最新成交價錢
       state.nowNewPrice[val.product_id] = val.newest_price
+
+      //判斷是否有自定義關閉
+      if (userHide) {
+        val.row_hide = true
+      }
 
       if (val.product_id == 'TSLQ') {
         val.row_hide  = false
@@ -1322,11 +1323,20 @@ export default {
   SOCKET_ONOPEN (state, event)  {
     Vue.prototype.$socket = event.currentTarget
     state.socket.isConnected = true
+
+    if (state.socket.reconnecting) {
+      this._vm.$msgbox.close()
+      this._vm.$alert('重新連線成功!')
+
+      state.socket.reconnecting = false
+    }
   },
   SOCKET_ONCLOSE (state, event)  {
     state.socket.isConnected = false
   },
   SOCKET_ONERROR (state, event)  {
+    state.socket.reconnecting = true
+    this._vm.$alert('連線異常, 重新連線中...')
     console.error(state, event)
   },
   SOCKET_ONMESSAGE (state, message)  {

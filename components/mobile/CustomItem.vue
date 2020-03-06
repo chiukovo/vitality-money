@@ -76,7 +76,12 @@ export default {
       }))
       .then(response => {
         _this.$alert("修改成功")
-        location.reload()
+
+        //取得自定義商品開關
+        _this.$store.dispatch('CALL_MEMBER_CUSTOM_ITEM', {
+          defaultData: _this.$store.state.mainItem,
+          marketInfo: _this.marketInfo()
+        })
       })
     },
     cancel() {

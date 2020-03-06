@@ -4,6 +4,7 @@ export default () => ({
     isConnected: false,
     message: '',
     reconnectError: false,
+    reconnecting: false,
   },
   mainItem: [],
   nowMainItem: [],
