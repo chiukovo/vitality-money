@@ -5,7 +5,7 @@
       button.button(@click="allChecked(true)") 全選
       button.button(@click="allChecked(false)") 全不選
       button.button(@click="submit") 保存
-  .area(style="overflow-y: scroll;")
+  .area(style="overflow-y: scroll; height: calc(100% - 100px);")
     ul.area-select-list
         li(v-for="item in items"): label.checkbox
           input.checkbox__input(type="checkbox" v-model="multipleSelection" :value="item.id")

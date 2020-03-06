@@ -8,13 +8,13 @@
   #main
     //- style A
     splitpanes(class="default-theme" v-show="mainStyle == 'A'" @resized="resized()")
-      pane(size="20")
+      pane(size="16")
         splitpanes(horizontal @resized="resized()")
           pane(size="30")
             UserInfo(v-if="checkIsset('A')")
           pane(size="70")
             ItemDetail(v-if="checkIsset('A')")
-      pane(size="80")
+      pane(size="84")
         splitpanes(horizontal @resized="resized()")
           pane(size="42")
             MainItem(v-if="checkIsset('A')")

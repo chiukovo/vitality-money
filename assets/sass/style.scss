@@ -694,17 +694,19 @@ $use-fadeInDown: true;
 //-------------- operating
 .operating {
   position: relative;
+  font-size: 16px;
   border: 1px solid #6285ab;
   .operating-header {
     border-color: $border-color;
     background-color: #cbe2f8;
+    line-height: 1.2;
   }
 
   .operating-content {
     background-color: #fecccb;
   }
   .el-form-item__label {
-    font-size: 12px;
+    font-size: 16px;
     color: $gray-900;
   }
   .number-input {
@@ -755,6 +757,12 @@ $use-fadeInDown: true;
       content: '';
       background-image: url('~static/images/theme_traditional/add.svg');
     }
+  }
+  button {
+    font-size: 16px;
+  }
+  .button__lg {
+    font-size: 26px;
   }
 }
 

@@ -34,7 +34,7 @@
     table.custom__table.text__right(v-if="!analysisShow")
       thead.thead
         tr
-          th(style="width: 80px") 商品
+          th(style="width: 100px") 商品
           th(style="width: 60px").text__center 倉位
           th 成交
           th 漲跌
@@ -50,7 +50,7 @@
           th 狀態
       tbody.tbody(@scroll="tbodyScroll($event, false, true)")
         tr(v-for="row in mainItem" v-show="!row.row_hide" @click="openItemDetail(row)")
-          td(style="width: 80px")
+          td(style="width: 100px")
             span {{ row['product_name'] }}{{ row['monthday'] }}
           td(style="width: 60px")
             .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
@@ -79,11 +79,11 @@
     table.custom__table.mob__table(v-if="!analysisShow")
       thead.thead
         tr
-          th(style="width: 80px") 商品
+          th(style="width: 100px") 商品
           th(style="width: 60px").text__center 倉位
       tbody.tbody
         tr(v-for="row in mainItem" v-show="!row.row_hide")
-          td(style="width: 80px")
+          td(style="width: 100px")
             span(class="self-item-color" @click.prevent.stop="clickChart(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}
           td(style="width: 60px")
             .cell(v-if="typeof $store.state.uncoveredCountDetail[row['product_id']] != 'undefined'")
