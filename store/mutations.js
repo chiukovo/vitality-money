@@ -134,6 +134,11 @@ export default {
     let result = []
     let resultToOrder = []
 
+    if (state.commidyArray.length == 0
+      || state.customItemSetting.length == 0) {
+      return;
+    }
+
     result = mainItem.map(function(val) {
       //確認此筆是否要隱藏
       //使用者設定
@@ -192,7 +197,24 @@ export default {
       val.gain = val.newest_price - val.yesterday_close_price
       //(成交價-昨日收盤)/昨日收盤*100%
       val.gain_percent = ((val.gain / val.yesterday_close_price) * 100).toFixed(2)
-      val.state_name = val.state == 2 ? '交易中' : '未開盤'
+      switch(val.state) {
+        case 0:
+        case 1:
+          val.state_name = '未開盤'
+          break
+        case 3:
+          val.state_name = '停止交易'
+          break
+        case 2:
+          const findAuthCom = state.commidyArray.find(val2 => val2.ID === val.product_id);
+          if (findAuthCom && findAuthCom.State !== '正常') {
+            val.state_name = '後台停收'
+            val.state_color = 'text__danger'
+          } else {
+            val.state_name = '交易中'
+          }
+          break
+      }
 
       //寫入store 目前最新成交價錢
       state.nowNewPrice[val.product_id] = val.newest_price
@@ -312,6 +334,7 @@ export default {
 
     //計算userInfo
     this.commit('computedUserInfo')
+    this.commit('computedMainItem')
   },
   computedUserInfo(state) {
     let userArray = state.userInfo
