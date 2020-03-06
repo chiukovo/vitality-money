@@ -74,10 +74,9 @@ export default {
 
       if (result.Code == 1) {
         //有值
-        if (result.UserSettingData != '{}') {
+        if (result.UserSettingData != '{}' && result.UserSettingData != '[]' && result.UserSettingData != '') {
           const customItemSetting = JSON.parse(result.UserSettingData)
           commit('setCustomItemSetting', customItemSetting)
-
         } else {
           //default
           let newDefaultData = []

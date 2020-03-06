@@ -144,7 +144,7 @@ export default {
           sourceFormat = JSON.parse(event.data.substring(2))
 
           if (sourceFormat.Code <= 0) {
-            if (nowDate - _this.$store.state.errorMsgDate >= 100  ) {
+            if (nowDate - _this.$store.state.errorMsgDate >= 100) {
               _this.$alert(sourceFormat.ErrorMsg)
             }
 
