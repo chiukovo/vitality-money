@@ -12,6 +12,7 @@ module.exports = {
     ],
     script: [
       { src: '/js/charting_library/charting_library.min.js', type: 'text/javascript' },
+      { src: '/js/reconnecting-websocket.min.js', type: 'text/javascript' },
     ]
   },
   /*

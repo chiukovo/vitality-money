@@ -6,10 +6,10 @@ export default ({ store }, inject) => {
   Vue.use(VueNativeSock, url, {
 		store: store,
 		reconnection: true,
-		reconnectionDelay: 2000
+		reconnectionDelay: 1000
   })
 
   const orderUrl = process.env.NUXT_ENV_API_ORDER_WEBSOCKET.replace('redirect', window.location.host);
 
-  Vue.prototype.$socketOrder = new WebSocket(orderUrl)
+  Vue.prototype.$socketOrder = new ReconnectingWebSocket(orderUrl)
 }

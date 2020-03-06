@@ -9,6 +9,13 @@ export default {
     if (routeName != 'kchart' && routeName != 'chart') {
       //檢查是否token過期
       this.$socketOrder.onopen = function(e) {
+        if (_this.$store.state.socket.reconnecting) {
+          _this.$msgbox.close()
+          _this.$alert('重新連線成功!')
+
+          _this.$store.state.socket.reconnecting = false
+        }
+
         const userId = _this.$store.state.localStorage.userAuth.userId
         const token = _this.$store.state.localStorage.userAuth.token
         const isMobile = _this.$store.state.isMobile
@@ -19,6 +26,11 @@ export default {
       //order websocket
       this.$socketOrder.onmessage = function(e) {
         _this.orderSendResult(e)
+      }
+
+      this.$socketOrder.onerror = function(e) {
+        _this.$store.state.socket.reconnecting = true
+        _this.$alert('連線異常, 重新連線中...')
       }
     }
   },
