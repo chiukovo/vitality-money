@@ -1327,8 +1327,8 @@ export default {
     if (state.socket.reconnecting) {
       this._vm.$msgbox.close()
       this._vm.$alert('重新連線成功!')
-
       state.socket.reconnecting = false
+      location.reload()
     }
   },
   SOCKET_ONCLOSE (state, event)  {
