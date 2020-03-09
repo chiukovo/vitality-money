@@ -41,14 +41,14 @@
           td
             span(:class="[row['newest_price_change'], row.computed_color]") {{ row['newest_price'] }}
           td
-            span(:class="[row['bp_price_change'], row.computed_color]") {{ row['bp_price'] }}
-          td
-            span(:class="[row['sp_price_change'], row.computed_color]") {{ row['sp_price'] }}
-          td
             .change-icon
               .icon-arrow(:class="row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
             span(:class="row.computed_color") {{ row['gain'] }}
           td(:class="row.computed_color") {{ row['gain_percent'] }}%
+          td
+            span(:class="[row['bp_price_change'], row.computed_color]") {{ row['bp_price'] }}
+          td
+            span(:class="[row['sp_price_change'], row.computed_color]") {{ row['sp_price'] }}
           td
             span(:class="row['total_qty_change']" class="text__info") {{ row['total_qty'] }}
           td(:class="row.computed_color") {{ row['open_price']}}
