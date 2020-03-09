@@ -1337,13 +1337,13 @@ export default {
   SOCKET_ONERROR (state, event)  {
     state.socket.reconnecting = true
     this._vm.$alert('連線異常, 重新連線中...')
-    console.error(state, event)
+    console.error('error network')
   },
   SOCKET_ONMESSAGE (state, message)  {
     state.socket.message = message
   },
   SOCKET_RECONNECT(state, count) {
-    console.info(state, count)
+    console.info('reconnecting')
   },
   SOCKET_RECONNECT_ERROR(state) {
     state.socket.reconnectError = true
