@@ -12,8 +12,8 @@ export default {
         if (_this.$store.state.socket.reconnecting) {
           _this.$msgbox.close()
           _this.$alert('重新連線成功!')
-
           _this.$store.state.socket.reconnecting = false
+          location.reload()
         }
 
         const userId = _this.$store.state.localStorage.userAuth.userId
