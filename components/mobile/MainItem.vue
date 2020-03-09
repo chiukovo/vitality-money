@@ -37,7 +37,7 @@
           th(style="width: 100px") 商品
           th(style="width: 60px").text__center 倉位
           th 成交
-          th 漲跌
+          th(style="width: 90px") 漲跌
           th 漲跌幅
           th 買進
           th 賣出
@@ -58,7 +58,7 @@
               span.bg__success.text__white(v-else) {{ Math.abs($store.state.uncoveredCountDetail[row['product_id']]) }}
           td
             span(:class="[row['newest_price_change'], row.computed_color]") {{ row['newest_price'] }}
-          td
+          td(style="width: 90px")
             .change-icon
               .icon-arrow(:class="row['gain'] > 0 ? 'icon-arrow-up' : 'icon-arrow-down'")
             span(:class="row.computed_color") {{ row['gain'] }}
