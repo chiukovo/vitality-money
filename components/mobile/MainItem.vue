@@ -81,7 +81,7 @@
         tr
           th(style="width: 100px") 商品
           th(style="width: 60px").text__center 倉位
-      tbody.tbody
+      tbody.tbody(@scroll="tbodyScroll($event, false, true)")
         tr(v-for="row in mainItem" v-show="!row.row_hide")
           td(style="width: 100px")
             span(class="self-item-color" @click.prevent.stop="clickChart(row)" :class="row.state_color") {{ row['product_name'] }}{{ row['monthday'] }}

@@ -307,8 +307,10 @@ Vue.mixin({
 
       if (mobMain) {
         let fakeTbody = document.querySelector('.mob__table .tbody')
+        let realTbody = document.querySelector('.custom__table .tbody')
 
         fakeTbody.scrollTop = tbody.scrollTop
+        realTbody.scrollTop = tbody.scrollTop
       }
 
       const scrollLeft = tbody.scrollLeft
