@@ -323,7 +323,7 @@ export default {
           sourceFormat = JSON.parse(event.data.substring(2))
 
           if (sourceFormat == 0 && process.env.NUXT_ENV_OPEN_REPEAT_LOGOUT != 'true') {
-            _this.$alert('驗證參數已過期, 請重新登入', '提示', {
+            _this.$alert('帳號重複登入', '提示', {
               confirmButtonText: '确定',
               callback: action => {
                 _this.logout()
@@ -351,7 +351,7 @@ export default {
             switch (b_type[0]) {
               case 114: //c 交易完成
                 if (process.env.NUXT_ENV_OPEN_REPEAT_LOGOUT != 'true') {
-                  _this.$alert('重複登入', '提示', {
+                  _this.$alert('帳號重複登入', '提示', {
                     confirmButtonText: '确定',
                     callback: action => {
                       _this.logout()
