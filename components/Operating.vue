@@ -18,13 +18,16 @@
                 span.radio__label 市價單
           tr
             td
-              label.radio
-                input.radio__input(type="radio" v-model='buyType' value='2')
-                span.radio__label 收盤單
             td
               label.radio
                 input.radio__input(type="radio" v-model='buyType' value='1')
                 span.radio__label 限價單
+          tr
+            td
+            td
+              label.radio
+                input.radio__input(type="radio" v-model='buyType' value='2')
+                span.radio__label 收盤單
     .operating-2
       el-form(ref='form' size='mini' label-width='50px')
         el-form-item(label='限價:' v-if="buyType == 1")
