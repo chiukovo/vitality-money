@@ -945,46 +945,61 @@ export default {
 			return
     }
 
-    if (debounceKChart) {
-      debounceKChartData = data
+    if (debounceKChart.length > 0) {
+      if (data) {
+        debounceKChartData.push(data)
+      }
       return
+    } else {
+      if (data) {
+        debounceKChartData.push(data)
+      }
     }
 
-    if (!data) {
-      data = debounceKChartData
+    if (debounceKChartData.length == 0) {
+      return;
     }
-
+    
     debounceKChart = true
     setTimeout(() => {
       _this.commit('doUpdateklLineData')
       debounceKChart = false
     }, 500)
 
+    let lastData = debounceKChartData[debounceKChartData.length - 1];
     const now_date = new Date()
-    const nowTime = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate(), data[0] / 1000000, data[0] / 10000 % 100, data[0] / 100 % 100 ).getTime()
+    const nowTime = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate(), lastData[0] / 1000000, lastData[0] / 10000 % 100, lastData[0] / 100 % 100 ).getTime()
     let the_now_data = {
       time: nowTime,
-      high: data[1],
-      low: data[1],
-      last: data[1],
-      volume: data[2]
+      high: lastData[1],
+      low: lastData[1],
+      last: lastData[1]
     }
 
-    let dindex = 0
-    while(dindex < data.length) {
-      if(dindex > 0 && dindex + 3 < data.length) {
-        the_now_data.time += data[dindex]
-        the_now_data.last += data[dindex + 1]
-        the_now_data.volume += data[dindex + 2]	
-        if (the_now_data.high < the_now_data.last) {
-          the_now_data.high = the_now_data.last
+
+    let totalQty = 0;
+    debounceKChartData.forEach((lldata, index) => {
+      let dindex = 0
+      let volume = lldata[2];
+      totalQty += volume;
+      while(dindex < lldata.length) {
+        if(dindex > 0 && dindex + 3 < lldata.length) {
+          if (index === debounceKChartData.length - 1) {
+            the_now_data.time += lldata[dindex]
+            the_now_data.last += lldata[dindex + 1]
+            if (the_now_data.high < the_now_data.last) {
+              the_now_data.high = the_now_data.last
+            }
+            if (the_now_data.low > the_now_data.last) {
+              the_now_data.low = the_now_data.last
+            }
+          }
+          volume += lldata[dindex + 2]	
+          totalQty += volume
         }
-        if (the_now_data.low > the_now_data.last) {
-          the_now_data.low = the_now_data.last
-        }
+        dindex += 4
       }
-      dindex += 4
-    }
+    })
 
 		if (resolution.includes('D')) {
 			// 1 day in minutes === 1440
@@ -1013,13 +1028,29 @@ export default {
 		}
 
 		if (rounded > lastBarSec) {
+      const halfQty = parseInt(totalQty / 2);
+      // update lastBar candle!
+			if (lastBar.low > the_now_data.low) {
+				lastBar.low = the_now_data.low
+				lastK[3] = the_now_data.low
+			} else if (lastBar.high < the_now_data.high) {
+				lastBar.high = the_now_data.high
+				lastK[2] = the_now_data.high
+			}
+
+			lastK[4] = the_now_data.last
+      lastBar.volume += halfQty
+      lastK[5] += halfQty
+			lastBar.close = the_now_data.last
+      state.onRealtimeCallback(lastBar)
+  
 			kLineData.push([
 				rounded,
 				the_now_data.last,
 				the_now_data.last,
 				the_now_data.last,
 				the_now_data.last,
-				0
+				halfQty
 			])
 		  // create a new candle, use last close as open **PERSONAL CHOICE**
 			lastBar = {
@@ -1028,7 +1059,7 @@ export default {
 				high: the_now_data.last,
 				low: the_now_data.last,
 				close: the_now_data.last,
-				volume: 0
+				volume: halfQty
 			}
 		} else {
 			// update lastBar candle!
@@ -1040,11 +1071,13 @@ export default {
 				lastK[2] = the_now_data.high
 			}
 
-			lastK[4] = the_now_data.last
-			lastBar.volume = the_now_data.volume
+      lastK[4] = the_now_data.last
+      lastK[5] += totalQty
+			lastBar.volume += totalQty
 			lastBar.close = the_now_data.last
     }
 
+    debounceKChartData = [];
 		state.onRealtimeCallback(lastBar)
   },
   doUpdateChartData(state, data) {

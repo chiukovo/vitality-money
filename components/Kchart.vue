@@ -85,12 +85,12 @@ export default {
       auto_save_delay: 5000,
       overrides: {
         "symbolWatermarkProperties.transparency": 90,
-        "mainSeriesProperties.candleStyle.wickUpColor": '#7f323f',
-        "mainSeriesProperties.candleStyle.wickDownColor": '#336854',
-        "mainSeriesProperties.candleStyle.upColor": "#d75442",
-        "mainSeriesProperties.candleStyle.downColor": "#6ba583",
-        "mainSeriesProperties.candleStyle.borderUpColor": "#d75442",
-        "mainSeriesProperties.candleStyle.borderDownColor": "#6ba583"
+        "mainSeriesProperties.candleStyle.wickUpColor": "rgb(245,61,35)",
+        "mainSeriesProperties.candleStyle.wickDownColor": "rgb(127,250,86)",
+        "mainSeriesProperties.candleStyle.upColor": "rgb(235,51,35)",
+        "mainSeriesProperties.candleStyle.downColor": "rgb(117,250,76)",
+        "mainSeriesProperties.candleStyle.borderUpColor": "rgb(235,33,35)",
+        "mainSeriesProperties.candleStyle.borderDownColor": "rgb(107,250,66)",
       },
       disabled_features,
       enabled_features: ['keep_left_toolbar_visible_on_small_screens', 'dont_show_boolean_study_arguments'],
