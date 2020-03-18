@@ -537,6 +537,10 @@ export default {
       handler(newData, oldData) {
         const limit = this.editPoint.limitWinPoint
 
+        if (limit == 0) {
+          return
+        }
+
         //0案增加
         if (oldData == 0 && newData == 1) {
           //強制加到大於數值
@@ -568,6 +572,10 @@ export default {
     'edit.lossPoint': {
       handler(newData, oldData) {
         const limit = this.editPoint.limitLossPoint
+
+        if (limit == 0) {
+          return
+        }
 
         //0案增加
         if (oldData == 0 && newData == 1) {
