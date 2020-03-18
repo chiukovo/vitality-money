@@ -150,6 +150,25 @@ export default {
         }
       })
 
+      //計算禁新 強平
+      let newPoint = 0,
+        cover = 0
+
+      state.commidyArray.forEach(function (commidy) {
+        if (val.product_id == commidy.ID) {
+          newPoint = Number(commidy.NotNewPercent)
+          cover = Number(commidy.CoverPercent)
+        }
+      })
+
+      val.yesterday_close_price = Number(val.yesterday_close_price)
+
+      //參考價 +- 參考價*禁新%
+      val.new_point1 = val.yesterday_close_price + val.yesterday_close_price * newPoint
+      val.new_point2 = val.yesterday_close_price - val.yesterday_close_price * newPoint
+      val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
+      val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
+
       //顏色 昨收價 < 成交價 紅
       val.color = ''
       val.newest_price_change = ''
