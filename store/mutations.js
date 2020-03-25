@@ -164,10 +164,13 @@ export default {
       val.yesterday_close_price = Number(val.yesterday_close_price)
 
       //參考價 +- 參考價*禁新%
-      val.new_point1 = val.yesterday_close_price + val.yesterday_close_price * newPoint
-      val.new_point2 = val.yesterday_close_price - val.yesterday_close_price * newPoint
-      val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
-      val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
+      const offsetNew = Math.ceil(val.yesterday_close_price * newPoint / 100);
+      const offsetCover = parseInt(cover / 100 * val.yesterday_close_price);
+
+      val.new_point1 = val.yesterday_close_price - offsetNew
+      val.new_point2 = val.yesterday_close_price + offsetNew
+      val.cover_point1 = val.yesterday_close_price - offsetCover
+      val.cover_point2 = val.yesterday_close_price + offsetCover
 
       //顏色 昨收價 < 成交價 紅
       val.color = ''
@@ -551,10 +554,13 @@ export default {
       val.yesterday_close_price = Number(val.yesterday_close_price)
 
       //參考價 +- 參考價*禁新%
-      val.new_point1 = val.yesterday_close_price + val.yesterday_close_price * newPoint
-      val.new_point2 = val.yesterday_close_price - val.yesterday_close_price * newPoint
-      val.cover_point1 = val.yesterday_close_price + val.yesterday_close_price * cover
-      val.cover_point2 = val.yesterday_close_price - val.yesterday_close_price * cover
+      const offsetNew = Math.ceil(val.yesterday_close_price * newPoint / 100);
+      const offsetCover = parseInt(cover / 100 * val.yesterday_close_price);
+
+      val.new_point1 = val.yesterday_close_price - offsetNew
+      val.new_point2 = val.yesterday_close_price + offsetNew
+      val.cover_point1 = val.yesterday_close_price - offsetCover
+      val.cover_point2 = val.yesterday_close_price + offsetCover
 
       //只放入有用到的
       setData = {
