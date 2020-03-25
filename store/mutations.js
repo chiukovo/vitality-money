@@ -88,6 +88,7 @@ export default {
         val.open_price = Number(data[5])
         val.highest_price = Number(data[6])
         val.lowest_price = Number(data[7])
+        val.state = 2
       }
 
       return val
@@ -99,10 +100,15 @@ export default {
 
     mainItem = mainItem.map(function(val) {
       if (val.product_id == itemId) {
-        val.state_name = '未開盤'
+        if (data[1] == '3') {
+          val.state_name = '停止交易'
+        } else {
+          val.state_name = '未開盤'
+        }
         val.yesterday_last_price = Number(data[1])
         val.open_date_time = data[2]
         val.close_date_time = data[3]
+        val.state = 0
       }
 
       return val

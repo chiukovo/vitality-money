@@ -152,6 +152,7 @@ export default {
 
       switch (type) {
         case "c": //下單
+        case "f":
           const nowDate = new Date().getTime()
           sourceFormat = JSON.parse(event.data.substring(2))
 
@@ -161,6 +162,7 @@ export default {
             }
 
             _this.$store.commit('setErrorMsgDate', nowDate)
+            _this.$store.dispatch('CALL_MEMBER_ORDER_LIST')
             return
           }
 
