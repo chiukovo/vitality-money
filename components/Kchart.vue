@@ -50,7 +50,10 @@ export default {
     this.$store.commit('setOpenKchart', true)
 
     const this_vue = this
-    const disabled_features = ['use_localstorage_for_settings', 'header_symbol_search', 'border_around_the_chart']
+    const disabled_features = ['header_compare', 'volume_force_overlay', 'use_localstorage_for_settings', 'header_symbol_search', 'border_around_the_chart'];
+    if (this_vue.$store.state.isMobile) {
+      disabled_features.push('header_screenshot', 'left_toolbar', 'pane_context_menu', 'header_settings', 'study_buttons_in_legend', 'legend_context_menu');
+    }
 
     //判斷是否另開視窗
     if (typeof this.$route.query.id != 'undefined' && typeof this.$route.query.name != 'undefined') {
@@ -95,8 +98,8 @@ export default {
       disabled_features,
       enabled_features: ['keep_left_toolbar_visible_on_small_screens', 'dont_show_boolean_study_arguments'],
       studies_overrides: {
-        "volume.volume.color.0": "#6ba583",
-        "volume.volume.color.1": "#d75442"
+        "volume.volume.color.0": "rgba(255, 55, 55, 0.7)",
+        "volume.volume.color.1": "rgba(55, 255, 55, 0.7)",
       },
       // 指標模板
       charts_storage_api_version: '1.1',
@@ -116,11 +119,8 @@ export default {
       }
 
       function createStudy() {
-        tdChart.chart().createStudy('Moving Average', false, false, [20], null, { 'Plot.color': 'rgb(150, 95, 196)' })
-        tdChart.chart().createStudy('Moving Average', false, false, [60], null, { 'Plot.color': 'rgb(116,149,187)' })
-        if (!this_vue.$store.state.isMobile) {
-          tdChart.chart().createStudy('Stochastic', false, false, [14, 9, 9], null, null)
-        }
+        tdChart.chart().createStudy('Moving Average', false, false, [20], null, { 'Plot.color': '#00ff00', 'Plot.linewidth': 2, 'Plot.transparency': 0 })
+        tdChart.chart().createStudy('Moving Average', false, false, [60], null, { 'Plot.color': '#ff0000', 'Plot.linewidth': 2, 'Plot.transparency': 0 })
       }
 
       this_vue.$store.commit('setTradingViewChart', tdChart)

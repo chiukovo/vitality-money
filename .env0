@@ -1,0 +1,14 @@
+NUXT_ENV_DEV_HOST=
+NUXT_ENV_DEV_POST=
+//api
+NUXT_ENV_API_URL=http://dark.t8899.cc/api
+NUXT_ENV_API_KEY=
+NUXT_ENV_API_WEBSOCKET=ws://dark.t8899.cc:2053
+NUXT_ENV_API_ORDER_WEBSOCKET=ws://dark.t8899.cc:2083
+//網站title名稱
+NUXT_ENV_WEB_TITLE=黑馬
+//開啟允許重複登入 true開啟 false關閉
+NUXT_ENV_OPEN_REPEAT_LOGOUT=true
+
+//元氣(gennki)or黑馬(DarkHorse)
+NUXT_ENV_WEB=DarkHorse
