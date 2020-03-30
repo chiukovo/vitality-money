@@ -71,10 +71,17 @@ export default {
     }))
     .then(response => {
       const result = response.data
+      let isJson = true
+
+      try {
+        JSON.parse(result.UserSettingData)
+      } catch (e) {
+        isJson = false
+      }
 
       if (result.Code == 1) {
         //有值
-        if (result.UserSettingData != '{}' && result.UserSettingData != '[]' && result.UserSettingData != '') {
+        if (result.UserSettingData != '{}' && result.UserSettingData != '[]' && result.UserSettingData != '' && isJson) {
           const customItemSetting = JSON.parse(result.UserSettingData)
           commit('setCustomItemSetting', customItemSetting)
         } else {
